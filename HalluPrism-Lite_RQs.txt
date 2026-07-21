@@ -1,0 +1,25 @@
+1. Can we get near approximate diagnostic signature of a (prompt + image + model's answer) by running less number of probes same as compared to 7-8 probes in Hall Prism paper?
+
+e.g. HalluPrism -> 0.95 AUROC on running 7-8 probes
+     HalluPrism-Lite -> 0.9 AUROC on running 2-3 probes
+
+
+2. Can we use HalluPrism-Lite diagnostic signature for downstream task such as (Failure-family diagonosis, Intervention Routing (e.g. High L -> anti-prior prompting), etc) compared with HalluPrism?
+
+3. Does the learned policy (decision rule to selectively run probe) on one model/dataset generalize to unseen models, datasets, and source stresses?
+
+4. Can a learned policy know when to stop or know when the diagnostic gains are minimal as compared to compute cost needed to run probe?
+
+e.g. 2 Probe -> 0.6 AUROC
+     3 Probe -> 0.85 AUROC
+     6 Probe -> 0.87 AUROC
+     7 Probe -> 0.89 AUROC
+
+5. Does learned policy meaningfully justify dynamic order of probe selection instead of generic fixed probe order for all datapoints? or Justify 'source aware probe selction' 
+
+Expected Policy Heatmap output e.g.
+
+| Dataset | Visual | Blank | Ground | Relation |   Stop |
+| POPE    |     5% |   82% |    10% |       3% |  early |
+| VSR     |     8% |    4% |    52% |      36% |   late |
+| VizWiz  |    65% |   20% |    10% |       5% | medium |

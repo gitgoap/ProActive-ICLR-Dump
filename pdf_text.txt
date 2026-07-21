@@ -1,0 +1,227 @@
+ICLR 2027 Planning Report
+Active Diagnostic Sets for Multimodal Reliability Under Probe Cost
+Weekly execution plan from June 7 to September 7, with methodology, baselines, datasets, expected result  
+patterns, and ICLR reviewer-risk controls
+Core thesis. We should not frame the next paper as a cheaper HalluPrism. The 10-target ICLR framing is calibrated 
+active diagnostic measurement: an evaluator adaptively acquires behavioral evidence under probe cost and returns a 
+calibrated diagnostic set rather than forcing one source label.
+Planning assumption: ICLR 2027 dates are not publicly fixed at the time of writing. We use ICLR 2026 as the proxy: 
+abstract submission on Sep 19, full paper submission on Sep 24, all Anywhere on Earth. This plan reaches a complete 
+internal draft and experiment freeze by Sep 7 so that the remaining period can be used for polishing, appendix completion, 
+and submission QA [1].
+Primary output by Sep 7: a full ICLR draft with main results, figures, appendix skeleton, and rebuttal-risk memo. Primary 
+output by the tentative Sep 19/24 submission window: anonymous OpenReview-ready PDF, code/supplement package, 
+and final appendix.
+1. Executive Summary
+The strongest trajectory is Active Diagnostic Sets for Multimodal Reliability Under Probe Cost. The paper studies a new 
+evaluation-and-learning object: given a multimodal prediction, which diagnostic evidence should an evaluator acquire 
+before deciding whether the prediction is visually fragile, language-prior driven, alignment-sensitive, mixed, unclear, or safe  
+enough to leave unchanged?
+The main intellectual move is to replace point-source diagnosis with calibrated diagnostic sets. This matches the empirical 
+reality that multimodal failures are often entangled. A system should not always output one confident source label. It should  
+instead acquire evidence until it can return a small set of plausible failure sources with coverage, or explicitly retain a larger  
+set when evidence is insufficient.
+The paper should be positioned at the intersection of multimodal hallucination diagnosis, active feature acquisition, 
+adaptive test-time compute, and conformal/risk-controlled prediction. This is the key to making it an ICLR-shaped paper 
+rather than a follow-up evaluation paper.
+ICLR target claim. Active diagnostic acquisition recovers most of the full-probe diagnostic value at far lower average 
+forward-pass cost, yields smaller calibrated diagnostic sets than clean-only or fixed-probe baselines, generalizes across 
+held-out model families, and supports break-aware correction decisions without claiming universal mitigation.
+The full probe suite should remain an audit-time teacher and upper-bound diagnostic reference. The follow-up must not say  
+that full probing is useless. It should say that full probing defines the evidence space, while the new method learns which 
+evidence is needed for each instance.
+2. Final Problem Statement
+We study multimodal uncertainty as active diagnostic measurement. A Multimodal Large Language Model (MLLM) 
+produces an answer for an image-prompt pair. The evaluator has access to cheap clean-pass features such as scalar 
+confidence, answer length, entropy or margin, question type, image-quality measures, and optional hidden/logit features 
+when available. It can then choose costly diagnostic probes. Each probe perturbs the input or asks a targeted re-check, 
+producing answer flips, confidence shifts, and match signals.
+The goal is to learn a policy that decides which evidence to acquire, when to stop, and what diagnostic set to output. The 
+output is not a single causal source. It is a calibrated set of plausible failure states. This is crucial because a visually fragile 
+answer can also be language-prior sensitive or alignment-sensitive.
+Instance: x = (I, q, y_hat, M), where I is the image, q is the prompt, y_hat is the model answer, and M is the evaluated 
+MLLM.
+Probe actions: Stop, Visual, Blank, Grounding, and Relation. Visual probes degrade the image. Blank probes remove 
+image evidence. Grounding probes ask the model to re-check the image. Relation probes swap or stress explicit spatial or 
+semantic relations when available.
+Observation from a probe: o_a(x) contains the perturbed answer, whether the answer flips, the confidence shift, exact or 
+semantic match, and probe metadata. The acquired observations are encoded into a diagnostic state h_t.
+Output: a diagnostic set Gamma_alpha(h_t), a source-sensitive representation, and optionally a correction utility estimate. 
+The diagnostic set is calibrated on held-out data so that the true source or failure family is contained with target coverage 
+1-alpha.
+Optimization target: minimize diagnostic set size, probe cost, and break-aware correction risk subject to diagnostic 
+coverage. A compact form is: minimize E[ |Gamma_alpha(h_T)| + lambda C(pi) + eta R_break(pi) ], subject to P(f(x) in 
+Gamma_alpha(h_T)) >= 1-alpha.
+3. Why This Stands Out for ICLR
+The paper should not claim novelty through another hallucination benchmark or another prompt-based correction policy. It 
+should claim novelty through a new ML problem: active acquisition of diagnostic evidence for multimodal reliability. This 
+connects to active feature acquisition, although the costly features here are not tabular fields. They are behavioral 
+measurements obtained by running additional MLLM probes.
+It also connects to adaptive test-time compute, although the allocation unit differs. Adaptive reasoning methods decide how  
+much reasoning to spend. This paper decides what multimodal evidence to measure. That distinction is central. It makes 
+the work more than an efficiency tweak.
+It further connects to conformal abstention and risk control, although the output object differs. Abstention returns answer 
+versus abstain. The proposed method returns a diagnostic set over plausible failure sources. This is a more appropriate 
+interface when the source signals are entangled.
+4. Literature Review and Gap Analysis
+This literature review should be written as an argument, not a catalog. Each block should end by stating why the previous 
+literature does not solve active diagnostic measurement.
+Block What the literature establishes Gap for this paperMultimodal hallucination benchmarks POPE studies object hallucination and object priors; HallusionBench stresses entangled language hallucination and visual illusion; AMBER covers existence, attribute, and relation hallucinations without relying on an LLM judge; IllusionBench introduces a large visual-illusion suite with 1,051 images and 5,548 QA pairs; PRE-HAL studies perception and reasoning hallucinations across instances, scenes, and relations [7-11].These benchmarks expose source diversity but do not learn which diagnostic evidence to acquire for a new prediction.
+Hallucination detection and mitigation Evidential conflict, visual-token uncertainty, visual contrastive decoding, attention calibration,  and visual-aware sparsification estimate or reduce hallucination using fixed signals or fixed interventions [11,16-18].They mainly ask whether an answer is unreliable  or how to mitigate hallucination, not which source probe should be acquired next.
+Abstention and conformal risk control Learnable conformal abstention treats thresholds as adaptive actions and reports improved hallucination AUROC, AUARC, calibration, and coverage behavior for LLMs/VLMs [12].This line optimizes answer-versus-abstain decisions. It does not output calibrated diagnostic sets over failure sources.
+Adaptive test-time compute Plan-and-Budget and adaptive test-time compute surveys show that fixed inference budgets can overthink easy inputs and underthink hard ones [13,14].They allocate reasoning tokens or reasoning traces. We allocate multimodal diagnostic probes.
+Active feature acquisition Active feature acquisition studies instance-wise sequential selection of costly measurements. Recent surveys and stochastic-encoding methods frame feature acquisition as cost-aware  prediction [15,19].This gives the formal ML bridge. Our features are behavioral probes whose values are generated by MLLM forward passes, not static tabular variables.
+A strict ICLR reviewer should see a clean gap: existing work either exposes heterogeneous failures, detects unreliability 
+with fixed evidence, optimizes abstention thresholds, allocates reasoning budget, or acquires costly features in non-MLLM 
+settings. The proposed work is the first to treat multimodal reliability as calibrated active diagnostic measurement under 
+probe cost.
+5. Methodology Directions
+The recommended method is Active Diagnostic Sets (ADS). It should have four components: a full-evidence teacher, a 
+sequential diagnostic state, a value-of-information probe policy, and a conformal diagnostic-set head. Correction utility 
+should be a secondary downstream test, not a primary contribution.
+Component Technical design Why it mattersFull-evidence teacher Run the complete source-probe suite on training/calibration data. Store source signatures, failure-family labels, answer flips, confidence shifts, and correction outcomes.Protects the role of full probing as the audit-time reference and avoids the framing that the full probe suite is useless.
+Sequential diagnostic state Encode clean features and acquired probe observations into h_t using a GRU or small transformer over evidence tokens.Makes the method adaptive and instance-specific rather than a fixed probe order.
+Value-of-information policy Estimate VOI(a | h_t) = expected reduction in diagnostic loss or diagnostic-set size minus probe cost. Choose the highest-value probe or stop.This is the main ML contribution. It learns which evidence to acquire, not merely how to classify.
+Conformal diagnostic set Predict scores for source/failure states and calibrate Gamma_alpha(h_t) to cover the true state with target coverage.Avoids overclaiming clean source attribution and  matches the entangled nature of multimodal failures.Break-aware utility head Estimate correction utility with fix, break, and cost terms. Use it only after diagnostic evidence is acquired.Shows actionability while avoiding the claim that routing is a general mitigation method.
+The value-of-information objective can be implemented in two stages. First, learn a diagnostic predictor and diagnostic-set 
+head from full-probe records. Second, label each state-probe pair by the reduction in validation loss or conformal set size 
+obtained after acquiring that probe. A lightweight policy then learns to predict this value and choose probes under a budget.
+The method should be budget-conditioned. The remaining budget B_t is part of the policy input. A single learned policy 
+should produce the full frontier for budgets such as 1, 2, 3, 4, and full probing. This makes the main result visually and 
+scientifically stronger.
+The representation should preserve entanglement. We should not impose orthogonality or independent source heads as a 
+default. Instead, use independent heads only as an ablation. The main representation should allow visual, language-prior, 
+and alignment evidence to move together.
+6. Expected Result Pattern for a 10-Target Submission
+The paper needs one dominant figure and several supporting tables. The dominant figure is the cost-diagnostic frontier: 
+diagnostic quality, calibrated set size, or coverage-adjusted efficiency versus average forward passes. The expected 
+pattern should be prepared before experiments so that the team knows what counts as a credible ICLR outcome.
+Result Target pattern Why it mattersCost-diagnostic frontier Active Diagnostic Sets approach the full-probe teacher using substantially fewer passes; scalar confidence and clean-only predictors lag; fixed probe orders win only in source-specific slices.This is the main ICLR figure.
+Set size under coverage At 90% or 95% diagnostic coverage, active probing yields smaller diagnostic sets than clean-only or fixed-probe baselines and approaches full probing.This makes the diagnostic-set interface concrete.
+Adaptive probe behavior Blank probes are selected for object-prior or language-prior risk; visual probes for visual insufficiency; relation/grounding probes for relation and binding stress; multiple probes for mixed cases.Shows that the policy is not learning a fixed order.
+Leave-model-out Train on several MLLMs and test on a held-out MLLM. ADS should remain above scalar, clean-only, random, and fixed policies at matched cost.This is mandatory for ICLR strength.
+Held-out source shift IllusionBench, PRE-HAL, and/or VIA-Bench are harder. Transfer can be imperfect, but active probing should reduce set size or improve diagnosis relative to clean-only baselines.Provides honest generalization evidence.
+Break-aware action utility ADS reduces break-aware regret or harmful correction breakage in high-risk slices, without claiming universal accuracy gains.Supports actionability as secondary evidence.
+Non-negotiable go/no-go. Proceed only if adaptive probing beats random acquisition at matched budget, beats at least 
+two fixed probe orders on the average frontier, clean-only prediction does not match full probing, and leave-model-out 
+remains above scalar and random baselines.
+7. Models, Datasets, and Baselines
+The model set should prioritize open, reproducible MLLMs with enough diversity to support leave-model-out generalization.  
+Proprietary models should be avoided in main claims and used only as optional stress tests.
+Model Justification RoleQwen3-VL-8B or Qwen2.5-VL-7B Strong Qwen-family anchor. Qwen3-VL supports  long interleaved multimodal contexts and advanced image/video reasoning; Qwen2.5-VL provides robust recognition, localization, and dynamic resolution support [2,3].Use as the primary high-performing open model.  If Qwen3-VL setup is stable, prefer it; otherwise use Qwen2.5-VL-7B.
+LLaVA-OneVision-1.5-8B Modern LLaVA-family model with an open training framework and strong reported performance across many benchmarks [4].Gives a strong open LLaVA-style family distinct from Qwen.
+Molmo-7B-D or Molmo-7B-O Open-weight/open-data-oriented VLM family built with the PixMo data suite [5].Strengthens reproducibility and source-diversity claims.InternVL3-8B or stable InternVL-family checkpointInternVL3 uses native multimodal pre-training and reports competitive performance among open MLLMs [6].Adds architectural diversity; replace with PaliGemma/Gemma multimodal if setup is unstable.Qwen3-VL-32B or Qwen2.5-VL-32B Optional larger held-out stress model. Use only if compute permits; do not make it required for main claims.
+The dataset suite should cover source stresses rather than simply increase benchmark count. We need object priors, visual  
+insufficiency, mixed hallucination/illusion, relation binding, and held-out illusion/perception-reasoning shifts.
+Dataset Justification RolePOPE or HOPE Object-presence hallucination and object-prior pressure. POPE is standard and reproducible; HOPE can be added if implementation is stable and harder distractors are needed [8].Core train/evaluation source-stress dataset.
+HallusionBench Mixed visual illusion and language hallucination with controlled questions and failure modes [7].Core dataset for mixed source evidence and ambiguity.VizWiz-VQA Real-user visual insufficiency and answerability. It stresses unclear or incomplete visual evidence.Core visual fragility and answerability dataset.
+VSR plus GQA-relation slice Explicit relation binding. VSR is clean but small, so a GQA relation slice prevents overdependence on one small benchmark.Core relation/alignment dataset.
+IllusionBench Large visual-illusion stress with classical and real-world illusions [10].Held-out visual illusion transfer.
+PRE-HAL Perception-reasoning hallucination stress across  instances, scenes, and relations [11].Held-out source-shift and reasoning/perception split.VIA-Bench or AMBER VIA-Bench stresses visual illusions and anomalies; AMBER gives existence, attribute, and relation hallucination coverage without an LLM judge [9,20].Optional external stress or appendix.
+Baselines should be selected to defeat predictable reviewer objections. The strongest reviewer will ask whether scalar 
+confidence is enough, whether a clean-only learned predictor is enough, whether a fixed probe order is enough, whether 
+active acquisition is only random exploration, and whether full probing is necessary at all.
+Baseline Definition Reviewer objection addressedScalar confidence only One clean pass with answer confidence. Tests whether standard uncertainty is enough.Clean-only learned predictor A classifier or set predictor trained on clean features without probes.Tests whether probing is unnecessary.
+Fixed probe policies Visual-first, blank-first, grounding-first, relation-first at matched budgets.Tests whether adaptivity beats simple schedules.Random acquisition Random probe choice under same budget. Tests whether gains come from probing at all rather than policy learning.Uncertainty-greedy Choose next probe based on entropy, margin, or  expected confidence shift.A stronger heuristic baseline.
+Full-probe teacher All probes, highest cost. Upper-bound diagnostic reference and audit-time measurement.Oracle best subset Retrospectively best probe subset per budget. Ceiling for what any policy could achieve at a budget.Conformal baselines Clean-only, fixed-probe, active-probe, and full-probe diagnostic sets.Required for the diagnostic-set claim.
+Detection/mitigation baselines Evidential conflict, VCD, VASparse, CAAC where feasible [11,16-18].Secondary comparison to recent hallucination detection/mitigation lines.
+8. Metrics, Ablations, and Generalization Tests
+Metric family MeasuresDiagnostic quality AUROC, Macro-F1, balanced accuracy, calibration error for source/failure prediction.Diagnostic sets Coverage, average set size, singleton rate, mixed/unclear rate, coverage-adjusted set size.Cost Average forward passes, distribution of probe counts, area under cost-diagnostic curve.Probe policy Probe selection frequency by dataset/source/failure family, stop-action frequency, value-of-information calibration.Generalization Leave-model-out, leave-dataset-out, held-out source-shift, held-out probe severity.Correction utility Accuracy, fix rate, break rate, utility, regret versus full-evidence oracle.
+Ablations should include: no stop action, no value-of-information head, no source reconstruction loss, no confidence-shift 
+features, no answer-flip features, forced independent source heads, black-box versus white-box features, no relation probe,  
+no conformal calibration, and one-pass distillation. These ablations map directly to reviewer objections.
+Generalization tests should be prioritized in this order: leave-model-out, held-out source-shift datasets, held-out probe 
+severity, leave-dataset-out, and optional proprietary-model stress. Leave-model-out is the most important for ICLR because  
+it tests whether the acquisition policy captures model-agnostic diagnostic structure rather than idiosyncrasies of one MLLM.
+9. Week-by-Week Timeline: June 7 to September 7
+The timeline assumes one PhD student as the main implementer, with weekly advisor review. Each week has a primary 
+scientific goal, deliverables, and a gate. The gates are important. The project should pivot early if the result pattern does 
+not support a 10-target ICLR claim.
+Week Goal Deliverables GateWeek 1: Jun 7-13 Freeze the 10-target framing and literature matrix.Write a 4-5 page literature memo with five blocks: benchmarks, detection/mitigation, abstention/risk control, adaptive compute, active feature  acquisition. Freeze the paper title family and problem statement. Build BibTeX Advisor signs off on the claim: active diagnostic sets, not cheap HalluPrism. Student can explain the paper in one sentence without mentioning HalluPrism.
+and reading spreadsheet.Week 2: Jun 14-20 Finalize datasets, models, and baselines.Choose four main MLLMs and two backup models. Choose four core datasets and two held-out stress datasets. Write loading/normalization specifications. Write baseline definitions. Prepare compute budget estimate.Each dataset/model choice has a one-sentence reason and a fallback. No dataset is included only because it is available.
+Week 3: Jun 21-27 Implement clean inference harness. Implement dataset loaders, prompt templates, answer normalization, confidence extraction, and JSONL logging. Run smoke tests on 50 examples per dataset per model for two models.At least two models run clean inference across all core datasets. Normalization errors under manual audit are acceptable and fixable.
+Week 4: Jun 28-Jul 4 Implement full-evidence teacher and probe records.Implement visual probes, blank-image probe, grounding probe, relation probe, and correction branches. Generate full teacher records for a 500-example pilot. Produce first source distributions and probe failure diagnostics.Teacher signal shows nontrivial variation. If probe scores saturate or break, fix probes before scaling.
+Week 5: Jul 5-11 Formalize ADS and build first diagnostic-set predictor.Implement clean-only classifier, source/failure heads, conformal diagnostic sets, and initial set-size/coverage evaluation. Write formal method skeleton.Clean-only diagnostic sets are meaningful but not sufficient. If clean-only matches full probing, the adaptive acquisition story is at risk.
+Week 6: Jul 12-18 Scale teacher data for two main models. Run full teacher for Qwen-family and LLaVA-family models on core datasets. Cache all probe outputs. Start IllusionBench or PRE-HAL subset.Generation failure below 2-3% after retries. At least 10K model-output instances ready.
+Week 7: Jul 19-25 Build non-adaptive baselines and first frontier.Run scalar, clean-only, fixed probe orders, random acquisition, uncertainty-greedy, full teacher, and oracle subset on the two-model data. Produce first cost-diagnostic frontier.At least one evidence-based baseline beats scalar for diagnosis. Full teacher remains stronger than clean-only.
+Week 8: Jul 26-Aug 1 Train ADS v1 with value-of-information policy.Implement sequential state, budget-conditioned policy, stop action, VOI target, and cost penalty. Compare ADS to fixed/random baselines at budgets 1-4  and full.ADS beats random and at least two fixed  policies on the average frontier. Otherwise pivot to supervised source-dependent probe scheduling.
+Week 9: Aug 2-8 Complete four-model data and leave-model-out tests.Run remaining main models. Train on three models and test on held-out model.  Produce leave-model-out table and probe-selection heatmaps.ADS remains above scalar, clean-only, and random in leave-model-out. If not, the ICLR story weakens sharply.
+Week 10: Aug 9-15 Held-out source-shift tests. Evaluate on IllusionBench and PRE-HAL. Add held-out perturbation severity tests. Analyze which probes are selected  under visual illusion, relation stress, and perception/reasoning splits.Transfer can be imperfect, but ADS should reduce diagnostic set size or improve diagnosis over clean-only at matched cost.
+Week 11: Aug 16-22 Break-aware action utility and secondary  actionability.Implement utility with fix, break, and cost.  Compare no correction, generic correction, fixed source correction, ADS-selected correction, and full-evidence oracle. Keep this secondary.If utility is noisy, move to appendix. Do not let correction become the central contribution.
+Week 12: Aug 23-29 Ablation suite and reviewer-risk checks. Run ablations: no stop, no VOI, no source reconstruction, no flips, no confidence shifts, forced independent heads, no conformal calibration, no relation probe, black-box vs optional white-box.Ablations support the mechanism: adaptivity, VOI, and diagnostic sets matter. Otherwise simplify method and claims.
+Week 13: Aug 30-Sep 5 Full paper draft and main figures. Write complete draft. Insert Figure 1 pipeline, Figure 2 cost-diagnostic frontier, model/dataset table, budgeted diagnosis table, leave-model/dataset table, and utility table. Prepare appendix skeleton.Draft is readable without HalluPrism. Main claims are supported by tables and figures.
+Final checkpoint: Sep 6-7 Internal 10-target review and freeze. Run strict reviewer simulation. Write likely objections and responses. Freeze main experiments. Decide final title, abstract, and contribution list. Prepare remaining Sep 8-24 polish plan.No new main experiment after Sep 7 unless a fatal flaw appears. The paper must pass the go/no-go checks listed in Section 13.
+10. Post-September 7 Submission Sprint
+Although the requested plan ends on September 7, the tentative ICLR window based on ICLR 2026 leaves roughly two 
+more weeks before abstract submission and about 17 days before full submission. This period should not be used for new 
+science. It should be used for polish, anonymization, appendix completion, rebuttal-risk strengthening, and reproducibility 
+packaging.
+Period Tasks
+Sep 8-12 Revise paper after internal review. Freeze title, abstract, contribution list, and main claims. Complete all captions and appendix references.
+Sep 13-16 Run reproducibility scripts for main tables. Complete limitation and ethics sections. Check anonymization and related-work coverage.
+Sep 17-19 Prepare and submit abstract if ICLR 2027 follows the 2026-style deadline. Freeze author list, subject areas, keywords, and OpenReview metadata.
+Sep 20-24 Final PDF, appendix, supplementary package, and submission QA. 
+Only factual corrections and formatting after the last 48 hours.
+11. Risk Register and Pivot Rules
+Risk Signal Mitigation/PivotClean-only predictor matches full probing Probes add little measurable information or labels are dataset-driven.Pivot to representation distillation or redesign labels/probes. Do not submit as active acquisition.Fixed probe order matches ADS Adaptivity is not necessary. Analyze source-specialized slices. If still true, pivot to source-dependent fixed schedules or a more formal oracle-subset analysis.Leave-model-out weak Policy overfits model-specific behavior. Add model-invariant features, domain adversarial training, or reduce claim. Weak leave-model-out is damaging for ICLR.Held-out dataset weak Source shift is too large. Report as stress test and emphasize leave-model-out. Do not overclaim open-world transfer.Correction utility noisy Prompt interventions are unstable. Move correction to appendix. Keep the main paper on diagnostic sets.Compute budget exceeds capacity Full teacher records too expensive. Downsample POPE/HOPE, prioritize four datasets and four models, keep held-out stress smaller.Probe labels perceived as heuristic Reviewer questions the teacher. Emphasize full-evidence measurement, conformal diagnostic sets, and external failure-family labels. Include human or metadata-backed checks only as support.
+12. Target Paper Figures and Tables
+Artifact Purpose
+Figure 1 Active diagnostic measurement pipeline: clean prediction, adaptive probe acquisition, diagnostic set output, optional break-aware action.
+Figure 2 Main cost-diagnostic frontier: diagnostic quality or set size versus average forward passes.
+Figure 3 Probe-selection heatmap by dataset, source stress, and failure family.
+Table 1 Models, datasets, source stresses, and split sizes.
+Table 2 Budgeted diagnosis results across methods and budgets.
+Table 3 Conformal diagnostic-set coverage and average set size.
+Table 4 Leave-model-out and held-out source-shift results.
+Table 5 Ablations: no VOI, no stop, no source loss, no flips, no confidence shifts, forced independent heads.
+Table 6 Break-aware utility, fix rate, break rate, and regret versus full-evidence oracle.
+13. Hard Go/No-Go Criteria
+1.ADS beats random acquisition at the same budget.
+2.ADS beats at least two fixed probe orders on the average cost-diagnostic frontier.
+3.Clean-only prediction does not match full probing.
+4.Diagnostic sets shrink meaningfully after adaptive probing while maintaining target coverage.
+5.Leave-model-out ADS remains above scalar confidence and clean-only baselines.
+6.Full probing remains the best upper-bound reference for hard or mixed-source cases.
+7.The paper can be explained without relying on HalluPrism as prior knowledge.
+If the first four criteria fail by Week 8, the paper should not be pushed as an ICLR 10-target submission. If leave-model-out 
+fails by Week 9, the paper may still be interesting but should be reframed or redirected.
+14. Strict ICLR Reviewer Simulation
+Version Problem framing Reviewer judgment4/10 version Cheaply predict a full source signature from clean features.Looks like distillation of a hand-designed probe protocol. Reject this framing.6/10 version Adaptive probe acquisition for failure-family prediction.Better, but can look like active feature acquisition applied to hand-designed probes.8/10 version Value-of-information probing with cost-diagnostic frontier.Strong method, but still risks point-label overclaiming under entangled sources.10-target version Active Diagnostic Sets with conformal coverage,  VOI acquisition, and budget-conditioned stopping.New problem and output object. Matches entanglement, connects to risk control, and yields a compelling frontier.
+The target score requires a strong result pattern and restraint. The paper should not claim causal source discovery, 
+universal mitigation, or a distribution-free open-world guarantee. It should claim calibrated diagnostic measurement under 
+the evaluated settings and honest stress-test behavior under shift.
+15. References Used for Planning
+[1] ICLR 2026 Call for Papers. Official ICLR page. Key dates and subject areas. https://iclr.cc/Conferences/2026/CallForPapers
+[2] Bai et al. Qwen3-VL Technical Report. arXiv:2511.21631. https://arxiv.org/abs/2511.21631
+[3] Bai et al. Qwen2.5-VL Technical Report. arXiv:2502.13923. https://arxiv.org/abs/2502.13923
+[4] An et al. LLaVA-OneVision-1.5: Fully Open Framework for Democratized Multimodal Training. arXiv:2509.23661. 
+https://arxiv.org/abs/2509.23661
+[5] Deitke et al. Molmo and PixMo: Open Weights and Open Data for State-of-the-Art Vision-Language Models. arXiv:2409.17146. 
+https://arxiv.org/abs/2409.17146
+[6] Zhu et al. InternVL3: Exploring Advanced Training and Test-Time Recipes for Open-Source Multimodal Models. arXiv:2504.10479. 
+https://arxiv.org/abs/2504.10479
+[7] Guan et al. HallusionBench: An Advanced Diagnostic Suite for Entangled Language Hallucination and Visual Illusion in Large Vision-Language 
+Models. arXiv:2310.14566. https://arxiv.org/abs/2310.14566
+[8] Li et al. Evaluating Object Hallucination in Large Vision-Language Models. arXiv:2305.10355. https://arxiv.org/abs/2305.10355
+[9] Wang et al. AMBER: An LLM-free Multi-dimensional Benchmark for MLLMs Hallucination Evaluation. arXiv:2311.07397. 
+https://arxiv.org/abs/2311.07397
+[10] Zhang et al. IllusionBench: A Large-scale and Comprehensive Benchmark for Visual Illusion Understanding in Vision-Language Models. 
+arXiv:2501.00848. https://arxiv.org/abs/2501.00848
+[11] Huang et al. Visual hallucination detection in large vision-language models via evidential conflict. arXiv:2506.19513. 
+https://arxiv.org/abs/2506.19513
+[12] Tayebati et al. Learning Conformal Abstention Policies for Adaptive Risk Management in Large Language and Vision-Language Models. 
+arXiv:2502.06884. https://arxiv.org/abs/2502.06884
+[13] Alomrani et al. Reasoning on a Budget: A Survey of Adaptive and Controllable Test-Time Compute in LLMs. arXiv:2507.02076. 
+https://arxiv.org/abs/2507.02076
+[14] Lin et al. Plan and Budget: Effective and Efficient Test-Time Scaling on Large Language Model Reasoning. arXiv:2505.16122. 
+https://arxiv.org/abs/2505.16122
+[15] Rahbar et al. A Survey on Active Feature Acquisition Strategies. arXiv:2502.11067. https://arxiv.org/abs/2502.11067
+[16] Leng et al. Mitigating Object Hallucinations in Large Vision-Language Models through Visual Contrastive Decoding. arXiv:2311.16922. 
+https://arxiv.org/abs/2311.16922
+[17] Zhuang et al. VASparse: Towards Efficient Visual Hallucination Mitigation for Large Vision-Language Model via Visual-Aware Sparsification. 
+arXiv:2501.06553. https://arxiv.org/abs/2501.06553
+[18] Fazli et al. Mitigating Hallucination in Large Vision-Language Models via Adaptive Attention Calibration. arXiv:2505.21472. 
+https://arxiv.org/abs/2505.21472
+[19] Norcliffe et al. Stochastic Encodings for Active Feature Acquisition. arXiv:2508.01957. https://arxiv.org/abs/2508.01957
+[20] Hou et al. Seeing Is Believing? A Benchmark for Multimodal Large Language Models on Visual Illusions and Anomalies. arXiv:2602.01816. 
+https://arxiv.org/abs/2602.01816
