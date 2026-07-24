@@ -1,0 +1,20 @@
+torch>=2.3.0
+torchvision
+transformers>=4.42.0
+accelerate>=0.30.0
+# Add flash-attn later if server supports it, usually built from source or specific wheel
+# flash-attn>=2.5.0 
+xformers
+qwen-vl-utils
+timm
+decord
+pillow
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+seaborn
+tqdm
+pyyaml
+python-dotenv

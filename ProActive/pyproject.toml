@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proactive"
+version = "0.1.0"
+description = "Active diagnostic measurement under a probe budget for MLLMs"
+authors = [
+    { name = "ProActive Project Team" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.3.0",
+    "torchvision",
+    "transformers>=4.42.0",
+    "accelerate>=0.30.0",
+    "pillow",
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "tqdm",
+    "pyyaml",
+    "python-dotenv"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["proactive*"]
