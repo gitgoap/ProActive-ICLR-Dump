@@ -1,0 +1,14 @@
+# PRE-HAL held-out stress dataset
+dataset_name: prehal
+data_path: "${PROACTIVE_DATA_ROOT}/PREHAL"
+default_server_path: ""
+
+sample_cap: 600
+normalizer_type: "yes_no"
+relation_applicable: false
+
+split_seed: 42
+# Held-out: no split — used entirely for evaluation
+role: "held_out"
+
+loader: "prehal"

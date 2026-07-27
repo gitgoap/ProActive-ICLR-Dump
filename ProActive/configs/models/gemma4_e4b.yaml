@@ -1,0 +1,18 @@
+# Gemma-4-E4B-it model configuration
+model_name: gemma4_e4b
+adapter: "gemma"
+model_id: "google/gemma-4-E4B-it"
+model_path: "/home/models/gemma-4-E4B-it"
+model_revision: "main"
+
+adapter_class: "proactive.models.gemma_adapter.GemmaAdapter"
+
+dtype: "auto"
+
+generation_config:
+  do_sample: false
+  temperature: null
+  max_new_tokens: 256
+  num_beams: 1
+  output_logits: true
+  return_dict_in_generate: true

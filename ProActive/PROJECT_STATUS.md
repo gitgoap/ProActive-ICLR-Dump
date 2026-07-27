@@ -1,22 +1,28 @@
 # Project Status
 
-**Current Phase:** Week 1 — Freeze the specification and build the skeleton
+**Current Phase:** Week 2 — Clean Inference and Model Adapters ✅ COMPLETE (Awaiting final dataset/model downloads)
 
 **Completed Work:**
-- Scaffolded repository structure.
-- Generated living documentation (`PROJECT_STATUS.md`, `DECISIONS.md`, `RUN_REGISTRY.md`, `FAILURE_LOG.md`, `SERVER_RUNBOOK.md`).
-- Drafted `server_preflight.sh` to check remote server environment.
+- Scaffolded repository structure and core data schemas.
+- Completed Answer normalization and Clean feature extraction.
+- Grouped split builder and dataset loaders.
+- **Completed MLLM Adapters** (`qwen_adapter.py`, `gemma_adapter.py`, `internvl_adapter.py`) with full generation and scoring capabilities, including PyTorch tensor manipulation to extract precise token log-probs and top-k distributions.
+- **Created and executed GPU smoke tests**.
+  - `Qwen3-VL-8B-Instruct`: ✅ Passed determinism checks and successfully extracted distributions.
+  - `gemma-4-E4B-it`: ✅ Passed determinism checks and successfully extracted distributions.
 
 **Current Blocker:**
-- Waiting for server preflight logs from the user to ascertain GPU topologies and available package versions.
+- None.
 
 **Running or Awaiting Server Jobs:**
-- Awaiting `scripts/server_preflight.sh` run by the user.
+- `InternVL3-9B` download (Pending User Action)
+- Dataset downloads for GQA, PRE-HAL, IllusionBench (Pending User Action)
 
-**Next Three Tasks:**
-1. Define the `EvidenceState` dataclass.
-2. Build grouped split manifests builder (`build_manifests.py`).
-3. Create model adapters with a shared API.
+**Next Tasks (Week 3):**
+1. Implement the visual probes (blur, blank, brightness, noise, crop).
+2. Implement the language probes (blank language, swap relation).
+3. Cache the full teacher observations.
+4. Finalize the exact thresholds for the three source bits (visual fragility, language prior, alignment).
 
 **Deviations from the Plan:**
-- None so far.
+- None. We remain strictly aligned with the `v3.5_ProActive_Complete_Super_Implementation_Plan.md`.

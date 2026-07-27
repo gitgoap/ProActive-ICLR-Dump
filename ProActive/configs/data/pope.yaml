@@ -1,0 +1,17 @@
+# POPE dataset configuration
+dataset_name: pope
+data_path: "${PROACTIVE_DATA_ROOT}/POPE"
+default_server_path: "/home/aman/MMUQ/data/POPE"
+
+sample_cap: 3000
+normalizer_type: "yes_no"
+relation_applicable: false
+
+split_seed: 42
+split_ratios: [0.7, 0.1, 0.1, 0.1]
+
+loader: "pope"
+# POPE typically has random/popular/adversarial splits
+annotation_dir: "."
+# COCO images needed for POPE
+coco_image_dir: "${PROACTIVE_DATA_ROOT}/coco/val2014"

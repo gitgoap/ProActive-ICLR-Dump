@@ -1,0 +1,27 @@
+# GQA Relation Slice configuration
+# This dataset is CONSTRUCTED from GQA scene graphs (Plan §13.4)
+dataset_name: gqa_relation
+data_path: "${PROACTIVE_DATA_ROOT}/GQA"
+default_server_path: ""  # To be populated after construction
+
+sample_cap: 1000
+normalizer_type: "true_false"
+relation_applicable: true
+
+split_seed: 42
+split_ratios: [0.7, 0.1, 0.1, 0.1]
+
+loader: "gqa_relation"
+# GQA scene graph files needed for construction
+scene_graph_file: "sceneGraphs/val_sceneGraphs.json"
+image_dir: "images"
+
+# Reversible relation lexicon (Plan §13.3)
+reversible_relations:
+  - ["left", "right"]
+  - ["above", "below"]
+  - ["in front of", "behind"]
+  - ["on top of", "under"]
+
+# Construction requires manual inspection of 100+ pairs
+construction_status: "pending"

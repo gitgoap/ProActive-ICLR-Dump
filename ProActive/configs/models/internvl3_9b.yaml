@@ -1,0 +1,17 @@
+# InternVL3-9B model configuration
+model_name: internvl3_9b
+model_id: "OpenGVLab/InternVL3-9B"
+model_path: "/home/models/InternVL3-9B"
+model_revision: "main"
+
+adapter_class: "proactive.models.internvl_adapter.InternVLAdapter"
+
+dtype: "auto"
+
+generation_config:
+  do_sample: false
+  temperature: null
+  max_new_tokens: 256
+  num_beams: 1
+  output_logits: true
+  return_dict_in_generate: true

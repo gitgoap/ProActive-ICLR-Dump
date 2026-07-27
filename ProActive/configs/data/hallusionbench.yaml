@@ -1,0 +1,20 @@
+# HallusionBench configuration
+dataset_name: hallusionbench
+# Use environment variable or override with --data_root
+data_path: "${PROACTIVE_DATA_ROOT}/HallusionBench"
+# Fallback path on current server
+default_server_path: "/home/aman/MMUQ/data/HallusionBench"
+
+sample_cap: 951
+normalizer_type: "yes_no"
+relation_applicable: false
+
+# Split seed — must be consistent across all datasets
+split_seed: 42
+split_ratios: [0.7, 0.1, 0.1, 0.1]  # train/val/cal/test
+
+# Dataset-specific loading
+loader: "hallusionbench"
+# Expected subdirectory structure
+annotation_file: "hallusion_bench/HallusionBench.json"
+image_dir: "hallusion_bench"

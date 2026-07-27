@@ -1,0 +1,20 @@
+# Qwen3-VL-8B-Instruct model configuration
+model_name: qwen3_vl_8b
+model_id: "Qwen/Qwen3-VL-8B-Instruct"
+model_path: "/home/models/Qwen3-VL-8B-Instruct"
+# Pin revision after confirming on server — use 'main' until then
+model_revision: "main"
+
+adapter_class: "proactive.models.qwen_adapter.QwenAdapter"
+
+dtype: "auto" # bfloat16 on A6000
+
+# Deterministic generation config (Plan §14.3)
+generation_config:
+  do_sample: false
+  temperature: null
+  max_new_tokens: 256
+  num_beams: 1
+  # Return token-level log-probs when supported
+  output_logits: true
+  return_dict_in_generate: true

@@ -1,0 +1,62 @@
+# Main probe definitions (Plan §13.1)
+# Each non-stop probe costs exactly 1 additional MLLM forward pass.
+# The canonical (middle) severity is the pre-registered main-run action.
+
+probes:
+  blank:
+    description: "Replace image with a uniform blank canvas at the same resolution"
+    cost: 1
+    severity: null  # No severity parameter
+    applicable_to: "all"
+
+  blur:
+    description: "Gaussian blur at canonical sigma"
+    cost: 1
+    canonical_severity: 15  # sigma=15
+    pilot_severities: [8, 15, 22]
+    applicable_to: "all"
+
+  crop:
+    description: "Center crop to canonical fraction, resize back"
+    cost: 1
+    canonical_severity: 0.50  # 50% retained
+    pilot_severities: [0.35, 0.50, 0.65]
+    applicable_to: "all"
+
+  brightness:
+    description: "Multiply brightness by canonical factor"
+    cost: 1
+    canonical_severity: 0.30  # factor 0.3
+    pilot_severities: [0.15, 0.30, 0.50]
+    applicable_to: "all"
+
+  noise:
+    description: "Add Gaussian noise with canonical sigma"
+    cost: 1
+    canonical_severity: 25  # sigma=25
+    pilot_severities: [10, 25, 50]
+    applicable_to: "all"
+
+  grounding:
+    description: "Describe what you see, then answer the question"
+    cost: 1
+    severity: null
+    applicable_to: "all"
+
+  relation:
+    description: "Swap one vetted reversible relation and re-ask"
+    cost: 1
+    severity: null
+    applicable_to: "relation_available_only"
+
+  stop:
+    description: "End acquisition"
+    cost: 0
+    applicable_to: "always"
+
+# Reversible relation lexicon (Plan §13.3)
+reversible_relations:
+  - ["left", "right"]
+  - ["above", "below"]
+  - ["in front of", "behind"]
+  - ["on top of", "under"]

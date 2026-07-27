@@ -1,0 +1,13 @@
+# IllusionBench held-out stress dataset
+dataset_name: illusionbench
+data_path: "${PROACTIVE_DATA_ROOT}/IllusionBench"
+default_server_path: ""
+
+sample_cap: 600
+normalizer_type: "yes_no"
+relation_applicable: false
+
+split_seed: 42
+role: "held_out"
+
+loader: "illusionbench"

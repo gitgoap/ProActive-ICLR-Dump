@@ -1,0 +1,15 @@
+# VizWiz-VQA dataset configuration
+dataset_name: vizwiz
+data_path: "${PROACTIVE_DATA_ROOT}/VizWiz"
+default_server_path: "/home/aman/MMUQ/data/VizWiz"
+
+sample_cap: 3000
+normalizer_type: "freeform"
+relation_applicable: false
+
+split_seed: 42
+split_ratios: [0.7, 0.1, 0.1, 0.1]
+
+loader: "vizwiz"
+annotation_file: "val.json"
+image_dir: "val"

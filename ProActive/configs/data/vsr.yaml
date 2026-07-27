@@ -1,0 +1,14 @@
+# VSR (Visual Spatial Reasoning) dataset configuration
+dataset_name: vsr
+data_path: "${PROACTIVE_DATA_ROOT}/VSR"
+default_server_path: "/home/aman/MMUQ/data/VSR"
+
+sample_cap: 340
+normalizer_type: "true_false"
+relation_applicable: true  # VSR has explicit spatial relations
+
+split_seed: 42
+split_ratios: [0.7, 0.1, 0.1, 0.1]
+
+loader: "vsr"
+annotation_file: "test.jsonl"
