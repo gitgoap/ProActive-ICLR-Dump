@@ -38,6 +38,10 @@ def main():
         help="Directory containing dataset YAML configs."
     )
     parser.add_argument(
+        "--data_root", type=str, default=None,
+        help="Root directory for datasets (e.g. data or /home/aman/ProActive/data)."
+    )
+    parser.add_argument(
         "--output_dir", type=str, default="outputs/manifests",
         help="Output directory for manifest JSONL files."
     )
@@ -62,6 +66,10 @@ def main():
         help="Specific datasets to build (default: all in config_dir)."
     )
     args = parser.parse_args()
+
+    import os
+    if args.data_root:
+        os.environ["PROACTIVE_DATA_ROOT"] = str(Path(args.data_root).resolve())
 
     config_dir = Path(args.config_dir)
     output_dir = Path(args.output_dir)

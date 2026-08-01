@@ -77,7 +77,7 @@ class SixWayState(str, Enum):
 class ProbeObservation:
     """Observation from one probe applied independently to the original input.
 
-    Each field matches the cache schema in Plan §14.1.
+    Each field matches the cache schema in Plan §14.1 and the audit contracts.
     """
     probe_id: ProbeAction
     raw_answer: str
@@ -94,6 +94,11 @@ class ProbeObservation:
     prompt_hash: Optional[str] = None
     image_transform_hash: Optional[str] = None
     generation_config_hash: Optional[str] = None
+    # Validation and audit metadata (fail-closed)
+    valid: bool = True
+    invalid_reason: Optional[str] = None
+    parse_status: str = "ok"                  # "ok", "malformed", "empty", "regex_fallback"
+    score_method: str = "generation_logits"  # "generation_logits", "teacher_forced", "none"
     # Raw probe-side scores for delta computation
     answer_prob: Optional[float] = None
     token_entropy_mean: Optional[float] = None
@@ -117,6 +122,10 @@ class ProbeObservation:
             "prompt_hash": self.prompt_hash,
             "image_transform_hash": self.image_transform_hash,
             "generation_config_hash": self.generation_config_hash,
+            "valid": self.valid,
+            "invalid_reason": self.invalid_reason,
+            "parse_status": self.parse_status,
+            "score_method": self.score_method,
         }
         return d
 
@@ -140,6 +149,9 @@ class CleanFeatures:
     token_margin_mean: float    # Mean top-1 vs top-2 margin m_bar
     answer_len_tokens: int      # Answer length in tokens
     relation_available: bool = False  # Whether relation swap is legal
+    score_method: str = "generation_logits"  # "generation_logits" or "teacher_forced"
+    valid: bool = True
+    invalid_reason: Optional[str] = None
     # Optional features from Plan §5.3
     iqa_features: Optional[Dict[str, float]] = None  # Image quality
     qtype: Optional[str] = None  # Coarse question-type feature
@@ -150,21 +162,23 @@ class CleanFeatures:
     # --- Metadata fields: NOT used as model input features ---
     correct: Optional[bool] = None  # vs gold answer; training-time only
 
-    def to_feature_dict(self) -> Dict[str, float]:
+    def to_feature_dict(self, include_relation_available: bool = False) -> Dict[str, float]:
         """Return only the features used as model inputs (no metadata).
 
         Excludes: dataset_id, model_id, correct, raw_answer.
+        Default: include_relation_available=False for the main encoder (kept in action mask only).
+        Set include_relation_available=True only in explicit confound ablation studies.
         """
         features = {
             "answer_prob": self.answer_prob,
             "token_entropy_mean": self.token_entropy_mean,
             "token_margin_mean": self.token_margin_mean,
             "answer_len_tokens": float(self.answer_len_tokens),
-            "relation_available": float(self.relation_available),
         }
+        if include_relation_available:
+            features["relation_available"] = float(self.relation_available)
         if self.answerability is not None:
             features["answerability"] = self.answerability
-        # qtype would be embedded separately; store as string metadata
         return features
 
 

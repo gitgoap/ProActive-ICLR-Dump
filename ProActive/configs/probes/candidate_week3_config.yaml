@@ -1,0 +1,40 @@
+metadata:
+  version: v3.5_week3_candidate
+  status: CANDIDATE_FOR_AUDIT
+  description: Canonical probe severities, label thresholds, and semantic matching parameters.
+probe_severities:
+  blur: 15.0
+  crop: 0.5
+  brightness: 0.3
+  noise: 25.0
+pilot_severity_grid:
+  blur:
+  - 8.0
+  - 15.0
+  - 22.0
+  crop:
+  - 0.35
+  - 0.5
+  - 0.65
+  brightness:
+  - 0.15
+  - 0.3
+  - 0.5
+  noise:
+  - 10.0
+  - 25.0
+  - 50.0
+label_thresholds:
+  visual_flip_threshold: 0.25
+  visual_conf_threshold: 0.15
+  blank_semantic_match_required: true
+  blank_conf_ratio_threshold: 0.8
+  grounding_flip_triggers: true
+  grounding_conf_threshold: 0.15
+semantic_matching:
+  binary_matching: exact_normalized
+  freeform_matching: embedding_similarity
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  embedding_revision: e4ce9877abf3edee10b0257f22713854020a4004
+  threshold: 0.82
+  calibration_split: train_val

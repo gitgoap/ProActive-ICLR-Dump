@@ -19,6 +19,8 @@ from typing import Any, Callable, Dict, List, Optional
 import yaml
 
 from proactive.data.manifests import make_manifest_record
+from proactive.probes.relation_swap import swap_relation
+
 
 
 # ---------------------------------------------------------------------------
@@ -46,30 +48,65 @@ def get_loader(name: str) -> Callable:
 
 
 def resolve_data_path(config: Dict[str, Any]) -> Path:
-    """Resolve the data path from config, env var, or default server path."""
-    # Try environment variable first
+    """Resolve the data path from config, env var, or local search paths."""
+    dataset_name = config.get("dataset_name", "")
+
+    # Candidate dataset directory names (e.g. POPE, pope, Pope)
+    name_variants = list({
+        dataset_name,
+        dataset_name.upper(),
+        dataset_name.lower(),
+        dataset_name.capitalize(),
+        "POPE" if "pope" in dataset_name.lower() else "",
+        "VSR" if "vsr" in dataset_name.lower() else "",
+        "VizWiz" if "vizwiz" in dataset_name.lower() else "",
+        "HallusionBench" if "hallusion" in dataset_name.lower() else "",
+    } - {""})
+
+    # Candidate root directories
+    search_roots: List[Path] = []
+
     env_root = os.environ.get("PROACTIVE_DATA_ROOT")
     if env_root:
-        dataset_name = config["dataset_name"]
-        candidate = Path(env_root) / dataset_name
-        if candidate.exists():
-            return candidate
+        search_roots.append(Path(env_root))
 
-    # Try config data_path (with env var expansion)
+    search_roots.extend([
+        Path.cwd() / "data",
+        Path.cwd().parent / "data",
+        Path.home() / "ProActive" / "data",
+        Path.home() / "MMUQ" / "data",
+        Path("/home/aman/ProActive/data"),
+        Path("/home/aman/MMUQ/data"),
+        Path("data"),
+    ])
+
+    # Direct config checks first
     data_path = config.get("data_path", "")
     if data_path:
         expanded = os.path.expandvars(data_path)
-        if Path(expanded).exists():
+        if not expanded.startswith("${") and Path(expanded).exists():
             return Path(expanded)
 
-    # Fall back to default server path
     default = config.get("default_server_path", "")
     if default and Path(default).exists():
         return Path(default)
 
+    # Search through candidate roots and name variants
+    for root in search_roots:
+        if not root.exists():
+            continue
+        # Direct check if root itself is the dataset folder
+        if root.name.lower() in [v.lower() for v in name_variants]:
+            return root
+        for v in name_variants:
+            cand = root / v
+            if cand.exists():
+                return cand
+
     raise FileNotFoundError(
         f"Cannot find data for {config.get('dataset_name', '?')}. "
-        f"Set PROACTIVE_DATA_ROOT env var or update the config."
+        f"Searched roots: {[str(r) for r in search_roots if r.exists()]}. "
+        f"Please export PROACTIVE_DATA_ROOT or pass --data_root."
     )
 
 
@@ -85,13 +122,13 @@ def load_hallusionbench(
     """Load HallusionBench dataset."""
     data_root = resolve_data_path(config)
     annotation_file = config.get(
-        "annotation_file", "hallusion_bench/HallusionBench.json"
+        "annotation_file", "HallusionBench.json"
     )
     ann_path = data_root / annotation_file
 
     if not ann_path.exists():
         # Try alternative paths
-        for alt in ["HallusionBench.json", "hallusion_bench.json"]:
+        for alt in ["HallusionBench.json", "hallusion_bench/HallusionBench.json", "hallusion_bench.json"]:
             alt_path = data_root / alt
             if alt_path.exists():
                 ann_path = alt_path
@@ -110,11 +147,21 @@ def load_hallusionbench(
         if limit and len(records) >= limit:
             break
 
+        raw_name = item.get("filename", item.get("image", ""))
         image_path = ""
-        if "filename" in item:
-            image_path = str(data_root / item["filename"])
-        elif "image" in item:
-            image_path = str(data_root / item["image"])
+        if raw_name:
+            candidates = [
+                data_root / raw_name,
+                data_root / "hallusion_bench" / raw_name,
+                data_root / "hallusion_bench" / "VD" / "illusion" / Path(raw_name).name,
+                data_root / "hallusion_bench" / "VS" / Path(raw_name).name,
+            ]
+            for cand in candidates:
+                if cand.exists():
+                    image_path = str(cand)
+                    break
+            if not image_path:
+                image_path = str(data_root / raw_name)
 
         question = item.get("question", "")
         gold = item.get("gt_answer", item.get("answer", ""))
@@ -153,6 +200,35 @@ def load_pope(
     """Load POPE dataset (random/popular/adversarial)."""
     data_root = resolve_data_path(config)
 
+    # Resolve COCO image directory
+    coco_image_dir = None
+    if "coco_image_dir" in config:
+        coco_cfg = Path(os.path.expandvars(config["coco_image_dir"]))
+        if coco_cfg.exists():
+            coco_image_dir = coco_cfg
+
+    if coco_image_dir is None:
+        env_root = os.environ.get("PROACTIVE_DATA_ROOT")
+        candidates = [
+            data_root / "images",
+            data_root / "val2014",
+            data_root / "coco" / "val2014",
+            data_root.parent / "coco" / "val2014",
+            data_root.parent / "COCO" / "val2014",
+            data_root.parent / "val2014",
+        ]
+        if env_root:
+            candidates.extend([
+                Path(env_root) / "POPE" / "images",
+                Path(env_root) / "coco" / "val2014",
+                Path(env_root) / "COCO" / "val2014",
+                Path(env_root) / "val2014",
+            ])
+        for cand in candidates:
+            if cand.exists():
+                coco_image_dir = cand
+                break
+
     records = []
     # POPE typically has 3 JSONL files
     for split_type in ["random", "popular", "adversarial"]:
@@ -181,7 +257,20 @@ def load_pope(
             if limit and len(records) >= limit:
                 break
 
-            image_path = item.get("image", "")
+            img_name = item.get("image", "")
+            if coco_image_dir and (coco_image_dir / img_name).exists():
+                image_path = str(coco_image_dir / img_name)
+            elif (data_root / "images" / img_name).exists():
+                image_path = str(data_root / "images" / img_name)
+            elif (data_root / "val2014" / img_name).exists():
+                image_path = str(data_root / "val2014" / img_name)
+            elif (data_root / img_name).exists():
+                image_path = str(data_root / img_name)
+            elif coco_image_dir:
+                image_path = str(coco_image_dir / img_name)
+            else:
+                image_path = str(data_root / "images" / img_name)
+
             question = item.get("text", item.get("question", ""))
             gold = item.get("label", item.get("answer", ""))
 
@@ -220,7 +309,12 @@ def load_vizwiz(
 
     # Try alternative locations
     if not ann_path.exists():
-        for alt in ["Annotations/val.json", "annotations/val.json"]:
+        for alt in [
+            "Annotations/val.json",
+            "annotations/val.json",
+            "Annotations/train.json",
+            "val.json",
+        ]:
             alt_path = data_root / alt
             if alt_path.exists():
                 ann_path = alt_path
@@ -234,7 +328,23 @@ def load_vizwiz(
     with open(ann_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    image_dir = config.get("image_dir", "val")
+    # Locate image directory (supports Images/val, images/val, val, Images/train)
+    image_dir = None
+    for cand_dir in [
+        data_root / "Images" / "val",
+        data_root / "images" / "val",
+        data_root / "val",
+        data_root / "Images" / "train",
+        data_root / "images" / "train",
+        data_root / "train",
+        data_root / "Images",
+        data_root / "images",
+    ]:
+        if cand_dir.exists():
+            image_dir = cand_dir
+            break
+    if image_dir is None:
+        image_dir = data_root / config.get("image_dir", "val")
 
     records = []
     for i, item in enumerate(data):
@@ -242,7 +352,17 @@ def load_vizwiz(
             break
 
         image_name = item.get("image", "")
-        image_path = str(data_root / image_dir / image_name)
+        if (image_dir / image_name).exists():
+            image_path = str(image_dir / image_name)
+        elif (data_root / "Images" / "val" / image_name).exists():
+            image_path = str(data_root / "Images" / "val" / image_name)
+        elif (data_root / "Images" / "train" / image_name).exists():
+            image_path = str(data_root / "Images" / "train" / image_name)
+        elif (data_root / "val" / image_name).exists():
+            image_path = str(data_root / "val" / image_name)
+        else:
+            image_path = str(image_dir / image_name)
+
         question = item.get("question", "")
 
         # VizWiz has multiple annotator answers
@@ -291,7 +411,7 @@ def load_vsr(
 
     if not ann_path.exists():
         # Try alternatives
-        for alt in ["dev.jsonl", "all_vsr_validated_data.jsonl"]:
+        for alt in ["dev.jsonl", "train.jsonl", "all_vsr_validated_data.jsonl"]:
             alt_path = data_root / alt
             if alt_path.exists():
                 ann_path = alt_path
@@ -312,9 +432,37 @@ def load_vsr(
                 continue
             item = json.loads(line)
 
-            image_path = item.get("image", item.get("image_link", ""))
+            raw_img = item.get("image", item.get("image_link", ""))
+            img_name = Path(raw_img).name
+            if (data_root / raw_img).exists():
+                image_path = str(data_root / raw_img)
+            elif (data_root / "val2017" / img_name).exists():
+                image_path = str(data_root / "val2017" / img_name)
+            elif (data_root / "train2017" / img_name).exists():
+                image_path = str(data_root / "train2017" / img_name)
+            elif (data_root / "images" / img_name).exists():
+                image_path = str(data_root / "images" / img_name)
+            else:
+                image_path = str(data_root / raw_img)
+
             caption = item.get("caption", "")
-            label = item.get("label", "")
+            raw_label = item.get("label", "")
+            label_str = "true" if raw_label == 1 or str(raw_label).lower() == "true" else "false"
+
+            swap = swap_relation(
+                caption,
+                annotated_relation=item.get("relation"),
+                gold_answer=label_str,
+            )
+
+            extra: Dict[str, Any] = {
+                "relation": item.get("relation", ""),
+                "subrelation": item.get("subrelation", ""),
+            }
+            if swap.applicable:
+                extra["swapped_question"] = swap.swapped_text
+                extra["swapped_gold_answer"] = swap.swapped_gold_answer
+                extra["relation_found"] = swap.relation_found
 
             record = make_manifest_record(
                 dataset="vsr",
@@ -322,14 +470,12 @@ def load_vsr(
                 question_id=str(i),
                 image_path=image_path,
                 question=caption,
-                gold_answer=str(label).lower(),
-                relation_applicable=True,
-                extra={
-                    "relation": item.get("relation", ""),
-                    "subrelation": item.get("subrelation", ""),
-                },
+                gold_answer=label_str,
+                relation_applicable=swap.applicable,
+                extra=extra,
             )
             records.append(record)
+
 
     cap = config.get("sample_cap")
     if cap and len(records) > cap:
