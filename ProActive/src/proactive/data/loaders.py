@@ -148,20 +148,25 @@ def load_hallusionbench(
             break
 
         raw_name = item.get("filename", item.get("image", ""))
+        # HallusionBench contains 178 text-only examples in addition to the
+        # 951 image-paired examples used by ProActive/HalluPrism.  Filtering
+        # must happen before ``limit``/``sample_cap`` so the pilot cannot
+        # silently spend part of its quota on records with no image.
+        if not raw_name:
+            continue
         image_path = ""
-        if raw_name:
-            candidates = [
-                data_root / raw_name,
-                data_root / "hallusion_bench" / raw_name,
-                data_root / "hallusion_bench" / "VD" / "illusion" / Path(raw_name).name,
-                data_root / "hallusion_bench" / "VS" / Path(raw_name).name,
-            ]
-            for cand in candidates:
-                if cand.exists():
-                    image_path = str(cand)
-                    break
-            if not image_path:
-                image_path = str(data_root / raw_name)
+        candidates = [
+            data_root / raw_name,
+            data_root / "hallusion_bench" / raw_name,
+            data_root / "hallusion_bench" / "VD" / "illusion" / Path(raw_name).name,
+            data_root / "hallusion_bench" / "VS" / Path(raw_name).name,
+        ]
+        for cand in candidates:
+            if cand.exists():
+                image_path = str(cand)
+                break
+        if not image_path:
+            image_path = str(data_root / raw_name)
 
         question = item.get("question", "")
         gold = item.get("gt_answer", item.get("answer", ""))

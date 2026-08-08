@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Week 3 Completion Gate Checker (Plan §25.5, AGENT_EXECUTION_AND_AUDIT.md).
+Week 3 Completion Gate Checker (Plan §25.5, AGENTS.md).
 
 Strict fail-closed validation of all Week 3 requirements with two operational modes:
 1. --readiness: Pre-flight check verifying code, test suites, configs, and structural prerequisites before launching pilot GPU runs.
@@ -19,7 +19,10 @@ import argparse
 import json
 import logging
 import sys
+from collections import defaultdict
 from pathlib import Path
+
+import yaml
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("check_week_completion")
@@ -40,6 +43,7 @@ REQUIRED_CODE_FILES = [
     "scripts/run_pilot_cache.py",
     "scripts/validate_teacher_schema.py",
     "scripts/analyze_pilot.py",
+    "scripts/calibrate_semantic_threshold.py",
 ]
 
 REQUIRED_TEST_FILES = [
@@ -52,6 +56,7 @@ REQUIRED_TEST_FILES = [
     "tests/test_semantic_match.py",
     "tests/test_week3_confounds_and_schema.py",
     "tests/test_week3_integration.py",
+    "tests/test_week3_pipeline_safety.py",
 ]
 
 REQUIRED_CONFIG_FILES = [
@@ -65,6 +70,10 @@ REQUIRED_PLOTS = [
     "outputs/pilot_reports/plots/latency_distributions.png",
     "outputs/pilot_reports/plots/source_bit_rates_by_dataset.png",
 ]
+
+ACTIVE_WEEK3_DATASETS = {"hallusionbench", "pope", "vizwiz", "vsr"}
+MIN_CANONICAL_PER_PAIR = 100
+SEVERITY_ROWS_PER_INSTANCE = 12
 
 
 def check_readiness(repo_root: Path) -> bool:
@@ -124,10 +133,58 @@ def check_full_week(repo_root: Path) -> bool:
             failures.append("No JSONL cache files found in 'outputs/pilot_cache'.")
         else:
             total_records = 0
+            canonical_ids = defaultdict(set)
+            severity_keys = defaultdict(set)
             for jf in jsonl_files:
                 with open(jf, "r", encoding="utf-8") as f:
-                    total_records += sum(1 for line in f if line.strip())
+                    for line in f:
+                        if not line.strip():
+                            continue
+                        total_records += 1
+                        try:
+                            record = json.loads(line)
+                        except json.JSONDecodeError as exc:
+                            failures.append(f"Invalid JSON in {jf}: {exc}")
+                            continue
+                        pair = (record.get("model_id"), record.get("dataset"))
+                        if "pilot_severity_probe" in record:
+                            severity_keys[pair].add((
+                                record.get("instance_id"),
+                                record.get("pilot_severity_probe"),
+                                record.get("pilot_severity_value"),
+                            ))
+                        else:
+                            canonical_ids[pair].add(record.get("instance_id"))
             logger.info(f"  [PASS] Found {len(jsonl_files)} pilot cache files with {total_records} total records.")
+
+            models = sorted({model for model, _ in canonical_ids if model})
+            complete_models = []
+            incomplete_details = []
+            for model in models:
+                model_complete = True
+                for dataset in ACTIVE_WEEK3_DATASETS:
+                    pair = (model, dataset)
+                    canonical_count = len(canonical_ids[pair])
+                    severity_count = len(severity_keys[pair])
+                    if canonical_count < MIN_CANONICAL_PER_PAIR:
+                        incomplete_details.append(
+                            f"{model}/{dataset}: canonical pilot has {canonical_count}, requires {MIN_CANONICAL_PER_PAIR}."
+                        )
+                        model_complete = False
+                    expected_severity = MIN_CANONICAL_PER_PAIR * SEVERITY_ROWS_PER_INSTANCE
+                    if severity_count < expected_severity:
+                        incomplete_details.append(
+                            f"{model}/{dataset}: severity pilot has {severity_count} unique rows, requires {expected_severity}."
+                        )
+                        model_complete = False
+                if model_complete:
+                    complete_models.append(model)
+            if len(complete_models) < 2:
+                failures.append(
+                    "Fewer than two models have complete 100-example canonical and three-level "
+                    "severity pilots across all four active datasets."
+                )
+                failures.extend(incomplete_details)
 
     # 2. Distribution plots
     for pf in REQUIRED_PLOTS:
@@ -152,16 +209,27 @@ def check_full_week(repo_root: Path) -> bool:
         except Exception as e:
             failures.append(f"pilot_analysis_summary.json is corrupted: {e}")
 
-    # 4. Candidate Week 3 config
-    cand_cfg = repo_root / "configs" / "probes" / "candidate_week3_config.yaml"
-    if not cand_cfg.exists() or cand_cfg.stat().st_size < 100:
-        failures.append("Missing or empty 'configs/probes/candidate_week3_config.yaml'.")
+    # 4. Human-reviewed frozen Week 3 config
+    frozen_cfg = repo_root / "configs" / "probes" / "frozen_week3_config.yaml"
+    frozen_data = {}
+    if not frozen_cfg.exists() or frozen_cfg.stat().st_size < 100:
+        failures.append("Missing or empty 'configs/probes/frozen_week3_config.yaml'.")
     else:
-        logger.info("  [PASS] Candidate config: configs/probes/candidate_week3_config.yaml")
+        try:
+            with open(frozen_cfg, "r", encoding="utf-8") as f:
+                frozen_data = yaml.safe_load(f)
+            if frozen_data.get("metadata", {}).get("status") != "FROZEN":
+                failures.append("frozen_week3_config.yaml metadata.status must be FROZEN.")
+            else:
+                logger.info("  [PASS] Frozen config: configs/probes/frozen_week3_config.yaml")
+        except Exception as e:
+            failures.append(f"frozen_week3_config.yaml is corrupted: {e}")
 
-    # 5. Schema validation report (if produced)
+    # 5. Schema validation report (required)
     schema_report = repo_root / "outputs" / "pilot_reports" / "schema_validation_report.json"
-    if schema_report.exists():
+    if not schema_report.exists():
+        failures.append("Missing outputs/pilot_reports/schema_validation_report.json.")
+    else:
         try:
             with open(schema_report, "r", encoding="utf-8") as f:
                 rep_data = json.load(f)
@@ -171,6 +239,44 @@ def check_full_week(repo_root: Path) -> bool:
                 logger.info(f"  [PASS] Schema validation verified: {rep_data.get('valid_rows')} valid rows.")
         except Exception as e:
             failures.append(f"Schema validation report corrupted: {e}")
+
+    semantic_report = repo_root / "outputs" / "pilot_reports" / "semantic_calibration_report.json"
+    semantic_threshold = None
+    if not semantic_report.exists():
+        failures.append("Missing outputs/pilot_reports/semantic_calibration_report.json.")
+    else:
+        try:
+            with open(semantic_report, "r", encoding="utf-8") as f:
+                semantic_data = json.load(f)
+            semantic_threshold = semantic_data.get("recommended_threshold")
+            if not semantic_data.get("is_valid") or semantic_data.get("labeled_count", 0) < 50:
+                failures.append("Semantic calibration report requires is_valid=true and at least 50 labels.")
+            else:
+                logger.info(
+                    f"  [PASS] Semantic calibration: {semantic_data['labeled_count']} labels, "
+                    f"threshold={semantic_threshold}"
+                )
+        except Exception as e:
+            failures.append(f"Semantic calibration report corrupted: {e}")
+
+    if frozen_cfg.exists() and semantic_threshold is not None:
+        try:
+            frozen_threshold = frozen_data["semantic_matching"]["threshold"]
+            if frozen_threshold != semantic_threshold:
+                failures.append(
+                    "Frozen semantic threshold does not match semantic_calibration_report.json."
+                )
+        except Exception as e:
+            failures.append(f"Frozen config lacks semantic calibration provenance: {e}")
+
+    # 6. At least 50 exported transforms for every visual probe.
+    inspection_root = repo_root / "outputs" / "pilot_reports" / "inspection"
+    for probe in ("blank", "blur", "crop", "brightness", "noise"):
+        count = len(list((inspection_root / probe).glob("*.png")))
+        if count < 50:
+            failures.append(f"Inspection export '{probe}' has {count} images; requires at least 50.")
+        else:
+            logger.info(f"  [PASS] Inspection export {probe}: {count} images")
 
     if failures:
         logger.error(f"Full Week 3 completion check FAILED with {len(failures)} errors:")

@@ -1,0 +1,5 @@
+2026-08-07 20:20:45,119 INFO [pilot_cache] Loaded 3000 records from manifest outputs/manifests/manifest_vizwiz.jsonl
+2026-08-07 20:20:45,120 WARNING [pilot_cache] Manifest contains 633 cal/test records. Filtering strictly to train and val.
+2026-08-07 20:20:45,122 INFO [pilot_cache] Selected 100 train/val records for pilot (seed=42)
+2026-08-07 20:20:45,129 INFO [pilot_cache] Resuming: 100 unique output records already completed
+2026-08-07 20:20:45,129 INFO [pilot_cache] No records to process. Done.

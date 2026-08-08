@@ -8,7 +8,7 @@ import logging
 import math
 import os
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Callable, Dict, List, Optional
 
 from PIL import Image
 
@@ -22,7 +22,8 @@ from proactive.features.evidence_state import ProbeAction
 from proactive.features.normalization import normalize_answer
 from proactive.features.semantic import SemanticMatcher, get_default_semantic_matcher
 from proactive.models.base_adapter import MLLMAdapter
-from proactive.probes.probe_runner import run_all_probes
+from proactive.probes.image_transforms import CANONICAL_SEVERITIES, PILOT_SEVERITIES
+from proactive.probes.probe_runner import _run_visual_probe, run_all_probes
 from proactive.probes.relation_swap import (
     evaluate_relation_swap,
     RelationSwapStatus,
@@ -33,6 +34,8 @@ from proactive.teacher.label_computation import (
     InvalidMandatoryProbeError,
 )
 from proactive.utils.hashing import hash_generation_config, hash_prompt
+
+logger = logging.getLogger(__name__)
 
 def _load_image_safely(image_path: str | Path | Image.Image, dataset_name: str = "") -> Image.Image:
     """Load image from path with fallback to PROACTIVE_DATA_ROOT, cwd/data, and standard subdirectories."""
@@ -287,3 +290,105 @@ def process_instance(
         ),
     }
     return output
+
+
+def process_severity_grid_instance(
+    record: dict,
+    adapter: MLLMAdapter,
+    dataset_name: str,
+    model_id: str,
+    model_revision: str,
+    global_seed: int = 42,
+    semantic_matcher: Optional[SemanticMatcher] = None,
+    semantic_threshold: float = 0.82,
+) -> List[dict]:
+    """Run the visual severity pilot without repeating the full probe suite.
+
+    One canonical teacher pass supplies the clean baseline and the four middle
+    severity observations.  Only the eight remaining visual transforms are
+    generated.  Returned rows use the compact ``severity_pilot`` schema and
+    intentionally omit teacher labels: severity rows are calibration evidence,
+    not training examples.
+    """
+    canonical = process_instance(
+        record=record,
+        adapter=adapter,
+        dataset_name=dataset_name,
+        model_id=model_id,
+        model_revision=model_revision,
+        global_seed=global_seed,
+        semantic_matcher=semantic_matcher,
+        semantic_threshold=semantic_threshold,
+    )
+
+    clean = canonical["clean"]
+    if not clean.get("valid", False):
+        raise ValueError(
+            f"Cannot construct severity grid for {record['instance_id']}: "
+            "clean scores are invalid"
+        )
+
+    embedding_fn: Optional[Callable[[str, str], float]] = None
+    if semantic_matcher is not None and semantic_matcher.is_available:
+        embedding_fn = semantic_matcher.similarity
+    else:
+        default_matcher = get_default_semantic_matcher()
+        if default_matcher and default_matcher.is_available:
+            embedding_fn = default_matcher.similarity
+
+    image = _load_image_safely(record["image_path"], dataset_name)
+    rows: List[dict] = []
+    for probe_name, severity_values in PILOT_SEVERITIES.items():
+        probe_action = ProbeAction(probe_name)
+        for severity in severity_values:
+            if math.isclose(
+                float(severity),
+                float(CANONICAL_SEVERITIES[probe_name]),
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            ):
+                probe_dict = canonical["probes"][probe_name]
+            else:
+                observation = _run_visual_probe(
+                    probe_id=probe_action,
+                    adapter=adapter,
+                    image=image,
+                    prompt_text=canonical["prompt_text"],
+                    dataset=dataset_name,
+                    clean_norm_answer=clean["norm_answer"],
+                    clean_prob=clean["answer_prob"],
+                    clean_entropy=clean["token_entropy_mean"],
+                    clean_margin=clean["token_margin_mean"],
+                    severity=severity,
+                    instance_id=record["instance_id"],
+                    global_seed=global_seed,
+                    score_method=canonical["score_method"],
+                    semantic_threshold=semantic_threshold,
+                    embedding_fn=embedding_fn,
+                )
+                probe_dict = observation.to_dict()
+
+            rows.append({
+                "record_type": "severity_pilot",
+                "instance_id": canonical["instance_id"],
+                "group_id": canonical["group_id"],
+                "dataset": canonical["dataset"],
+                "split": canonical["split"],
+                "model_id": canonical["model_id"],
+                "model_revision": canonical["model_revision"],
+                "image_path": canonical["image_path"],
+                "prompt_text": canonical["prompt_text"],
+                "gold_answer": canonical["gold_answer"],
+                "score_method": canonical["score_method"],
+                "valid": bool(probe_dict.get("valid", False)),
+                "invalid_reason": probe_dict.get("invalid_reason"),
+                "clean": clean,
+                "probes": {probe_name: probe_dict},
+                "pilot_severity_probe": probe_name,
+                "pilot_severity_value": severity,
+                "prompt_hash": canonical["prompt_hash"],
+                "generation_config_hash": canonical["generation_config_hash"],
+                "canonical_teacher_valid": canonical["valid"],
+            })
+
+    return rows

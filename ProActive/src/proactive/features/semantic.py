@@ -14,10 +14,9 @@ calibration split, and calibration metrics. Calibration uses ONLY train/val data
 from __future__ import annotations
 
 import logging
-import math
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Callable, Dict, Optional, Sequence, Tuple
 
 from proactive.features.normalization import normalize_answer
 
@@ -247,40 +246,18 @@ def calibrate_semantic_threshold(
         candidate_thresholds = [i / 100.0 for i in range(50, 96, 2)]
 
     if not pairs:
-        prov = SemanticProvenance(
-            dataset=dataset,
-            matching_mode="embedding_similarity",
-            embedding_model=DEFAULT_EMBEDDING_MODEL,
-            model_revision=DEFAULT_EMBEDDING_REVISION,
-            threshold=DEFAULT_FREEFORM_THRESHOLD,
-            calibration_split=calibration_split,
-            calibration_metrics={"precision": 1.0, "recall": 1.0, "f1": 1.0},
-        )
-        return DEFAULT_FREEFORM_THRESHOLD, prov
+        raise ValueError("At least one human-labelled semantic pair is required")
 
     scored_pairs = [
         (similarity_fn(p, t), is_match)
         for p, t, is_match in pairs
     ]
 
-    best_threshold = DEFAULT_FREEFORM_THRESHOLD
-    best_f1 = -1.0
-    best_metrics = {"precision": 0.0, "recall": 0.0, "f1": 0.0}
-
-    for tau in candidate_thresholds:
-        tp = sum(1 for sim, is_match in scored_pairs if sim >= tau and is_match)
-        fp = sum(1 for sim, is_match in scored_pairs if sim >= tau and not is_match)
-        fn = sum(1 for sim, is_match in scored_pairs if sim < tau and is_match)
-        tn = sum(1 for sim, is_match in scored_pairs if sim < tau and not is_match)
-
-        prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-        rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-        f1 = (2 * prec * rec) / (prec + rec) if (prec + rec) > 0 else 0.0
-
-        if rec >= target_recall and f1 > best_f1:
-            best_f1 = f1
-            best_threshold = tau
-            best_metrics = {"precision": prec, "recall": rec, "f1": f1}
+    best_threshold, best_metrics = calibrate_semantic_threshold_from_scores(
+        scored_pairs,
+        target_recall=target_recall,
+        candidate_thresholds=candidate_thresholds,
+    )
 
     prov = SemanticProvenance(
         dataset=dataset,
@@ -292,3 +269,42 @@ def calibrate_semantic_threshold(
         calibration_metrics=best_metrics,
     )
     return best_threshold, prov
+
+
+def calibrate_semantic_threshold_from_scores(
+    scored_pairs: Sequence[Tuple[float, bool]],
+    target_recall: float = 0.90,
+    candidate_thresholds: Optional[Sequence[float]] = None,
+) -> Tuple[float, Dict[str, float]]:
+    """Select a threshold from human labels and precomputed cosine scores."""
+    if not scored_pairs:
+        raise ValueError("At least one human-labelled semantic pair is required")
+    if not any(label for _, label in scored_pairs) or not any(
+        not label for _, label in scored_pairs
+    ):
+        raise ValueError("Semantic calibration requires both positive and negative labels")
+    if candidate_thresholds is None:
+        candidate_thresholds = [i / 100.0 for i in range(50, 96, 2)]
+
+    best_threshold = DEFAULT_FREEFORM_THRESHOLD
+    best_f1 = -1.0
+    best_metrics = {"precision": 0.0, "recall": 0.0, "f1": 0.0}
+
+    for tau in candidate_thresholds:
+        tp = sum(1 for sim, is_match in scored_pairs if sim >= tau and is_match)
+        fp = sum(1 for sim, is_match in scored_pairs if sim >= tau and not is_match)
+        fn = sum(1 for sim, is_match in scored_pairs if sim < tau and is_match)
+        prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+        rec = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+        f1 = (2 * prec * rec) / (prec + rec) if (prec + rec) > 0 else 0.0
+
+        if rec >= target_recall and f1 > best_f1:
+            best_f1 = f1
+            best_threshold = tau
+            best_metrics = {"precision": prec, "recall": rec, "f1": f1}
+
+    if best_f1 < 0:
+        raise ValueError(
+            f"No candidate threshold achieved target recall {target_recall:.3f}"
+        )
+    return best_threshold, best_metrics

@@ -1,11 +1,12 @@
 metadata:
   version: v3.5_week3_candidate
   status: CANDIDATE_FOR_AUDIT
-  description: Canonical probe severities, label thresholds, and semantic matching parameters.
+  description: Canonical probe severities, label thresholds, and semantic matching
+    parameters.
 probe_severities:
-  blur: 15.0
-  crop: 0.5
-  brightness: 0.3
+  blur: 8.0
+  crop: 0.65
+  brightness: 0.15
   noise: 25.0
 pilot_severity_grid:
   blur:
@@ -38,3 +39,68 @@ semantic_matching:
   embedding_revision: e4ce9877abf3edee10b0257f22713854020a4004
   threshold: 0.82
   calibration_split: train_val
+  calibration_report: null
+summary_statistics:
+  blank:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.5775
+    mean_conf_shift: -0.002307978519142706
+    mean_abs_conf_shift: 0.002307978519142706
+    mean_entropy_shift: 0.007026985801166039
+    mean_latency_ms: 546.7238181829453
+  blur:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.485
+    mean_conf_shift: -0.013981338625718709
+    mean_abs_conf_shift: 0.013981338625718709
+    mean_entropy_shift: 0.029791329640459652
+    mean_latency_ms: 527.6038593053818
+  brightness:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.165
+    mean_conf_shift: -0.002296858891682767
+    mean_abs_conf_shift: 0.002296858891682767
+    mean_entropy_shift: 0.004690851807024627
+    mean_latency_ms: 553.9184033870697
+  crop:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.3325
+    mean_conf_shift: -0.007667993151613131
+    mean_abs_conf_shift: 0.007667993151613131
+    mean_entropy_shift: 0.018671702816290013
+    mean_latency_ms: 569.018402993679
+  grounding:
+    total_count: 800
+    valid_count: 789
+    invalid_rate: 0.01375
+    flip_rate: 0.27249683143219267
+    mean_conf_shift: 0.040566121212236184
+    mean_abs_conf_shift: 0.040566121212236184
+    mean_entropy_shift: -0.10023222859517349
+    mean_latency_ms: 4856.830757984795
+  noise:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.21375
+    mean_conf_shift: -8.241835732037683e-05
+    mean_abs_conf_shift: 8.241835732037683e-05
+    mean_entropy_shift: 0.0010335953916526368
+    mean_latency_ms: 546.440144777298
+  relation:
+    total_count: 60
+    valid_count: 60
+    invalid_rate: 0.0
+    flip_rate: 0.6166666666666667
+    mean_conf_shift: 0.010022928879446074
+    mean_abs_conf_shift: 0.010022928879446074
+    mean_entropy_shift: -0.012163478661549551
+    mean_latency_ms: 216.95923010508218

@@ -1,0 +1,347 @@
+{
+  "path": "outputs/pilot_cache",
+  "files_checked": 16,
+  "files": [
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_hallusionbench.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "hallusionbench"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_hallusionbench_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "hallusionbench"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_pope.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "pope"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_pope_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "pope"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_vizwiz.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vizwiz"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_vizwiz_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vizwiz"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_vsr.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vsr"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/gemma4_e4b_vsr_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vsr"
+      ],
+      "models": [
+        "google/gemma-4-E4B-it"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_hallusionbench.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "hallusionbench"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_hallusionbench_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "hallusionbench"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_pope.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "pope"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_pope_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "pope"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_vizwiz.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vizwiz"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_vizwiz_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vizwiz"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_vsr.jsonl",
+      "total_rows": 100,
+      "valid_rows": 100,
+      "invalid_rows": 0,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vsr"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    },
+    {
+      "file_path": "outputs/pilot_cache/qwen3_vl_8b_vsr_severity_pilot.jsonl",
+      "total_rows": 1200,
+      "valid_rows": 1200,
+      "invalid_rows": 0,
+      "unique_records": 1200,
+      "duplicate_rows": 0,
+      "datasets": [
+        "vsr"
+      ],
+      "models": [
+        "Qwen/Qwen3-VL-8B-Instruct"
+      ],
+      "splits": [
+        "train",
+        "val"
+      ],
+      "is_valid": true,
+      "errors": []
+    }
+  ],
+  "total_rows": 10400,
+  "valid_rows": 10400,
+  "invalid_rows": 0,
+  "unique_records": 10400,
+  "duplicate_rows": 0,
+  "datasets": [
+    "hallusionbench",
+    "pope",
+    "vizwiz",
+    "vsr"
+  ],
+  "models": [
+    "Qwen/Qwen3-VL-8B-Instruct",
+    "google/gemma-4-E4B-it"
+  ],
+  "splits": [
+    "train",
+    "val"
+  ],
+  "is_valid": true,
+  "errors": []
+}

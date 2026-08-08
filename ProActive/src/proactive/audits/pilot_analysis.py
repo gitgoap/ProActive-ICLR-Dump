@@ -8,23 +8,20 @@ and outputs configuration and report artifacts.
 
 from __future__ import annotations
 
-import json
 import logging
 import math
+import os
+import tempfile
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
-from PIL import Image
 
-from proactive.audits.confound_audit import audit_dataset_and_model_confounds
 from proactive.probes.image_transforms import (
     CANONICAL_SEVERITIES,
     PILOT_SEVERITIES,
-    export_sample_transformed_images,
 )
-from proactive.utils.io import ensure_dir
 
 logger = logging.getLogger(__name__)
 
@@ -112,7 +109,10 @@ def compute_severity_grid_statistics(
             mrg_shift = p_obs.get("margin_shift", 0.0)
             lat_ms = p_obs.get("latency_ms")
 
-            is_saturated = bool(flip_val == 1.0 or abs(conf_shift) > 0.90)
+            # Saturation is an extreme confidence displacement, not a single
+            # answer flip.  Treating every flip as saturation made the target
+            # 15--40% sensitivity range mathematically self-defeating.
+            is_saturated = bool(abs(conf_shift) > 0.90)
 
             for target_dict in [grouped[(dataset, model_id, p_name, sev)], agg_probe_sev[(p_name, sev)]]:
                 target_dict["total_count"] += 1
@@ -180,23 +180,26 @@ def select_canonical_severities(
         if not candidates:
             continue
 
-        # Score candidate severities: minimize distance to target flip rate (0.25) + penalty for saturation/invalid
+        # Invalid and saturation constraints are hard gates.  A soft penalty
+        # could otherwise select a scientifically disallowed severity.
+        eligible = [
+            c for c in candidates
+            if c["invalid_rate"] <= 0.05 and c["saturation_rate"] <= 0.15
+        ]
+        target_candidates = [c for c in eligible if 0.15 <= c["flip_rate"] <= 0.40]
+        ranked = target_candidates or eligible
         best_candidate = None
         best_score = float("inf")
-
-        for c in candidates:
-            flip = c["flip_rate"]
-            sat = c["saturation_rate"]
-            inv = c["invalid_rate"]
-            # Target flip is 0.25
-            target_diff = abs(flip - 0.25)
-            sat_penalty = max(0.0, sat - 0.15) * 5.0
-            inv_penalty = inv * 10.0
-            total_penalty = target_diff + sat_penalty + inv_penalty
-
-            if total_penalty < best_score:
-                best_score = total_penalty
-                best_candidate = c["severity"]
+        if ranked:
+            best = min(ranked, key=lambda c: (abs(c["flip_rate"] - 0.25), c["severity"]))
+            best_candidate = best["severity"]
+            best_score = abs(best["flip_rate"] - 0.25)
+        else:
+            logger.warning(
+                "No eligible severity for '%s'; retaining pre-registered fallback %s",
+                probe,
+                fallback.get(probe),
+            )
 
         if best_candidate is not None:
             selected[probe] = best_candidate
@@ -233,14 +236,17 @@ def generate_candidate_week3_config(
     confound_audit: Dict[str, Any],
     output_config_path: Path,
     selected_severities: Optional[Dict[str, float]] = None,
+    semantic_threshold: float = 0.82,
+    frozen: bool = False,
+    semantic_calibration: Optional[Dict[str, Any]] = None,
 ) -> Path:
     """Generate candidate Week 3 configuration file."""
     severities = selected_severities or CANONICAL_SEVERITIES
 
     config = {
         "metadata": {
-            "version": "v3.5_week3_candidate",
-            "status": "CANDIDATE_FOR_AUDIT",
+            "version": "v3.5_week3_frozen" if frozen else "v3.5_week3_candidate",
+            "status": "FROZEN" if frozen else "CANDIDATE_FOR_AUDIT",
             "description": "Canonical probe severities, label thresholds, and semantic matching parameters.",
         },
         "probe_severities": severities,
@@ -258,15 +264,29 @@ def generate_candidate_week3_config(
             "freeform_matching": "embedding_similarity",
             "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
             "embedding_revision": "e4ce9877abf3edee10b0257f22713854020a4004",
-            "threshold": 0.82,
+            "threshold": semantic_threshold,
             "calibration_split": "train_val",
+            "calibration_report": semantic_calibration,
         },
         "summary_statistics": probe_stats,
     }
 
     output_config_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_config_path, "w", encoding="utf-8") as f:
-        yaml.dump(config, f, sort_keys=False)
+    fd, tmp_path = tempfile.mkstemp(
+        dir=output_config_path.parent,
+        suffix=".tmp",
+        prefix=output_config_path.stem + "_",
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            yaml.safe_dump(config, f, sort_keys=False)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_path, output_config_path)
+    except BaseException:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
 
     logger.info(f"Wrote candidate configuration to {output_config_path}")
     return output_config_path
@@ -274,33 +294,58 @@ def generate_candidate_week3_config(
 
 def compute_full_run_estimates(
     records: List[Dict[str, Any]],
-    total_manifest_examples: int = 14000,
-    total_models: int = 8,
+    total_manifest_examples: int = 8291,
+    total_models: int = 3,
     gpus: int = 4,
+    total_forward_passes: Optional[int] = None,
 ) -> Dict[str, Any]:
-    """Compute projected full-run wall time from pilot latencies."""
-    latencies = []
+    """Project the core full run from measured per-forward-pass latency."""
+    if gpus <= 0:
+        raise ValueError("gpus must be positive")
+    latencies_ms: List[float] = []
+    passes_per_instance: List[int] = []
     for r in records:
-        clean_lat = r.get("clean", {}).get("latency_ms", 0.0) or 0.0
-        probe_lats = sum(
-            p.get("latency_ms", 0.0) or 0.0 for p in r.get("probes", {}).values()
-        )
-        total_inst_lat = clean_lat + probe_lats
-        if total_inst_lat > 0:
-            latencies.append(total_inst_lat)
+        instance_passes = 0
+        clean_latency = r.get("clean", {}).get("latency_ms")
+        if is_finite_number(clean_latency) and clean_latency > 0:
+            latencies_ms.append(float(clean_latency))
+            instance_passes += 1
+        for observation in r.get("probes", {}).values():
+            latency = observation.get("latency_ms")
+            if is_finite_number(latency) and latency > 0 and observation.get("applicable", True):
+                latencies_ms.append(float(latency))
+                instance_passes += 1
+        if instance_passes:
+            passes_per_instance.append(instance_passes)
 
-    mean_sec_per_inst = (sum(latencies) / len(latencies) / 1000.0) if latencies else 5.0
+    if not latencies_ms or not passes_per_instance:
+        raise ValueError("No positive finite pilot latencies available for projection")
 
-    total_instances = total_manifest_examples * total_models
-    total_sec = (total_instances * mean_sec_per_inst) / gpus
-    total_hours = total_sec / 3600.0
-    total_days = total_hours / 24.0
+    mean_sec_per_pass = sum(latencies_ms) / len(latencies_ms) / 1000.0
+    mean_passes_per_instance = sum(passes_per_instance) / len(passes_per_instance)
+    if total_forward_passes is None:
+        if total_manifest_examples == 8291 and total_models == 3:
+            total_forward_passes = 178131
+        else:
+            total_forward_passes = math.ceil(
+                total_manifest_examples * total_models * mean_passes_per_instance
+            )
+
+    projected_gpu_hours = total_forward_passes * mean_sec_per_pass / 3600.0
+    total_hours = projected_gpu_hours / gpus
 
     return {
-        "measured_mean_seconds_per_instance": mean_sec_per_inst,
+        "measured_mean_seconds_per_forward_pass": mean_sec_per_pass,
+        "measured_mean_passes_per_instance": mean_passes_per_instance,
         "total_manifest_examples": total_manifest_examples,
         "total_models": total_models,
+        "total_forward_passes": total_forward_passes,
         "gpu_count": gpus,
+        "projected_gpu_hours": projected_gpu_hours,
         "projected_total_hours": total_hours,
-        "projected_total_days": total_days,
+        "projected_total_days": total_hours / 24.0,
     }
+
+
+def is_finite_number(value: Any) -> bool:
+    return isinstance(value, (int, float)) and math.isfinite(value)

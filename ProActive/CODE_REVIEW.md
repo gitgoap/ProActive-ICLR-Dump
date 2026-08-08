@@ -3,7 +3,7 @@ Act as an adversarial ML research-code reviewer.
 Do not modify code initially. Compare the implementation line by line against:
 
 1. v3.5_ProActive_Complete_Super_Implementation_Plan.md
-2. AGENT_EXECUTION_AND_AUDIT.md
+2. AGENTS.md
 3. docs/WEEK_3_REQUIREMENTS_MATRIX.md
 
 Search specifically for:

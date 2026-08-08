@@ -20,11 +20,10 @@ import argparse
 import json
 import logging
 import math
-import os
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Set, Tuple
 
 # Ensure src is on the path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
@@ -32,17 +31,121 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 import yaml
 
 from proactive.data.manifests import load_manifest
-from proactive.features.semantic import SemanticMatcher, SemanticMatcherError
+from proactive.features.semantic import SemanticMatcher
 from proactive.models.base_adapter import MLLMAdapter
-from proactive.probes.image_transforms import CANONICAL_SEVERITIES, PILOT_SEVERITIES
-from proactive.teacher.cache_builder import process_instance
-from proactive.utils.io import append_jsonl, get_completed_ids, ensure_dir
+from proactive.probes.image_transforms import PILOT_SEVERITIES
+from proactive.teacher.cache_builder import process_instance, process_severity_grid_instance
+from proactive.utils.io import append_jsonl, ensure_dir, iter_jsonl, write_jsonl
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
 )
 logger = logging.getLogger("pilot_cache")
+
+
+def stratified_sample(
+    records: List[Dict[str, Any]], limit: int, seed: int
+) -> List[Dict[str, Any]]:
+    """Return exactly ``min(limit, len(records))`` deterministic balanced rows."""
+    if limit <= 0:
+        raise ValueError("--limit must be a positive integer")
+
+    instance_ids = [r.get("instance_id") for r in records]
+    if any(not instance_id for instance_id in instance_ids):
+        raise ValueError("Every manifest row must have a non-empty instance_id")
+    if len(instance_ids) != len(set(instance_ids)):
+        raise ValueError("Manifest contains duplicate instance_id values")
+
+    import random
+    rng = random.Random(seed)
+    groups: Dict[Tuple[str, str], List[Dict[str, Any]]] = {}
+    for record in records:
+        key = (
+            record.get("split", "train"),
+            record.get("category", record.get("pope_split", "default")),
+        )
+        groups.setdefault(key, []).append(record)
+
+    ordered_groups = []
+    for key in sorted(groups):
+        group = list(groups[key])
+        rng.shuffle(group)
+        ordered_groups.append(group)
+
+    target = min(limit, len(records))
+    per_group = max(1, limit // len(ordered_groups))
+    sampled: List[Dict[str, Any]] = []
+    positions: List[int] = []
+    for group in ordered_groups:
+        taken = min(per_group, len(group))
+        sampled.extend(group[:taken])
+        positions.append(taken)
+
+    # Preserve the legacy pilot subset whenever it already filled the target;
+    # otherwise extend that exact subset deterministically.  This lets valid
+    # 97/79-row caches resume to 100 rather than forcing expensive regeneration.
+    if len(sampled) >= target:
+        rng.shuffle(sampled)
+        return sampled[:target]
+
+    while len(sampled) < target:
+        made_progress = False
+        for group_index, group in enumerate(ordered_groups):
+            cursor = positions[group_index]
+            if cursor < len(group):
+                sampled.append(group[cursor])
+                positions[group_index] += 1
+                made_progress = True
+                if len(sampled) == target:
+                    break
+        if not made_progress:
+            break
+
+    rng.shuffle(sampled)
+    if len(sampled) != target:
+        raise RuntimeError(f"Sampling under-filled: selected {len(sampled)} of {target}")
+    return sampled
+
+
+def pilot_record_key(record: Dict[str, Any], mode: str) -> Tuple[Any, ...]:
+    """Build the unique resume key for a canonical or severity-pilot row."""
+    instance_id = record.get("instance_id")
+    if not instance_id:
+        raise ValueError("Pilot record is missing instance_id")
+    if mode == "canonical":
+        return (instance_id,)
+    probe = record.get("pilot_severity_probe")
+    severity = record.get("pilot_severity_value")
+    if not probe or not isinstance(severity, (int, float)) or not math.isfinite(severity):
+        raise ValueError(
+            f"Severity record {instance_id} is missing a finite probe/severity key"
+        )
+    return (instance_id, probe, float(severity))
+
+
+def read_existing_pilot_keys(
+    output_file: Path,
+    mode: str,
+    model_id: str,
+    dataset_name: str,
+) -> Set[Tuple[Any, ...]]:
+    """Validate an existing cache and return unique keys; duplicates fail closed."""
+    keys: Set[Tuple[Any, ...]] = set()
+    for row_number, record in enumerate(iter_jsonl(output_file), start=1):
+        if record.get("model_id") != model_id or record.get("dataset") != dataset_name:
+            raise ValueError(
+                f"Existing row {row_number} belongs to model={record.get('model_id')} "
+                f"dataset={record.get('dataset')}, expected {model_id}/{dataset_name}"
+            )
+        key = pilot_record_key(record, mode)
+        if key in keys:
+            raise ValueError(
+                f"Duplicate pilot key in {output_file} at row {row_number}: {key}. "
+                "Regenerate with --overwrite."
+            )
+        keys.add(key)
+    return keys
 
 
 def load_adapter(model_config: dict, device: str) -> MLLMAdapter:
@@ -110,9 +213,14 @@ def main():
         "--num_shards", type=int, default=1,
         help="Total number of shards.",
     )
-    parser.add_argument(
+    resume_group = parser.add_mutually_exclusive_group()
+    resume_group.add_argument(
         "--resume", action="store_true",
-        help="Skip already-completed instance IDs.",
+        help="Resume using canonical or composite severity keys; duplicates fail closed.",
+    )
+    resume_group.add_argument(
+        "--overwrite", action="store_true",
+        help="Atomically replace an existing output before generation.",
     )
     parser.add_argument(
         "--dry_run", action="store_true",
@@ -144,23 +252,11 @@ def main():
         logger.error("FATAL: No train or val records found in manifest! Pilot cannot proceed.")
         sys.exit(1)
 
-    # Deterministic stratified sampling
-    import random
-    rng = random.Random(args.seed)
-    groups: Dict[Any, List[Dict[str, Any]]] = {}
-    for r in allowed_records:
-        key = (r.get("split", "train"), r.get("category", r.get("pope_split", "default")))
-        groups.setdefault(key, []).append(r)
-
-    sampled = []
-    per_group_limit = max(1, args.limit // len(groups))
-    for key, group_recs in sorted(groups.items()):
-        group_copy = list(group_recs)
-        rng.shuffle(group_copy)
-        sampled.extend(group_copy[:per_group_limit])
-
-    rng.shuffle(sampled)
-    records = sampled[:args.limit]
+    try:
+        records = stratified_sample(allowed_records, args.limit, args.seed)
+    except (ValueError, RuntimeError) as exc:
+        logger.error(f"FATAL: {exc}")
+        sys.exit(1)
     logger.info(f"Selected {len(records)} train/val records for pilot (seed={args.seed})")
 
     if args.num_shards > 1:
@@ -176,26 +272,48 @@ def main():
     model_name = model_config["model_name"]
     dataset_name = records[0]["dataset"] if records else "dataset"
 
-    # Initialize semantic matcher if freeform dataset (VizWiz, GQA)
-    semantic_matcher = None
-    if dataset_name.lower() in ("vizwiz", "gqa"):
-        logger.info("Initializing pinned SemanticMatcher for freeform dataset...")
-        semantic_matcher = SemanticMatcher(device=args.device if "cuda" in args.device else "cpu")
-        if not semantic_matcher.is_available:
-            logger.error(
-                f"FATAL: SemanticMatcher failed to load for free-form dataset '{dataset_name}': {semantic_matcher.load_error}"
-            )
-            sys.exit(1)
-
     output_dir = ensure_dir(args.output_dir)
     mode_suffix = "_severity_pilot" if args.pilot_mode == "severity_grid" else ""
     shard_suffix = f"_shard{args.shard_id}" if args.num_shards > 1 else ""
     output_file = output_dir / f"{model_name}_{dataset_name}{mode_suffix}{shard_suffix}.jsonl"
 
+    existing_keys: Set[Tuple[Any, ...]] = set()
+    if output_file.exists() and not (args.resume or args.overwrite):
+        logger.error(
+            f"FATAL: Output already exists: {output_file}. "
+            "Use --resume after validation or --overwrite to regenerate it."
+        )
+        sys.exit(1)
     if args.resume and output_file.exists():
-        completed_ids = get_completed_ids(output_file)
-        logger.info(f"Resuming: {len(completed_ids)} already completed")
-        records = [r for r in records if r["instance_id"] not in completed_ids]
+        try:
+            existing_keys = read_existing_pilot_keys(
+                output_file, args.pilot_mode, model_id, dataset_name
+            )
+        except (ValueError, json.JSONDecodeError) as exc:
+            logger.error(f"FATAL: Cannot safely resume: {exc}")
+            sys.exit(1)
+
+        selected_ids = {r["instance_id"] for r in records}
+        unexpected_ids = {key[0] for key in existing_keys} - selected_ids
+        if unexpected_ids:
+            logger.error(
+                "FATAL: Existing cache contains IDs outside the current seed/limit/shard "
+                f"selection ({len(unexpected_ids)} IDs). Use matching arguments or --overwrite."
+            )
+            sys.exit(1)
+        logger.info(f"Resuming: {len(existing_keys)} unique output records already completed")
+
+        if args.pilot_mode == "canonical":
+            records = [r for r in records if (r["instance_id"],) not in existing_keys]
+        else:
+            def has_incomplete_grid(record: Dict[str, Any]) -> bool:
+                return any(
+                    (record["instance_id"], probe, float(severity)) not in existing_keys
+                    for probe, values in PILOT_SEVERITIES.items()
+                    for severity in values
+                )
+
+            records = [r for r in records if has_incomplete_grid(r)]
 
     if not records:
         logger.info("No records to process. Done.")
@@ -208,13 +326,36 @@ def main():
         logger.info(f"Examples: {len(records)}")
         logger.info(f"Output: {output_file}")
         logger.info(f"Splits present: {set(r.get('split') for r in records)}")
+        if args.pilot_mode == "severity_grid":
+            remaining_rows = sum(
+                (r["instance_id"], probe, float(severity)) not in existing_keys
+                for r in records
+                for probe, values in PILOT_SEVERITIES.items()
+                for severity in values
+            )
+            logger.info(f"Remaining severity rows: {remaining_rows}")
         return
+
+    # Initialize semantic matcher only after all CPU-only preflight checks pass.
+    semantic_matcher = None
+    if dataset_name.lower() in ("vizwiz", "gqa"):
+        logger.info("Initializing pinned SemanticMatcher for freeform dataset...")
+        semantic_matcher = SemanticMatcher(device=args.device if "cuda" in args.device else "cpu")
+        if not semantic_matcher.is_available:
+            logger.error(
+                f"FATAL: SemanticMatcher failed to load for free-form dataset '{dataset_name}': {semantic_matcher.load_error}"
+            )
+            sys.exit(1)
 
     logger.info(f"Loading model '{model_id}' on {args.device}...")
     adapter = load_adapter(model_config, args.device)
     adapter.load_model()
     model_revision = adapter.get_model_revision()
     logger.info(f"Model loaded. Revision: {model_revision}")
+
+    if args.overwrite:
+        write_jsonl([], output_file, overwrite=output_file.exists())
+        existing_keys.clear()
 
     start_time = time.time()
     success_count = 0
@@ -226,22 +367,21 @@ def main():
 
         try:
             if args.pilot_mode == "severity_grid":
-                for probe_name, sevs in PILOT_SEVERITIES.items():
-                    for sev in sevs:
-                        sev_dict = {probe_name: sev}
-                        res = process_instance(
-                            record=record,
-                            adapter=adapter,
-                            dataset_name=dataset_name,
-                            model_id=model_id,
-                            model_revision=model_revision,
-                            severities=sev_dict,
-                            global_seed=args.seed,
-                            semantic_matcher=semantic_matcher,
-                        )
-                        res["pilot_severity_probe"] = probe_name
-                        res["pilot_severity_value"] = sev
-                        append_jsonl(res, output_file)
+                severity_rows = process_severity_grid_instance(
+                    record=record,
+                    adapter=adapter,
+                    dataset_name=dataset_name,
+                    model_id=model_id,
+                    model_revision=model_revision,
+                    global_seed=args.seed,
+                    semantic_matcher=semantic_matcher,
+                )
+                for res in severity_rows:
+                    key = pilot_record_key(res, args.pilot_mode)
+                    if key in existing_keys:
+                        continue
+                    append_jsonl(res, output_file)
+                    existing_keys.add(key)
             else:
                 res = process_instance(
                     record=record,
@@ -252,7 +392,11 @@ def main():
                     global_seed=args.seed,
                     semantic_matcher=semantic_matcher,
                 )
+                key = pilot_record_key(res, args.pilot_mode)
+                if key in existing_keys:
+                    raise RuntimeError(f"Refusing to append duplicate key: {key}")
                 append_jsonl(res, output_file)
+                existing_keys.add(key)
 
             success_count += 1
         except Exception as e:

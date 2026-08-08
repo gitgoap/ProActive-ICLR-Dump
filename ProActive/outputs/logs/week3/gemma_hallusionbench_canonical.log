@@ -1,0 +1,5 @@
+2026-08-08 00:04:39,963 INFO [pilot_cache] Loaded 951 records from manifest outputs/manifests/manifest_hallusionbench.jsonl
+2026-08-08 00:04:39,963 WARNING [pilot_cache] Manifest contains 183 cal/test records. Filtering strictly to train and val.
+2026-08-08 00:04:39,964 INFO [pilot_cache] Selected 100 train/val records for pilot (seed=42)
+2026-08-08 00:04:39,971 INFO [pilot_cache] Resuming: 100 unique output records already completed
+2026-08-08 00:04:39,971 INFO [pilot_cache] No records to process. Done.

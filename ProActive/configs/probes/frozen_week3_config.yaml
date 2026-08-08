@@ -1,0 +1,119 @@
+metadata:
+  version: v3.5_week3_frozen
+  status: FROZEN
+  description: Canonical probe severities, label thresholds, and semantic matching
+    parameters.
+probe_severities:
+  blur: 8.0
+  crop: 0.65
+  brightness: 0.15
+  noise: 25.0
+pilot_severity_grid:
+  blur:
+  - 8.0
+  - 15.0
+  - 22.0
+  crop:
+  - 0.35
+  - 0.5
+  - 0.65
+  brightness:
+  - 0.15
+  - 0.3
+  - 0.5
+  noise:
+  - 10.0
+  - 25.0
+  - 50.0
+label_thresholds:
+  visual_flip_threshold: 0.25
+  visual_conf_threshold: 0.15
+  blank_semantic_match_required: true
+  blank_conf_ratio_threshold: 0.8
+  grounding_flip_triggers: true
+  grounding_conf_threshold: 0.15
+semantic_matching:
+  binary_matching: exact_normalized
+  freeform_matching: embedding_similarity
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  embedding_revision: e4ce9877abf3edee10b0257f22713854020a4004
+  threshold: 0.5
+  calibration_split: train_val
+  calibration_report:
+    is_valid: true
+    source_csv: outputs/pilot_reports/semantic_match_audit.csv
+    source_sha256: cbb82145d7f27ebd6b7708960ac4bd1737800d8b7ca6415cfacb74fd190dd00a
+    labeled_count: 50
+    positive_count: 17
+    negative_count: 33
+    target_recall: 0.9
+    recommended_threshold: 0.5
+    metrics:
+      precision: 0.5925925925925926
+      recall: 0.9411764705882353
+      f1: 0.7272727272727272
+    calibration_split: train_val
+summary_statistics:
+  blank:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.5775
+    mean_conf_shift: -0.002307978519142706
+    mean_abs_conf_shift: 0.002307978519142706
+    mean_entropy_shift: 0.007026985801166039
+    mean_latency_ms: 546.7238181829453
+  blur:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.485
+    mean_conf_shift: -0.013981338625718709
+    mean_abs_conf_shift: 0.013981338625718709
+    mean_entropy_shift: 0.029791329640459652
+    mean_latency_ms: 527.6038593053818
+  brightness:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.165
+    mean_conf_shift: -0.002296858891682767
+    mean_abs_conf_shift: 0.002296858891682767
+    mean_entropy_shift: 0.004690851807024627
+    mean_latency_ms: 553.9184033870697
+  crop:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.3325
+    mean_conf_shift: -0.007667993151613131
+    mean_abs_conf_shift: 0.007667993151613131
+    mean_entropy_shift: 0.018671702816290013
+    mean_latency_ms: 569.018402993679
+  grounding:
+    total_count: 800
+    valid_count: 789
+    invalid_rate: 0.01375
+    flip_rate: 0.27249683143219267
+    mean_conf_shift: 0.040566121212236184
+    mean_abs_conf_shift: 0.040566121212236184
+    mean_entropy_shift: -0.10023222859517349
+    mean_latency_ms: 4856.830757984795
+  noise:
+    total_count: 800
+    valid_count: 800
+    invalid_rate: 0.0
+    flip_rate: 0.21375
+    mean_conf_shift: -8.241835732037683e-05
+    mean_abs_conf_shift: 8.241835732037683e-05
+    mean_entropy_shift: 0.0010335953916526368
+    mean_latency_ms: 546.440144777298
+  relation:
+    total_count: 60
+    valid_count: 60
+    invalid_rate: 0.0
+    flip_rate: 0.6166666666666667
+    mean_conf_shift: 0.010022928879446074
+    mean_abs_conf_shift: 0.010022928879446074
+    mean_entropy_shift: -0.012163478661549551
+    mean_latency_ms: 216.95923010508218

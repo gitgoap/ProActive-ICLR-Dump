@@ -24,15 +24,16 @@ import logging
 import math
 import os
 import sys
+import tempfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-import yaml
 from PIL import Image
 
 from proactive.audits.confound_audit import audit_dataset_and_model_confounds
+from proactive.audits.schema_validator import validate_path
 from proactive.audits.pilot_analysis import (
     compute_probe_statistics,
     compute_severity_grid_statistics,
@@ -40,12 +41,8 @@ from proactive.audits.pilot_analysis import (
     generate_candidate_week3_config,
     compute_full_run_estimates,
 )
-from proactive.data.manifests import load_manifest
 from proactive.probes.image_transforms import (
     CANONICAL_SEVERITIES,
-    PILOT_SEVERITIES,
-    apply_image_transform,
-    derive_transform_seed,
     export_sample_transformed_images,
 )
 from proactive.utils.io import ensure_dir
@@ -92,7 +89,7 @@ def generate_all_pilot_plots(
         # -------------------------------------------------------------
         flip_rates = [by_probe_sev[k]["flip_rate"] for k in probe_keys]
         plt.figure(figsize=(10, 5))
-        bars = plt.bar(range(len(probe_keys)), flip_rates, color="steelblue", edgecolor="black", alpha=0.85)
+        plt.bar(range(len(probe_keys)), flip_rates, color="steelblue", edgecolor="black", alpha=0.85)
         plt.xticks(range(len(probe_keys)), probe_keys, rotation=45, ha="right", fontsize=9)
         plt.ylabel("Answer Flip Rate", fontsize=11)
         plt.ylim(0, 1.0)
@@ -232,48 +229,141 @@ def main():
     parser.add_argument("--pilot_dir", type=str, default="outputs/pilot_cache", help="Pilot cache directory.")
     parser.add_argument("--output_dir", type=str, default="outputs/pilot_reports", help="Reports output directory.")
     parser.add_argument("--freeze", action="store_true", help="Freeze candidate config to frozen_week3_config.yaml.")
+    parser.add_argument(
+        "--confirm_freeze", action="store_true",
+        help="Explicitly confirm that the pilot evidence and thresholds were human-reviewed.",
+    )
+    parser.add_argument(
+        "--approved_severity", action="append", default=[], metavar="PROBE=VALUE",
+        help="Human-approved severity; required once for each visual probe with --freeze.",
+    )
+    parser.add_argument(
+        "--semantic_threshold", type=float, default=None,
+        help="Optional cross-check against the calibrated threshold when freezing.",
+    )
+    parser.add_argument(
+        "--semantic_report", type=str,
+        default="outputs/pilot_reports/semantic_calibration_report.json",
+        help="Human-labelled semantic calibration report required with --freeze.",
+    )
+    parser.add_argument("--inspection_count", type=int, default=50)
     args = parser.parse_args()
+
+    approved_severities: Dict[str, float] = {}
+    semantic_calibration: Dict[str, Any] = {}
+    if args.freeze:
+        if not args.confirm_freeze:
+            parser.error("--freeze requires --confirm_freeze after human review")
+        semantic_report_path = Path(args.semantic_report)
+        try:
+            with open(semantic_report_path, "r", encoding="utf-8") as handle:
+                semantic_calibration = json.load(handle)
+        except (OSError, json.JSONDecodeError) as exc:
+            parser.error(f"Cannot read semantic calibration report: {exc}")
+        if not semantic_calibration.get("is_valid") or semantic_calibration.get("labeled_count", 0) < 50:
+            parser.error("Semantic calibration report must be valid with at least 50 labels")
+        calibrated_threshold = semantic_calibration.get("recommended_threshold")
+        if not isinstance(calibrated_threshold, (int, float)) or not 0.0 <= calibrated_threshold <= 1.0:
+            parser.error("Semantic calibration report has an invalid recommended_threshold")
+        if args.semantic_threshold is not None and not math.isclose(
+            args.semantic_threshold, calibrated_threshold, rel_tol=0.0, abs_tol=1e-12
+        ):
+            parser.error("--semantic_threshold does not match the calibration report")
+        args.semantic_threshold = float(calibrated_threshold)
+        for item in args.approved_severity:
+            try:
+                probe, value = item.split("=", 1)
+                approved_severities[probe.strip()] = float(value)
+            except (ValueError, TypeError):
+                parser.error(f"Invalid --approved_severity '{item}'; expected PROBE=VALUE")
+        expected_probes = set(CANONICAL_SEVERITIES)
+        if set(approved_severities) != expected_probes:
+            parser.error(
+                "--freeze requires exactly one approved severity for: "
+                + ", ".join(sorted(expected_probes))
+            )
 
     pilot_dir = Path(args.pilot_dir)
     jsonl_files = list(pilot_dir.glob("*.jsonl"))
     if not jsonl_files:
-        logger.warning(f"No JSONL files found in {pilot_dir}")
-        return
+        logger.error(f"No JSONL files found in {pilot_dir}")
+        sys.exit(1)
+
+    schema_report = validate_path(pilot_dir)
+    if not schema_report["is_valid"]:
+        logger.error(
+            "Pilot analysis refused: schema/duplicate validation failed (%s invalid, %s duplicates).",
+            schema_report["invalid_rows"],
+            schema_report["duplicate_rows"],
+        )
+        for error in schema_report["errors"][:10]:
+            logger.error("  %s", error)
+        sys.exit(1)
 
     all_records = []
     for f in jsonl_files:
         all_records.extend(load_jsonl(f))
 
     logger.info(f"Loaded {len(all_records)} pilot records across {len(jsonl_files)} files.")
+    canonical_records = [r for r in all_records if "pilot_severity_probe" not in r]
+    severity_records = [r for r in all_records if "pilot_severity_probe" in r]
+    if not canonical_records:
+        logger.error("No canonical pilot records found; analysis cannot continue.")
+        sys.exit(1)
+    if not severity_records:
+        logger.error("No severity-grid pilot records found; analysis cannot continue.")
+        sys.exit(1)
 
     out_dir = Path(args.output_dir)
     plots_dir = out_dir / "plots"
     insp_dir = out_dir / "inspection"
 
     # Compute comprehensive stats
-    grid_stats = compute_severity_grid_statistics(all_records)
+    grid_stats = compute_severity_grid_statistics(severity_records)
     selected_severities = select_canonical_severities(grid_stats)
-    probe_stats = compute_probe_statistics(all_records)
-    audit = audit_dataset_and_model_confounds(all_records)
-    plots = generate_all_pilot_plots(all_records, plots_dir)
-    exported = export_pilot_inspection_images(all_records, insp_dir)
-    estimates = compute_full_run_estimates(all_records)
+    probe_stats = compute_probe_statistics(canonical_records)
+    audit = audit_dataset_and_model_confounds(canonical_records)
+    plots = generate_all_pilot_plots(canonical_records, plots_dir)
+    exported = export_pilot_inspection_images(
+        canonical_records, insp_dir, count_per_probe=args.inspection_count
+    )
+    estimates = compute_full_run_estimates(canonical_records)
 
     # Save summary report
     report = {
         "total_records": len(all_records),
+        "canonical_records": len(canonical_records),
+        "severity_records": len(severity_records),
+        "schema_validation": {
+            "is_valid": schema_report["is_valid"],
+            "duplicate_rows": schema_report["duplicate_rows"],
+            "datasets": schema_report["datasets"],
+            "models": schema_report["models"],
+        },
         "selected_canonical_severities": selected_severities,
         "probe_statistics": probe_stats,
         "severity_grid_statistics": grid_stats,
         "confound_audit": audit,
         "plots_generated": [str(p) for p in plots],
+        "inspection_images_exported": {
+            probe: len(paths) for probe, paths in exported.items()
+        },
         "full_run_estimates": estimates,
     }
 
     out_dir.mkdir(parents=True, exist_ok=True)
     summary_path = out_dir / "pilot_analysis_summary.json"
-    with open(summary_path, "w", encoding="utf-8") as f:
-        json.dump(report, f, indent=2)
+    fd, tmp_path = tempfile.mkstemp(dir=out_dir, suffix=".tmp", prefix="pilot_summary_")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_path, summary_path)
+    except BaseException:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
     logger.info(f"Saved pilot analysis summary to {summary_path}")
 
     # Emit candidate configuration
@@ -282,7 +372,15 @@ def main():
 
     if args.freeze:
         frozen_path = Path("configs/probes/frozen_week3_config.yaml")
-        generate_candidate_week3_config(probe_stats, audit, frozen_path, selected_severities=selected_severities)
+        generate_candidate_week3_config(
+            probe_stats,
+            audit,
+            frozen_path,
+            selected_severities=approved_severities,
+            semantic_threshold=args.semantic_threshold,
+            frozen=True,
+            semantic_calibration=semantic_calibration,
+        )
         logger.info(f"FROZEN Week 3 configuration saved to {frozen_path}")
 
 

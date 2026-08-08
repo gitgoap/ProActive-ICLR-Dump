@@ -1,0 +1,42 @@
+2026-08-07 20:21:13,416 INFO [pilot_cache] Loaded 340 records from manifest outputs/manifests/manifest_vsr.jsonl
+2026-08-07 20:21:13,416 WARNING [pilot_cache] Manifest contains 67 cal/test records. Filtering strictly to train and val.
+2026-08-07 20:21:13,416 INFO [pilot_cache] Selected 100 train/val records for pilot (seed=42)
+2026-08-07 20:21:13,420 INFO [pilot_cache] Resuming: 79 unique output records already completed
+2026-08-07 20:21:13,420 INFO [pilot_cache] Loading model 'Qwen/Qwen3-VL-8B-Instruct' on cuda:0...
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   0%|          | 1/750 [00:00<01:35,  7.84it/s]Loading weights:   0%|          | 2/750 [00:00<02:00,  6.22it/s]Loading weights:   0%|          | 3/750 [00:00<02:19,  5.37it/s]Loading weights:   2%|▏         | 17/750 [00:00<00:18, 38.85it/s]Loading weights:   5%|▍         | 37/750 [00:00<00:08, 79.58it/s]Loading weights:   7%|▋         | 50/750 [00:00<00:07, 90.81it/s]Loading weights:   9%|▉         | 69/750 [00:00<00:05, 117.85it/s]Loading weights:  11%|█         | 83/750 [00:01<00:05, 112.63it/s]Loading weights:  14%|█▎        | 102/750 [00:01<00:04, 133.01it/s]Loading weights:  16%|█▌        | 117/750 [00:01<00:04, 130.82it/s]Loading weights:  18%|█▊        | 136/750 [00:01<00:04, 146.56it/s]Loading weights:  20%|██        | 152/750 [00:01<00:04, 140.94it/s]Loading weights:  23%|██▎       | 169/750 [00:01<00:04, 140.96it/s]Loading weights:  25%|██▍       | 184/750 [00:01<00:04, 137.31it/s]Loading weights:  26%|██▋       | 198/750 [00:01<00:04, 137.91it/s]Loading weights:  29%|██▊       | 214/750 [00:02<00:03, 135.61it/s]Loading weights:  31%|███       | 229/750 [00:02<00:03, 139.17it/s]Loading weights:  33%|███▎      | 246/750 [00:02<00:03, 141.06it/s]Loading weights:  35%|███▍      | 261/750 [00:02<00:03, 136.38it/s]Loading weights:  37%|███▋      | 279/750 [00:02<00:03, 144.15it/s]Loading weights:  39%|███▉      | 294/750 [00:02<00:03, 134.08it/s]Loading weights:  42%|████▏     | 312/750 [00:02<00:03, 141.02it/s]Loading weights:  44%|████▎     | 327/750 [00:02<00:03, 133.11it/s]Loading weights:  46%|████▌     | 345/750 [00:02<00:02, 139.49it/s]Loading weights:  48%|████▊     | 360/750 [00:03<00:02, 131.45it/s]Loading weights:  50%|█████     | 378/750 [00:03<00:02, 142.84it/s]Loading weights:  52%|█████▏    | 393/750 [00:03<00:02, 134.12it/s]Loading weights:  71%|███████   | 532/750 [00:03<00:00, 462.93it/s]Loading weights:  94%|█████████▍| 707/750 [00:03<00:00, 808.72it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 210.05it/s]
+2026-08-07 20:21:22,099 INFO [pilot_cache] Model loaded. Revision: main
+2026-08-07 20:21:22,099 INFO [pilot_cache] [1/21] Processing vsr_215_215...
+2026-08-07 20:21:22,318 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 39064.41it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-07 20:21:22,434 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-07 20:21:27,638 INFO [pilot_cache] [2/21] Processing vsr_141_141...
+2026-08-07 20:21:32,120 INFO [pilot_cache] [3/21] Processing vsr_324_324...
+2026-08-07 20:21:35,686 INFO [pilot_cache] [4/21] Processing vsr_3_3...
+2026-08-07 20:21:39,809 INFO [pilot_cache] [5/21] Processing vsr_211_211...
+2026-08-07 20:21:43,650 INFO [pilot_cache] [6/21] Processing vsr_142_142...
+2026-08-07 20:21:47,016 INFO [pilot_cache] [7/21] Processing vsr_279_279...
+2026-08-07 20:21:50,731 INFO [pilot_cache] [8/21] Processing vsr_225_225...
+2026-08-07 20:21:54,380 INFO [pilot_cache] [9/21] Processing vsr_176_176...
+2026-08-07 20:21:57,154 INFO [pilot_cache] [10/21] Processing vsr_208_208...
+2026-08-07 20:22:01,353 INFO [pilot_cache] [11/21] Processing vsr_105_105...
+2026-08-07 20:22:06,651 INFO [pilot_cache] [12/21] Processing vsr_78_78...
+2026-08-07 20:22:09,859 INFO [pilot_cache] [13/21] Processing vsr_209_209...
+2026-08-07 20:22:13,616 INFO [pilot_cache] [14/21] Processing vsr_188_188...
+2026-08-07 20:22:16,682 INFO [pilot_cache] [15/21] Processing vsr_2_2...
+2026-08-07 20:22:20,073 INFO [pilot_cache] [16/21] Processing vsr_290_290...
+2026-08-07 20:22:29,536 INFO [pilot_cache] [17/21] Processing vsr_24_24...
+2026-08-07 20:22:34,560 INFO [pilot_cache] [18/21] Processing vsr_174_174...
+2026-08-07 20:22:41,050 INFO [pilot_cache] [19/21] Processing vsr_120_120...
+2026-08-07 20:22:47,115 INFO [pilot_cache] [20/21] Processing vsr_6_6...
+2026-08-07 20:22:52,721 INFO [pilot_cache] [21/21] Processing vsr_90_90...
+2026-08-07 20:23:01,660 INFO [pilot_cache] ============================================================
+2026-08-07 20:23:01,660 INFO [pilot_cache] PILOT RUN COMPLETE: 21 succeeded, 0 failed in 99.6s
+2026-08-07 20:23:01,660 INFO [pilot_cache] Output file: outputs/pilot_cache/qwen3_vl_8b_vsr.jsonl

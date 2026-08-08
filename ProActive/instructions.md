@@ -432,7 +432,7 @@ Next action for you:
 
 The priority is a defensible and reproducible ICLR paper within the deadline, not implementing every possible experiment.
 
-The agent must read (if not already done) and follow AGENT_EXECUTION_AND_AUDIT.md before every implementation or audit task.
+The agent must read (if not already done) and follow AGENTS.md before every implementation or audit task.
 
 These rules override any tendency to simplify, defer, or silently replace
 requirements from the master implementation plan.

@@ -13,7 +13,7 @@ import json
 import os
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Set
+from typing import Any, Dict, Iterator, List, Set
 
 
 def read_jsonl(path: str | Path) -> List[Dict[str, Any]]:
@@ -82,6 +82,8 @@ def append_jsonl(
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        f.flush()
+        os.fsync(f.fileno())
 
 
 def get_completed_ids(

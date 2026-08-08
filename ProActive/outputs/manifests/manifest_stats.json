@@ -1,0 +1,77 @@
+{
+  "seed": 42,
+  "datasets": {
+    "hallusionbench": {
+      "train": {
+        "records": 677,
+        "groups": 677
+      },
+      "val": {
+        "records": 91,
+        "groups": 91
+      },
+      "cal": {
+        "records": 92,
+        "groups": 92
+      },
+      "test": {
+        "records": 91,
+        "groups": 91
+      }
+    },
+    "pope": {
+      "train": {
+        "records": 2084,
+        "groups": 2084
+      },
+      "val": {
+        "records": 269,
+        "groups": 269
+      },
+      "cal": {
+        "records": 312,
+        "groups": 312
+      },
+      "test": {
+        "records": 335,
+        "groups": 335
+      }
+    },
+    "vizwiz": {
+      "train": {
+        "records": 2054,
+        "groups": 2054
+      },
+      "val": {
+        "records": 313,
+        "groups": 313
+      },
+      "cal": {
+        "records": 310,
+        "groups": 310
+      },
+      "test": {
+        "records": 323,
+        "groups": 323
+      }
+    },
+    "vsr": {
+      "train": {
+        "records": 244,
+        "groups": 244
+      },
+      "val": {
+        "records": 29,
+        "groups": 29
+      },
+      "cal": {
+        "records": 36,
+        "groups": 36
+      },
+      "test": {
+        "records": 31,
+        "groups": 31
+      }
+    }
+  }
+}

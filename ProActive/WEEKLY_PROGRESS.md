@@ -32,8 +32,8 @@ This document records the **actual** work completed on a week-by-week basis duri
 ---
 
 ## Week 3: Probes and Teacher Generation (Audit & Hardening)
-**Status:** Implementation & Verification Complete; Ready for Server Pilot
-**Dates:** ~August 1, 2026
+**Status:** COMPLETE
+**Dates:** August 1–9, 2026
 
 **What we actually did:**
 1. **Image Transform Probes:** Implemented 5 visual probes (blank, blur, crop, brightness, noise) in `src/proactive/probes/image_transforms.py` with deterministic SHA-256 seeding (`global_seed | instance_id | probe_name | severity`), pilot grid parameters, and visual sample export helper.
@@ -48,11 +48,19 @@ This document records the **actual** work completed on a week-by-week basis duri
    - `scripts/validate_teacher_schema.py` & `src/proactive/audits/schema_validator.py`: Strict schema validator.
    - `scripts/analyze_pilot.py` & `src/proactive/audits/pilot_analysis.py`: Summary statistics, candidate config generation, and wall-clock estimation.
    - `scripts/check_week_completion.py`: Gate checker for all Week 3 requirements.
-9. **Testing:** Added comprehensive unit and integration tests across 11 test modules. All 147 test cases pass (100% passing rate).
+9. **Pilot safety hardening (August 7):** Prevented implicit append to existing caches, added duplicate-aware canonical/composite resume keys, retained backward-compatible pilot subsets while filling exactly 100 examples, and made append records durable with flush/fsync.
+10. **Severity cost correction:** Replaced 12 repetitions of the full teacher suite with one canonical suite plus eight additional visual transformations (15 generations instead of 84 per severity-pilot instance). Severity rows now use a compact, explicitly validated non-training schema.
+11. **Dataset correction:** HallusionBench now excludes its 178 text-only records before applying limits, preserving the intended 951 image-paired examples.
+12. **Audit and freeze hardening:** Directory-wide schema/duplicate validation blocks analysis; severity safety constraints are hard gates; semantic threshold freezing requires a 50-pair human-labelled train/val audit; the completion gate requires two complete model/dataset pilot matrices and a human-reviewed frozen configuration.
+13. **Testing:** Added adversarial tests for exact sampling, duplicate rejection, compact severity cost, HallusionBench filtering, and semantic calibration. Final local CPU suite: 158 passed.
+14. **Server pilot matrix:** Completed Qwen and Gemma over POPE, HallusionBench, VizWiz, and VSR in canonical and compact severity modes: 16 files, 800 canonical records, 9,600 severity records, and 10,400 records total.
+15. **Artifact validation:** Directory-wide validation reported zero duplicate rows and zero schema failures. Generated five required plots and 250 transformed-image inspection files.
+16. **Semantic calibration:** Human-labelled 50 train/validation VizWiz answer pairs (17 positive, 33 negative). Frozen threshold `0.50` achieved precision `0.5926`, recall `0.9412`, and F1 `0.7273`.
+17. **Configuration freeze:** Frozen severities are blur `8`, crop `0.65`, brightness `0.15`, and noise `25`. `configs/probes/frozen_week3_config.yaml` has status `FROZEN`.
+18. **Completion gate:** `scripts/check_week_completion.py --mode full_week` passed against the synced server artifacts on August 9, 2026.
 
-**Next Step (Server Execution):**
-1. Run 1-example smoke test on server.
-2. Run 10-example pilot.
-3. Run 100-example pilot per model/dataset on train/val splits.
-4. Validate schema with `scripts/validate_teacher_schema.py`.
-5. Generate diagnostic plots, inspect 50 images per probe, and freeze configuration with `scripts/analyze_pilot.py --freeze`.
+**Week 4 handoff:**
+1. Populate the currently empty Week 4 requirement matrix from Plan §25.6.
+2. Pin immutable model revisions and prepare the full teacher-cache run approval card.
+3. Generate at least the Qwen and Gemma full canonical teacher caches after explicit approval.
+4. Build labels, grouped partial states, audit packet, leakage report, and checksum manifests.
