@@ -44,3 +44,17 @@
 - Full Week 3 artifact gate passed on 2026-08-09 against the server-synced outputs.
 - Local CPU regression suite passed after artifact synchronization: `158 passed in 11.54s`.
 - Synced logs preserve at least `2.9133` GPU-hours of measured execution. Several jobs were resumed from earlier partial results, so exact total Week 3 GPU-hours are not reconstructible from the retained logs and are explicitly marked as unavailable in `RUN_REGISTRY.md`.
+
+## 2026-08-09 — Week 4 implementation
+
+- Completed the local Week 4 code substrate without launching GPU work.
+- Added deterministic four-way teacher sharding and strict resume validation. Existing rows are checked for duplicate model-instance keys, manifest/config hash drift, shard drift, validity, and legal probe completeness before append.
+- Added independent CPU label reconstruction; invalid rows fail closed, and embedded signatures/bits/six-way labels must agree exactly with frozen Week 3 rules.
+- Added leakage-safe pre-policy partial states and recursive validation that learner inputs contain no dataset/model/gold/teacher metadata or unacquired observations.
+- Added the blinded 180-example human-audit exporter, private key, renamed lossless internal images, annotator instructions, and checksums.
+- Added readiness, daily progress, and full Week 4 validators plus train/validation-only class/bit CSVs and artifact manifests.
+- Removed user-specific data-root fallbacks and unpinned semantic-model fallback behavior.
+- Combined manifest audit: 7,291 examples and 110 relation-applicable rows. Qwen and Gemma require 14,582 teacher rows and 102,294 passes.
+- Week 3 measured throughput (`1.1694` seconds/pass) projects the core at about `33.23 GPU-hours`: idealized `33.23 h` on one GPU, `16.61 h` on two, or `8.31 h` on four, before overhead. This is HIGH-COST and unapproved.
+- Local Week 4 tests: 10 passed. Full local CPU suite: `168 passed in 2.75s`.
+- Readiness correctly fails closed on the intentional draft approval status and unpinned Qwen/Gemma `main` revisions.

@@ -14,6 +14,7 @@ calibration split, and calibration metrics. Calibration uses ONLY train/val data
 from __future__ import annotations
 
 import logging
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Sequence, Tuple
@@ -35,7 +36,7 @@ BINARY_DATASETS = {
 DEFAULT_FREEFORM_THRESHOLD = 0.82
 DEFAULT_EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 DEFAULT_EMBEDDING_REVISION = "e4ce9877abf3edee10b0257f22713854020a4004"
-DEFAULT_LOCAL_MODEL_DIR = "/home/models/all-MiniLM-L6-v2"
+DEFAULT_LOCAL_MODEL_DIR = ""
 
 
 class SemanticMatcherError(RuntimeError):
@@ -51,12 +52,14 @@ class SemanticMatcher:
         model_name_or_path: str = DEFAULT_EMBEDDING_MODEL,
         revision: str = DEFAULT_EMBEDDING_REVISION,
         device: str = "cpu",
-        local_model_dir: str = DEFAULT_LOCAL_MODEL_DIR,
+        local_model_dir: Optional[str] = None,
     ):
         self.model_name_or_path = model_name_or_path
         self.revision = revision
         self.device = device
-        self.local_model_dir = local_model_dir
+        self.local_model_dir = local_model_dir or os.environ.get(
+            "PROACTIVE_SEMANTIC_MODEL_PATH", DEFAULT_LOCAL_MODEL_DIR
+        )
         self.model = None
         self.load_error: Optional[str] = None
         self.model_path_used: Optional[str] = None
@@ -68,8 +71,17 @@ class SemanticMatcher:
             from sentence_transformers import SentenceTransformer
 
             loaded = False
-            if Path(self.local_model_dir).exists():
+            if self.local_model_dir and Path(self.local_model_dir).exists():
                 try:
+                    declared_local_revision = os.environ.get(
+                        "PROACTIVE_SEMANTIC_MODEL_REVISION"
+                    )
+                    if declared_local_revision != self.revision:
+                        raise SemanticMatcherError(
+                            "Local semantic model revision is not verified. Set "
+                            "PROACTIVE_SEMANTIC_MODEL_REVISION to the frozen commit "
+                            f"{self.revision}."
+                        )
                     self.model = SentenceTransformer(self.local_model_dir, device=self.device)
                     self.model_path_used = self.local_model_dir
                     loaded = True
@@ -80,22 +92,17 @@ class SemanticMatcher:
                     )
 
             if not loaded:
-                try:
-                    self.model = SentenceTransformer(
-                        self.model_name_or_path,
-                        revision=self.revision,
-                        device=self.device,
-                    )
-                    self.model_path_used = self.model_name_or_path
-                    logger.info(f"Loaded SemanticMatcher from HF: {self.model_name_or_path} (rev: {self.revision})")
-                except Exception as rev_err:
-                    logger.info(f"Loading HF model without revision pin ({rev_err})...")
-                    self.model = SentenceTransformer(
-                        self.model_name_or_path,
-                        device=self.device,
-                    )
-                    self.model_path_used = self.model_name_or_path
-                    logger.info(f"Loaded SemanticMatcher from HF: {self.model_name_or_path}")
+                self.model = SentenceTransformer(
+                    self.model_name_or_path,
+                    revision=self.revision,
+                    device=self.device,
+                )
+                self.model_path_used = self.model_name_or_path
+                logger.info(
+                    "Loaded SemanticMatcher from HF: %s (rev: %s)",
+                    self.model_name_or_path,
+                    self.revision,
+                )
         except Exception as e:
             self.model = None
             self.load_error = str(e)

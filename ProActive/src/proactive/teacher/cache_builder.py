@@ -32,13 +32,21 @@ from proactive.prompts.templates import make_dataset_prompt
 from proactive.teacher.label_computation import (
     compute_teacher_labels,
     InvalidMandatoryProbeError,
+    LabelThresholds,
+    DEFAULT_THRESHOLDS,
 )
 from proactive.utils.hashing import hash_generation_config, hash_prompt
 
 logger = logging.getLogger(__name__)
 
 def _load_image_safely(image_path: str | Path | Image.Image, dataset_name: str = "") -> Image.Image:
-    """Load image from path with fallback to PROACTIVE_DATA_ROOT, cwd/data, and standard subdirectories."""
+    """Load an image from its manifest path or a configured data root.
+
+    The data root is intentionally controlled by ``PROACTIVE_DATA_ROOT``.  A
+    small set of repository-relative fallbacks is retained for tests and local
+    development, but no user- or server-specific absolute path is embedded in
+    the code.
+    """
     if isinstance(image_path, Image.Image):
         return image_path
 
@@ -52,21 +60,26 @@ def _load_image_safely(image_path: str | Path | Image.Image, dataset_name: str =
     if env_root:
         possible_roots.append(Path(env_root))
 
-    possible_roots.extend([
-        Path.cwd() / "data",
-        Path.cwd() / "data" / "POPE",
-        Path.cwd().parent / "data",
-        Path.home() / "MMUQ" / "data",
-        Path.home() / "ProActive" / "data",
-        Path("/home/aman/MMUQ/data"),
-        Path("/home/aman/ProActive/data"),
-    ])
+    possible_roots.extend([Path.cwd() / "data", Path.cwd().parent / "data"])
 
     # Check candidates under all known roots
     for root_p in possible_roots:
         if not root_p.exists():
             continue
+        root_relative_candidates = []
+        if not p.is_absolute():
+            root_relative_candidates.append(root_p / p)
+        # Manifests can be synced between machines.  If an absolute path from
+        # the source machine no longer exists, preserve only its suffix below
+        # the generic ``data`` directory and re-root it through the environment.
+        lower_parts = [part.lower() for part in p.parts]
+        if "data" in lower_parts:
+            data_index = len(lower_parts) - 1 - lower_parts[::-1].index("data")
+            suffix = p.parts[data_index + 1 :]
+            if suffix:
+                root_relative_candidates.append(root_p.joinpath(*suffix))
         candidates = [
+            *root_relative_candidates,
             root_p / p.name,
             root_p / "POPE" / "images" / p.name,
             root_p / "POPE" / p.name,
@@ -110,6 +123,7 @@ def process_instance(
     global_seed: int = 42,
     semantic_matcher: Optional[SemanticMatcher] = None,
     semantic_threshold: float = 0.82,
+    label_thresholds: LabelThresholds = DEFAULT_THRESHOLDS,
 ) -> dict:
     """Process one manifest record: clean inference + all probes + labels."""
     instance_id = record["instance_id"]
@@ -232,6 +246,7 @@ def process_instance(
                 relation_applicable=relation_applicable,
                 swap_invariance=swap_inv,
                 benchmark_family=record.get("category", record.get("pope_split")),
+                thresholds=label_thresholds,
                 strict_validation=True,
             )
         except InvalidMandatoryProbeError as e:
@@ -250,6 +265,7 @@ def process_instance(
         "model_id": model_id,
         "model_revision": model_revision,
         "image_path": str(image_path),
+        "question": question,
         "prompt_text": prompt,
         "gold_answer": gold_answer,
         "relation_applicable": relation_applicable,

@@ -73,6 +73,61 @@ def write_jsonl(
     return path
 
 
+def write_json(
+    value: Any,
+    path: str | Path,
+    overwrite: bool = False,
+) -> Path:
+    """Atomically write one JSON document with deterministic key ordering."""
+    path = Path(path)
+    if path.exists() and not overwrite:
+        raise FileExistsError(
+            f"Output file already exists: {path}. "
+            "Use overwrite=True or --overwrite flag."
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_path = tempfile.mkstemp(
+        dir=path.parent, suffix=".tmp", prefix=path.stem + "_"
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(value, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
+        os.replace(tmp_path, path)
+    except BaseException:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
+    return path
+
+
+def write_text(
+    value: str,
+    path: str | Path,
+    overwrite: bool = False,
+) -> Path:
+    """Atomically write UTF-8 text."""
+    path = Path(path)
+    if path.exists() and not overwrite:
+        raise FileExistsError(
+            f"Output file already exists: {path}. "
+            "Use overwrite=True or --overwrite flag."
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_path = tempfile.mkstemp(
+        dir=path.parent, suffix=".tmp", prefix=path.stem + "_"
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(value)
+        os.replace(tmp_path, path)
+    except BaseException:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+        raise
+    return path
+
+
 def append_jsonl(
     record: Dict[str, Any],
     path: str | Path,

@@ -64,3 +64,31 @@ This document records the **actual** work completed on a week-by-week basis duri
 2. Pin immutable model revisions and prepare the full teacher-cache run approval card.
 3. Generate at least the Qwen and Gemma full canonical teacher caches after explicit approval.
 4. Build labels, grouped partial states, audit packet, leakage report, and checksum manifests.
+
+---
+
+## Week 4: Full teacher cache, labels, and partial states
+**Status:** IMPLEMENTED, NOT VALIDATED
+**Dates:** August 9, 2026–present
+
+**What has been implemented locally:**
+1. Added `scripts/run_teacher.py`: deterministic model-instance sharding, every legal canonical probe, frozen configuration/manifest provenance, immutable revision enforcement, and duplicate-safe resume.
+2. Added `scripts/build_labels.py` and `src/proactive/teacher/offline.py`: independent signature, source-bit, and six-way label reconstruction. Embedded GPU labels must match exactly.
+3. Added `scripts/sample_states.py`: empty, all legal singleton, every fixed-baseline prefix, and 16 deterministic random subsets. Learner input contains only clean numeric features and acquired probe observations.
+4. Added `scripts/export_human_audit.py`: blinded 180-row packet, three annotator sections, renamed lossless internal images, private key, instructions, and checksums.
+5. Added `scripts/validate_week4.py`: readiness, daily teacher progress, and full completion modes; reproducible train/validation-only label/bit tables; teacher/label/state manifests.
+6. Removed user-specific image-root fallbacks and prohibited silent unpinned semantic-model fallback.
+7. Added read-only local model provenance inspection in `scripts/inspect_model_revisions.py`.
+8. Populated the Week 4 requirement matrix, staged server plan, and InternVL catch-up record.
+
+**Local validation:**
+- 10 new Week 4 tests pass; complete CPU suite: `168 passed in 2.75s`.
+- Readiness dry-run reports 7,291 manifest rows, 14,582 expected Qwen/Gemma teacher rows, and 102,294 clean/probe passes.
+- Deterministic four-way shard sizes are 1,801–1,847 rows/model; each model requires exactly 51,147 passes.
+
+**Still required for completion:**
+1. Server revision evidence and immutable model pins.
+2. Owner approval of the draft scientific gates/audit composition and high-cost compute plan.
+3. Mandatory 1/10/100/full-model-dataset server stages.
+4. Full Qwen/Gemma caches and daily checksum validation.
+5. Offline label/state artifacts, a final three-model audit packet (or approved documented deviation), and a passing full Week 4 gate.

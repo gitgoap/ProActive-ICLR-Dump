@@ -1,0 +1,61 @@
+metadata:
+  version: v3.5_week4_draft
+  approval_status: DRAFT_REQUIRES_APPROVAL
+  description: Full canonical teacher cache and deterministic offline substrate.
+
+seed: 42
+frozen_probe_config: configs/probes/frozen_week3_config.yaml
+
+models:
+  qwen3_vl_8b: configs/models/qwen3_vl_8b.yaml
+  gemma4_e4b: configs/models/gemma4_e4b.yaml
+  internvl3_9b: configs/models/internvl3_9b.yaml
+
+core_model_keys:
+  - qwen3_vl_8b
+  - gemma4_e4b
+
+catch_up:
+  model_key: internvl3_9b
+  policy: documented_catch_up_allowed
+  documentation: doc/docs/WEEK_4_INTERNVL_CATCHUP.md
+
+active_datasets:
+  - hallusionbench
+  - pope
+  - vizwiz
+  - vsr
+
+outputs:
+  teacher_dir: outputs/teacher_core
+  labels_dir: outputs/labels_core
+  states_dir: outputs/states_v1
+  reports_dir: outputs/week4_reports
+  audit_dir: outputs/human_audit
+
+state_sampling:
+  empty_state: true
+  every_legal_singleton: true
+  every_fixed_baseline_prefix: true
+  random_subsets: 16
+  random_subset_sizes: [1, 2, 3, 4]
+  policy_rollout_subsets: 8
+  policy_rollout_status: deferred_until_first_policy_checkpoint
+  oracle_next_status: deferred_until_oracle_baseline_exists
+
+human_audit:
+  total_examples: 180
+  target_per_label: 30
+  natural_subset_examples: 60
+  allowed_splits: [train, val]
+  required_model_keys: [qwen3_vl_8b, gemma4_e4b, internvl3_9b]
+  annotator_count: 3
+  materialize_images: true
+
+completion_gates:
+  # Proposed operational definitions for the plan's qualitative "no dominant
+  # collapse" and "usable bit counts" requirements. These require owner
+  # approval before the full run is authorized.
+  max_sixway_fraction: 0.80
+  min_bit_count_per_dataset_model: 5
+
