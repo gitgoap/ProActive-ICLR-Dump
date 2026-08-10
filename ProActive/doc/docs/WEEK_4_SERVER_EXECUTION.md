@@ -3,14 +3,24 @@
 These commands are staged deliberately. Do not start the full four-GPU cache
 until the model revisions and draft scientific settings are approved.
 
-## 1. Environment and revision evidence
+## 1. Existing environment verification and revision evidence
+
+Use the Python environment already present in the tmux pane. No explicit Conda
+activation is required. Run the verification lines again in each new pane
+because environment variables are local to that shell.
 
 ```bash
 cd ~/ProActive
+
+which python
+python --version
+python -c "import torch, transformers, yaml; print('torch', torch.__version__, 'cuda', torch.version.cuda, 'transformers', transformers.__version__)"
+
 export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
 export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
 export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
 mkdir -p outputs/logs/week4 outputs/teacher_core outputs/labels_core outputs/states_v1 outputs/week4_reports
+set -o pipefail
 
 python scripts/inspect_model_revisions.py \
   --model_configs configs/models/qwen3_vl_8b.yaml configs/models/gemma4_e4b.yaml configs/models/internvl3_9b.yaml \
@@ -18,8 +28,14 @@ python scripts/inspect_model_revisions.py \
 ```
 
 Send the complete revision-inspection output back before editing the model
-YAMLs. An unresolved path is a blocker; do not replace it with the current
-remote `main` hash.
+YAMLs. The corrected inspector reads repository commits separately from
+per-file Hugging Face ETags. The expected result is `RESOLVED` with exactly one
+revision candidate per model. A genuinely unresolved or ambiguous path is a
+blocker; do not replace it with the current remote `main` hash.
+
+Repeat the verification and `export` lines in every new tmux pane. No
+environment activation command is needed, but exports set in one pane do not
+propagate to the other panes.
 
 ## 2. Pre-approval dry run
 

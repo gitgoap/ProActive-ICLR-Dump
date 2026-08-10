@@ -58,3 +58,35 @@
 - Week 3 measured throughput (`1.1694` seconds/pass) projects the core at about `33.23 GPU-hours`: idealized `33.23 h` on one GPU, `16.61 h` on two, or `8.31 h` on four, before overhead. This is HIGH-COST and unapproved.
 - Local Week 4 tests: 10 passed. Full local CPU suite: `168 passed in 2.75s`.
 - Readiness correctly fails closed on the intentional draft approval status and unpinned Qwen/Gemma `main` revisions.
+
+## 2026-08-10 — Server environment procedure corrected
+
+- An initial documentation update inferred from the `(base)` prompt that every
+  pane should explicitly activate Conda. The owner clarified that the project
+  uses the Python environment already present in the server shell and that an
+  explicit activation step should be skipped.
+- Updated `README.md`, `SERVER_RUNBOOK.md`, and the Week 4 server guide to use
+  the existing shell environment. Each new shell or tmux pane verifies
+  `which python`, the Python version, and required imports before execution.
+- Environment variables still need to be exported independently in each pane.
+  If verification fails, the run stops for review rather than installing
+  packages or switching environments mid-experiment.
+
+## 2026-08-10 — Week 4 revision inspection correction
+
+- Server verification confirmed that the existing tmux shell resolves Python
+  to `/home/aman/miniconda3/bin/python` with Python 3.13.12, Torch 2.6.0+cu124,
+  CUDA 12.4, and Transformers 5.5.4. The Conda base environment is already
+  active; a separate activation command is unnecessary in that pane.
+- The first revision-inspection run reported all three local model directories
+  as `AMBIGUOUS`. Review showed that the inspector extracted every 40-hex value
+  from Hugging Face `.metadata` files, conflating the repository commit on the
+  first line with per-file Git blob ETags on the second line.
+- Corrected the parser to use only the first non-empty metadata line as the
+  repository revision and to fail closed on malformed metadata. The inspection
+  must be rerun before any model config is pinned or any Week 4 GPU generation
+  begins.
+- Added three regression tests covering Git blob and LFS ETags plus malformed
+  metadata. Targeted tests passed `3/3`; the full local CPU suite passed
+  `171/171` after using the repository's established sandbox-safe temporary
+  directory procedure.

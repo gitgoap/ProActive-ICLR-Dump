@@ -9,3 +9,24 @@ ProActive studies whether a multimodal large language model can be diagnosed rel
 4. **Robust evaluation:** compare cost–diagnostic frontiers, permutation stability, leave-one-model-out transfer, held-out dataset shift, and strong fixed or oracle baselines.
 
 See `PROJECT_STATUS.md` for current progress and `SERVER_RUNBOOK.md` for server execution instructions.
+
+## Server Python environment
+
+Use the Python environment already available after logging into the server or
+opening a tmux pane. No explicit Conda activation is required for the current
+ProActive workflow. A prompt such as `(base)` may indicate that the server
+auto-activated Conda, but the project instructions do not depend on manually
+running `conda activate`.
+
+Before the first ProActive Python command in a new shell or tmux pane, verify
+the existing environment:
+
+```bash
+cd ~/ProActive
+which python
+python --version
+python -c "import torch, transformers, yaml; print('torch', torch.__version__, 'cuda', torch.version.cuda, 'transformers', transformers.__version__)"
+```
+
+If an import fails, stop and report the output instead of installing packages
+or switching environments during an experiment.

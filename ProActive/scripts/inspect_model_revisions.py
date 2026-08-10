@@ -13,12 +13,28 @@ import json
 import re
 import subprocess
 from pathlib import Path
-from typing import Dict, List, Set
+from typing import Dict, List, Optional, Set
 
 import yaml
 
 
 REVISION_RE = re.compile(r"(?<![0-9a-fA-F])([0-9a-fA-F]{40})(?![0-9a-fA-F])")
+EXACT_REVISION_RE = re.compile(r"[0-9a-fA-F]{40}")
+
+
+def huggingface_metadata_revision(text: str) -> Optional[str]:
+    """Return the repository commit stored in Hugging Face local-dir metadata.
+
+    ``huggingface_hub`` writes download metadata as three lines: repository
+    commit, file ETag, and timestamp. The ETag is often also a 40-character
+    hexadecimal Git blob ID, but it is not a model revision. Only the first
+    non-empty line is therefore valid revision evidence.
+    """
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines or not EXACT_REVISION_RE.fullmatch(lines[0]):
+        return None
+    return lines[0].lower()
 
 
 def inspect_path(path: Path) -> Dict[str, object]:
@@ -42,23 +58,34 @@ def inspect_path(path: Path) -> Dict[str, object]:
             candidates.add(revision.lower())
             evidence.append("git:HEAD")
 
-    metadata_roots = [path / ".cache" / "huggingface" / "download", path]
-    metadata_files: List[Path] = []
-    if metadata_roots[0].exists():
-        metadata_files.extend(metadata_roots[0].glob("*.metadata"))
+    huggingface_metadata_dir = path / ".cache" / "huggingface" / "download"
+    if huggingface_metadata_dir.exists():
+        for metadata_file in sorted(huggingface_metadata_dir.glob("*.metadata")):
+            try:
+                text = metadata_file.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                continue
+            revision = huggingface_metadata_revision(text)
+            if revision is None:
+                evidence.append(f"huggingface_metadata_invalid:{metadata_file}")
+                continue
+            candidates.add(revision)
+            evidence.append(f"huggingface_commit:{metadata_file}:{revision}")
+
+    explicit_revision_files: List[Path] = []
     for name in ("REVISION", "revision.txt", ".proactive_revision"):
         candidate_file = path / name
         if candidate_file.exists():
-            metadata_files.append(candidate_file)
-    for metadata_file in metadata_files:
+            explicit_revision_files.append(candidate_file)
+    for revision_file in explicit_revision_files:
         try:
-            text = metadata_file.read_text(encoding="utf-8", errors="ignore")
+            text = revision_file.read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
         matches = REVISION_RE.findall(text)
         for revision in matches:
             candidates.add(revision.lower())
-            evidence.append(f"metadata:{metadata_file}")
+            evidence.append(f"explicit_revision_file:{revision_file}:{revision.lower()}")
 
     try:
         from transformers import AutoConfig
@@ -108,4 +135,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

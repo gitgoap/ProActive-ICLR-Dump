@@ -2,6 +2,28 @@
 
 This runbook outlines how to execute scripts on the remote compute server and return the necessary logs/outputs to the local workspace for analysis by Antigravity.
 
+## Use and verify the existing server environment
+
+Use the Python environment already available in the server shell. Do not run a
+separate Conda activation step for the current ProActive workflow. If the
+prompt already contains `(base)`, leave it as it is; that may be server-side
+auto-activation and does not require another `conda activate` command.
+
+Run this verification once in every new SSH session, tmux window, or tmux pane
+before its first ProActive Python command:
+
+```bash
+cd ~/ProActive
+
+which python
+python --version
+python -c "import torch, transformers, yaml; print('torch', torch.__version__, 'cuda', torch.version.cuda, 'transformers', transformers.__version__)"
+```
+
+Stop if an import fails or if `which python` returns an unexpected interpreter.
+Do not install packages or switch environments merely to continue a run;
+return the verification output for review first.
+
 ## Preflight Protocol
 Before running large inference or training workloads, run the preflight script on your server to confirm its hardware and software environment.
 
