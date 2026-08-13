@@ -96,6 +96,27 @@ def readiness_report(
 
     if experiment.get("metadata", {}).get("approval_status") != "APPROVED":
         errors.append("Week 4 experiment config still requires owner approval")
+    compute_authorization = experiment.get("compute_authorization")
+    if not isinstance(compute_authorization, dict):
+        errors.append("Missing Week 4 compute_authorization mapping")
+        compute_authorization = {}
+    if compute_authorization.get("staged_checks_approved") is not True:
+        errors.append("Week 4 staged checks are not approved")
+    staged_max = compute_authorization.get("staged_max_examples")
+    if (
+        not isinstance(staged_max, int)
+        or isinstance(staged_max, bool)
+        or staged_max <= 0
+    ):
+        errors.append("staged_max_examples must be a positive integer")
+    staged_datasets = compute_authorization.get("staged_full_dataset_allowlist")
+    active_datasets = {str(name) for name in experiment.get("active_datasets", [])}
+    if not isinstance(staged_datasets, list) or not staged_datasets:
+        errors.append("staged_full_dataset_allowlist must be a non-empty list")
+    elif not {str(name) for name in staged_datasets}.issubset(active_datasets):
+        errors.append("Staged full-dataset allowlist contains an inactive dataset")
+    if not isinstance(compute_authorization.get("full_core_approved"), bool):
+        errors.append("full_core_approved must be boolean")
     core_keys = set(experiment["core_model_keys"])
     for key in core_keys:
         revision = str(model_configs[key].get("model_revision", ""))
@@ -119,6 +140,7 @@ def readiness_report(
     return {
         "is_valid": not errors,
         "approval_status": experiment.get("metadata", {}).get("approval_status"),
+        "compute_authorization": compute_authorization,
         "manifest_records": len(manifest_records),
         "dataset_counts": dict(sorted(dataset_counts.items())),
         "relation_applicable_records": relation_rows,

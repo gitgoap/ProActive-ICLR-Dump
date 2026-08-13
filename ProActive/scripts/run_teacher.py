@@ -196,6 +196,46 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _enforce_compute_authorization(
+    experiment: Dict[str, Any], args: argparse.Namespace
+) -> None:
+    """Fail closed when a requested GPU scope exceeds owner authorization."""
+
+    if args.dry_run:
+        return
+    authorization = experiment.get("compute_authorization")
+    if not isinstance(authorization, dict):
+        raise SystemExit("Missing compute_authorization in Week 4 experiment config")
+    if authorization.get("full_core_approved") is True:
+        return
+    if authorization.get("staged_checks_approved") is not True:
+        raise SystemExit("Week 4 staged GPU checks are not owner-approved")
+
+    max_examples = authorization.get("staged_max_examples")
+    if (
+        isinstance(max_examples, int)
+        and not isinstance(max_examples, bool)
+        and max_examples > 0
+        and args.limit is not None
+        and args.limit <= max_examples
+    ):
+        return
+
+    allowlist = authorization.get("staged_full_dataset_allowlist", [])
+    if (
+        isinstance(allowlist, list)
+        and args.limit is None
+        and args.dataset in {str(name) for name in allowlist}
+    ):
+        return
+
+    raise SystemExit(
+        "Full Week 4 core generation is not owner-approved. Allowed staged "
+        f"scope: --limit <= {max_examples} or one complete dataset from "
+        f"{allowlist}."
+    )
+
+
 def main() -> None:
     args = _parse_args()
     if not 0 <= args.shard_id < args.num_shards:
@@ -212,6 +252,8 @@ def main() -> None:
             "Week 4 config is not APPROVED. Only a dry-run/<=10-row smoke may use "
             "--allow_unapproved_smoke."
         )
+    if approval_status == "APPROVED":
+        _enforce_compute_authorization(experiment, args)
 
     model_config_path = _resolve_model_config(experiment, args.model, args.model_config)
     model_config = _load_yaml(model_config_path)

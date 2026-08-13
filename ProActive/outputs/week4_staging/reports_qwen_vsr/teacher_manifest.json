@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "outputs/week4_staging/qwen_vsr_complete/teacher_qwen3_vl_8b_vsr_all_shard00-of-01.jsonl",
+      "row_count": 340,
+      "sha256": "d8a8996fc7e01855121369d99c402f42af057819788f1bfafb0431925877d2d6"
+    }
+  ],
+  "summary": {
+    "completion_by_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "completed": 340,
+        "expected": 340,
+        "fraction": 1.0
+      },
+      "google/gemma-4-E4B-it": {
+        "completed": 0,
+        "expected": 340,
+        "fraction": 0.0
+      }
+    },
+    "error_count": 0,
+    "errors": [],
+    "is_valid": true,
+    "split_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct|cal": 36,
+      "Qwen/Qwen3-VL-8B-Instruct|test": 31,
+      "Qwen/Qwen3-VL-8B-Instruct|train": 244,
+      "Qwen/Qwen3-VL-8B-Instruct|val": 29
+    },
+    "teacher_records": 340,
+    "unique_probe_records": 2150
+  }
+}

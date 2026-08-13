@@ -1,0 +1,37 @@
+{
+  "files": [
+    {
+      "path": "outputs/week4_staging/limit1/teacher_gemma4_e4b_all_all_shard00-of-01.jsonl",
+      "row_count": 1,
+      "sha256": "ed5ab6da3fc279637ecd019f5eb06d6cefc065ac00a0e6cb53396d7d6872c645"
+    },
+    {
+      "path": "outputs/week4_staging/limit1/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl",
+      "row_count": 1,
+      "sha256": "2bfe120ad6f0cba83b2e3114103c885cc1a6c176014e5b6cb33d0991d0833ec6"
+    }
+  ],
+  "summary": {
+    "completion_by_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "completed": 1,
+        "expected": 7291,
+        "fraction": 0.0001371553970648745
+      },
+      "google/gemma-4-E4B-it": {
+        "completed": 1,
+        "expected": 7291,
+        "fraction": 0.0001371553970648745
+      }
+    },
+    "error_count": 0,
+    "errors": [],
+    "is_valid": true,
+    "split_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct|train": 1,
+      "google/gemma-4-E4B-it|train": 1
+    },
+    "teacher_records": 2,
+    "unique_probe_records": 12
+  }
+}

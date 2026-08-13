@@ -175,6 +175,9 @@ def test_week4_config_contract_parses_frozen_thresholds() -> None:
     assert experiment["state_sampling"]["random_subsets"] == 16
     assert experiment["human_audit"]["total_examples"] == 180
     assert len(experiment["core_model_keys"]) == 2
+    assert experiment["metadata"]["approval_status"] == "APPROVED"
+    assert experiment["compute_authorization"]["staged_max_examples"] == 100
+    assert experiment["compute_authorization"]["full_core_approved"] is False
     assert thresholds.blank_conf_ratio_threshold == 0.8
 
 

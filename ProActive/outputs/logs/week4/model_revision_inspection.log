@@ -1,0 +1,84 @@
+{
+  "configs/models/qwen3_vl_8b.yaml": {
+    "path": "/home/models/Qwen3-VL-8B-Instruct",
+    "resolved_path": "/home/models/Qwen3-VL-8B-Instruct",
+    "status": "RESOLVED",
+    "revision_candidates": [
+      "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
+    ],
+    "evidence": [
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/.gitattributes.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/README.md.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/chat_template.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/config.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/generation_config.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/merges.txt.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/model-00001-of-00004.safetensors.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/model-00002-of-00004.safetensors.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/model-00003-of-00004.safetensors.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/model-00004-of-00004.safetensors.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/model.safetensors.index.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/preprocessor_config.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/tokenizer.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/tokenizer_config.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/video_preprocessor_config.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "huggingface_commit:/home/models/Qwen3-VL-8B-Instruct/.cache/huggingface/download/vocab.json.metadata:0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
+    ],
+    "configured_revision": "main",
+    "model_id": "Qwen/Qwen3-VL-8B-Instruct"
+  },
+  "configs/models/gemma4_e4b.yaml": {
+    "path": "/home/models/gemma-4-E4B-it",
+    "resolved_path": "/home/models/gemma-4-E4B-it",
+    "status": "RESOLVED",
+    "revision_candidates": [
+      "292a7e278a400932df35f9fd4b1501edd04133a5"
+    ],
+    "evidence": [
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/.gitattributes.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/README.md.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/chat_template.jinja.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/config.json.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/generation_config.json.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/model.safetensors.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/processor_config.json.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/tokenizer.json.metadata:292a7e278a400932df35f9fd4b1501edd04133a5",
+      "huggingface_commit:/home/models/gemma-4-E4B-it/.cache/huggingface/download/tokenizer_config.json.metadata:292a7e278a400932df35f9fd4b1501edd04133a5"
+    ],
+    "configured_revision": "main",
+    "model_id": "google/gemma-4-E4B-it"
+  },
+  "configs/models/internvl3_9b.yaml": {
+    "path": "/home/models/InternVL3-9B",
+    "resolved_path": "/home/models/InternVL3-9B",
+    "status": "RESOLVED",
+    "revision_candidates": [
+      "5f618513e35a9b85922341b8057feddfc8880e50"
+    ],
+    "evidence": [
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/.gitattributes.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/README.md.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/added_tokens.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/config.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/configuration_intern_vit.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/configuration_internlm2.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/configuration_internvl_chat.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/conversation.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/generation_config.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/model-00001-of-00004.safetensors.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/model-00002-of-00004.safetensors.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/model-00003-of-00004.safetensors.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/model-00004-of-00004.safetensors.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/model.safetensors.index.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/modeling_intern_vit.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/modeling_internlm2.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/modeling_internvl_chat.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/special_tokens_map.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/tokenization_internlm3.py.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/tokenizer.model.metadata:5f618513e35a9b85922341b8057feddfc8880e50",
+      "huggingface_commit:/home/models/InternVL3-9B/.cache/huggingface/download/tokenizer_config.json.metadata:5f618513e35a9b85922341b8057feddfc8880e50"
+    ],
+    "configured_revision": "main",
+    "model_id": "OpenGVLab/InternVL3-9B"
+  }
+}

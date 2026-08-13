@@ -1,8 +1,8 @@
-# InternVL3-9B model configuration
+# InternVL3-9B model configuration (download confirmed on server 2026-08-10)
 model_name: internvl3_9b
 model_id: "OpenGVLab/InternVL3-9B"
 model_path: "/home/models/InternVL3-9B"
-model_revision: "main"
+model_revision: "5f618513e35a9b85922341b8057feddfc8880e50"
 
 adapter_class: "proactive.models.internvl_adapter.InternVLAdapter"
 

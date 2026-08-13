@@ -2,8 +2,8 @@
 model_name: qwen3_vl_8b
 model_id: "Qwen/Qwen3-VL-8B-Instruct"
 model_path: "/home/models/Qwen3-VL-8B-Instruct"
-# Pin revision after confirming on server — use 'main' until then
-model_revision: "main"
+# Immutable revision confirmed from the downloaded server files on 2026-08-10.
+model_revision: "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
 
 adapter_class: "proactive.models.qwen_adapter.QwenAdapter"
 

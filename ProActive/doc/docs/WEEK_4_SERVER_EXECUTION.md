@@ -37,27 +37,39 @@ Repeat the verification and `export` lines in every new tmux pane. No
 environment activation command is needed, but exports set in one pane do not
 propagate to the other panes.
 
-## 2. Pre-approval dry run
-
-This loads no GPU model and is allowed while the config is still draft.
+After the pinned and approved configs are synced, run the CPU readiness gate:
 
 ```bash
-python scripts/run_teacher.py \
+python scripts/validate_week4.py \
+  --mode readiness \
   --config configs/experiments/teacher_core.yaml \
   --manifest_path outputs/manifests/manifest_combined.jsonl \
-  --model qwen3_vl_8b \
-  --device cuda:0 \
-  --num_shards 4 \
-  --shard_id 0 \
-  --dry_run \
-  --allow_unapproved_smoke
+  --output_dir outputs/week4_reports \
+  --overwrite \
+  2>&1 | tee outputs/logs/week4/readiness.log
 ```
+
+It must report `"is_valid": true`, `"approval_status": "APPROVED"`, and an
+empty `errors` list.
+
+## 2. No separate dry run required
+
+The local and server readiness gates cover the CPU-only contract checks. Skip a
+separate teacher dry run and proceed to the mandatory one-row GPU stage only
+after readiness reports no errors.
 
 ## 3. Staged GPU checks after revision evidence and approval cards
 
 After the owner-approved config is synced, run a one-row check in a separate
 staging directory, then a ten-row check. These are validation artifacts, not
 part of the full cache.
+
+Approved staged-card estimate: approximately 3,274 MLLM passes across the
+Qwen 1/10/100/full-VSR checks and Gemma one-row check, using the Week 3 measured
+rate of 1.1694 seconds/pass. Expected cost is about 1.06 GPU-hours, about 1.1
+hours sequential wall time on one A6000 before loading overhead, and under
+10 MB of JSONL/log output. The 33.23 GPU-hour full core remains unapproved and
+is blocked by `compute_authorization.full_core_approved: false`.
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
@@ -67,8 +79,27 @@ CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
   --device cuda:0 \
   --limit 1 \
   --output_dir outputs/week4_staging/limit1 \
+  --resume \
   2>&1 | tee outputs/logs/week4/qwen_limit1.log
+```
 
+Review this output, then run the corresponding one-row Gemma check:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --model gemma4_e4b \
+  --device cuda:0 \
+  --limit 1 \
+  --output_dir outputs/week4_staging/limit1 \
+  --resume \
+  2>&1 | tee outputs/logs/week4/gemma_limit1.log
+```
+
+Only after both one-row outputs are reviewed, run the Qwen ten-row check:
+
+```bash
 CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
   --config configs/experiments/teacher_core.yaml \
   --manifest_path outputs/manifests/manifest_combined.jsonl \
@@ -76,10 +107,9 @@ CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
   --device cuda:0 \
   --limit 10 \
   --output_dir outputs/week4_staging/limit10 \
+  --resume \
   2>&1 | tee outputs/logs/week4/qwen_limit10.log
 ```
-
-Repeat the one-row check with `--model gemma4_e4b` before the full launch.
 
 The next mandatory stages are a 100-row run and one complete model-dataset
 validation. Do not skip them even when the 1/10-row stages pass.
@@ -92,6 +122,7 @@ CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
   --device cuda:0 \
   --limit 100 \
   --output_dir outputs/week4_staging/limit100 \
+  --resume \
   2>&1 | tee outputs/logs/week4/qwen_limit100.log
 
 CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \

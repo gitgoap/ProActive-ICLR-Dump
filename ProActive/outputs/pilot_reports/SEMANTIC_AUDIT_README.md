@@ -15,17 +15,6 @@ Complete this section when the CSV is labelled.
 - **Annotation date:** `08-08-2026`
 - **File labelled:** `outputs/pilot_reports/semantic_match_audit.csv`
 - **Number of rows:** `50`
-- **Annotator record:** project author (anonymous identifier; institutional affiliation optional)
-
-## Calibration outcome
-
-- Completed labels: `50` (`17` match, `33` non-match)
-- Target recall: `0.90`
-- Frozen threshold: `0.50`
-- Precision: `0.5926`
-- Recall: `0.9412`
-- F1: `0.7273`
-- Source CSV SHA-256: `cbb82145d7f27ebd6b7708960ac4bd1737800d8b7ca6415cfacb74fd190dd00a`
 
 ## How to label
 

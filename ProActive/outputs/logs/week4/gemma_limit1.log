@@ -1,0 +1,20 @@
+2026-08-10 18:39:11,565 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-08-10 18:39:11,565 INFO [run_teacher] Shard: 0/1
+2026-08-10 18:39:11,565 INFO [run_teacher] Selected rows: 1; completed: 0; pending: 1
+2026-08-10 18:39:11,565 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7
+2026-08-10 18:39:11,565 INFO [run_teacher] Output: outputs/week4_staging/limit1/teacher_gemma4_e4b_all_all_shard00-of-01.jsonl
+2026-08-10 18:39:15,637 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 48145.92it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-10 18:39:15,921 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-10 18:39:15,923 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  15%|█▍        | 309/2076 [00:00<00:00, 3087.73it/s]Loading weights:  30%|██▉       | 618/2076 [00:00<00:00, 2919.84it/s]Loading weights:  44%|████▍     | 911/2076 [00:01<00:02, 464.13it/s] Loading weights:  52%|█████▏    | 1081/2076 [00:01<00:02, 447.46it/s]Loading weights:  58%|█████▊    | 1200/2076 [00:02<00:02, 437.99it/s]Loading weights:  62%|██████▏   | 1291/2076 [00:02<00:01, 428.76it/s]Loading weights:  66%|██████▌   | 1365/2076 [00:02<00:01, 405.97it/s]Loading weights:  69%|██████▊   | 1425/2076 [00:02<00:01, 414.90it/s]Loading weights:  82%|████████▏ | 1697/2076 [00:02<00:00, 749.39it/s]Loading weights:  95%|█████████▌| 1978/2076 [00:03<00:00, 1103.14it/s]Loading weights: 100%|██████████| 2076/2076 [00:03<00:00, 646.13it/s] 
+2026-08-10 18:39:22,052 INFO [run_teacher] [1/1] vizwiz_VizWiz_val_00001872_1872
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-10 18:39:33,923 INFO [run_teacher] Shard finished in 22.4s with 0 failed rows

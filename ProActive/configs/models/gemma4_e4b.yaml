@@ -3,7 +3,7 @@ model_name: gemma4_e4b
 adapter: "gemma"
 model_id: "google/gemma-4-E4B-it"
 model_path: "/home/models/gemma-4-E4B-it"
-model_revision: "main"
+model_revision: "292a7e278a400932df35f9fd4b1501edd04133a5"
 
 adapter_class: "proactive.models.gemma_adapter.GemmaAdapter"
 

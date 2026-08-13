@@ -1,7 +1,17 @@
 metadata:
-  version: v3.5_week4_draft
-  approval_status: DRAFT_REQUIRES_APPROVAL
+  version: v3.5_week4_approved_staging
+  approval_status: APPROVED
+  approved_on: "2026-08-10"
+  approved_scope: scientific_gates_and_staged_gpu_checks
   description: Full canonical teacher cache and deterministic offline substrate.
+
+# This is deliberately separate from scientific-config approval. The owner
+# approved the pilot-first stages, not the projected 33.23 GPU-hour core run.
+compute_authorization:
+  staged_checks_approved: true
+  staged_max_examples: 100
+  staged_full_dataset_allowlist: [vsr]
+  full_core_approved: false
 
 seed: 42
 frozen_probe_config: configs/probes/frozen_week3_config.yaml
@@ -53,9 +63,6 @@ human_audit:
   materialize_images: true
 
 completion_gates:
-  # Proposed operational definitions for the plan's qualitative "no dominant
-  # collapse" and "usable bit counts" requirements. These require owner
-  # approval before the full run is authorized.
+  # Owner-approved operational definitions (2026-08-10).
   max_sixway_fraction: 0.80
   min_bit_count_per_dataset_model: 5
-

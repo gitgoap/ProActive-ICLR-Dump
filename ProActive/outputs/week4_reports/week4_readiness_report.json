@@ -1,0 +1,28 @@
+{
+  "approval_status": "APPROVED",
+  "compute_authorization": {
+    "full_core_approved": false,
+    "staged_checks_approved": true,
+    "staged_full_dataset_allowlist": [
+      "vsr"
+    ],
+    "staged_max_examples": 100
+  },
+  "dataset_counts": {
+    "hallusionbench": 951,
+    "pope": 3000,
+    "vizwiz": 3000,
+    "vsr": 340
+  },
+  "errors": [],
+  "expected_forward_passes": 102294,
+  "expected_teacher_rows": 14582,
+  "is_valid": true,
+  "manifest_records": 7291,
+  "mode": "readiness",
+  "relation_applicable_records": 110,
+  "required_core_models": [
+    "gemma4_e4b",
+    "qwen3_vl_8b"
+  ]
+}

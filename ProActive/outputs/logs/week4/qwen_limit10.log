@@ -1,0 +1,5 @@
+2026-08-12 17:52:31,347 INFO [run_teacher] Model: qwen3_vl_8b (Qwen/Qwen3-VL-8B-Instruct)
+2026-08-12 17:52:31,347 INFO [run_teacher] Shard: 0/1
+2026-08-12 17:52:31,347 INFO [run_teacher] Selected rows: 10; completed: 10; pending: 0
+2026-08-12 17:52:31,347 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 0
+2026-08-12 17:52:31,347 INFO [run_teacher] Output: outputs/week4_staging/limit10/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl

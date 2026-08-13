@@ -1,0 +1,20 @@
+2026-08-10 18:36:08,360 INFO [run_teacher] Model: qwen3_vl_8b (Qwen/Qwen3-VL-8B-Instruct)
+2026-08-10 18:36:08,360 INFO [run_teacher] Shard: 0/1
+2026-08-10 18:36:08,360 INFO [run_teacher] Selected rows: 1; completed: 0; pending: 1
+2026-08-10 18:36:08,360 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7
+2026-08-10 18:36:08,360 INFO [run_teacher] Output: outputs/week4_staging/limit1/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl
+2026-08-10 18:36:12,417 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 46704.14it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-10 18:36:12,699 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-10 18:36:12,701 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   0%|          | 1/750 [00:00<01:40,  7.45it/s]Loading weights:   0%|          | 2/750 [00:00<02:08,  5.80it/s]Loading weights:   2%|▏         | 16/750 [00:00<00:14, 48.94it/s]Loading weights:   4%|▍         | 32/750 [00:00<00:08, 82.24it/s]Loading weights:   6%|▋         | 48/750 [00:00<00:06, 104.18it/s]Loading weights:   8%|▊         | 61/750 [00:00<00:06, 106.56it/s]Loading weights:  11%|█         | 81/750 [00:00<00:05, 128.84it/s]Loading weights:  13%|█▎        | 95/750 [00:00<00:05, 126.25it/s]Loading weights:  15%|█▍        | 112/750 [00:01<00:04, 138.40it/s]Loading weights:  17%|█▋        | 127/750 [00:01<00:04, 128.19it/s]Loading weights:  20%|█▉        | 147/750 [00:01<00:04, 143.31it/s]Loading weights:  22%|██▏       | 162/750 [00:01<00:04, 136.73it/s]Loading weights:  24%|██▍       | 180/750 [00:01<00:04, 140.40it/s]Loading weights:  26%|██▌       | 195/750 [00:01<00:04, 131.99it/s]Loading weights:  28%|██▊       | 210/750 [00:01<00:03, 135.82it/s]Loading weights:  30%|██▉       | 224/750 [00:01<00:04, 125.88it/s]Loading weights:  32%|███▏      | 237/750 [00:02<00:04, 126.06it/s]Loading weights:  34%|███▍      | 254/750 [00:02<00:03, 136.70it/s]Loading weights:  36%|███▌      | 268/750 [00:02<00:03, 137.33it/s]Loading weights:  38%|███▊      | 282/750 [00:02<00:03, 127.30it/s]Loading weights:  39%|███▉      | 295/750 [00:02<00:03, 127.44it/s]Loading weights:  42%|████▏     | 312/750 [00:02<00:03, 133.51it/s]Loading weights:  43%|████▎     | 326/750 [00:02<00:03, 124.39it/s]Loading weights:  46%|████▌     | 342/750 [00:02<00:03, 132.59it/s]Loading weights:  47%|████▋     | 356/750 [00:02<00:02, 132.25it/s]Loading weights:  49%|████▉     | 370/750 [00:03<00:03, 122.46it/s]Loading weights:  52%|█████▏    | 387/750 [00:03<00:02, 134.81it/s]Loading weights:  56%|█████▌    | 419/750 [00:03<00:01, 185.30it/s]Loading weights:  76%|███████▌  | 569/750 [00:03<00:00, 551.13it/s]Loading weights:  95%|█████████▌| 713/750 [00:03<00:00, 802.49it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 209.68it/s]
+2026-08-10 18:36:17,323 INFO [run_teacher] [1/1] vizwiz_VizWiz_val_00001872_1872
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-10 18:36:26,248 INFO [run_teacher] Shard finished in 17.9s with 0 failed rows

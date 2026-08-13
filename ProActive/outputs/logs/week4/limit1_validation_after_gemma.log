@@ -1,0 +1,66 @@
+{
+  "mode": "teacher_progress",
+  "is_valid": true,
+  "readiness": {
+    "is_valid": true,
+    "approval_status": "APPROVED",
+    "compute_authorization": {
+      "staged_checks_approved": true,
+      "staged_max_examples": 100,
+      "staged_full_dataset_allowlist": [
+        "vsr"
+      ],
+      "full_core_approved": false
+    },
+    "manifest_records": 7291,
+    "dataset_counts": {
+      "hallusionbench": 951,
+      "pope": 3000,
+      "vizwiz": 3000,
+      "vsr": 340
+    },
+    "relation_applicable_records": 110,
+    "required_core_models": [
+      "gemma4_e4b",
+      "qwen3_vl_8b"
+    ],
+    "expected_teacher_rows": 14582,
+    "expected_forward_passes": 102294,
+    "errors": []
+  },
+  "teacher_progress": {
+    "is_valid": true,
+    "teacher_records": 2,
+    "unique_probe_records": 12,
+    "completion_by_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "completed": 1,
+        "expected": 7291,
+        "fraction": 0.0001371553970648745
+      },
+      "google/gemma-4-E4B-it": {
+        "completed": 1,
+        "expected": 7291,
+        "fraction": 0.0001371553970648745
+      }
+    },
+    "split_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct|train": 1,
+      "google/gemma-4-E4B-it|train": 1
+    },
+    "errors": [],
+    "error_count": 0
+  },
+  "teacher_files": [
+    {
+      "path": "outputs/week4_staging/limit1/teacher_gemma4_e4b_all_all_shard00-of-01.jsonl",
+      "sha256": "ed5ab6da3fc279637ecd019f5eb06d6cefc065ac00a0e6cb53396d7d6872c645",
+      "row_count": 1
+    },
+    {
+      "path": "outputs/week4_staging/limit1/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl",
+      "sha256": "2bfe120ad6f0cba83b2e3114103c885cc1a6c176014e5b6cb33d0991d0833ec6",
+      "row_count": 1
+    }
+  ]
+}

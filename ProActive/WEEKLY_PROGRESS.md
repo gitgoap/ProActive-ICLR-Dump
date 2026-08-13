@@ -19,7 +19,7 @@ This document records the **actual** work completed on a week-by-week basis duri
 ---
 
 ## Week 2: Model Adapters and Clean Inference
-**Status:** Completed (Pending final InternVL/Dataset downloads)
+**Status:** Completed (InternVL subsequently downloaded; GPU validation pending in Week 4)
 **Dates:** ~July 24, 2026
 
 **What we actually did:**
@@ -28,6 +28,11 @@ This document records the **actual** work completed on a week-by-week basis duri
 3. **Gemma Implementation:** Built `GemmaAdapter` for `gemma-4-E4B-it` matching the exact generation and scoring signatures.
 4. **InternVL Implementation:** Drafted `InternVLAdapter` for `InternVL3-9B` using its specific `<image>` interleaved chat templates.
 5. **Smoke Testing:** Wrote `scripts/smoke_test_models.py` and executed it on the GPU server. Successfully generated deterministic results and extracted correct log distributions for both Qwen and Gemma natively.
+
+**Later availability update (August 10, 2026):** InternVL3-9B is now downloaded
+at `/home/models/InternVL3-9B` and pinned to immutable revision
+`5f618513e35a9b85922341b8057feddfc8880e50`. This resolves the download blocker,
+but does not count as the required InternVL GPU smoke/catch-up validation.
 
 ---
 
@@ -82,13 +87,15 @@ This document records the **actual** work completed on a week-by-week basis duri
 8. Populated the Week 4 requirement matrix, staged server plan, and InternVL catch-up record.
 
 **Local validation:**
-- 10 new Week 4 tests pass; complete CPU suite: `168 passed in 2.75s`.
+- Initial Week 4 implementation added 10 focused tests and passed the then-complete 168-test CPU suite.
+- The corrected model-revision inspector and compute-authorization guard pass seven focused regression tests; the expanded complete CPU suite passes `175` tests.
 - Readiness dry-run reports 7,291 manifest rows, 14,582 expected Qwen/Gemma teacher rows, and 102,294 clean/probe passes.
 - Deterministic four-way shard sizes are 1,801–1,847 rows/model; each model requires exactly 51,147 passes.
+- Server evidence resolved and pinned immutable revisions for Qwen, Gemma, and InternVL on August 10, 2026.
+- The owner approved the `0.80` collapse gate, 5/5 bit balance, 60+120 audit composition, interim two-model/final three-model audit policy, and staged GPU checks. Local readiness passes; full-core compute remains separately locked.
 
 **Still required for completion:**
-1. Server revision evidence and immutable model pins.
-2. Owner approval of the draft scientific gates/audit composition and high-cost compute plan.
-3. Mandatory 1/10/100/full-model-dataset server stages.
-4. Full Qwen/Gemma caches and daily checksum validation.
-5. Offline label/state artifacts, a final three-model audit packet (or approved documented deviation), and a passing full Week 4 gate.
+1. Mandatory 1/10/100/full-VSR server stages.
+2. Separate owner approval of the high-cost full core after staged-log review.
+3. Full Qwen/Gemma caches and daily checksum validation.
+4. Offline label/state artifacts, a final three-model audit packet, and a passing full Week 4 gate.

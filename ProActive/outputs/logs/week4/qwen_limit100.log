@@ -1,0 +1,119 @@
+2026-08-12 17:58:19,075 INFO [run_teacher] Model: qwen3_vl_8b (Qwen/Qwen3-VL-8B-Instruct)
+2026-08-12 17:58:19,075 INFO [run_teacher] Shard: 0/1
+2026-08-12 17:58:19,075 INFO [run_teacher] Selected rows: 100; completed: 0; pending: 100
+2026-08-12 17:58:19,075 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 702
+2026-08-12 17:58:19,075 INFO [run_teacher] Output: outputs/week4_staging/limit100/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl
+2026-08-12 17:58:23,122 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 44917.17it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-12 17:58:23,405 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-12 17:58:23,406 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   0%|          | 1/750 [00:00<01:37,  7.64it/s]Loading weights:   0%|          | 2/750 [00:00<03:02,  4.11it/s]Loading weights:   2%|▏         | 17/750 [00:00<00:18, 40.51it/s]Loading weights:   5%|▍         | 37/750 [00:00<00:08, 80.83it/s]Loading weights:   7%|▋         | 54/750 [00:00<00:06, 104.74it/s]Loading weights:   9%|▉         | 71/750 [00:00<00:05, 119.84it/s]Loading weights:  12%|█▏        | 87/750 [00:00<00:05, 129.90it/s]Loading weights:  14%|█▍        | 104/750 [00:01<00:04, 138.20it/s]Loading weights:  16%|█▌        | 119/750 [00:01<00:04, 141.02it/s]Loading weights:  18%|█▊        | 136/750 [00:01<00:04, 147.02it/s]Loading weights:  20%|██        | 152/750 [00:01<00:04, 141.85it/s]Loading weights:  23%|██▎       | 169/750 [00:01<00:04, 143.95it/s]Loading weights:  25%|██▍       | 184/750 [00:01<00:04, 138.37it/s]Loading weights:  27%|██▋       | 199/750 [00:01<00:03, 140.80it/s]Loading weights:  29%|██▊       | 214/750 [00:01<00:04, 130.21it/s]Loading weights:  30%|███       | 228/750 [00:01<00:03, 130.62it/s]Loading weights:  32%|███▏      | 243/750 [00:02<00:03, 133.89it/s]Loading weights:  34%|███▍      | 257/750 [00:02<00:03, 132.87it/s]Loading weights:  36%|███▌      | 271/750 [00:02<00:03, 124.88it/s]Loading weights:  38%|███▊      | 285/750 [00:02<00:03, 128.80it/s]Loading weights:  40%|████      | 301/750 [00:02<00:03, 130.77it/s]Loading weights:  42%|████▏     | 315/750 [00:02<00:03, 125.50it/s]Loading weights:  45%|████▍     | 334/750 [00:02<00:03, 137.21it/s]Loading weights:  46%|████▋     | 348/750 [00:02<00:03, 133.72it/s]Loading weights:  49%|████▉     | 367/750 [00:03<00:02, 144.06it/s]Loading weights:  51%|█████     | 382/750 [00:03<00:02, 137.95it/s]Loading weights:  53%|█████▎    | 396/750 [00:03<00:02, 137.94it/s]Loading weights:  73%|███████▎  | 547/750 [00:03<00:00, 516.34it/s]Loading weights:  92%|█████████▏| 693/750 [00:03<00:00, 782.28it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 211.61it/s]
+2026-08-12 17:58:27,990 INFO [run_teacher] [1/100] vizwiz_VizWiz_val_00001872_1872
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-12 17:58:37,835 INFO [run_teacher] [2/100] pope_random_745_random_745
+2026-08-12 17:58:41,767 INFO [run_teacher] [3/100] vizwiz_VizWiz_val_00001954_1954
+2026-08-12 17:58:46,741 INFO [run_teacher] [4/100] pope_random_1579_random_1579
+2026-08-12 17:58:49,665 INFO [run_teacher] [5/100] pope_random_2232_random_2232
+2026-08-12 17:58:52,881 INFO [run_teacher] [6/100] vizwiz_VizWiz_val_00002029_2029
+2026-08-12 17:59:10,500 INFO [run_teacher] [7/100] vizwiz_VizWiz_val_00000720_720
+2026-08-12 17:59:17,856 INFO [run_teacher] [8/100] vizwiz_VizWiz_val_00001467_1467
+2026-08-12 17:59:24,021 INFO [run_teacher] [9/100] vizwiz_VizWiz_val_00001216_1216
+2026-08-12 17:59:27,604 INFO [run_teacher] [10/100] pope_random_1662_random_1662
+2026-08-12 17:59:31,386 INFO [run_teacher] [11/100] vizwiz_VizWiz_val_00002819_2819
+2026-08-12 17:59:34,685 INFO [run_teacher] [12/100] hallusionbench_296_296
+2026-08-12 17:59:38,917 INFO [run_teacher] [13/100] vizwiz_VizWiz_val_00001697_1697
+2026-08-12 17:59:44,307 INFO [run_teacher] [14/100] pope_random_2861_random_2861
+2026-08-12 17:59:48,031 INFO [run_teacher] [15/100] pope_random_410_random_410
+2026-08-12 17:59:51,380 INFO [run_teacher] [16/100] vizwiz_VizWiz_val_00002632_2632
+2026-08-12 17:59:56,554 INFO [run_teacher] [17/100] hallusionbench_19_19
+2026-08-12 18:00:04,418 INFO [run_teacher] [18/100] pope_random_478_random_478
+2026-08-12 18:00:09,836 INFO [run_teacher] [19/100] vizwiz_VizWiz_val_00002490_2490
+2026-08-12 18:00:16,600 INFO [run_teacher] [20/100] pope_random_1207_random_1207
+2026-08-12 18:00:19,708 INFO [run_teacher] [21/100] vizwiz_VizWiz_val_00000802_802
+2026-08-12 18:00:27,047 INFO [run_teacher] [22/100] vizwiz_VizWiz_val_00001236_1236
+2026-08-12 18:00:34,328 INFO [run_teacher] [23/100] vizwiz_VizWiz_val_00001175_1175
+2026-08-12 18:00:41,901 INFO [run_teacher] [24/100] hallusionbench_815_815
+2026-08-12 18:00:45,425 INFO [run_teacher] [25/100] vizwiz_VizWiz_val_00000177_177
+2026-08-12 18:00:52,873 INFO [run_teacher] [26/100] pope_random_2182_random_2182
+2026-08-12 18:00:55,580 INFO [run_teacher] [27/100] hallusionbench_493_493
+2026-08-12 18:00:59,996 INFO [run_teacher] [28/100] pope_random_2450_random_2450
+2026-08-12 18:01:04,003 INFO [run_teacher] [29/100] pope_random_142_random_142
+2026-08-12 18:01:08,036 INFO [run_teacher] [30/100] vizwiz_VizWiz_val_00001241_1241
+2026-08-12 18:01:14,775 INFO [run_teacher] [31/100] vizwiz_VizWiz_val_00000203_203
+2026-08-12 18:01:19,898 INFO [run_teacher] [32/100] vizwiz_VizWiz_val_00000119_119
+2026-08-12 18:01:42,958 INFO [run_teacher] [33/100] pope_random_2482_random_2482
+2026-08-12 18:01:46,873 INFO [run_teacher] [34/100] hallusionbench_774_774
+2026-08-12 18:01:53,354 INFO [run_teacher] [35/100] pope_random_1410_random_1410
+2026-08-12 18:01:56,937 INFO [run_teacher] [36/100] vizwiz_VizWiz_val_00000456_456
+2026-08-12 18:02:05,384 INFO [run_teacher] [37/100] pope_random_1429_random_1429
+2026-08-12 18:02:08,375 INFO [run_teacher] [38/100] vizwiz_VizWiz_val_00002501_2501
+2026-08-12 18:02:16,839 INFO [run_teacher] [39/100] vizwiz_VizWiz_val_00002508_2508
+2026-08-12 18:02:24,861 INFO [run_teacher] [40/100] vizwiz_VizWiz_val_00002215_2215
+2026-08-12 18:02:32,434 INFO [run_teacher] [41/100] pope_random_1150_random_1150
+2026-08-12 18:02:35,791 INFO [run_teacher] [42/100] pope_random_117_random_117
+2026-08-12 18:02:39,348 INFO [run_teacher] [43/100] pope_random_2424_random_2424
+2026-08-12 18:02:42,656 INFO [run_teacher] [44/100] vizwiz_VizWiz_val_00002552_2552
+2026-08-12 18:02:50,170 INFO [run_teacher] [45/100] pope_random_536_random_536
+2026-08-12 18:02:53,636 INFO [run_teacher] [46/100] hallusionbench_83_83
+2026-08-12 18:02:58,651 INFO [run_teacher] [47/100] hallusionbench_683_683
+2026-08-12 18:03:05,548 INFO [run_teacher] [48/100] vizwiz_VizWiz_val_00002899_2899
+2026-08-12 18:03:13,354 INFO [run_teacher] [49/100] vizwiz_VizWiz_val_00001392_1392
+2026-08-12 18:03:20,802 INFO [run_teacher] [50/100] hallusionbench_566_566
+2026-08-12 18:03:27,441 INFO [run_teacher] [51/100] vizwiz_VizWiz_val_00002835_2835
+2026-08-12 18:03:31,415 INFO [run_teacher] [52/100] pope_random_758_random_758
+2026-08-12 18:03:35,006 INFO [run_teacher] [53/100] vizwiz_VizWiz_val_00001987_1987
+2026-08-12 18:03:42,003 INFO [run_teacher] [54/100] vsr_294_294
+2026-08-12 18:03:46,277 INFO [run_teacher] [55/100] pope_random_590_random_590
+2026-08-12 18:03:49,709 INFO [run_teacher] [56/100] hallusionbench_196_196
+2026-08-12 18:03:56,599 INFO [run_teacher] [57/100] pope_random_606_random_606
+2026-08-12 18:04:00,264 INFO [run_teacher] [58/100] hallusionbench_248_248
+2026-08-12 18:04:07,212 INFO [run_teacher] [59/100] hallusionbench_674_674
+2026-08-12 18:04:10,444 INFO [run_teacher] [60/100] hallusionbench_395_395
+2026-08-12 18:04:15,185 INFO [run_teacher] [61/100] pope_random_1254_random_1254
+2026-08-12 18:04:18,617 INFO [run_teacher] [62/100] vizwiz_VizWiz_val_00000982_982
+2026-08-12 18:04:24,715 INFO [run_teacher] [63/100] vizwiz_VizWiz_val_00000477_477
+2026-08-12 18:04:32,429 INFO [run_teacher] [64/100] pope_random_983_random_983
+2026-08-12 18:04:35,811 INFO [run_teacher] [65/100] pope_random_2984_random_2984
+2026-08-12 18:04:39,260 INFO [run_teacher] [66/100] hallusionbench_428_428
+2026-08-12 18:04:52,747 INFO [run_teacher] [67/100] vizwiz_VizWiz_val_00000933_933
+2026-08-12 18:05:01,819 INFO [run_teacher] [68/100] pope_random_1364_random_1364
+2026-08-12 18:05:06,218 INFO [run_teacher] [69/100] vizwiz_VizWiz_val_00002177_2177
+2026-08-12 18:05:13,790 INFO [run_teacher] [70/100] pope_random_234_random_234
+2026-08-12 18:05:16,406 INFO [run_teacher] [71/100] vsr_304_304
+2026-08-12 18:05:20,139 INFO [run_teacher] [72/100] hallusionbench_794_794
+2026-08-12 18:05:24,437 INFO [run_teacher] [73/100] vizwiz_VizWiz_val_00000042_42
+2026-08-12 18:05:32,285 INFO [run_teacher] [74/100] hallusionbench_864_864
+2026-08-12 18:05:39,041 INFO [run_teacher] [75/100] vizwiz_VizWiz_val_00000305_305
+2026-08-12 18:05:42,040 INFO [run_teacher] [76/100] pope_random_2650_random_2650
+2026-08-12 18:05:45,847 INFO [run_teacher] [77/100] hallusionbench_836_836
+2026-08-12 18:05:50,687 INFO [run_teacher] [78/100] hallusionbench_511_511
+2026-08-12 18:05:56,077 INFO [run_teacher] [79/100] pope_random_1135_random_1135
+2026-08-12 18:05:58,910 INFO [run_teacher] [80/100] pope_random_901_random_901
+2026-08-12 18:06:02,367 INFO [run_teacher] [81/100] hallusionbench_585_585
+2026-08-12 18:06:08,632 INFO [run_teacher] [82/100] vizwiz_VizWiz_val_00000896_896
+2026-08-12 18:06:23,260 INFO [run_teacher] [83/100] pope_random_77_random_77
+2026-08-12 18:06:26,376 INFO [run_teacher] [84/100] vizwiz_VizWiz_val_00002573_2573
+2026-08-12 18:06:30,275 INFO [run_teacher] [85/100] vizwiz_VizWiz_val_00001288_1288
+2026-08-12 18:06:39,088 INFO [run_teacher] [86/100] pope_random_278_random_278
+2026-08-12 18:06:43,337 INFO [run_teacher] [87/100] vizwiz_VizWiz_val_00000688_688
+2026-08-12 18:06:50,476 INFO [run_teacher] [88/100] vizwiz_VizWiz_val_00000567_567
+2026-08-12 18:06:58,049 INFO [run_teacher] [89/100] pope_random_2819_random_2819
+2026-08-12 18:07:01,856 INFO [run_teacher] [90/100] vsr_334_334
+2026-08-12 18:07:06,696 INFO [run_teacher] [91/100] vizwiz_VizWiz_val_00001599_1599
+2026-08-12 18:07:15,802 INFO [run_teacher] [92/100] pope_random_663_random_663
+2026-08-12 18:07:19,067 INFO [run_teacher] [93/100] pope_random_1742_random_1742
+2026-08-12 18:07:22,233 INFO [run_teacher] [94/100] vizwiz_VizWiz_val_00001126_1126
+2026-08-12 18:07:29,889 INFO [run_teacher] [95/100] pope_random_361_random_361
+2026-08-12 18:07:34,179 INFO [run_teacher] [96/100] vizwiz_VizWiz_val_00002289_2289
+2026-08-12 18:07:40,710 INFO [run_teacher] [97/100] pope_random_842_random_842
+2026-08-12 18:07:43,826 INFO [run_teacher] [98/100] pope_random_1514_random_1514
+2026-08-12 18:07:47,942 INFO [run_teacher] [99/100] vizwiz_VizWiz_val_00000737_737
+2026-08-12 18:07:56,131 INFO [run_teacher] [100/100] vizwiz_VizWiz_val_00002931_2931
+2026-08-12 18:08:05,227 INFO [run_teacher] Shard finished in 586.2s with 0 failed rows

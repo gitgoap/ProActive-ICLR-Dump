@@ -1,0 +1,62 @@
+{
+  "is_valid": true,
+  "mode": "teacher_progress",
+  "readiness": {
+    "approval_status": "APPROVED",
+    "compute_authorization": {
+      "full_core_approved": false,
+      "staged_checks_approved": true,
+      "staged_full_dataset_allowlist": [
+        "vsr"
+      ],
+      "staged_max_examples": 100
+    },
+    "dataset_counts": {
+      "hallusionbench": 951,
+      "pope": 3000,
+      "vizwiz": 3000,
+      "vsr": 340
+    },
+    "errors": [],
+    "expected_forward_passes": 102294,
+    "expected_teacher_rows": 14582,
+    "is_valid": true,
+    "manifest_records": 7291,
+    "relation_applicable_records": 110,
+    "required_core_models": [
+      "gemma4_e4b",
+      "qwen3_vl_8b"
+    ]
+  },
+  "teacher_files": [
+    {
+      "path": "outputs/week4_staging/limit10/teacher_qwen3_vl_8b_all_all_shard00-of-01.jsonl",
+      "row_count": 10,
+      "sha256": "dd9dda34708a58457f441835df7dc7b4fe69a0ff7b14e196e2cab126a7642b00"
+    }
+  ],
+  "teacher_progress": {
+    "completion_by_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "completed": 10,
+        "expected": 7291,
+        "fraction": 0.001371553970648745
+      },
+      "google/gemma-4-E4B-it": {
+        "completed": 0,
+        "expected": 7291,
+        "fraction": 0.0
+      }
+    },
+    "error_count": 0,
+    "errors": [],
+    "is_valid": true,
+    "split_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct|cal": 2,
+      "Qwen/Qwen3-VL-8B-Instruct|test": 1,
+      "Qwen/Qwen3-VL-8B-Instruct|train": 7
+    },
+    "teacher_records": 10,
+    "unique_probe_records": 60
+  }
+}

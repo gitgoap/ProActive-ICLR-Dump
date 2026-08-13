@@ -25,7 +25,7 @@ leakage/balance reports must also exist and pass.
 | 180-example blinded human audit | `src/proactive/audits/human_audit.py`, `scripts/export_human_audit.py` | `test_human_audit_sampling_is_deterministic_balanced_and_covered`; packet validator | `validate_week4.py --mode full` | blinded CSV, private key, 180 renamed images, README, manifest | IMPLEMENTED, NOT VALIDATED |
 | No split/group leakage | `week4_validation.py` | split-hash adversary test | full validation against grouped manifest | full validation report | IMPLEMENTED, NOT VALIDATED |
 | Teacher/label/state manifests with checksums | `scripts/validate_week4.py` | end-to-end validator | full validation | three JSON manifests | IMPLEMENTED, NOT VALIDATED |
-| Exact model/semantic revisions | `scripts/inspect_model_revisions.py`, `scripts/run_teacher.py`, `semantic.py` | unpinned runs fail closed | server revision inspection + smoke | pinned model YAMLs and cache provenance | BLOCKED ON SERVER EVIDENCE |
+| Exact model/semantic revisions | `scripts/inspect_model_revisions.py`, `scripts/run_teacher.py`, `semantic.py` | unpinned runs fail closed; metadata parser regression tests | server revision inspection passed; staged model smoke remains | pinned model YAMLs and cache provenance | IMPLEMENTED, NOT VALIDATED |
 
 ## Partial-state scope
 
@@ -36,22 +36,20 @@ policy-rollout subsets and oracle-next-action subsets from Plan §16.2 are marke
 as deferred in every state and must be added after the first policy checkpoint
 and oracle baseline exist. They are not fabricated in Week 4.
 
-## Owner decisions required before full GPU launch
+## Owner decisions and compute authorization
 
-1. Approve or revise the proposed operational collapse gate:
-   `max_sixway_fraction = 0.80`.
-2. Approve or revise the minimum usable bit count per dataset/model slice:
-   at least 5 positive and 5 negative rows.
-3. Approve the audit composition of 60 naturally sampled rows plus 120 targeted
-   rows, totaling 180 and aiming for approximately 30 per six-way category.
-4. Decide whether the final Week 4 audit must wait for InternVL (the literal
-   Plan §15.1 requirement) or whether an explicitly interim two-model audit is
-   acceptable while the documented InternVL catch-up shard runs.
-5. Provide server evidence for immutable Qwen and Gemma revisions and approve
-   the measured high-cost full run after the staged 1/10-row checks.
+The owner approved the following on 2026-08-10:
 
-Until these are resolved, `configs/experiments/teacher_core.yaml` intentionally
-remains `DRAFT_REQUIRES_APPROVAL`, and full teacher generation fails closed.
+1. `max_sixway_fraction = 0.80`;
+2. at least 5 positive and 5 negative source-bit rows per dataset/model slice;
+3. 60 naturally sampled plus 120 targeted human-audit rows;
+4. interim two-model work is allowed, but the final audit requires InternVL;
+5. the mandatory 1/10/100/full-VSR staged GPU checks.
+
+`configs/experiments/teacher_core.yaml` is scientifically approved and the
+readiness gate passes. The projected 33.23 GPU-hour full Qwen+Gemma core is not
+yet approved. `scripts/run_teacher.py` therefore permits only limits up to 100
+or a complete VSR run and fails closed on the combined full core.
 
 ## Completion gate
 
