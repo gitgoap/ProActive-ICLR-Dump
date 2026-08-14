@@ -47,9 +47,9 @@ The owner approved the following on 2026-08-10:
 5. the mandatory 1/10/100/full-VSR staged GPU checks.
 
 `configs/experiments/teacher_core.yaml` is scientifically approved and the
-readiness gate passes. The projected 33.23 GPU-hour full Qwen+Gemma core is not
-yet approved. `scripts/run_teacher.py` therefore permits only limits up to 100
-or a complete VSR run and fails closed on the combined full core.
+readiness gate passes. After all staged gates passed, the owner separately
+approved the projected 33.23 GPU-hour full Qwen+Gemma core on 2026-08-13.
+Deterministic four-way sharding and duplicate-safe resume remain mandatory.
 
 ## Completion gate
 

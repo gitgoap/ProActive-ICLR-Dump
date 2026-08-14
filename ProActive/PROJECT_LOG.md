@@ -176,3 +176,42 @@
   `ceded69cf37ea1a86c781acba0a73c476413802de5b117b63b8d666f68cf69a1`.
   The server artifact and validation remain trustworthy, but the JSONL must be
   re-synced after completion until its local row count/hash match the server.
+- A second local check on 2026-08-13 still found the VSR JSONL at exactly
+  524,288 bytes, indicating a likely per-file synchronization cap rather than
+  an inference/artifact failure. The recovery procedure is to create a gzip
+  copy on the server without altering the validated JSONL, sync that compressed
+  copy, and verify its decompressed SHA-256 against the server hash.
+- The gzip transfer resolved the archival issue. The synced `.gz` is 286,141
+  bytes and decompresses to 2,221,006 bytes containing exactly 340 valid JSON
+  objects. Its decompressed SHA-256 is
+  `d8a8996fc7e01855121369d99c402f42af057819788f1bfafb0431925877d2d6`,
+  exactly matching the validated server artifact. No inference rerun was needed.
+
+## 2026-08-13 — Full Week 4 core approved
+
+- After all 1/10/100/full-VSR gates passed, the owner explicitly approved the
+  conservative 33.23 GPU-hour full Qwen+Gemma core run.
+- Updated `configs/experiments/teacher_core.yaml` to set
+  `compute_authorization.full_core_approved: true` and record the approval date
+  and estimate. Deterministic four-way sharding, immutable revisions, frozen
+  probes, strict resume validation, and daily checksums remain enforced.
+- GPU availability at approval: physical GPU 1 was free; GPU 0 held two Python
+  processes using 37,967 MiB, while GPUs 2 and 3 were actively utilized by
+  unrelated KVCompress jobs. Only shard 0 on GPU 1 is authorized for immediate
+  launch; additional physical GPUs must be checked again before use.
+- A local post-approval check found that `manifest_combined.jsonl` had also been
+  truncated during synchronization (1,310,720 bytes locally versus the earlier
+  recorded 2,933,173 bytes), and the current local shell lacked `src` on
+  `PYTHONPATH`. These are local verification-environment issues: server
+  readiness already validated the complete 7,291-row manifest. No server
+  manifest rebuild or GPU rerun is required.
+- Full-core authorization changes passed 14 focused Week 4 tests and the full
+  local CPU regression suite (`175 passed in 3.77s`). The first full-suite
+  attempt had four temporary-directory setup errors after 171 passes because
+  the Windows shell failed to create its test directory; rerunning with an
+  explicitly created directory resolved the environment issue.
+- The owner overrode the idle-GPU-only recommendation and directed parallel
+  launch of Qwen shards 0, 1, and 2 on physical GPUs 1, 2, and 3. GPUs 2/3 were
+  already running unrelated jobs, so their timing is marked shared-GPU and is
+  unsuitable as clean latency evidence. Separate output locks/files and strict
+  resume make interruption or OOM recoverable without duplicating rows.

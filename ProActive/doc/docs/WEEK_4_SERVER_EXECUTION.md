@@ -136,16 +136,35 @@ CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
   2>&1 | tee outputs/logs/week4/qwen_vsr_complete.log
 ```
 
-## 4. Full four-pane launch (withheld until explicit high-cost approval)
+## 4. Full deterministic-shard launch (approved 2026-08-13)
 
-Use four tmux panes. Run one model across all four GPUs; after all four Qwen
-shards pass, replace the model with Gemma and run the same four commands.
+All staged gates passed and the owner approved the conservative 33.23 GPU-hour
+Qwen+Gemma core. Each model has four deterministic shards. Start a shard only
+on a physical GPU that `nvidia-smi` shows as free immediately before launch.
+`CUDA_VISIBLE_DEVICES=N` exposes physical GPU N as logical `cuda:0`, so every
+command below uses `--device cuda:0`.
 
-The exact four commands are intentionally withheld until the 1/10/100/full-VSR
-logs have passed review and the owner explicitly approves the high-cost run.
-At that point the run approval card will provide exact pane commands, commit
-state, pinned revisions, measured wall-time estimate, monitoring, early-stop
-criteria, and expected artifacts.
+At approval time only physical GPU 1 was free. The immediate launch is Qwen
+shard 0:
+
+```bash
+CUDA_VISIBLE_DEVICES=1 python scripts/run_teacher.py \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --model qwen3_vl_8b \
+  --device cuda:0 \
+  --num_shards 4 \
+  --shard_id 0 \
+  --output_dir outputs/teacher_core \
+  --resume \
+  2>&1 | tee outputs/logs/week4/full_core/qwen_shard00-of-04.log
+```
+
+When other GPUs become free, launch Qwen shard IDs 1, 2, and 3 in separate
+panes, changing both `CUDA_VISIBLE_DEVICES` and `--shard_id` and using distinct
+log filenames. Never run two processes for the same model/shard output. After
+all four Qwen shards validate, run the same four shard IDs for
+`--model gemma4_e4b`. Interrupted shards resume with the identical command.
 
 ## 5. Daily/cache-end integrity check
 

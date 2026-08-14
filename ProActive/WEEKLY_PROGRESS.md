@@ -95,7 +95,8 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
 - The owner approved the `0.80` collapse gate, 5/5 bit balance, 60+120 audit composition, interim two-model/final three-model audit policy, and staged GPU checks. Local readiness passes; full-core compute remains separately locked.
 
 **Still required for completion:**
-1. Mandatory 1/10/100/full-VSR server stages.
-2. Separate owner approval of the high-cost full core after staged-log review.
-3. Full Qwen/Gemma caches and daily checksum validation.
-4. Offline label/state artifacts, a final three-model audit packet, and a passing full Week 4 gate.
+1. Full Qwen/Gemma four-shard caches and daily checksum validation (approved
+   2026-08-13 after 1/10/100/full-VSR staged validation).
+2. InternVL GPU catch-up cache for the required final three-model audit.
+3. Offline label/state artifacts and balance/leakage reports.
+4. Final 180-example audit packet and a passing full Week 4 gate.

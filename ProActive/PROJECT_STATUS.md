@@ -35,9 +35,10 @@
 - Scientific settings and staged 1/10/100/full-VSR checks were owner-approved
   on 2026-08-10. Both local and server readiness validators now pass without
   errors.
-- Full Qwen+Gemma generation is projected at about `33.23 GPU-hours` and remains
-  unapproved. The runner fails closed on that scope until the staged logs pass
-  review and the owner gives a separate high-cost approval.
+- Full Qwen+Gemma generation was separately approved on 2026-08-13 after all
+  staged gates passed. At approval time only physical GPU 1 was free; GPUs 0,
+  2, and 3 were occupied by unrelated processes and must not be used until
+  rechecked as free.
 - Interim two-model work is allowed, but the final Week 4 human audit still
   requires InternVL.
 
@@ -48,19 +49,17 @@
 - Qwen 10-row and 100-row stages are pilot validated. The 100-row cache has 100
   teacher rows, 602 legal probe records, zero errors, and completed in 586.2
   seconds.
-- Complete Qwen VSR is pilot validated on the server: 340 rows, 2,150 probes,
-  zero errors, and 1,325.9 seconds. The first local JSONL sync is truncated and
-  must be repeated; the server experiment itself does not need rerunning.
+- Complete Qwen VSR is pilot validated and locally archived: 340 rows, 2,150
+  probes, zero errors, 1,325.9 seconds, and matching decompressed/server SHA-256.
 - InternVL3-9B is downloaded and pinned on the documented Week 4 catch-up path;
   GPU validation/cache generation have not started. GQA-Relation remains
   scheduled for Week 7–8.
 
 **Next Tasks (Week 4):**
-1. Re-sync the completed Qwen VSR JSONL and verify its 340 rows and SHA-256.
-2. Obtain separate explicit approval for the approximately 33.23 GPU-hour full
-   Qwen/Gemma core run.
-3. After approval, unlock and launch the four-shard core cache and monitor
-   the high-cost four-GPU core run.
+1. Sync the full-core-approved config and pass server readiness.
+2. Launch Qwen shard 0 on the currently free physical GPU 1; add other shards
+   only when their physical GPUs are verified free.
+3. Validate daily progress/checksums and resume any interrupted shard safely.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

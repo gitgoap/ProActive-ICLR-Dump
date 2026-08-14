@@ -1,17 +1,18 @@
 metadata:
-  version: v3.5_week4_approved_staging
+  version: v3.5_week4_full_core_approved
   approval_status: APPROVED
   approved_on: "2026-08-10"
-  approved_scope: scientific_gates_and_staged_gpu_checks
+  approved_scope: scientific_gates_staged_checks_and_full_core
   description: Full canonical teacher cache and deterministic offline substrate.
 
-# This is deliberately separate from scientific-config approval. The owner
-# approved the pilot-first stages, not the projected 33.23 GPU-hour core run.
+# Compute authorization is recorded separately from the scientific settings.
 compute_authorization:
   staged_checks_approved: true
   staged_max_examples: 100
   staged_full_dataset_allowlist: [vsr]
-  full_core_approved: false
+  full_core_approved: true
+  full_core_approved_on: "2026-08-13"
+  approved_estimated_gpu_hours: 33.23
 
 seed: 42
 frozen_probe_config: configs/probes/frozen_week3_config.yaml
