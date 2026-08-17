@@ -1,0 +1,71 @@
+2026-08-16 19:50:13,023 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-08-16 19:50:13,023 INFO [run_teacher] Shard: 0/4
+2026-08-16 19:50:13,023 INFO [run_teacher] Selected rows: 1836; completed: 798; pending: 1038
+2026-08-16 19:50:13,023 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7292
+2026-08-16 19:50:13,023 INFO [run_teacher] Output: outputs/teacher_core/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl
+2026-08-16 19:50:13,024 INFO [run_teacher] Current-failure ledger: outputs/teacher_core/teacher_gemma4_e4b_all_all_shard00-of-04.failures.jsonl
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 107, in _acquire_output_lock
+    fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+BlockingIOError: [Errno 11] Resource temporarily unavailable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 592, in <module>
+    main()
+    ~~~~^^
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 492, in main
+    lock_handle = _acquire_output_lock(output_path)
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 118, in _acquire_output_lock
+    raise RuntimeError(f"Another process is writing shard {output_path}") from exc
+RuntimeError: Another process is writing shard outputs/teacher_core/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl
+2026-08-16 19:50:14,558 INFO [run_teacher] [822/1836] pope_random_2314_random_2314
+2026-08-16 19:50:19,756 INFO [run_teacher] [823/1836] pope_random_2317_random_2317
+2026-08-16 19:50:24,804 INFO [run_teacher] [824/1836] pope_random_2318_random_2318
+2026-08-16 19:50:29,570 INFO [run_teacher] [825/1836] pope_random_2320_random_2320
+2026-08-16 19:50:35,118 INFO [run_teacher] [826/1836] pope_random_2325_random_2325
+2026-08-16 19:50:40,866 INFO [run_teacher] [827/1836] pope_random_2334_random_2334
+2026-08-16 19:50:45,748 INFO [run_teacher] [828/1836] pope_random_2337_random_2337
+2026-08-16 19:50:49,939 INFO [run_teacher] [829/1836] pope_random_2341_random_2341
+2026-08-16 19:50:55,129 INFO [run_teacher] [830/1836] pope_random_2342_random_2342
+2026-08-16 19:51:00,085 INFO [run_teacher] [831/1836] pope_random_2344_random_2344
+2026-08-16 19:51:05,176 INFO [run_teacher] [832/1836] pope_random_2349_random_2349
+2026-08-16 19:51:10,157 INFO [run_teacher] [833/1836] pope_random_2353_random_2353
+2026-08-16 19:51:14,939 INFO [run_teacher] [834/1836] pope_random_2354_random_2354
+2026-08-16 19:51:20,954 INFO [run_teacher] [835/1836] pope_random_2366_random_2366
+2026-08-16 19:51:25,787 INFO [run_teacher] [836/1836] pope_random_2372_random_2372
+2026-08-16 19:51:31,693 INFO [run_teacher] [837/1836] pope_random_2375_random_2375
+2026-08-16 19:51:36,750 INFO [run_teacher] [838/1836] pope_random_2382_random_2382
+2026-08-16 19:51:41,990 INFO [run_teacher] [839/1836] pope_random_2384_random_2384
+2026-08-16 19:51:48,271 INFO [run_teacher] [840/1836] pope_random_2387_random_2387
+2026-08-16 19:51:53,636 INFO [run_teacher] [841/1836] pope_random_2392_random_2392
+2026-08-16 19:51:58,885 INFO [run_teacher] [842/1836] pope_random_2397_random_2397
+2026-08-16 19:52:03,633 INFO [run_teacher] [843/1836] pope_random_2400_random_2400
+2026-08-16 19:52:08,823 INFO [run_teacher] [844/1836] pope_random_2402_random_2402
+2026-08-16 19:52:13,314 INFO [run_teacher] [845/1836] pope_random_2403_random_2403
+2026-08-16 19:52:18,154 INFO [run_teacher] [846/1836] pope_random_2404_random_2404
+2026-08-16 19:52:22,661 INFO [run_teacher] [847/1836] pope_random_2405_random_2405
+2026-08-16 19:52:27,418 INFO [run_teacher] [848/1836] pope_random_2426_random_2426
+2026-08-16 19:52:32,000 INFO [run_teacher] [849/1836] pope_random_2431_random_2431
+2026-08-16 19:52:36,815 INFO [run_teacher] [850/1836] pope_random_2433_random_2433
+2026-08-16 19:52:41,780 INFO [run_teacher] [851/1836] pope_random_2436_random_2436
+2026-08-16 19:52:47,304 INFO [run_teacher] [852/1836] pope_random_2440_random_2440
+2026-08-16 19:52:52,727 INFO [run_teacher] [853/1836] pope_random_2443_random_2443
+2026-08-16 19:52:57,992 INFO [run_teacher] [854/1836] pope_random_2446_random_2446
+2026-08-16 19:53:02,432 INFO [run_teacher] [855/1836] pope_random_2447_random_2447
+2026-08-16 19:53:08,131 INFO [run_teacher] [856/1836] pope_random_2449_random_2449
+2026-08-16 19:53:13,446 INFO [run_teacher] [857/1836] pope_random_2451_random_2451
+2026-08-16 19:53:19,886 INFO [run_teacher] [858/1836] pope_random_2452_random_2452
+2026-08-16 19:53:25,392 INFO [run_teacher] [859/1836] pope_random_2453_random_2453
+2026-08-16 19:53:30,674 INFO [run_teacher] [860/1836] pope_random_2470_random_2470
+2026-08-16 19:53:36,181 INFO [run_teacher] [861/1836] pope_random_2473_random_2473
+2026-08-16 19:53:40,971 INFO [run_teacher] [862/1836] pope_random_2474_random_2474
+2026-08-16 19:53:45,336 INFO [run_teacher] [863/1836] pope_random_2476_random_2476
+2026-08-16 19:53:50,693 INFO [run_teacher] [864/1836] pope_random_2485_random_2485
+2026-08-16 19:53:56,250 INFO [run_teacher] [865/1836] pope_random_2486_random_2486
+2026-08-16 19:54:01,149 INFO [run_teacher] [866/1836] pope_random_2496_random_2496
+2026-08-16 19:54:06,039 INFO [run_teacher] [867/1836] pope_random_2509_random_2509
+2026-08-16 19:54:11,512 INFO [run_teacher] [868/1836] pope_random_2517_random_2517
+2026-08-16 19:54:17,402 INFO [run_teacher] [869/1836] pope_random_2537_random_2537

@@ -29,6 +29,7 @@ from proactive.data.manifests import load_manifest, validate_manifest
 from proactive.features.semantic import SemanticMatcher
 from proactive.models.base_adapter import MLLMAdapter
 from proactive.teacher.cache_builder import process_instance
+from proactive.prompts.templates import parse_grounding_output
 from proactive.teacher.offline import (
     legal_probe_names,
     probe_observations_from_record,
@@ -47,6 +48,7 @@ logger = logging.getLogger("run_teacher")
 
 IMMUTABLE_REVISION_RE = re.compile(r"^[0-9a-fA-F]{40}$")
 VALID_SPLITS = {"train", "val", "cal", "test"}
+FAILURE_LEDGER_SCHEMA_VERSION = 1
 
 
 def _load_yaml(path: Path) -> Dict[str, Any]:
@@ -156,8 +158,9 @@ def _validate_existing_rows(
     shard_id: int,
     num_shards: int,
 ) -> Set[Tuple[str, str]]:
-    return validate_resume_teacher_records(
-        iter_jsonl(path),
+    rows = list(iter_jsonl(path))
+    completed = validate_resume_teacher_records(
+        rows,
         model_id=model_id,
         selected_ids=selected_ids,
         manifest_sha256=manifest_sha256,
@@ -165,6 +168,118 @@ def _validate_existing_rows(
         shard_id=shard_id,
         num_shards=num_shards,
     )
+    for row in rows:
+        grounding = row.get("probes", {}).get("grounding")
+        if not isinstance(grounding, Mapping):
+            raise ValueError(
+                f"Existing row {row.get('instance_id')} has no grounding observation"
+            )
+        parsed = parse_grounding_output(
+            str(grounding.get("raw_answer", "")), str(row.get("dataset", ""))
+        )
+        if not parsed.is_valid:
+            raise ValueError(
+                "Current grounding parser rejects existing valid row "
+                f"{row.get('instance_id')}: {parsed.invalid_reason}"
+            )
+        if parsed.norm_final_answer != grounding.get("norm_answer"):
+            raise ValueError(
+                "Grounding parser drift for existing row "
+                f"{row.get('instance_id')}: saved={grounding.get('norm_answer')!r}, "
+                f"current={parsed.norm_final_answer!r}"
+            )
+    return completed
+
+
+def _failure_ledger_path(output_path: Path) -> Path:
+    return output_path.with_suffix(".failures.jsonl")
+
+
+def _load_failure_ledger(
+    path: Path,
+    *,
+    model_id: str,
+    selected_ids: Set[str],
+    manifest_sha256: str,
+    frozen_config_sha256: str,
+    shard_id: int,
+    num_shards: int,
+) -> Dict[Tuple[str, str], Dict[str, Any]]:
+    """Load and validate the deduplicated current-failure ledger."""
+    if not path.exists():
+        return {}
+    failures: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for row in iter_jsonl(path):
+        if row.get("record_type") != "teacher_failure":
+            raise ValueError(f"Invalid failure-ledger record_type in {path}")
+        if row.get("schema_version") != FAILURE_LEDGER_SCHEMA_VERSION:
+            raise ValueError(f"Unsupported failure-ledger schema in {path}")
+        key = (str(row.get("model_id", "")), str(row.get("instance_id", "")))
+        if key in failures:
+            raise ValueError(f"Duplicate failure-ledger key {key} in {path}")
+        if key[0] != model_id or key[1] not in selected_ids:
+            raise ValueError(f"Out-of-scope failure-ledger key {key} in {path}")
+        expected = {
+            "source_manifest_sha256": manifest_sha256,
+            "frozen_probe_config_sha256": frozen_config_sha256,
+            "shard_id": shard_id,
+            "num_shards": num_shards,
+        }
+        for field, value in expected.items():
+            if row.get(field) != value:
+                raise ValueError(
+                    f"Failure-ledger provenance drift for {key}: {field}"
+                )
+        failures[key] = row
+    return failures
+
+
+def _write_failure_ledger(
+    path: Path, failures: Mapping[Tuple[str, str], Dict[str, Any]]
+) -> None:
+    ordered = [failures[key] for key in sorted(failures)]
+    write_jsonl(ordered, path, overwrite=True)
+
+
+def _make_failure_record(
+    *,
+    manifest_record: Mapping[str, Any],
+    model_id: str,
+    model_revision: str,
+    error: Exception,
+    invalid_teacher_record: Mapping[str, Any] | None,
+    previous_attempts: int,
+    manifest_sha256: str,
+    frozen_config_sha256: str,
+    config_sha256: str,
+    model_config_sha256: str,
+    seed: int,
+    shard_id: int,
+    num_shards: int,
+) -> Dict[str, Any]:
+    """Build an auditable failure without treating it as a teacher row."""
+    return {
+        "record_type": "teacher_failure",
+        "schema_version": FAILURE_LEDGER_SCHEMA_VERSION,
+        "instance_id": str(manifest_record["instance_id"]),
+        "dataset": str(manifest_record.get("dataset", "")),
+        "split": str(manifest_record.get("split", "")),
+        "model_id": model_id,
+        "model_revision": model_revision,
+        "error_type": type(error).__name__,
+        "error_message": str(error),
+        "attempt_count": previous_attempts + 1,
+        "invalid_teacher_record": dict(invalid_teacher_record)
+        if invalid_teacher_record is not None
+        else None,
+        "source_manifest_sha256": manifest_sha256,
+        "frozen_probe_config_sha256": frozen_config_sha256,
+        "experiment_config_sha256": config_sha256,
+        "model_config_sha256": model_config_sha256,
+        "seed": seed,
+        "shard_id": shard_id,
+        "num_shards": num_shards,
+    }
 
 
 def _parse_args() -> argparse.Namespace:
@@ -306,6 +421,7 @@ def main() -> None:
         f"{args.num_shards:02d}.jsonl"
     )
     output_path = Path(args.out) if args.out else Path(args.output_dir) / default_name
+    failure_path = _failure_ledger_path(output_path)
     manifest_sha256 = file_sha256(manifest_path)
     frozen_sha256 = file_sha256(frozen_path)
     config_sha256 = file_sha256(config_path)
@@ -315,6 +431,7 @@ def main() -> None:
     if output_path.exists():
         if args.overwrite:
             write_jsonl([], output_path, overwrite=True)
+            write_jsonl([], failure_path, overwrite=True)
         elif args.resume:
             try:
                 completed = _validate_existing_rows(
@@ -332,6 +449,34 @@ def main() -> None:
             raise SystemExit(
                 f"Output exists: {output_path}. Use --resume or explicit --overwrite."
             )
+    elif failure_path.exists():
+        if args.overwrite:
+            write_jsonl([], failure_path, overwrite=True)
+        elif not args.resume:
+            raise SystemExit(
+                f"Failure ledger exists: {failure_path}. Use --resume or explicit "
+                "--overwrite."
+            )
+
+    try:
+        failure_ledger = _load_failure_ledger(
+            failure_path,
+            model_id=model_id,
+            selected_ids=selected_ids,
+            manifest_sha256=manifest_sha256,
+            frozen_config_sha256=frozen_sha256,
+            shard_id=args.shard_id,
+            num_shards=args.num_shards,
+        )
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"Unsafe failure-ledger resume refused: {exc}") from exc
+
+    # A completed teacher row supersedes any stale failure for the same key.
+    stale_failure_keys = set(failure_ledger).intersection(completed)
+    if stale_failure_keys and not args.dry_run:
+        for key in stale_failure_keys:
+            del failure_ledger[key]
+        _write_failure_ledger(failure_path, failure_ledger)
 
     pending = [row for row in records if (model_id, row["instance_id"]) not in completed]
     expected_probe_passes = sum(len(legal_probe_names(row)) + 1 for row in pending)
@@ -340,6 +485,7 @@ def main() -> None:
     logger.info("Selected rows: %s; completed: %s; pending: %s", len(records), len(completed), len(pending))
     logger.info("Expected remaining forward passes (clean + legal probes): %s", expected_probe_passes)
     logger.info("Output: %s", output_path)
+    logger.info("Current-failure ledger: %s", failure_path)
     if args.dry_run or not pending:
         return
 
@@ -375,6 +521,7 @@ def main() -> None:
 
         for index, row in enumerate(pending, start=1):
             logger.info("[%s/%s] %s", index, len(pending), row["instance_id"])
+            result: Dict[str, Any] | None = None
             try:
                 result = process_instance(
                     record=row,
@@ -388,9 +535,6 @@ def main() -> None:
                     semantic_threshold=float(semantic["threshold"]),
                     label_thresholds=thresholds,
                 )
-                if result.get("valid") is not True:
-                    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
-                probe_observations_from_record(result)
                 result.update(
                     {
                         "record_type": "teacher_cache",
@@ -403,9 +547,34 @@ def main() -> None:
                         "num_shards": args.num_shards,
                     }
                 )
+                if result.get("valid") is not True:
+                    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+                probe_observations_from_record(result)
                 append_jsonl(result, output_path)
+                key = (model_id, str(row["instance_id"]))
+                if key in failure_ledger:
+                    del failure_ledger[key]
+                    _write_failure_ledger(failure_path, failure_ledger)
             except Exception as exc:  # preserve shard and continue collecting failures
                 failures += 1
+                key = (model_id, str(row["instance_id"]))
+                prior = failure_ledger.get(key, {})
+                failure_ledger[key] = _make_failure_record(
+                    manifest_record=row,
+                    model_id=model_id,
+                    model_revision=actual_revision,
+                    error=exc,
+                    invalid_teacher_record=result,
+                    previous_attempts=int(prior.get("attempt_count", 0)),
+                    manifest_sha256=manifest_sha256,
+                    frozen_config_sha256=frozen_sha256,
+                    config_sha256=config_sha256,
+                    model_config_sha256=model_config_sha256,
+                    seed=args.seed,
+                    shard_id=args.shard_id,
+                    num_shards=args.num_shards,
+                )
+                _write_failure_ledger(failure_path, failure_ledger)
                 logger.exception("Teacher generation failed for %s: %s", row["instance_id"], exc)
     finally:
         if adapter is not None:
@@ -414,6 +583,7 @@ def main() -> None:
 
     elapsed = time.monotonic() - started
     logger.info("Shard finished in %.1fs with %s failed rows", elapsed, failures)
+    logger.info("Unresolved failure-ledger rows: %s", len(failure_ledger))
     if failures:
         raise SystemExit(1)
 

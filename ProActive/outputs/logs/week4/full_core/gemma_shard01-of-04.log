@@ -1,0 +1,52 @@
+2026-08-16 19:50:13,274 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-08-16 19:50:13,275 INFO [run_teacher] Shard: 1/4
+2026-08-16 19:50:13,275 INFO [run_teacher] Selected rows: 1787; completed: 0; pending: 1787
+2026-08-16 19:50:13,275 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 12535
+2026-08-16 19:50:13,275 INFO [run_teacher] Output: outputs/teacher_core/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl
+2026-08-16 19:50:13,275 INFO [run_teacher] Current-failure ledger: outputs/teacher_core/teacher_gemma4_e4b_all_all_shard01-of-04.failures.jsonl
+2026-08-16 19:50:17,320 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 48546.28it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-16 19:50:17,818 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-16 19:50:17,819 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  17%|█▋        | 346/2076 [00:00<00:00, 3441.62it/s]Loading weights:  33%|███▎      | 691/2076 [00:00<00:00, 3165.62it/s]Loading weights:  49%|████▊     | 1010/2076 [00:01<00:02, 469.97it/s]Loading weights:  58%|█████▊    | 1194/2076 [00:02<00:01, 471.66it/s]Loading weights:  64%|██████▍   | 1324/2076 [00:02<00:01, 465.93it/s]Loading weights:  69%|██████▊   | 1423/2076 [00:02<00:01, 471.90it/s]Loading weights:  90%|████████▉ | 1868/2076 [00:02<00:00, 920.17it/s]Loading weights: 100%|██████████| 2076/2076 [00:02<00:00, 778.41it/s]
+2026-08-16 19:50:23,373 INFO [run_teacher] [1/1787] hallusionbench_17_17
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-16 19:50:33,785 INFO [run_teacher] [2/1787] hallusionbench_21_21
+2026-08-16 19:50:45,090 INFO [run_teacher] [3/1787] hallusionbench_32_32
+2026-08-16 19:50:56,362 INFO [run_teacher] [4/1787] hallusionbench_36_36
+2026-08-16 19:51:07,916 INFO [run_teacher] [5/1787] hallusionbench_44_44
+2026-08-16 19:51:18,355 INFO [run_teacher] [6/1787] hallusionbench_47_47
+2026-08-16 19:51:25,187 INFO [run_teacher] [7/1787] hallusionbench_51_51
+2026-08-16 19:51:35,300 INFO [run_teacher] [8/1787] hallusionbench_60_60
+2026-08-16 19:51:40,990 INFO [run_teacher] [9/1787] hallusionbench_71_71
+2026-08-16 19:51:57,423 ERROR [run_teacher] Teacher generation failed for hallusionbench_71_71: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 551, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-16 19:51:57,424 INFO [run_teacher] [10/1787] hallusionbench_82_82
+2026-08-16 19:52:05,874 INFO [run_teacher] [11/1787] hallusionbench_98_98
+2026-08-16 19:52:16,979 INFO [run_teacher] [12/1787] hallusionbench_99_99
+2026-08-16 19:52:30,075 INFO [run_teacher] [13/1787] hallusionbench_108_108
+2026-08-16 19:52:36,224 INFO [run_teacher] [14/1787] hallusionbench_126_126
+2026-08-16 19:52:44,738 INFO [run_teacher] [15/1787] hallusionbench_128_128
+2026-08-16 19:52:52,710 INFO [run_teacher] [16/1787] hallusionbench_129_129
+2026-08-16 19:53:02,633 INFO [run_teacher] [17/1787] hallusionbench_135_135
+2026-08-16 19:53:11,230 INFO [run_teacher] [18/1787] hallusionbench_136_136
+2026-08-16 19:53:18,503 INFO [run_teacher] [19/1787] hallusionbench_141_141
+2026-08-16 19:53:31,982 INFO [run_teacher] [20/1787] hallusionbench_149_149
+2026-08-16 19:53:38,347 INFO [run_teacher] [21/1787] hallusionbench_172_172
+2026-08-16 19:53:54,812 ERROR [run_teacher] Teacher generation failed for hallusionbench_172_172: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 551, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-16 19:53:54,813 INFO [run_teacher] [22/1787] hallusionbench_192_192
+2026-08-16 19:54:10,529 INFO [run_teacher] [23/1787] hallusionbench_197_197

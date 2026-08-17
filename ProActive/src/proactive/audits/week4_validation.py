@@ -75,6 +75,11 @@ def collect_artifact_rows(path: Path, prefix: str) -> Tuple[List[ArtifactRow], L
         files = [path]
     elif path.is_dir():
         files = sorted(path.glob(f"{prefix}*.jsonl")) or sorted(path.glob("*.jsonl"))
+        files = [
+            file_path
+            for file_path in files
+            if not file_path.name.endswith(".failures.jsonl")
+        ]
     else:
         raise FileNotFoundError(path)
     if not files:

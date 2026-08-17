@@ -2,7 +2,7 @@
 
 **Plan source:** v3.5 Plan §25.6
 **Implementation status:** IMPLEMENTED, NOT VALIDATED
-**GPU status:** NOT STARTED
+**GPU status:** IN PROGRESS
 **Completion status:** NOT COMPLETE
 
 Week 4 builds the offline substrate used by every later diagnostic learner,
@@ -17,6 +17,8 @@ leakage/balance reports must also exist and pass.
 | Stable four-GPU sharding | `src/proactive/teacher/offline.py::stable_shard_id`, `scripts/run_teacher.py` | `test_stable_sharding_is_order_independent_and_total` | `validate_week4.py --mode teacher_progress` | `outputs/teacher_core/teacher_*_shard*.jsonl` | IMPLEMENTED, NOT VALIDATED |
 | All legal canonical probes (6, or 7 for relation rows) | `scripts/run_teacher.py`, `src/proactive/teacher/cache_builder.py` | `test_relation_applicable_record_requires_exactly_seven_legal_probes` | teacher progress/full validator | teacher cache | IMPLEMENTED, NOT VALIDATED |
 | Resume without append duplicates or overwrite | `scripts/run_teacher.py::_validate_existing_rows` | duplicate and deterministic-shard adversarial tests | resume one server smoke shard twice | unchanged teacher shard hash/row count | IMPLEMENTED, NOT VALIDATED |
+| Fail-closed grounding recovery and retained failure evidence | `src/proactive/prompts/templates.py::parse_grounding_output`, `scripts/run_teacher.py::_make_failure_record` | `test_grounding_parsing.py`, `test_teacher_failure_ledger.py` | resume reparses every saved grounding output before appending | `teacher_*.failures.jsonl` plus completed teacher rows | IMPLEMENTED, NOT VALIDATED |
+| Uniform truncation-safe grounding refresh | `scripts/refresh_grounding_cache.py` | `test_grounding_refresh.py` plus parser adversaries | two-model four-shard refresh and teacher-progress validation | `outputs/teacher_core_grounding512/*.jsonl` | IMPLEMENTED, NOT VALIDATED |
 | Daily row-count and checksum validation | `scripts/validate_week4.py --mode teacher_progress` | Week 4 validator tests | server progress command | `outputs/week4_reports/teacher_manifest.json` | IMPLEMENTED, NOT VALIDATED |
 | Continuous signatures, source bits, six-way labels | `src/proactive/teacher/offline.py::build_label_record`, `scripts/build_labels.py` | `test_labels_are_recomputed_deterministically_and_fail_closed` | Week 4 end-to-end validator | `outputs/labels_core/*.jsonl` | IMPLEMENTED, NOT VALIDATED |
 | Class/bit balance by dataset and model | `src/proactive/audits/week4_validation.py` | end-to-end validator | full validation | two distribution CSVs | IMPLEMENTED, NOT VALIDATED |

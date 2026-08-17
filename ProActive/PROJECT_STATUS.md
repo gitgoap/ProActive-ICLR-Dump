@@ -21,7 +21,9 @@
 - Local CPU suite passed on 2026-08-09: `158 passed`.
 - Implemented the Week 4 deterministic four-shard teacher runner with strict resume validation, frozen-config provenance, and immutable-revision enforcement.
 - Implemented independent label recomputation, leakage-safe pre-policy partial states, a blinded 180-example audit exporter, class/bit reports, checksum manifests, and readiness/progress/full gates.
-- Added Week 4 unit/adversarial/integration, revision-parser, and compute-authorization regression tests. The complete local CPU suite passes: `175 passed in 2.73s` after staged approval.
+- Added Week 4 unit/adversarial/integration, revision-parser, compute-authorization,
+  grounding-recovery, and failure-ledger regression tests. The complete local
+  CPU suite passes: `192 passed in 1.70s` on 2026-08-17.
 - Audited the combined manifest: 7,291 rows (951 HallusionBench, 3,000 POPE, 3,000 VizWiz, 340 VSR), including 110 relation-applicable rows. Qwen plus Gemma require 14,582 teacher rows and 102,294 clean/probe passes.
 - Accepted consistent server revision evidence and pinned Qwen
   `0c351dd01ed87e9c1b53cbc748cba10e6187ff3b`, Gemma
@@ -41,9 +43,22 @@
   rechecked as free.
 - Interim two-model work is allowed, but the final Week 4 human audit still
   requires InternVL.
+- The first full Qwen pass produced 7,238/7,291 valid rows. All 53 missing rows
+  failed closed at the grounding probe (30 HallusionBench, 23 VizWiz); they
+  were not silently converted to labels. A conservative parser recovery and
+  deduplicated raw-failure ledger are implemented locally and await server
+  synchronization/retry.
+- The first parser-only retry correctly preserved all 53 failures. Inspection
+  showed that 36 outputs were truncated at the uniform 256-token ceiling and
+  17 were explicit structured/bare answers. A separate uniform 512-token
+  grounding refresh is now implemented locally for every Qwen and Gemma row;
+  server validation is pending.
 
 **Running or Awaiting Server Jobs:**
-- None.
+- Gemma full-core generation is running/awaiting final server synchronization.
+- Qwen shards contain 7,238 valid rows: shard valid counts are 1,813, 1,805,
+  1,785, and 1,835. The 53-row resume must be run after syncing the recovery
+  code and after a suitable GPU is free.
 - Server readiness plus Qwen and Gemma one-row stages passed independent
   teacher-progress validation with 2 rows, 12 probe records, and zero errors.
 - Qwen 10-row and 100-row stages are pilot validated. The 100-row cache has 100
@@ -56,10 +71,14 @@
   scheduled for Week 7–8.
 
 **Next Tasks (Week 4):**
-1. Sync the full-core-approved config and pass server readiness.
-2. Launch Qwen shard 0 on the currently free physical GPU 1; add other shards
-   only when their physical GPUs are verified free.
-3. Validate daily progress/checksums and resume any interrupted shard safely.
+1. Finish and validate the running Gemma shards; do not interrupt them for the
+   Qwen recovery.
+2. Sync the grounding-refresh script and updated parser, then run one Qwen and
+   one Gemma grounding pass per manifest row in parallel on separate GPUs.
+3. Validate the separate refreshed cache. Do not build labels until Qwen and
+   Gemma both reach 7,291/7,291 with zero refresh failures.
+4. Build labels/states, complete the InternVL catch-up/final audit, and run the
+   full Week 4 gate.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

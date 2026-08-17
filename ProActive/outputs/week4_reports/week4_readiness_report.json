@@ -1,7 +1,9 @@
 {
   "approval_status": "APPROVED",
   "compute_authorization": {
-    "full_core_approved": false,
+    "approved_estimated_gpu_hours": 33.23,
+    "full_core_approved": true,
+    "full_core_approved_on": "2026-08-13",
     "staged_checks_approved": true,
     "staged_full_dataset_allowlist": [
       "vsr"

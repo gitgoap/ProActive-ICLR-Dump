@@ -27,7 +27,8 @@ class GroundingParsedResult:
     raw_final_answer: str
     norm_final_answer: str
     description: str
-    parse_status: str  # "ok", "regex_fallback", "malformed", "empty"
+    # "ok", "regex_fallback", "terminal_answer_fallback", "malformed", "empty"
+    parse_status: str
     invalid_reason: Optional[str] = None
 
 
@@ -118,6 +119,45 @@ def make_grounding_prompt(question: str, dataset: str) -> str:
         )
 
 
+_EXPLICIT_TERMINAL_ANSWER_RE = re.compile(
+    r"^(?:[-*]\s*)?(?:\*\*)?"
+    r"(?:(?:the|my)\s+)?(?:final\s+)?answer(?:\*\*)?\s+"
+    r"(?:is|would\s+be)\s+(?P<answer>.+?)\s*$",
+    re.IGNORECASE,
+)
+_EMBEDDED_BINARY_ANSWER_RE = re.compile(
+    r"\b(?:the\s+)?(?:final\s+)?answer\s+(?:is|would\s+be)\s+"
+    r"(?P<answer>yes|no|true|false)\b",
+    re.IGNORECASE,
+)
+
+
+def _strip_answer_markup(value: str) -> str:
+    """Remove only surrounding presentation markup, never answer content."""
+    answer = value.strip()
+    while len(answer) >= 2:
+        pairs = (("**", "**"), ("__", "__"), ("`", "`"), ('"', '"'), ("'", "'"))
+        stripped = False
+        for left, right in pairs:
+            if answer.startswith(left) and answer.endswith(right):
+                answer = answer[len(left) : len(answer) - len(right)].strip()
+                stripped = True
+                break
+        if not stripped:
+            break
+    return answer
+
+
+def _binary_candidate_is_unambiguous(candidate: str, dataset: str, norm_answer: str) -> bool:
+    """Reject explicit answer phrases containing conflicting binary indicators."""
+    outcomes = {
+        normalize_answer(token, dataset)
+        for token in re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", candidate)
+    }
+    outcomes.intersection_update({"yes", "no", "true", "false"})
+    return bool(outcomes) and outcomes == {norm_answer}
+
+
 def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult:
     """Parse grounding probe output into description and normalized final answer.
 
@@ -146,6 +186,15 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
         ans_part = match.group(1).strip()
         # Clean answer part (take first line or first token if binary)
         first_line = ans_part.split("\n")[0].strip()
+        if not first_line:
+            return GroundingParsedResult(
+                is_valid=False,
+                raw_final_answer="",
+                norm_final_answer="",
+                description=desc_part,
+                parse_status="malformed",
+                invalid_reason="FINAL_ANSWER tag has no answer content",
+            )
         norm_ans = normalize_answer(first_line, dataset)
 
         if is_binary:
@@ -168,6 +217,11 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
                 )
         else:
             # Free-form
+            # VizWiz uses ``unanswerable`` as a legitimate answer class.  An
+            # explicit structured abstention of exactly ``Unknown`` carries
+            # that behavior; it is not a missing parser value.
+            if norm_ans == "unknown" and first_line.lower().rstrip(".") == "unknown":
+                norm_ans = "unanswerable"
             if norm_ans and norm_ans != "unknown":
                 return GroundingParsedResult(
                     is_valid=True,
@@ -183,7 +237,7 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
                     norm_final_answer=norm_ans,
                     description=desc_part,
                     parse_status="malformed",
-                    invalid_reason="Empty or unanswerable free-form output",
+                    invalid_reason="Empty or unknown free-form output",
                 )
 
     # Fallback search if tag was omitted: look at the last line
@@ -200,6 +254,77 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
                 description=desc_part,
                 parse_status="regex_fallback",
             )
+
+        # Some deterministic model outputs follow the requested reasoning but
+        # omit the literal tag and finish with "The answer is ...".  Recover
+        # only that terminal, explicitly answer-bearing construction.  A bare
+        # free-form last line is intentionally not accepted because it cannot
+        # be distinguished from an image description.
+        terminal_match = _EXPLICIT_TERMINAL_ANSWER_RE.fullmatch(last_line)
+        if terminal_match:
+            candidate = _strip_answer_markup(terminal_match.group("answer"))
+            if candidate:
+                norm_candidate = normalize_answer(candidate, dataset)
+                binary_valid = (
+                    norm_candidate in ("yes", "no", "true", "false")
+                    and _binary_candidate_is_unambiguous(
+                        candidate, dataset, norm_candidate
+                    )
+                )
+                freeform_valid = not is_binary and norm_candidate != "unknown"
+                if binary_valid or freeform_valid:
+                    return GroundingParsedResult(
+                        is_valid=True,
+                        raw_final_answer=candidate,
+                        norm_final_answer=norm_candidate,
+                        description="\n".join(lines[:-1]).strip(),
+                        parse_status="terminal_answer_fallback",
+                    )
+
+        if is_binary and terminal_match is None:
+            embedded_matches = list(_EMBEDDED_BINARY_ANSWER_RE.finditer(last_line))
+            embedded_answers = {
+                normalize_answer(match.group("answer"), dataset)
+                for match in embedded_matches
+            }
+            if len(embedded_answers) == 1:
+                norm_candidate = embedded_answers.pop()
+                if norm_candidate in ("yes", "no", "true", "false"):
+                    raw_candidate = embedded_matches[-1].group("answer")
+                    return GroundingParsedResult(
+                        is_valid=True,
+                        raw_final_answer=raw_candidate,
+                        norm_final_answer=norm_candidate,
+                        description="\n".join(lines[:-1]).strip(),
+                        parse_status="terminal_answer_fallback",
+                    )
+
+        # A short isolated final paragraph is an answer-bearing construction
+        # for free-form VQA (for example ``MVG`` or ``$1.00``).  Keep the gate
+        # deliberately narrow so a prose description is never reinterpreted.
+        paragraphs = [part.strip() for part in re.split(r"\n\s*\n", clean_text) if part.strip()]
+        if (
+            not is_binary
+            and len(paragraphs) >= 2
+            and paragraphs[-1] == last_line
+        ):
+            candidate = _strip_answer_markup(last_line)
+            candidate_words = candidate.split()
+            if (
+                candidate
+                and len(candidate) <= 80
+                and len(candidate_words) <= 8
+                and not candidate.endswith(("?", ":", ";", ","))
+            ):
+                norm_candidate = normalize_answer(candidate, dataset)
+                if norm_candidate != "unknown":
+                    return GroundingParsedResult(
+                        is_valid=True,
+                        raw_final_answer=candidate,
+                        norm_final_answer=norm_candidate,
+                        description="\n".join(lines[:-1]).strip(),
+                        parse_status="terminal_answer_fallback",
+                    )
 
     return GroundingParsedResult(
         is_valid=False,

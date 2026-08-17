@@ -85,6 +85,17 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
 6. Removed user-specific image-root fallbacks and prohibited silent unpinned semantic-model fallback.
 7. Added read-only local model provenance inspection in `scripts/inspect_model_revisions.py`.
 8. Populated the Week 4 requirement matrix, staged server plan, and InternVL catch-up record.
+9. Full Qwen generation produced 7,238 valid teacher rows across four shards;
+   53 rows failed closed at the grounding probe rather than entering the cache
+   with fabricated labels.
+10. Added conservative recovery for explicit terminal `The answer is ...`
+    outputs, rejection of empty tags/conflicting binary answers, a parser-drift
+    check over every existing resume row, and an atomic deduplicated failure
+    ledger retaining invalid raw outputs and provenance.
+11. After the parser-only retry preserved all 53 failures, added a separate
+    uniform grounding-refresh cache: every Qwen and Gemma row receives exactly
+    one 512-token grounding pass, labels are recomputed, source hashes are
+    checked on resume, and the original cache is never modified.
 
 **Local validation:**
 - Initial Week 4 implementation added 10 focused tests and passed the then-complete 168-test CPU suite.
@@ -93,10 +104,14 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
 - Deterministic four-way shard sizes are 1,801–1,847 rows/model; each model requires exactly 51,147 passes.
 - Server evidence resolved and pinned immutable revisions for Qwen, Gemma, and InternVL on August 10, 2026.
 - The owner approved the `0.80` collapse gate, 5/5 bit balance, 60+120 audit composition, interim two-model/final three-model audit policy, and staged GPU checks. Local readiness passes; full-core compute remains separately locked.
+- The revised grounding parser was checked against all 7,238 existing Qwen
+  rows with zero normalized-answer drift. Nine new recovery/ledger tests pass;
+  the complete local CPU suite is `191 passed in 1.94s` after the uniform
+  refresh implementation and failure-sidecar filtering.
 
 **Still required for completion:**
-1. Full Qwen/Gemma four-shard caches and daily checksum validation (approved
-   2026-08-13 after 1/10/100/full-VSR staged validation).
+1. Recover Qwen's 53 fail-closed rows, finish the Gemma four-shard cache, and
+   pass daily checksum validation (full compute approved 2026-08-13).
 2. InternVL GPU catch-up cache for the required final three-model audit.
 3. Offline label/state artifacts and balance/leakage reports.
 4. Final 180-example audit packet and a passing full Week 4 gate.

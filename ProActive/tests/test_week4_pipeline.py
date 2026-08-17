@@ -9,7 +9,7 @@ import pytest
 import yaml
 
 from proactive.audits.human_audit import LABELS, select_audit_keys
-from proactive.audits.week4_validation import validate_week4_artifacts
+from proactive.audits.week4_validation import collect_artifact_rows, validate_week4_artifacts
 from proactive.features.evidence_state import ProbeAction, ProbeObservation
 from proactive.teacher.label_computation import DEFAULT_THRESHOLDS, compute_teacher_labels
 from proactive.teacher.offline import (
@@ -21,6 +21,7 @@ from proactive.teacher.offline import (
     thresholds_from_mapping,
     validate_resume_teacher_records,
 )
+from proactive.utils.io import write_jsonl
 
 
 REVISION = "a" * 40
@@ -368,3 +369,13 @@ def test_duplicate_teacher_keys_are_rejected() -> None:
     )
     assert not report["is_valid"]
     assert any("Duplicate model-instance teacher key" in error for error in report["errors"])
+
+
+def test_teacher_collection_excludes_failure_ledgers(tmp_path: Path) -> None:
+    teacher_path = tmp_path / "teacher_model_shard00.jsonl"
+    failure_path = tmp_path / "teacher_model_shard00.failures.jsonl"
+    write_jsonl([_teacher_record()], teacher_path)
+    write_jsonl([{"record_type": "teacher_failure"}], failure_path)
+    rows, manifest = collect_artifact_rows(tmp_path, "teacher_")
+    assert len(rows) == 1
+    assert [Path(item["path"]).name for item in manifest] == [teacher_path.name]

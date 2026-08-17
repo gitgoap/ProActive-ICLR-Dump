@@ -235,3 +235,212 @@ python scripts/validate_week4.py \
 Do not delete or merge shard files manually. Resume the exact same command when
 a pane stops; the script validates every existing row before appending only
 missing model-instance keys.
+
+## 9. Qwen 53-row fail-closed recovery (added 2026-08-16)
+
+The first Qwen full pass saved 7,238/7,291 valid rows and left 53 mandatory
+grounding failures. This is not a smoke test and it is not a second full run:
+`--resume` validates the 7,238 existing rows and regenerates only the missing
+rows. Finish any currently running Gemma job first, then verify that the chosen
+physical GPU is free.
+
+Only these two runtime files are required on the server before recovery:
+
+```text
+src/proactive/prompts/templates.py
+scripts/run_teacher.py
+```
+
+Do **not** overwrite the three server YAMLs or the combined manifest during
+this recovery sync. The Windows copies use CRLF line endings, while the
+existing teacher rows record the server LF byte hashes. The scientific content
+is identical, but resume correctly treats any byte-hash change as provenance
+drift. Before recovery, the server must print these exact hashes:
+
+```bash
+sha256sum \
+  outputs/manifests/manifest_combined.jsonl \
+  configs/probes/frozen_week3_config.yaml \
+  configs/experiments/teacher_core.yaml \
+  configs/models/qwen3_vl_8b.yaml
+```
+
+```text
+b945f3f03d25024a9d693c069575c13dd7da8094a664b08bc16614cfbaf40de3  outputs/manifests/manifest_combined.jsonl
+5cfdbcde50b28f7645ad4d73046d9997ad393dde3b3c197a3c5d630b5f6d5271  configs/probes/frozen_week3_config.yaml
+9820cf2c566ddad75c218842cb410813ca8ab9c8a7fa958d2053bf12958f5481  configs/experiments/teacher_core.yaml
+662e4dfc560a55cdb97e8f85217f3c33afd17f2aee23148d83ed25d44c1c2434  configs/models/qwen3_vl_8b.yaml
+```
+
+Stop and report the output if any hash differs; do not use `--overwrite`.
+
+Also sync the following when keeping the server clone aligned with the local
+repository, but they are not required to execute the GPU recovery:
+
+```text
+tests/test_grounding_parsing.py
+tests/test_teacher_failure_ledger.py
+doc/docs/WEEK_4_SERVER_EXECUTION.md
+```
+
+In one tmux pane, run the following. Physical GPU 1 is shown as the example;
+change only `CUDA_VISIBLE_DEVICES` if a different physical GPU is actually
+free. Because that one GPU is exposed to the process, `--device` remains
+`cuda:0`.
+
+```bash
+cd ~/ProActive
+
+which python
+python --version
+
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+
+mkdir -p outputs/logs/week4/full_core outputs/teacher_core outputs/week4_reports
+set -o pipefail
+
+for SHARD in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=1 python scripts/run_teacher.py \
+    --config configs/experiments/teacher_core.yaml \
+    --manifest_path outputs/manifests/manifest_combined.jsonl \
+    --model qwen3_vl_8b \
+    --device cuda:0 \
+    --num_shards 4 \
+    --shard_id "$SHARD" \
+    --output_dir outputs/teacher_core \
+    --resume \
+    2>&1 | tee "outputs/logs/week4/full_core/qwen_recovery_shard0${SHARD}-of-04.log"
+  echo "Qwen recovery shard ${SHARD} exit code: ${PIPESTATUS[0]}"
+done
+```
+
+The loop deliberately continues if one shard still has a fail-closed row so
+all four failure ledgers are produced for inspection. After it ends, run:
+
+```bash
+python scripts/validate_week4.py \
+  --mode teacher_progress \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --teacher_path outputs/teacher_core \
+  --output_dir outputs/week4_reports \
+  --overwrite \
+  2>&1 | tee outputs/logs/week4/qwen_recovery_validation.log
+
+wc -l outputs/teacher_core/teacher_qwen3_vl_8b_all_all_shard*-of-04.jsonl
+find outputs/teacher_core -maxdepth 1 \
+  -name 'teacher_qwen3_vl_8b_all_all_shard*-of-04.failures.jsonl' \
+  -print -exec wc -l {} \;
+```
+
+Expected Qwen total is exactly 7,291 teacher rows. Zero-row failure files are
+good, and it is also valid for no failure sidecar to exist when every pending
+row succeeds. If any failure file is nonempty, sync the existing
+`*.failures.jsonl` files and the recovery logs for review; do not proceed to
+label generation yet.
+
+## 10. Uniform two-model grounding refresh after truncation diagnosis
+
+The parser-only retry showed that most unresolved Qwen outputs were truncated
+at 256 tokens. Do not retry the original cache again. The refresh creates a
+separate cache and gives every Qwen and Gemma instance exactly one 512-token
+grounding pass, so the larger budget is not selected only for failures.
+
+Runtime files required after the previous recovery sync:
+
+```text
+src/proactive/prompts/templates.py
+scripts/refresh_grounding_cache.py
+```
+
+Do not sync YAMLs, manifests, or overwrite `outputs/teacher_core`. Run Qwen on
+physical GPU 1 and Gemma on physical GPU 0 in separate tmux panes. Both use
+logical `cuda:0` after `CUDA_VISIBLE_DEVICES` isolation.
+
+First run the two CPU-only source-coverage checks. They are not smoke tests and
+perform no inference:
+
+```bash
+cd ~/ProActive
+
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+
+mkdir -p outputs/logs/week4/grounding512 outputs/teacher_core_grounding512
+
+for MODEL in qwen3_vl_8b gemma4_e4b; do
+  for SHARD in 0 1 2 3; do
+    python scripts/refresh_grounding_cache.py \
+      --config configs/experiments/teacher_core.yaml \
+      --manifest_path outputs/manifests/manifest_combined.jsonl \
+      --model "$MODEL" --shard_id "$SHARD" --num_shards 4 \
+      --input_dir outputs/teacher_core \
+      --output_dir outputs/teacher_core_grounding512 \
+      --max_new_tokens 512 --device cpu --resume --dry_run || exit 1
+  done
+done
+```
+
+Each must report a complete source shard and no coverage mismatch. Then run
+this in the GPU 1/Qwen pane:
+
+```bash
+cd ~/ProActive
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+mkdir -p outputs/logs/week4/grounding512 outputs/teacher_core_grounding512
+set -o pipefail
+
+for SHARD in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=1 python scripts/refresh_grounding_cache.py \
+    --config configs/experiments/teacher_core.yaml \
+    --manifest_path outputs/manifests/manifest_combined.jsonl \
+    --model qwen3_vl_8b --shard_id "$SHARD" --num_shards 4 \
+    --input_dir outputs/teacher_core \
+    --output_dir outputs/teacher_core_grounding512 \
+    --max_new_tokens 512 --device cuda:0 --resume \
+    2>&1 | tee "outputs/logs/week4/grounding512/qwen_shard0${SHARD}.log"
+  echo "Qwen grounding refresh shard ${SHARD}: ${PIPESTATUS[0]}"
+done
+```
+
+Run this simultaneously in the GPU 0/Gemma pane:
+
+```bash
+cd ~/ProActive
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+mkdir -p outputs/logs/week4/grounding512 outputs/teacher_core_grounding512
+set -o pipefail
+
+for SHARD in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=0 python scripts/refresh_grounding_cache.py \
+    --config configs/experiments/teacher_core.yaml \
+    --manifest_path outputs/manifests/manifest_combined.jsonl \
+    --model gemma4_e4b --shard_id "$SHARD" --num_shards 4 \
+    --input_dir outputs/teacher_core \
+    --output_dir outputs/teacher_core_grounding512 \
+    --max_new_tokens 512 --device cuda:0 --resume \
+    2>&1 | tee "outputs/logs/week4/grounding512/gemma_shard0${SHARD}.log"
+  echo "Gemma grounding refresh shard ${SHARD}: ${PIPESTATUS[0]}"
+done
+```
+
+Expected refreshed shard sizes are Qwen `1822, 1821, 1801, 1847` and Gemma
+`1836, 1787, 1826, 1842`. Validate only after both loops finish:
+
+```bash
+python scripts/validate_week4.py \
+  --mode teacher_progress \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --teacher_path outputs/teacher_core_grounding512 \
+  --output_dir outputs/week4_reports/grounding512 \
+  --overwrite \
+  2>&1 | tee outputs/logs/week4/grounding512/validation.log
+```

@@ -215,3 +215,62 @@
   already running unrelated jobs, so their timing is marked shared-GPU and is
   unsuitable as clean latency evidence. Separate output locks/files and strict
   resume make interruption or OOM recoverable without duplicating rows.
+
+## 2026-08-16 — Qwen full-cache fail-closed recovery
+
+- The four Qwen shards finished with 7,238/7,291 valid rows: 1,813, 1,805,
+  1,785, and 1,835 rows. The 53 absent rows comprise 30 HallusionBench and 23
+  VizWiz examples. They failed at mandatory grounding parsing and were
+  correctly excluded rather than serialized with an invented answer or label.
+- A repeated shard-0 resume reproduced its nine failures, confirming that an
+  unchanged deterministic retry cannot resolve the formatting failures.
+- Added a conservative parser fallback only for an explicit terminal
+  `The answer is ...`/`Final answer is ...` construction. Bare free-form lines,
+  empty tags, unknown outputs, and conflicting binary indicators still fail
+  closed. Explicit VizWiz `unanswerable` remains a valid dataset answer.
+- Resume now reparses every existing grounding raw output and refuses parser
+  drift before appending. A local compatibility audit checked all 7,238 saved
+  Qwen rows with zero validity or normalized-answer changes.
+- Failed rows are now atomically upserted by `(model_id, instance_id)` into a
+  per-shard `*.failures.jsonl` ledger containing the invalid raw teacher record,
+  exception, attempt count, and manifest/config/model provenance. A later
+  success removes the stale failure entry; retries cannot duplicate it.
+- Added nine unit/adversarial/integration tests. Focused recovery tests passed
+  `21/21`; the complete local CPU suite passed `184/184` in 2.44 seconds.
+- Server validation remains pending. The new code must be synced before the
+  four Qwen `--resume` commands; Gemma work should finish first on the occupied
+  GPU. Any rows still unresolved after retry require review of the retained
+  failure ledgers, not heuristic label fabrication.
+- A local dry-resume correctly refused the Windows copies because CRLF line
+  endings change byte-level hashes. Normalizing the three local YAMLs to LF
+  exactly reproduces the hashes embedded in every server Qwen row, confirming
+  content-preserving line-ending drift rather than scientific configuration
+  drift. Recovery instructions therefore require syncing only the two Python
+  runtime files and verifying the original server YAML/manifest hashes before
+  resume.
+
+## 2026-08-17 — Uniform grounding-only refresh
+
+- The parser-only server retry completed normally but recovered zero rows;
+  Qwen remained at 7,238 valid rows and all 53 invalid rows were preserved in
+  four deduplicated failure ledgers.
+- Raw-output inspection found the actual cause: 36 generations reached the
+  256-token ceiling before emitting the requested tag. The remaining 17 are
+  explicit behaviors: three terminal binary `the answer is no` conclusions,
+  ten tagged VizWiz `Unknown` abstentions, and four short isolated VizWiz
+  answers (`MVG`, `TLZ`, and `$1.00`).
+- Extended the parser only for those auditable constructions. Tagged VizWiz
+  `Unknown` maps to its benchmark's legitimate `unanswerable` class; prose,
+  conflicting binary candidates, empty tags, and non-isolated free-form text
+  remain invalid. All 7,238 existing Qwen grounding answers remain unchanged.
+- Added `scripts/refresh_grounding_cache.py`. It never edits the original
+  cache. It reconstructs each model-instance from a valid teacher row or its
+  retained invalid record, runs exactly one grounding pass at a uniform
+  512-token cap, recomputes all teacher labels, records source/effective-config
+  hashes, and writes a separate resume-safe cache. Thus difficult examples do
+  not receive a selectively larger budget.
+- Added refresh reconstruction, resume drift, failure-ledger, parser
+  adversarial, and validator-sidecar tests. Failure ledgers are excluded from
+  teacher artifact collection while missing valid rows still fail the coverage
+  gate. Final focused suite: `30 passed`; full CPU suite: `192 passed in
+  1.70s`. Two-model server refresh and artifact validation remain pending.

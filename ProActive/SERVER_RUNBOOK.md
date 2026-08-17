@@ -55,3 +55,17 @@ When the agent asks you to run a command, it will provide the full bash string.
 4. Paste the terminal output to the agent. 
 
 If the output is massive, just paste the tail end containing the summary/failure, or provide the path to the log file if it's synced locally.
+
+## Week 4 Qwen failed-row recovery
+
+After syncing the recovery files documented in
+`doc/docs/WEEK_4_SERVER_EXECUTION.md`, use the original four shard paths with
+`--resume`. Resume validates all existing rows against the current grounding
+parser and generates only missing rows. Each shard also maintains an atomic
+`teacher_*.failures.jsonl` sidecar for unresolved rows; never edit, merge, or
+delete either file manually.
+
+After truncation diagnosis, use `scripts/refresh_grounding_cache.py` to build
+`outputs/teacher_core_grounding512`. It runs one uniform 512-token grounding
+pass for every row and never edits `outputs/teacher_core`. Qwen and Gemma may
+run concurrently only in separate physical GPUs and separate tmux panes.
