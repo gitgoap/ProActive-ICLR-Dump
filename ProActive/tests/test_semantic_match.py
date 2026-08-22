@@ -7,6 +7,7 @@ from proactive.features.semantic import (
     compute_semantic_match,
     calibrate_semantic_threshold,
     SemanticProvenance,
+    compute_reference_match,
 )
 
 
@@ -37,6 +38,53 @@ class TestSemanticMatch:
             return 0.40
 
         assert compute_semantic_match("dog", "airplane", "vizwiz", threshold=0.82, embedding_fn=mock_embed_low) == 0.0
+
+    def test_open_hallusion_reference_aliases(self):
+        assert compute_reference_match(
+            "Niger",
+            ["Niger", "According to the table, Niger has the largest rate."],
+            "hallusionbench",
+            answer_type="open_ended",
+        ) == 1.0
+        assert compute_reference_match(
+            "December 2022 and July 2023",
+            ["December 2022 and July 2023", "Dec 22 and Jul 23"],
+            "hallusionbench",
+            answer_type="open_ended",
+        ) == 1.0
+        assert compute_reference_match(
+            "unanswerable",
+            ["unanswerable", "No, inconsistency in table"],
+            "hallusionbench",
+            answer_type="open_ended",
+        ) == 1.0
+
+    def test_open_hallusion_semantic_detail_fallback(self):
+        def mock_embed(a, b):
+            return 0.95 if "germany" in b else 0.1
+
+        assert compute_reference_match(
+            "Germany",
+            ["Germany had the highest GDP in Europe in 2021."],
+            "hallusionbench",
+            threshold=0.82,
+            embedding_fn=mock_embed,
+            answer_type="open_ended",
+        ) == 1.0
+
+    def test_open_hallusion_exact_alias_mode_rejects_related_wrong_entity(self):
+        def misleading_embed(a, b):
+            return 0.99
+
+        assert compute_reference_match(
+            "France",
+            ["Germany", "Germany had the highest GDP in Europe in 2021."],
+            "hallusionbench",
+            threshold=0.50,
+            embedding_fn=misleading_embed,
+            answer_type="open_ended",
+            semantic_fallback=False,
+        ) == 0.0
 
     def test_provenance_dataclass(self):
         prov = SemanticProvenance(

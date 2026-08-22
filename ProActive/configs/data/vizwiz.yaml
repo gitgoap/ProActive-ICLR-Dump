@@ -13,3 +13,8 @@ split_ratios: [0.7, 0.1, 0.1, 0.1]
 loader: "vizwiz"
 annotation_file: "val.json"
 image_dir: "val"
+
+# Ten released annotator answers are aggregated after frozen free-form
+# normalization. Remaining count ties use the first tied normalized answer in
+# source annotation order; unordered set iteration is prohibited.
+gold_policy: "normalized_majority_source_order_tiebreak_v1"

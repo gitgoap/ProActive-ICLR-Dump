@@ -175,7 +175,9 @@ def _validate_existing_rows(
                 f"Existing row {row.get('instance_id')} has no grounding observation"
             )
         parsed = parse_grounding_output(
-            str(grounding.get("raw_answer", "")), str(row.get("dataset", ""))
+            str(grounding.get("raw_answer", "")),
+            str(row.get("dataset", "")),
+            answer_type=row.get("answer_type"),
         )
         if not parsed.is_valid:
             raise ValueError(
@@ -496,6 +498,7 @@ def main() -> None:
     try:
         needs_semantic = any(
             str(row.get("dataset", "")).lower() in {"vizwiz", "gqa"}
+            or row.get("answer_type") == "open_ended"
             for row in pending
         )
         matcher = None

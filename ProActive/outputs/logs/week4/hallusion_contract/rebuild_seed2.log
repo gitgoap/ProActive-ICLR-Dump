@@ -1,0 +1,22 @@
+2026-08-20 13:50:27,198 INFO Found 4 dataset configs
+2026-08-20 13:50:27,198 INFO --- Loading: hallusionbench ---
+2026-08-20 13:50:27,240 INFO   Loaded 951 records
+2026-08-20 13:50:27,243 INFO   Split stats: {"train": {"records": 677, "groups": 677}, "val": {"records": 91, "groups": 91}, "cal": {"records": 92, "groups": 92}, "test": {"records": 91, "groups": 91}}
+2026-08-20 13:50:27,243 INFO --- Loading: pope ---
+2026-08-20 13:50:27,396 INFO   Loaded 3000 records
+2026-08-20 13:50:27,403 INFO   Split stats: {"train": {"records": 2084, "groups": 2084}, "val": {"records": 269, "groups": 269}, "cal": {"records": 312, "groups": 312}, "test": {"records": 335, "groups": 335}}
+2026-08-20 13:50:27,403 INFO --- Loading: vizwiz ---
+2026-08-20 13:50:27,595 INFO   Loaded 3000 records
+2026-08-20 13:50:27,607 INFO   Split stats: {"train": {"records": 2054, "groups": 2054}, "val": {"records": 313, "groups": 313}, "cal": {"records": 310, "groups": 310}, "test": {"records": 323, "groups": 323}}
+2026-08-20 13:50:27,607 INFO --- Loading: vsr ---
+2026-08-20 13:50:27,699 INFO   Loaded 340 records
+2026-08-20 13:50:27,699 INFO   Split stats: {"train": {"records": 244, "groups": 244}, "val": {"records": 29, "groups": 29}, "cal": {"records": 36, "groups": 36}, "test": {"records": 31, "groups": 31}}
+2026-08-20 13:50:27,699 INFO 
+=== Total: 7291 records across 4 datasets ===
+2026-08-20 13:50:27,716 INFO   Wrote outputs/manifests/manifest_hallusionbench.jsonl (951 records, hash=fd239136267f)
+2026-08-20 13:50:27,742 INFO   Wrote outputs/manifests/manifest_pope.jsonl (3000 records, hash=99868f9ed5e3)
+2026-08-20 13:50:27,786 INFO   Wrote outputs/manifests/manifest_vizwiz.jsonl (3000 records, hash=c951865e3414)
+2026-08-20 13:50:27,789 INFO   Wrote outputs/manifests/manifest_vsr.jsonl (340 records, hash=f8bbc6913771)
+2026-08-20 13:50:27,899 INFO   Wrote outputs/manifests/manifest_combined.jsonl (7291 records, hash=340db3637fc2)
+2026-08-20 13:50:27,900 INFO   Wrote outputs/manifests/manifest_stats.json
+2026-08-20 13:50:27,900 INFO Manifest building complete.

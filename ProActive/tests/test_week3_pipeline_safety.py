@@ -131,9 +131,9 @@ def test_compact_severity_grid_uses_15_generations_and_validates(tmp_path: Path)
 
 def test_hallusionbench_filters_text_only_before_limit(tmp_path: Path):
     annotations = [
-        {"id": "text", "question": "Text only?", "gt_answer": "no"},
-        {"id": "image_1", "filename": "one.png", "question": "One?", "gt_answer": "yes"},
-        {"id": "image_2", "filename": "two.png", "question": "Two?", "gt_answer": "no"},
+        {"id": "text", "category": "VS", "subcategory": "x", "set_id": 0, "figure_id": 0, "question_id": 0, "question": "Text only?", "gt_answer": "0"},
+        {"id": "image_1", "category": "VS", "subcategory": "x", "set_id": 0, "figure_id": 1, "question_id": 0, "filename": "one.png", "question": "One?", "gt_answer": "1"},
+        {"id": "image_2", "category": "VS", "subcategory": "x", "set_id": 0, "figure_id": 2, "question_id": 0, "filename": "two.png", "question": "Two?", "gt_answer": "0"},
     ]
     (tmp_path / "HallusionBench.json").write_text(json.dumps(annotations), encoding="utf-8")
     records = load_hallusionbench(
@@ -147,6 +147,7 @@ def test_hallusionbench_filters_text_only_before_limit(tmp_path: Path):
     assert len(records) == 2
     assert all(record["image_path"] for record in records)
     assert {record["image_id"] for record in records} == {"image_1", "image_2"}
+    assert {record["gold_answer"] for record in records} == {"yes", "no"}
 
 
 def test_semantic_audit_spans_score_range_and_calibrates():

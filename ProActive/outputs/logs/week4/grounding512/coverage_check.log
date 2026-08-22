@@ -1,0 +1,56 @@
+===== Checking qwen3_vl_8b shard 0 =====
+2026-08-17 17:07:35,441 INFO [refresh_grounding_cache] Model=qwen3_vl_8b shard=0/4 completed=0 pending=1822
+2026-08-17 17:07:35,441 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:35,441 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+Coverage check qwen3_vl_8b shard 0: exit code 0
+===== Checking qwen3_vl_8b shard 1 =====
+2026-08-17 17:07:36,096 INFO [refresh_grounding_cache] Model=qwen3_vl_8b shard=1/4 completed=0 pending=1821
+2026-08-17 17:07:36,096 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:36,097 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl
+Coverage check qwen3_vl_8b shard 1: exit code 0
+===== Checking qwen3_vl_8b shard 2 =====
+2026-08-17 17:07:36,766 INFO [refresh_grounding_cache] Model=qwen3_vl_8b shard=2/4 completed=0 pending=1801
+2026-08-17 17:07:36,766 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:36,766 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl
+Coverage check qwen3_vl_8b shard 2: exit code 0
+===== Checking qwen3_vl_8b shard 3 =====
+2026-08-17 17:07:37,435 INFO [refresh_grounding_cache] Model=qwen3_vl_8b shard=3/4 completed=0 pending=1847
+2026-08-17 17:07:37,435 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:37,435 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl
+Coverage check qwen3_vl_8b shard 3: exit code 0
+===== Checking gemma4_e4b shard 0 =====
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/refresh_grounding_cache.py", line 449, in <module>
+    main()
+    ~~~~^^
+  File "/home/aman/ProActive/scripts/refresh_grounding_cache.py", line 313, in main
+    bases, provenance = _load_base_rows(
+                        ~~~~~~~~~~~~~~~^
+        teacher_path=teacher_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        num_shards=args.num_shards,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/aman/ProActive/scripts/refresh_grounding_cache.py", line 159, in _load_base_rows
+    raise ValueError(
+        f"Source coverage mismatch: missing={len(missing)}, extra={len(extra)}"
+    )
+ValueError: Source coverage mismatch: missing=25, extra=0
+Coverage check gemma4_e4b shard 0: exit code 1
+===== Checking gemma4_e4b shard 1 =====
+2026-08-17 17:07:38,742 INFO [refresh_grounding_cache] Model=gemma4_e4b shard=1/4 completed=0 pending=1787
+2026-08-17 17:07:38,742 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:38,742 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl
+Coverage check gemma4_e4b shard 1: exit code 0
+===== Checking gemma4_e4b shard 2 =====
+2026-08-17 17:07:39,394 INFO [refresh_grounding_cache] Model=gemma4_e4b shard=2/4 completed=0 pending=1826
+2026-08-17 17:07:39,394 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:39,394 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl
+Coverage check gemma4_e4b shard 2: exit code 0
+===== Checking gemma4_e4b shard 3 =====
+2026-08-17 17:07:40,052 INFO [refresh_grounding_cache] Model=gemma4_e4b shard=3/4 completed=0 pending=1842
+2026-08-17 17:07:40,052 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=512
+2026-08-17 17:07:40,052 INFO [refresh_grounding_cache] Output=outputs/teacher_core_grounding512/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl
+Coverage check gemma4_e4b shard 3: exit code 0

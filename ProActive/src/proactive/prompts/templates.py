@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from proactive.features.normalization import normalize_answer
+from proactive.data.hallusion_contract import HALLUSION_OPEN_ENDED
 
 
 # ---------------------------------------------------------------------------
@@ -69,6 +70,7 @@ def make_freeform_prompt(question: str) -> str:
 def make_dataset_prompt(
     question: str,
     dataset: str,
+    answer_type: Optional[str] = None,
 ) -> str:
     """Dispatch to the correct prompt template based on dataset.
 
@@ -77,7 +79,7 @@ def make_dataset_prompt(
         dataset: Dataset name (e.g., 'pope', 'vizwiz', 'vsr').
     """
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
-    if dataset_lower in ("vizwiz", "vizwiz_vqa"):
+    if answer_type == HALLUSION_OPEN_ENDED or dataset_lower in ("vizwiz", "vizwiz_vqa"):
         return make_freeform_prompt(question)
     else:
         return make_binary_prompt(question, dataset)
@@ -87,7 +89,9 @@ def make_dataset_prompt(
 # Grounding probe prompt & parser (Plan §13.1, §14.5)
 # ---------------------------------------------------------------------------
 
-def make_grounding_prompt(question: str, dataset: str) -> str:
+def make_grounding_prompt(
+    question: str, dataset: str, answer_type: Optional[str] = None
+) -> str:
     """Grounding probe: 'Describe what you see, then answer the question.'
 
     Forces visual grounding followed by machine-readable FINAL_ANSWER: tag.
@@ -101,7 +105,7 @@ def make_grounding_prompt(question: str, dataset: str) -> str:
             f"At the very end of your response, format your final answer strictly as:\n"
             f"FINAL_ANSWER: <true or false>"
         )
-    elif dataset_lower in ("vizwiz", "vizwiz_vqa"):
+    elif answer_type == HALLUSION_OPEN_ENDED or dataset_lower in ("vizwiz", "vizwiz_vqa"):
         return (
             f"First, describe what you see in the image in 1-2 sentences.\n"
             f"Then, answer the following question concisely.\n"
@@ -127,7 +131,7 @@ _EXPLICIT_TERMINAL_ANSWER_RE = re.compile(
 )
 _EMBEDDED_BINARY_ANSWER_RE = re.compile(
     r"\b(?:the\s+)?(?:final\s+)?answer\s+(?:is|would\s+be)\s+"
-    r"(?P<answer>yes|no|true|false)\b",
+    r"(?P<answer>yes|no|true|false|uncertain)\b",
     re.IGNORECASE,
 )
 
@@ -148,17 +152,26 @@ def _strip_answer_markup(value: str) -> str:
     return answer
 
 
-def _binary_candidate_is_unambiguous(candidate: str, dataset: str, norm_answer: str) -> bool:
+def _binary_candidate_is_unambiguous(
+    candidate: str,
+    dataset: str,
+    norm_answer: str,
+    normalizer_type: Optional[str] = None,
+) -> bool:
     """Reject explicit answer phrases containing conflicting binary indicators."""
     outcomes = {
-        normalize_answer(token, dataset)
+        normalize_answer(token, dataset, normalizer_type=normalizer_type)
         for token in re.findall(r"[A-Za-z]+(?:'[A-Za-z]+)?", candidate)
     }
-    outcomes.intersection_update({"yes", "no", "true", "false"})
+    outcomes.intersection_update({"yes", "no", "true", "false", "uncertain"})
     return bool(outcomes) and outcomes == {norm_answer}
 
 
-def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult:
+def parse_grounding_output(
+    raw_text: str,
+    dataset: str,
+    answer_type: Optional[str] = None,
+) -> GroundingParsedResult:
     """Parse grounding probe output into description and normalized final answer.
 
     Enforces fail-closed validation: malformed answers are marked is_valid=False.
@@ -175,7 +188,15 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
 
     clean_text = raw_text.strip()
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
-    is_binary = dataset_lower in ("pope", "vsr", "hallusionbench", "gqa_relation", "prehal", "illusionbench")
+    normalizer_type = "freeform" if answer_type == HALLUSION_OPEN_ENDED else None
+    is_binary = (
+        answer_type != HALLUSION_OPEN_ENDED
+        and dataset_lower
+        in ("pope", "vsr", "hallusionbench", "gqa_relation", "prehal", "illusionbench")
+    )
+    binary_domain = {"yes", "no", "true", "false"}
+    if dataset_lower == "hallusionbench":
+        binary_domain.add("uncertain")
 
     # Match FINAL_ANSWER: <content>
     pattern = r"(?:FINAL_ANSWER|FINAL ANSWER|ANSWER)\s*:\s*(.*)$"
@@ -195,10 +216,12 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
                 parse_status="malformed",
                 invalid_reason="FINAL_ANSWER tag has no answer content",
             )
-        norm_ans = normalize_answer(first_line, dataset)
+        norm_ans = normalize_answer(
+            first_line, dataset, normalizer_type=normalizer_type
+        )
 
         if is_binary:
-            if norm_ans in ("yes", "no", "true", "false"):
+            if norm_ans in binary_domain:
                 return GroundingParsedResult(
                     is_valid=True,
                     raw_final_answer=first_line,
@@ -244,8 +267,10 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
     lines = [l.strip() for l in clean_text.split("\n") if l.strip()]
     if lines:
         last_line = lines[-1]
-        norm_ans = normalize_answer(last_line, dataset)
-        if is_binary and norm_ans in ("yes", "no", "true", "false"):
+        norm_ans = normalize_answer(
+            last_line, dataset, normalizer_type=normalizer_type
+        )
+        if is_binary and norm_ans in binary_domain:
             desc_part = "\n".join(lines[:-1]).strip()
             return GroundingParsedResult(
                 is_valid=True,
@@ -264,11 +289,16 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
         if terminal_match:
             candidate = _strip_answer_markup(terminal_match.group("answer"))
             if candidate:
-                norm_candidate = normalize_answer(candidate, dataset)
+                norm_candidate = normalize_answer(
+                    candidate, dataset, normalizer_type=normalizer_type
+                )
                 binary_valid = (
-                    norm_candidate in ("yes", "no", "true", "false")
+                    norm_candidate in binary_domain
                     and _binary_candidate_is_unambiguous(
-                        candidate, dataset, norm_candidate
+                        candidate,
+                        dataset,
+                        norm_candidate,
+                        normalizer_type=normalizer_type,
                     )
                 )
                 freeform_valid = not is_binary and norm_candidate != "unknown"
@@ -284,12 +314,16 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
         if is_binary and terminal_match is None:
             embedded_matches = list(_EMBEDDED_BINARY_ANSWER_RE.finditer(last_line))
             embedded_answers = {
-                normalize_answer(match.group("answer"), dataset)
+                normalize_answer(
+                    match.group("answer"),
+                    dataset,
+                    normalizer_type=normalizer_type,
+                )
                 for match in embedded_matches
             }
             if len(embedded_answers) == 1:
                 norm_candidate = embedded_answers.pop()
-                if norm_candidate in ("yes", "no", "true", "false"):
+                if norm_candidate in binary_domain:
                     raw_candidate = embedded_matches[-1].group("answer")
                     return GroundingParsedResult(
                         is_valid=True,
@@ -316,7 +350,9 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
                 and len(candidate_words) <= 8
                 and not candidate.endswith(("?", ":", ";", ","))
             ):
-                norm_candidate = normalize_answer(candidate, dataset)
+                norm_candidate = normalize_answer(
+                    candidate, dataset, normalizer_type=normalizer_type
+                )
                 if norm_candidate != "unknown":
                     return GroundingParsedResult(
                         is_valid=True,
@@ -343,6 +379,7 @@ def parse_grounding_output(raw_text: str, dataset: str) -> GroundingParsedResult
 def make_relation_prompt(
     swapped_question: str,
     dataset: str,
+    answer_type: Optional[str] = None,
 ) -> str:
     """Relation probe: re-ask with the swapped relation text."""
-    return make_dataset_prompt(swapped_question, dataset)
+    return make_dataset_prompt(swapped_question, dataset, answer_type=answer_type)

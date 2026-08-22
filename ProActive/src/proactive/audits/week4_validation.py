@@ -18,6 +18,7 @@ from proactive.teacher.offline import (
     teacher_key,
 )
 from proactive.utils.io import file_sha256, iter_jsonl
+from proactive.features.normalization import normalize_answer
 
 
 IMMUTABLE_REVISION_RE = re.compile(r"^[0-9a-fA-F]{40}$")
@@ -67,6 +68,59 @@ FORBIDDEN_LEARNER_KEYS = {
 }
 
 ArtifactRow = Tuple[Dict[str, Any], Path, str]
+
+
+def teacher_answer_contract_errors(
+    row: Mapping[str, Any], source: Mapping[str, Any], key: Tuple[str, str]
+) -> List[str]:
+    """Validate dataset answer metadata and deterministic binary correctness."""
+
+    errors: List[str] = []
+    if source.get("dataset") == "vizwiz":
+        for field in (
+            "gold_answer",
+            "answer_contract_version",
+            "answer_match_mode",
+            "reference_answers",
+            "vizwiz_gold_policy",
+            "vizwiz_answer_counts",
+            "vizwiz_tied_top_answer_count",
+        ):
+            if row.get(field) != source.get(field):
+                errors.append(f"Teacher/manifest {field} mismatch for {key}")
+        expected_correct = int(
+            normalize_answer(
+                str(row.get("clean", {}).get("raw_answer", "")), "vizwiz"
+            )
+            == source.get("gold_answer")
+        )
+        if row.get("clean", {}).get("correct") != expected_correct:
+            errors.append(f"VizWiz clean correctness is stale for {key}")
+        return errors
+    if source.get("dataset") != "hallusionbench":
+        return errors
+    for field in (
+        "answer_type",
+        "answer_contract_version",
+        "answer_match_mode",
+        "gold_answer",
+        "benchmark_gold_answer",
+        "gt_answer_details",
+        "reference_answers",
+    ):
+        if row.get(field) != source.get(field):
+            errors.append(f"Teacher/manifest {field} mismatch for {key}")
+    if source.get("answer_type") == "binary":
+        expected_correct = int(
+            normalize_answer(
+                str(row.get("clean", {}).get("raw_answer", "")),
+                "hallusionbench",
+            )
+            == source.get("gold_answer")
+        )
+        if row.get("clean", {}).get("correct") != expected_correct:
+            errors.append(f"HallusionBench binary clean correctness is stale for {key}")
+    return errors
 
 
 def collect_artifact_rows(path: Path, prefix: str) -> Tuple[List[ArtifactRow], List[Dict[str, Any]]]:
@@ -163,6 +217,7 @@ def validate_week4_artifacts(
             for field in ("group_id", "dataset", "split"):
                 if row.get(field) != source.get(field):
                     errors.append(f"Teacher/manifest {field} mismatch for {key}")
+            errors.extend(teacher_answer_contract_errors(row, source, key))
         if row.get("record_type") != "teacher_cache":
             errors.append(f"Teacher row has wrong record_type: {key}")
         if row.get("valid") is not True:

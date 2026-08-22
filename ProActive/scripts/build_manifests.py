@@ -94,6 +94,7 @@ def main():
 
     all_records = []
     dataset_stats = {}
+    failed_datasets = []
 
     for config_path in config_files:
         dataset_name = config_path.stem
@@ -103,6 +104,7 @@ def main():
             config = load_dataset_config(config_path)
         except Exception as e:
             logger.error(f"Failed to parse config {config_path}: {e}")
+            failed_datasets.append(dataset_name)
             continue
 
         # Skip held-out datasets from main manifest building
@@ -123,15 +125,18 @@ def main():
             loader_fn = get_loader(loader_name)
         except ValueError as e:
             logger.error(str(e))
+            failed_datasets.append(dataset_name)
             continue
 
         try:
             records = loader_fn(config, limit=args.limit)
         except FileNotFoundError as e:
             logger.warning(f"Data not found for {dataset_name}: {e}")
+            failed_datasets.append(dataset_name)
             continue
         except Exception as e:
             logger.error(f"Failed to load {dataset_name}: {e}")
+            failed_datasets.append(dataset_name)
             continue
 
         logger.info(f"  Loaded {len(records)} records")
@@ -142,6 +147,7 @@ def main():
             for err in errors[:10]:
                 logger.error(f"  Validation: {err}")
             logger.error(f"  ({len(errors)} total errors)")
+            failed_datasets.append(dataset_name)
             continue
 
         # Assign grouped splits
@@ -163,6 +169,14 @@ def main():
         logger.info(f"  Split stats: {json.dumps(stats)}")
 
         all_records.extend(records)
+
+    if failed_datasets:
+        logger.error(
+            "Manifest construction failed closed; no outputs were written. "
+            "Failed active datasets: %s",
+            sorted(set(failed_datasets)),
+        )
+        sys.exit(1)
 
     logger.info(f"\n=== Total: {len(all_records)} records across "
                 f"{len(dataset_stats)} datasets ===")

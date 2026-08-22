@@ -274,3 +274,111 @@
   teacher artifact collection while missing valid rows still fail the coverage
   gate. Final focused suite: `30 passed`; full CPU suite: `192 passed in
   1.70s`. Two-model server refresh and artifact validation remain pending.
+
+## 2026-08-19 — HallusionBench answer-contract repair
+
+- Audited the official `HallusionBench.json` after observing impossible
+  all-false clean correctness. The 951 image-paired subset contains 937 binary
+  rows and 14 released table questions whose natural answers are countries,
+  states, months, or an explicit no-answer condition. Their semantic references
+  live in `gt_answer_details`; their `gt_answer` value is only a benchmark-level
+  indicator.
+- Rejected deletion of the 14 rows. The primary dataset remains all 951
+  image-paired examples; classification uses source question grammar and
+  official annotation identity, never model output or failure status. A
+  937-row binary-only result may be reported later only as a named sensitivity
+  analysis.
+- Added HallusionBench answer contract v1. Binary rows normalize
+  `0/1/2 -> no/yes/uncertain`. Open rows preserve the official details and use
+  an author-audited, versioned alias overlay with normalized exact matching.
+  The VizWiz-calibrated semantic threshold is not used for gold correctness on
+  these short entities. The loader requires
+  exactly 14 open image rows and fails closed on missing, unused, or malformed
+  references.
+- Propagated answer type through clean inference, grounding parsing, probe
+  matching, cache serialization, resume checks, and Week 4 validation. Removed
+  the probe runner's silent semantic-exception fallback.
+- Added `scripts/migrate_hallusion_answer_contract.py`. It requires an unchanged
+  instance set, rejects any non-Hallusion manifest drift, recomputes binary
+  normalization/correctness/probe matching/labels from saved raw generations,
+  drops every one of the 14 prompt-changed rows for every model, and writes
+  source file/record plus old/new manifest hashes into a separate cache. The
+  original cache is never overwritten.
+- Added a fail-closed manifest-builder gate so one failed active dataset cannot
+  silently produce a partial combined manifest.
+- Local verification: Hallusion-focused tests passed `84/84`; migration
+  integration tests passed `4/4`; after the exact-alias hardening, the final
+  full CPU suite passed `209 passed` in 3.61 seconds. No local GPU claim is
+  made. Server manifest rebuild, migration, minimal pending-row rerun, uniform
+  grounding refresh, and final checksum validation remain required.
+
+## 2026-08-20 — VizWiz deterministic gold-selection repair
+
+- The Hallusion contract migration stopped before writing outputs because 207
+  VizWiz `gold_answer` values differed between the preserved and rebuilt
+  manifests, while both contained the same 7,291 IDs and no other reported
+  non-Hallusion field changed.
+- Root cause: `max(set(answer_texts), key=answer_texts.count)` selected an
+  arbitrary member of tied answer counts according to Python's randomized set
+  iteration. The underlying dataset did not change.
+- Replaced the rule with normalized majority voting and first-tied answer in
+  released annotation order. The manifest records the normalized count table,
+  tie size, policy ID, and contract version.
+- Extended the audited migration to permit only the declared VizWiz answer
+  contract fields, reuse raw inference, recompute clean correctness and labels,
+  and continue rejecting changes to questions, IDs, images, groups, or splits.
+- Added four focused tests including normalized aggregation, deterministic tie
+  resolution, transition allowlisting, and CPU-only correctness recomputation.
+  The complete local CPU suite passes `213 passed` in 2.25 seconds.
+- Server rebuilding under `PYTHONHASHSEED=1` and `987654` produced the same
+  7,291-row combined manifest file SHA-256
+  `05fd0dbc554c5fb85664dd87e99f8eebdd995320e6b34e2fffe856867d3d0859`,
+  validating the deterministic repair. Migration then stopped at the frozen
+  probe-config byte-hash guard because a Windows sync converted its line
+  endings from LF to CRLF. The scientific YAML content is unchanged; restore
+  the original LF bytes and require recorded hash `5cfdbcde...` before retry.
+- Exact-hash-guarded LF restoration resolved the provenance mismatch. The
+  rerun completed with `is_valid: true`: 7,291 selected rows per model, exactly
+  14 open Hallusion rows invalidated per model, 67 Qwen pending, and 88 Gemma
+  pending. All eight teacher JSONL and eight failure-ledger SHA-256 values in
+  the signed migration report match the synchronized artifacts.
+- The first `run_teacher.py --resume --dry_run` then caught a remaining VizWiz
+  parser drift (`cannot be determined` versus canonical `unanswerable`). The
+  v1 migration report is therefore superseded despite its internal checksums.
+  Migration schema v2 now refreshes parser-dependent VizWiz probe fields and
+  embedding decisions only where normalization changed, recomputes labels,
+  and runs the same grounding-parser compatibility check before writing a
+  success report. An in-memory audit refreshed 78 of 5,971 valid two-model
+  VizWiz rows and left every grounding row compatible with the current parser.
+- Server migration schema v2 completed with `is_valid: true`. It refreshed 22
+  Qwen and 56 Gemma VizWiz rows, retained pending totals of 67 and 88, and all
+  16 signed artifact hashes match the synchronized files. Eight model/shard
+  `run_teacher.py --resume --dry_run` checks passed, so minimal GPU recovery is
+  authorized on newly verified-free devices.
+- Parallel base recovery on physical GPUs 0 and 3 completed every shard. Qwen
+  improved from 7,224 to 7,255 valid rows, leaving 36 failures; Gemma improved
+  from 7,203 to 7,217, leaving 74. All 14 invalidated open Hallusion rows
+  succeeded for both models. The remaining 110 rows are all auditable
+  grounding-only failures with recoverable invalid records; coverage remains
+  exactly 7,291 IDs/model with no exclusions. Uniform grounding refresh is next.
+
+## 2026-08-23 — InternVL runtime incompatibility and adapter correction
+
+- The first InternVL one-row smoke failed before model loading because `einops`
+  was missing. After installing it, the checkpoint initialization progressed
+  but failed with `InternVLChatModel` missing `all_tied_weights_keys`.
+- Server version evidence records Python 3.13.12, PyTorch 2.6.0+cu124,
+  Transformers 5.5.4, Accelerate 1.13.0, and einops 0.8.2. `pip check` passed,
+  confirming this is a remote custom-code API incompatibility rather than a
+  broken declared dependency.
+- Preserved the base environment used for accepted Qwen/Gemma outputs. Added a
+  separate `requirements-internvl.txt` runtime pinned to Transformers 4.37.2,
+  matching the official InternVL custom-code dependency.
+- Replaced the unvalidated generic InternVL adapter path with native dynamic
+  image tiling, conversation/image-context construction, deterministic
+  generation-score extraction, and teacher-forced scoring. Added a pre-load
+  Transformers-version guard so an incompatible runtime fails immediately.
+- Added focused CPU tests for version gating, deterministic tiling, and
+  generation configuration. Syntax compilation passed locally; the local
+  environment lacks pytest, so the focused/full pytest suites and the revised
+  one-row GPU smoke remain pending. No GPU success is claimed.

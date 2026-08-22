@@ -22,6 +22,7 @@ import yaml
 from proactive.audits.week4_validation import (
     IMMUTABLE_REVISION_RE,
     collect_artifact_rows,
+    teacher_answer_contract_errors,
     validate_audit_packet,
     validate_week4_artifacts,
 )
@@ -182,6 +183,7 @@ def teacher_progress_report(
         for field in ("group_id", "dataset", "split"):
             if row.get(field) != source.get(field):
                 errors.append(f"Teacher/manifest {field} mismatch: {key}")
+        errors.extend(teacher_answer_contract_errors(row, source, key))
         if row.get("valid") is not True:
             errors.append(f"Invalid teacher row: {key}")
         if not IMMUTABLE_REVISION_RE.fullmatch(str(row.get("model_revision", ""))):

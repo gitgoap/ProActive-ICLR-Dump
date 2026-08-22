@@ -1,0 +1,6 @@
+2026-08-20 14:47:53,723 INFO [run_teacher] Model: qwen3_vl_8b (Qwen/Qwen3-VL-8B-Instruct)
+2026-08-20 14:47:53,723 INFO [run_teacher] Shard: 1/4
+2026-08-20 14:47:53,723 INFO [run_teacher] Selected rows: 1821; completed: 1802; pending: 19
+2026-08-20 14:47:53,723 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 133
+2026-08-20 14:47:53,723 INFO [run_teacher] Output: outputs/teacher_core_contract_v1/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl
+2026-08-20 14:47:53,723 INFO [run_teacher] Current-failure ledger: outputs/teacher_core_contract_v1/teacher_qwen3_vl_8b_all_all_shard01-of-04.failures.jsonl

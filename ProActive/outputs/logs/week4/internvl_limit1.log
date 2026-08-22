@@ -1,0 +1,70 @@
+2026-08-21 20:44:32,067 INFO [run_teacher] Model: internvl3_9b (OpenGVLab/InternVL3-9B)
+2026-08-21 20:44:32,067 INFO [run_teacher] Shard: 0/1
+2026-08-21 20:44:32,067 INFO [run_teacher] Selected rows: 1; completed: 0; pending: 1
+2026-08-21 20:44:32,067 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7
+2026-08-21 20:44:32,067 INFO [run_teacher] Output: outputs/week4_staging/internvl_limit1/teacher_internvl3_9b_all_all_shard00-of-01.jsonl
+2026-08-21 20:44:32,067 INFO [run_teacher] Current-failure ledger: outputs/week4_staging/internvl_limit1/teacher_internvl3_9b_all_all_shard00-of-01.failures.jsonl
+2026-08-21 20:44:36,063 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 32812.80it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-21 20:44:36,379 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-21 20:44:36,381 INFO [run_teacher] Loading model on cuda:0
+2026-08-21 20:44:36,436 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-21 20:44:36,436 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] ps_version: v2
+2026-08-21 20:44:36,436 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-21 20:44:36,436 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] max_dynamic_patch: 12
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_config is None. Initializing the InternVisionConfig with default values.
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] llm_config is None. Initializing the LlamaConfig config with default values (`LlamaConfig`).
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] ps_version: v1
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-21 20:44:36,437 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] max_dynamic_patch: 6
+2026-08-21 20:54:20,206 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-21 20:54:20,206 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] ps_version: v2
+2026-08-21 20:54:20,206 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-21 20:54:20,206 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] max_dynamic_patch: 12
+2026-08-21 20:54:20,206 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_config is None. Initializing the InternVisionConfig with default values.
+2026-08-21 20:54:20,207 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] llm_config is None. Initializing the LlamaConfig config with default values (`LlamaConfig`).
+2026-08-21 20:54:20,207 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-21 20:54:20,207 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] ps_version: v1
+2026-08-21 20:54:20,207 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-21 20:54:20,207 INFO [transformers_modules.InternVL3_hyphen_9B.configuration_internvl_chat] max_dynamic_patch: 6
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 595, in <module>
+    main()
+    ~~~~^^
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 518, in main
+    adapter.load_model()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/home/aman/ProActive/src/proactive/models/internvl_adapter.py", line 55, in load_model
+    self.model = AutoModel.from_pretrained(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.model_path,
+        ^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        trust_remote_code=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/aman/miniconda3/lib/python3.13/site-packages/transformers/models/auto/auto_factory.py", line 369, in from_pretrained
+    model_class = get_class_from_dynamic_module(
+        class_ref, pretrained_model_name_or_path, code_revision=code_revision, **hub_kwargs, **kwargs
+    )
+  File "/home/aman/miniconda3/lib/python3.13/site-packages/transformers/dynamic_module_utils.py", line 583, in get_class_from_dynamic_module
+    return get_class_in_module(class_name, final_module, force_reload=force_download)
+  File "/home/aman/miniconda3/lib/python3.13/site-packages/transformers/dynamic_module_utils.py", line 309, in get_class_in_module
+    module_spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/aman/.cache/huggingface/modules/transformers_modules/InternVL3_hyphen_9B/modeling_internvl_chat.py", line 21, in <module>
+    from .modeling_intern_vit import InternVisionModel, has_flash_attn
+  File "/home/aman/.cache/huggingface/modules/transformers_modules/InternVL3_hyphen_9B/modeling_intern_vit.py", line 11, in <module>
+    from einops import rearrange
+ModuleNotFoundError: No module named 'einops'

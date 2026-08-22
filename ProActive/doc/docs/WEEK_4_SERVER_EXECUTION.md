@@ -206,6 +206,10 @@ The literal plan requires all three models. Run this after InternVL is present.
 For an explicitly interim two-model packet only, add
 `--allow_incomplete_model_coverage`; it cannot pass the final gate.
 
+InternVL must use the isolated `proactive-internvl` environment documented in
+`doc/docs/WEEK_4_INTERNVL_CATCHUP.md`. Do not downgrade the Qwen/Gemma base
+environment.
+
 ```bash
 python scripts/export_human_audit.py \
   --config configs/experiments/teacher_core.yaml \
@@ -444,3 +448,264 @@ python scripts/validate_week4.py \
   --overwrite \
   2>&1 | tee outputs/logs/week4/grounding512/validation.log
 ```
+
+## 11. HallusionBench and VizWiz answer-contract v1 recovery (supersedes §10)
+
+The official source audit found 14 open-ended table questions inside the 951
+image-paired HallusionBench rows. Separately, the first rebuild exposed 207
+VizWiz `gold_answer` changes caused by the old use of an unordered Python set
+when multiple answers tied for the majority. Do not exclude either group and do
+not build labels from the old manifest/cache. The corrected VizWiz policy first
+normalizes released answers, selects the maximum count, and resolves any
+remaining tie by released annotation order. This procedure preserves every
+instance, relabels reused VizWiz inference on CPU, reruns only
+prompt-invalidated or already failed base rows, and then applies one uniform
+grounding budget to all rows. The 512-token cache remains useful diagnostic
+evidence but is not the final Week 4 teacher source after the manifest changes.
+
+Sync these runtime/config files before running anything:
+
+```text
+configs/data/hallusionbench.yaml
+configs/data/hallusionbench_open_ended_references.json
+configs/data/vizwiz.yaml
+src/proactive/data/hallusion_contract.py
+src/proactive/data/loaders.py
+src/proactive/data/manifests.py
+src/proactive/features/normalization.py
+src/proactive/features/semantic.py
+src/proactive/prompts/templates.py
+src/proactive/probes/probe_runner.py
+src/proactive/teacher/cache_builder.py
+src/proactive/audits/week4_validation.py
+scripts/build_manifests.py
+scripts/migrate_hallusion_answer_contract.py
+scripts/run_teacher.py
+scripts/refresh_grounding_cache.py
+scripts/validate_week4.py
+```
+
+The matching tests and the two audit notes
+`doc/docs/HALLUSIONBENCH_14_OPEN_ENDED_RECORDS.md` and
+`doc/docs/VIZWIZ_DETERMINISTIC_GOLD_SELECTION.md` should also be synced for repository
+traceability, although the tests are not imported by the runtime commands.
+
+Do **not** upload the Windows copy of
+`configs/probes/frozen_week3_config.yaml`. Its CRLF line endings change the
+byte-level provenance hash even when the scientific YAML content is identical.
+Existing teacher rows require the original server LF hash
+`5cfdbcde50b28f7645ad4d73046d9997ad393dde3b3c197a3c5d630b5f6d5271`.
+If it was uploaded accidentally, use the exact-hash-guarded LF restoration
+below before migration; never bypass or rewrite the provenance field.
+
+### 11.1 Preserve provenance, rebuild, and migrate on CPU
+
+Run the provenance backup only if it does not already exist. The expected old
+combined hash is the hash embedded in the existing teacher rows. If the backup
+already exists, preserve it: do not replace it with the currently rebuilt
+manifest.
+
+```bash
+cd ~/ProActive
+
+which python
+python --version
+
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+
+mkdir -p outputs/logs/week4/hallusion_contract \
+  outputs/week4_reports \
+  outputs/teacher_core_contract_v1
+
+cp -n outputs/manifests/manifest_combined.jsonl \
+  outputs/manifests/manifest_combined_pre_hallusion_contract.jsonl
+
+sha256sum outputs/manifests/manifest_combined_pre_hallusion_contract.jsonl
+```
+
+The preserved backup hash must be
+`b945f3f03d25024a9d693c069575c13dd7da8094a664b08bc16614cfbaf40de3`.
+Stop if it differs. Then rebuild all active manifests (the builder now refuses
+to write a partial combined manifest if any active dataset fails):
+
+```bash
+set -o pipefail
+
+python scripts/build_manifests.py \
+  --config_dir configs/data \
+  --data_root "$PROACTIVE_DATA_ROOT" \
+  --output_dir outputs/manifests \
+  --datasets hallusionbench pope vizwiz vsr \
+  --overwrite --seed 42 \
+  2>&1 | tee outputs/logs/week4/hallusion_contract/rebuild_manifests.log
+
+wc -l \
+  outputs/manifests/manifest_hallusionbench.jsonl \
+  outputs/manifests/manifest_combined.jsonl
+
+python scripts/migrate_hallusion_answer_contract.py \
+  --old_manifest outputs/manifests/manifest_combined_pre_hallusion_contract.jsonl \
+  --new_manifest outputs/manifests/manifest_combined.jsonl \
+  --config configs/experiments/teacher_core.yaml \
+  --input_dir outputs/teacher_core \
+  --output_dir outputs/teacher_core_contract_v1 \
+  --report outputs/week4_reports/hallusion_answer_contract_migration.json \
+  --overwrite \
+  2>&1 | tee outputs/logs/week4/hallusion_contract/migration.log
+```
+
+Expected manifest counts are 951 and 7,291. The new hashes will intentionally
+differ from the old hash because HallusionBench and VizWiz contract metadata
+changed. The migration report must say `is_valid: true`, retain 7,291 selected
+rows/model, and invalidate exactly 14 open-ended rows/model. VizWiz rows are
+reused and their gold-dependent correctness is recomputed from stored raw
+answers; no VizWiz model inference is repeated. The report records the exact
+number of resulting VizWiz correctness changes. For the currently synced
+original cache, expected pending counts are 67 Qwen and 88 Gemma; these include
+prior fail-closed rows.
+
+The accepted report must use migration `schema_version: 2`. Version 1 was
+superseded after the first resume dry-run found a stale VizWiz grounding
+normalization (`cannot be determined` versus canonical `unanswerable`). Version
+2 reparses saved grounding outputs, refreshes parser-dependent probe features,
+uses the pinned CPU semantic matcher only for changed non-exact pairs, and
+validates every migrated valid row against the current resume parser before
+signing the report.
+
+Validate every migrated resume boundary without loading a model:
+
+```bash
+for MODEL in qwen3_vl_8b gemma4_e4b; do
+  for SHARD in 0 1 2 3; do
+    python scripts/run_teacher.py \
+      --config configs/experiments/teacher_core.yaml \
+      --manifest_path outputs/manifests/manifest_combined.jsonl \
+      --model "$MODEL" --device cpu \
+      --num_shards 4 --shard_id "$SHARD" \
+      --output_dir outputs/teacher_core_contract_v1 \
+      --resume --dry_run || exit 1
+  done
+done
+```
+
+### 11.2 Regenerate only pending base rows on two GPUs
+
+After confirming physical GPUs 0 and 1 are free, run Qwen in one tmux pane and
+Gemma in another. Each process sees one physical GPU, so `--device cuda:0` is
+correct in both panes.
+
+Qwen / physical GPU 0:
+
+```bash
+cd ~/ProActive
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+mkdir -p outputs/logs/week4/hallusion_contract
+set -o pipefail
+
+for SHARD in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=0 python scripts/run_teacher.py \
+    --config configs/experiments/teacher_core.yaml \
+    --manifest_path outputs/manifests/manifest_combined.jsonl \
+    --model qwen3_vl_8b --device cuda:0 \
+    --num_shards 4 --shard_id "$SHARD" \
+    --output_dir outputs/teacher_core_contract_v1 --resume \
+    2>&1 | tee "outputs/logs/week4/hallusion_contract/qwen_base_shard0${SHARD}.log"
+  echo "Qwen corrected-base shard ${SHARD}: ${PIPESTATUS[0]}"
+done
+```
+
+Gemma / physical GPU 1:
+
+```bash
+cd ~/ProActive
+export PROACTIVE_DATA_ROOT=/home/aman/MMUQ/data
+export PROACTIVE_SEMANTIC_MODEL_PATH=/home/models/all-MiniLM-L6-v2
+export PROACTIVE_SEMANTIC_MODEL_REVISION=e4ce9877abf3edee10b0257f22713854020a4004
+mkdir -p outputs/logs/week4/hallusion_contract
+set -o pipefail
+
+for SHARD in 0 1 2 3; do
+  CUDA_VISIBLE_DEVICES=1 python scripts/run_teacher.py \
+    --config configs/experiments/teacher_core.yaml \
+    --manifest_path outputs/manifests/manifest_combined.jsonl \
+    --model gemma4_e4b --device cuda:0 \
+    --num_shards 4 --shard_id "$SHARD" \
+    --output_dir outputs/teacher_core_contract_v1 --resume \
+    2>&1 | tee "outputs/logs/week4/hallusion_contract/gemma_base_shard0${SHARD}.log"
+  echo "Gemma corrected-base shard ${SHARD}: ${PIPESTATUS[0]}"
+done
+```
+
+An exit code 1 for an individual base shard is not permission to delete a row;
+it means the fail-closed record was retained for the uniform grounding pass.
+After both loops, require complete valid-plus-failure source coverage:
+
+```bash
+mkdir -p outputs/teacher_core_contract_v1_grounding1024
+
+for MODEL in qwen3_vl_8b gemma4_e4b; do
+  for SHARD in 0 1 2 3; do
+    python scripts/refresh_grounding_cache.py \
+      --config configs/experiments/teacher_core.yaml \
+      --manifest_path outputs/manifests/manifest_combined.jsonl \
+      --model "$MODEL" --shard_id "$SHARD" --num_shards 4 \
+      --input_dir outputs/teacher_core_contract_v1 \
+      --output_dir outputs/teacher_core_contract_v1_grounding1024 \
+      --max_new_tokens 1024 --device cpu --resume --dry_run || exit 1
+  done
+done
+```
+
+### 11.3 Uniform grounding refresh and validation
+
+Run the same Qwen/GPU-0 and Gemma/GPU-1 loop pattern in parallel, replacing the
+base command with the following model-specific refresh command. Every row gets
+the same 1024-token maximum; generation may stop earlier normally.
+
+Qwen command inside the shard loop:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python scripts/refresh_grounding_cache.py \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --model qwen3_vl_8b --shard_id "$SHARD" --num_shards 4 \
+  --input_dir outputs/teacher_core_contract_v1 \
+  --output_dir outputs/teacher_core_contract_v1_grounding1024 \
+  --max_new_tokens 1024 --device cuda:0 --resume \
+  2>&1 | tee "outputs/logs/week4/hallusion_contract/qwen_grounding1024_shard0${SHARD}.log"
+```
+
+Gemma command inside the shard loop:
+
+```bash
+CUDA_VISIBLE_DEVICES=1 python scripts/refresh_grounding_cache.py \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --model gemma4_e4b --shard_id "$SHARD" --num_shards 4 \
+  --input_dir outputs/teacher_core_contract_v1 \
+  --output_dir outputs/teacher_core_contract_v1_grounding1024 \
+  --max_new_tokens 1024 --device cuda:0 --resume \
+  2>&1 | tee "outputs/logs/week4/hallusion_contract/gemma_grounding1024_shard0${SHARD}.log"
+```
+
+After both four-shard loops finish:
+
+```bash
+python scripts/validate_week4.py \
+  --mode teacher_progress \
+  --config configs/experiments/teacher_core.yaml \
+  --manifest_path outputs/manifests/manifest_combined.jsonl \
+  --teacher_path outputs/teacher_core_contract_v1_grounding1024 \
+  --output_dir outputs/week4_reports/hallusion_contract \
+  --overwrite \
+  2>&1 | tee outputs/logs/week4/hallusion_contract/final_teacher_validation.log
+```
+
+Proceed to labels only if validation reports exactly 14,582 valid teacher rows,
+zero errors, and no unresolved refresh failures. Use
+`outputs/teacher_core_contract_v1_grounding1024` as `--teacher_path` for all
+subsequent label/state/audit commands.

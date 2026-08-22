@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source": "HallusionBench.json gt_answer_details; author-verified canonical aliases",
+  "matching_mode": "exact_alias",
+  "records": {
+    "VS|table|1|1|0": {
+      "canonical_answers": ["Syria"]
+    },
+    "VS|table|1|2|0": {
+      "canonical_answers": ["Niger"]
+    },
+    "VS|table|2|1|0": {
+      "canonical_answers": ["Germany"]
+    },
+    "VS|table|2|2|0": {
+      "canonical_answers": ["France"]
+    },
+    "VS|table|2|3|0": {
+      "canonical_answers": ["France"]
+    },
+    "VS|table|4|1|0": {
+      "canonical_answers": ["Florida"]
+    },
+    "VS|table|4|2|0": {
+      "canonical_answers": [
+        "unanswerable",
+        "no answer",
+        "the table is inconsistent",
+        "cannot be determined from the inconsistent table"
+      ]
+    },
+    "VS|table|4|3|0": {
+      "canonical_answers": ["South Carolina"]
+    },
+    "VS|table|5|1|0": {
+      "canonical_answers": [
+        "November 2022, December 2022, and July 2023",
+        "Nov 22, Dec 22, and Jul 23"
+      ]
+    },
+    "VS|table|5|1|1": {
+      "canonical_answers": ["January", "January 2023", "Jan"]
+    },
+    "VS|table|5|2|0": {
+      "canonical_answers": [
+        "December 2022 and July 2023",
+        "Dec 22 and Jul 23"
+      ]
+    },
+    "VS|table|5|2|1": {
+      "canonical_answers": ["November", "November 2022", "Nov"]
+    },
+    "VS|table|5|3|0": {
+      "canonical_answers": ["unanswerable", "no answer"]
+    },
+    "VS|table|5|3|1": {
+      "canonical_answers": ["unanswerable", "no answer"]
+    }
+  }
+}

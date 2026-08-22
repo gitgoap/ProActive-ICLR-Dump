@@ -18,3 +18,10 @@ loader: "hallusionbench"
 # Expected subdirectory structure
 annotation_file: "hallusion_bench/HallusionBench.json"
 image_dir: "hallusion_bench"
+
+# The released JSON contains 14 image-paired open-ended table questions even
+# though HallusionBench is predominantly binary.  This author-audited overlay
+# supplies canonical aliases from gt_answer_details; classification still
+# derives from the source question grammar and is checked fail closed.
+open_ended_reference_file: "configs/data/hallusionbench_open_ended_references.json"
+expected_open_ended_image_records: 14

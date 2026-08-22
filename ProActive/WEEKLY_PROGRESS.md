@@ -96,6 +96,16 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
     uniform grounding-refresh cache: every Qwen and Gemma row receives exactly
     one 512-token grounding pass, labels are recomputed, source hashes are
     checked on resume, and the original cache is never modified.
+12. Audited the official HallusionBench source and found 14 open-ended
+    image-table questions inside the 951-row image subset. Implemented a mixed
+    per-record answer contract without excluding any examples: 937 binary rows
+    use normalized benchmark indicators and 14 open rows use
+    `gt_answer_details` plus a frozen author-audited alias overlay.
+13. Added a conservative cache migration. It verifies that no non-Hallusion
+    manifest row changed, recomputes binary correctness/features/labels from
+    existing raw generations, invalidates all 14 prompt-changed rows for every
+    model, and records source file/record plus old/new manifest hashes in a
+    separate output directory.
 
 **Local validation:**
 - Initial Week 4 implementation added 10 focused tests and passed the then-complete 168-test CPU suite.
@@ -108,10 +118,21 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
   rows with zero normalized-answer drift. Nine new recovery/ledger tests pass;
   the complete local CPU suite is `191 passed in 1.94s` after the uniform
   refresh implementation and failure-sidecar filtering.
+- HallusionBench contract and migration tests include unit, adversarial, and
+  end-to-end shard coverage. The complete local CPU suite passes `213 passed`
+  on 2026-08-20. GPU behavior remains unclaimed until server logs
+  validate the rebuilt manifest and migrated cache.
+- The strict transition guard discovered 207 VizWiz gold-answer changes caused
+  by hash-randomized set tie breaking. Replaced it with normalized majority and
+  released-source-order tie resolution; manifests now preserve normalized
+  counts/tie size, and migration recomputes correctness/labels without rerunning
+  VizWiz inference.
 
 **Still required for completion:**
-1. Recover Qwen's 53 fail-closed rows, finish the Gemma four-shard cache, and
-   pass daily checksum validation (full compute approved 2026-08-13).
+1. The deterministic manifest, parser-compatible migration v2, and pending-row
+   recovery are server validated. All open Hallusion rows succeeded; 36 Qwen
+   and 74 Gemma grounding-only failures remain. Run the uniform grounding
+   refresh/checksum validation (full compute approved 2026-08-13).
 2. InternVL GPU catch-up cache for the required final three-model audit.
 3. Offline label/state artifacts and balance/leakage reports.
 4. Final 180-example audit packet and a passing full Week 4 gate.

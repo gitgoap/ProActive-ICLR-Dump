@@ -13,12 +13,21 @@ from __future__ import annotations
 
 import json
 import os
+from collections import Counter
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
 import yaml
 
 from proactive.data.manifests import make_manifest_record
+from proactive.features.normalization import normalize_freeform
+from proactive.data.hallusion_contract import (
+    HALLUSION_BINARY,
+    HALLUSION_OPEN_ENDED,
+    classify_hallusion_answer_type,
+    hallusion_source_key,
+    normalize_hallusion_gold,
+)
 from proactive.probes.relation_swap import swap_relation
 
 
@@ -142,7 +151,41 @@ def load_hallusionbench(
     with open(ann_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    reference_path_value = config.get("open_ended_reference_file")
+    open_references: Dict[str, List[str]] = {}
+    if reference_path_value:
+        reference_path = Path(str(reference_path_value))
+        if not reference_path.is_absolute():
+            reference_path = Path.cwd() / reference_path
+        if not reference_path.exists():
+            raise FileNotFoundError(
+                f"HallusionBench open-ended reference file not found: {reference_path}"
+            )
+        with open(reference_path, "r", encoding="utf-8") as handle:
+            reference_overlay = json.load(handle)
+        if reference_overlay.get("schema_version") != 1:
+            raise ValueError("Unsupported HallusionBench reference-overlay schema")
+        if reference_overlay.get("matching_mode") != "exact_alias":
+            raise ValueError(
+                "HallusionBench open-ended references must use exact_alias matching"
+            )
+        overlay_records = reference_overlay.get("records")
+        if not isinstance(overlay_records, dict):
+            raise ValueError("HallusionBench reference overlay has no records mapping")
+        for source_key, entry in overlay_records.items():
+            aliases = entry.get("canonical_answers") if isinstance(entry, dict) else None
+            if (
+                not isinstance(aliases, list)
+                or not aliases
+                or any(not isinstance(alias, str) or not alias.strip() for alias in aliases)
+            ):
+                raise ValueError(
+                    f"Invalid HallusionBench canonical answers for {source_key!r}"
+                )
+            open_references[str(source_key)] = [alias.strip() for alias in aliases]
+
     records = []
+    used_open_reference_keys = set()
     for i, item in enumerate(data):
         if limit and len(records) >= limit:
             break
@@ -169,7 +212,37 @@ def load_hallusionbench(
             image_path = str(data_root / raw_name)
 
         question = item.get("question", "")
-        gold = item.get("gt_answer", item.get("answer", ""))
+        benchmark_gold = str(item.get("gt_answer", item.get("answer", ""))).strip()
+        gt_answer_details = str(item.get("gt_answer_details", "")).strip()
+        answer_type = classify_hallusion_answer_type(question)
+        source_key = hallusion_source_key(item)
+        if answer_type == HALLUSION_OPEN_ENDED:
+            if not gt_answer_details:
+                raise ValueError(
+                    f"Open-ended HallusionBench row {source_key} has no gt_answer_details"
+                )
+            aliases = open_references.get(source_key)
+            if not aliases:
+                raise ValueError(
+                    "Open-ended HallusionBench row has no author-verified reference "
+                    f"overlay: {source_key}"
+                )
+            used_open_reference_keys.add(source_key)
+            gold = gt_answer_details
+            # Canonical short aliases are checked first so exact entity matches
+            # do not unnecessarily require the embedding model.  The official
+            # detail remains in the set for semantic/full-sentence matching.
+            reference_answers = list(dict.fromkeys([*aliases, gt_answer_details]))
+        elif answer_type == HALLUSION_BINARY:
+            if source_key in open_references:
+                raise ValueError(
+                    "Reference overlay marks a question as open-ended but its grammar "
+                    f"is binary: {source_key}"
+                )
+            gold = normalize_hallusion_gold(benchmark_gold)
+            reference_answers = [gold]
+        else:  # defensive guard if the contract module is extended incorrectly
+            raise ValueError(f"Unsupported HallusionBench answer_type: {answer_type}")
 
         record = make_manifest_record(
             dataset="hallusionbench",
@@ -182,6 +255,22 @@ def load_hallusionbench(
             extra={
                 "category": item.get("category", ""),
                 "subcategory": item.get("subcategory", ""),
+                "answer_type": answer_type,
+                "answer_contract_version": 1,
+                "answer_match_mode": (
+                    "exact_alias"
+                    if answer_type == HALLUSION_OPEN_ENDED
+                    else "binary_exact"
+                ),
+                "benchmark_gold_answer": benchmark_gold,
+                "gt_answer_details": gt_answer_details,
+                "reference_answers": reference_answers,
+                "source_visual_input": str(item.get("visual_input", "")),
+                "source_set_id": str(item.get("set_id", "")),
+                "source_figure_id": str(item.get("figure_id", "")),
+                "source_question_id": str(item.get("question_id", "")),
+                "source_sample_note": str(item.get("sample_note", "")),
+                "source_answer_key": source_key,
             },
         )
         records.append(record)
@@ -189,6 +278,23 @@ def load_hallusionbench(
     cap = config.get("sample_cap")
     if cap and len(records) > cap:
         records = records[:cap]
+
+    expected_open = config.get("expected_open_ended_image_records")
+    if limit is None and expected_open is not None:
+        open_count = sum(
+            record.get("answer_type") == HALLUSION_OPEN_ENDED for record in records
+        )
+        if open_count != int(expected_open):
+            raise ValueError(
+                "HallusionBench open-ended image-row count drift: "
+                f"expected {expected_open}, found {open_count}"
+            )
+        unused = set(open_references) - used_open_reference_keys
+        if unused:
+            raise ValueError(
+                "HallusionBench reference overlay contains unused image-row keys: "
+                f"{sorted(unused)}"
+            )
 
     return records
 
@@ -302,12 +408,45 @@ def load_pope(
 # VizWiz loader
 # ---------------------------------------------------------------------------
 
+VIZWIZ_GOLD_POLICY = "normalized_majority_source_order_tiebreak_v1"
+
+
+def select_vizwiz_gold(answers: List[Dict[str, Any]]) -> tuple[str, Dict[str, int], int]:
+    """Select one reproducible normalized VizWiz target.
+
+    VizWiz provides multiple annotator answers.  The previous implementation
+    used ``max(set(values), key=values.count)``, whose tie result depends on
+    Python's randomized set iteration.  We aggregate after the project's
+    frozen free-form normalization and resolve a remaining count tie by the
+    first tied normalized answer in the released annotation order.
+    """
+
+    if not isinstance(answers, list) or not answers:
+        return "unanswerable", {"unanswerable": 1}, 1
+    normalized: List[str] = []
+    for index, entry in enumerate(answers):
+        if not isinstance(entry, dict):
+            raise ValueError(f"VizWiz answer {index} is not a mapping")
+        raw = entry.get("answer")
+        if not isinstance(raw, str):
+            raise ValueError(f"VizWiz answer {index} has no string answer")
+        normalized.append(normalize_freeform(raw))
+    counts = Counter(normalized)
+    maximum = max(counts.values())
+    tied = {answer for answer, count in counts.items() if count == maximum}
+    winner = next(answer for answer in normalized if answer in tied)
+    return winner, dict(sorted(counts.items())), len(tied)
+
 @register_loader("vizwiz")
 def load_vizwiz(
     config: Dict[str, Any],
     limit: Optional[int] = None,
 ) -> List[Dict[str, Any]]:
     """Load VizWiz-VQA dataset."""
+    if config.get("gold_policy") != VIZWIZ_GOLD_POLICY:
+        raise ValueError(
+            "VizWiz config must freeze gold_policy=" f"{VIZWIZ_GOLD_POLICY}"
+        )
     data_root = resolve_data_path(config)
     annotation_file = config.get("annotation_file", "val.json")
     ann_path = data_root / annotation_file
@@ -373,11 +512,11 @@ def load_vizwiz(
         # VizWiz has multiple annotator answers
         answers = item.get("answers", [])
         if answers:
-            # Use majority answer
-            answer_texts = [a.get("answer", "") for a in answers]
-            gold = max(set(answer_texts), key=answer_texts.count)
+            gold, answer_counts, tie_size = select_vizwiz_gold(answers)
         else:
-            gold = item.get("answer", "unanswerable")
+            gold = normalize_freeform(str(item.get("answer", "unanswerable")))
+            answer_counts = {gold: 1}
+            tie_size = 1
 
         record = make_manifest_record(
             dataset="vizwiz",
@@ -389,6 +528,12 @@ def load_vizwiz(
             relation_applicable=False,
             extra={
                 "answerable": item.get("answerable", None),
+                "answer_contract_version": 1,
+                "answer_match_mode": "normalized_exact",
+                "reference_answers": [gold],
+                "vizwiz_gold_policy": VIZWIZ_GOLD_POLICY,
+                "vizwiz_answer_counts": answer_counts,
+                "vizwiz_tied_top_answer_count": tie_size,
             },
         )
         records.append(record)

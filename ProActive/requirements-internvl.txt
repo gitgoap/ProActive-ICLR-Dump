@@ -1,0 +1,20 @@
+# Isolated InternVL3 runtime only. Install PyTorch/torchvision for the server's
+# CUDA version first, then install this file. Do not install it into the base
+# environment used by Qwen3-VL and Gemma-4.
+transformers==4.37.2
+accelerate==0.30.1
+tokenizers==0.15.1
+einops==0.6.1
+einops-exts==0.0.4
+timm==0.9.12
+sentencepiece==0.1.99
+sentence-transformers==2.7.0
+numpy==1.26.4
+pillow
+pandas
+pyyaml
+python-dotenv
+scipy
+scikit-learn>=1.2.2
+tqdm
+pytest>=8,<10

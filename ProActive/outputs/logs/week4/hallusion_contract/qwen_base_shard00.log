@@ -1,0 +1,72 @@
+2026-08-20 14:54:31,111 INFO [run_teacher] Model: qwen3_vl_8b (Qwen/Qwen3-VL-8B-Instruct)
+2026-08-20 14:54:31,111 INFO [run_teacher] Shard: 0/4
+2026-08-20 14:54:31,111 INFO [run_teacher] Selected rows: 1822; completed: 1806; pending: 16
+2026-08-20 14:54:31,111 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 112
+2026-08-20 14:54:31,112 INFO [run_teacher] Output: outputs/teacher_core_contract_v1/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+2026-08-20 14:54:31,112 INFO [run_teacher] Current-failure ledger: outputs/teacher_core_contract_v1/teacher_qwen3_vl_8b_all_all_shard00-of-04.failures.jsonl
+2026-08-20 14:54:35,176 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 47479.21it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-20 14:54:35,463 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-20 14:54:35,465 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   0%|          | 1/750 [00:00<01:53,  6.60it/s]Loading weights:   0%|          | 2/750 [00:00<02:22,  5.26it/s]Loading weights:   2%|▏         | 16/750 [00:00<00:16, 45.63it/s]Loading weights:   4%|▎         | 28/750 [00:00<00:11, 65.57it/s]Loading weights:   6%|▌         | 43/750 [00:00<00:07, 89.92it/s]Loading weights:   7%|▋         | 56/750 [00:00<00:06, 100.74it/s]Loading weights:   9%|▉         | 70/750 [00:00<00:06, 111.11it/s]Loading weights:  11%|█         | 82/750 [00:01<00:06, 111.06it/s]Loading weights:  13%|█▎        | 94/750 [00:01<00:05, 110.22it/s]Loading weights:  15%|█▍        | 109/750 [00:01<00:05, 120.75it/s]Loading weights:  17%|█▋        | 125/750 [00:01<00:04, 126.53it/s]Loading weights:  18%|█▊        | 138/750 [00:01<00:05, 121.84it/s]Loading weights:  21%|██        | 155/750 [00:01<00:04, 132.56it/s]Loading weights:  23%|██▎       | 169/750 [00:01<00:04, 134.01it/s]Loading weights:  24%|██▍       | 183/750 [00:01<00:04, 123.02it/s]Loading weights:  26%|██▋       | 197/750 [00:01<00:04, 125.97it/s]Loading weights:  28%|██▊       | 213/750 [00:02<00:04, 129.25it/s]Loading weights:  30%|███       | 227/750 [00:02<00:04, 123.96it/s]Loading weights:  32%|███▏      | 243/750 [00:02<00:03, 132.93it/s]Loading weights:  34%|███▍      | 258/750 [00:02<00:03, 132.68it/s]Loading weights:  36%|███▋      | 272/750 [00:02<00:03, 131.36it/s]Loading weights:  38%|███▊      | 287/750 [00:02<00:03, 135.57it/s]Loading weights:  40%|████      | 301/750 [00:02<00:03, 131.29it/s]Loading weights:  42%|████▏     | 315/750 [00:02<00:03, 119.92it/s]Loading weights:  44%|████▍     | 329/750 [00:02<00:03, 124.43it/s]Loading weights:  46%|████▌     | 345/750 [00:03<00:03, 126.13it/s]Loading weights:  48%|████▊     | 358/750 [00:03<00:03, 113.65it/s]Loading weights:  50%|████▉     | 373/750 [00:03<00:03, 122.05it/s]Loading weights:  51%|█████▏    | 386/750 [00:03<00:02, 123.22it/s]Loading weights:  54%|█████▍    | 406/750 [00:03<00:02, 144.20it/s]Loading weights:  73%|███████▎  | 547/750 [00:03<00:00, 498.45it/s]Loading weights:  91%|█████████ | 681/750 [00:03<00:00, 735.25it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 196.39it/s]
+2026-08-20 14:54:40,338 INFO [run_teacher] [1/16] hallusionbench_150_150
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-20 14:54:51,837 ERROR [run_teacher] Teacher generation failed for hallusionbench_150_150: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:54:51,837 INFO [run_teacher] [2/16] hallusionbench_218_218
+2026-08-20 14:54:57,332 INFO [run_teacher] [3/16] hallusionbench_227_227
+2026-08-20 14:55:00,881 INFO [run_teacher] [4/16] hallusionbench_230_230
+2026-08-20 14:55:04,638 INFO [run_teacher] [5/16] hallusionbench_248_248
+2026-08-20 14:55:10,445 INFO [run_teacher] [6/16] hallusionbench_262_262
+2026-08-20 14:55:17,226 INFO [run_teacher] [7/16] hallusionbench_266_266
+2026-08-20 14:55:25,482 INFO [run_teacher] [8/16] hallusionbench_269_269
+2026-08-20 14:55:34,862 INFO [run_teacher] [9/16] hallusionbench_462_462
+2026-08-20 14:55:46,248 ERROR [run_teacher] Teacher generation failed for hallusionbench_462_462: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:55:46,248 INFO [run_teacher] [10/16] hallusionbench_693_693
+2026-08-20 14:55:56,928 ERROR [run_teacher] Teacher generation failed for hallusionbench_693_693: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:55:56,929 INFO [run_teacher] [11/16] hallusionbench_698_698
+2026-08-20 14:56:07,068 ERROR [run_teacher] Teacher generation failed for hallusionbench_698_698: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:56:07,069 INFO [run_teacher] [12/16] hallusionbench_743_743
+2026-08-20 14:56:16,762 ERROR [run_teacher] Teacher generation failed for hallusionbench_743_743: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:56:16,762 INFO [run_teacher] [13/16] hallusionbench_768_768
+2026-08-20 14:56:26,447 INFO [run_teacher] [14/16] hallusionbench_783_783
+2026-08-20 14:56:35,910 ERROR [run_teacher] Teacher generation failed for hallusionbench_783_783: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:56:35,910 INFO [run_teacher] [15/16] vizwiz_VizWiz_val_00002624_2624
+2026-08-20 14:56:50,134 ERROR [run_teacher] Teacher generation failed for vizwiz_VizWiz_val_00002624_2624: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/run_teacher.py", line 554, in main
+    raise ValueError(result.get("invalid_reason") or "invalid teacher row")
+ValueError: Mandatory probe observation 'grounding' is invalid (Missing FINAL_ANSWER tag and unable to resolve valid final answer)
+2026-08-20 14:56:50,135 INFO [run_teacher] [16/16] vizwiz_VizWiz_val_00002886_2886
+2026-08-20 14:56:54,485 INFO [run_teacher] Shard finished in 143.4s with 7 failed rows
+2026-08-20 14:56:54,486 INFO [run_teacher] Unresolved failure-ledger rows: 7

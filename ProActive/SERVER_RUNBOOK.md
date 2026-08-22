@@ -69,3 +69,25 @@ After truncation diagnosis, use `scripts/refresh_grounding_cache.py` to build
 `outputs/teacher_core_grounding512`. It runs one uniform 512-token grounding
 pass for every row and never edits `outputs/teacher_core`. Qwen and Gemma may
 run concurrently only in separate physical GPUs and separate tmux panes.
+
+## InternVL3 isolated environment exception
+
+The existing `(base)` rule remains correct for Qwen and Gemma. It does not
+apply to InternVL3: server evidence on 2026-08-22 showed Transformers 5.5.4 in
+base, while the pinned InternVL custom checkpoint requires Transformers 4.x
+and failed before inference. Never downgrade base.
+
+Create `proactive-internvl` once using the commands in
+`doc/docs/WEEK_4_INTERNVL_CATCHUP.md`. Before every InternVL command, activate
+and verify it explicitly:
+
+```bash
+conda activate proactive-internvl
+which python
+python --version
+python -c "import transformers; print(transformers.__version__)"
+```
+
+The expected Transformers version is `4.37.2`. After the InternVL command,
+`conda deactivate` returns to base. Qwen/Gemma commands must continue using
+their original environment.

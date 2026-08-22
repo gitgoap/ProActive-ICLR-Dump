@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Sequence, Tuple
 
 from proactive.features.normalization import normalize_answer
+from proactive.data.hallusion_contract import HALLUSION_OPEN_ENDED
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +179,7 @@ def compute_semantic_match(
     threshold: float = DEFAULT_FREEFORM_THRESHOLD,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     matcher: Optional[SemanticMatcher] = None,
+    answer_type: Optional[str] = None,
 ) -> float:
     """Compute semantic match indicator in {0.0, 1.0} between prediction and target.
 
@@ -193,15 +195,20 @@ def compute_semantic_match(
         1.0 if answers match semantically, 0.0 otherwise.
     """
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
-    norm_pred = normalize_answer(pred_answer, dataset)
-    norm_target = normalize_answer(target_answer, dataset)
+    normalizer_type = "freeform" if answer_type == HALLUSION_OPEN_ENDED else None
+    norm_pred = normalize_answer(
+        pred_answer, dataset, normalizer_type=normalizer_type
+    )
+    norm_target = normalize_answer(
+        target_answer, dataset, normalizer_type=normalizer_type
+    )
 
     # 1. Exact normalized match is authoritative across all datasets
     if norm_pred == norm_target and norm_pred not in ("", "unknown", "invalid"):
         return 1.0
 
     # 2. Binary / closed-vocab datasets use strict exact match only
-    if dataset_lower in BINARY_DATASETS:
+    if dataset_lower in BINARY_DATASETS and answer_type != HALLUSION_OPEN_ENDED:
         return 0.0
 
     # 3. If either string is empty or invalid, no match
@@ -226,6 +233,63 @@ def compute_semantic_match(
 
     sim = sim_fn(norm_pred, norm_target)
     return 1.0 if sim >= threshold else 0.0
+
+
+def compute_reference_match(
+    pred_answer: str,
+    reference_answers: Sequence[str],
+    dataset: str,
+    threshold: float = DEFAULT_FREEFORM_THRESHOLD,
+    embedding_fn: Optional[Callable[[str, str], float]] = None,
+    matcher: Optional[SemanticMatcher] = None,
+    answer_type: Optional[str] = None,
+    semantic_fallback: bool = True,
+) -> float:
+    """Match a prediction against an auditable non-empty reference set.
+
+    Reference aliases are dataset annotations, never model-derived.  Exact
+    normalized equality remains authoritative; open-ended rows may then use
+    the frozen embedding threshold.  A missing reference set is a contract
+    error rather than an automatic negative label.
+    """
+
+    if (
+        not isinstance(reference_answers, Sequence)
+        or isinstance(reference_answers, (str, bytes))
+        or not reference_answers
+    ):
+        raise ValueError("reference_answers must be a non-empty sequence")
+    references = list(reference_answers)
+    normalizer_type = "freeform" if answer_type == HALLUSION_OPEN_ENDED else None
+    norm_pred = normalize_answer(
+        pred_answer, dataset, normalizer_type=normalizer_type
+    )
+    for reference in references:
+        if not isinstance(reference, str) or not reference.strip():
+            raise ValueError("reference_answers contains an empty/non-string value")
+        norm_reference = normalize_answer(
+            reference, dataset, normalizer_type=normalizer_type
+        )
+        if norm_pred == norm_reference and norm_pred not in {
+            "",
+            "unknown",
+            "invalid",
+        }:
+            return 1.0
+    if not semantic_fallback:
+        return 0.0
+    for reference in references:
+        if compute_semantic_match(
+            pred_answer=pred_answer,
+            target_answer=reference,
+            dataset=dataset,
+            threshold=threshold,
+            embedding_fn=embedding_fn,
+            matcher=matcher,
+            answer_type=answer_type,
+        ) == 1.0:
+            return 1.0
+    return 0.0
 
 
 def calibrate_semantic_threshold(

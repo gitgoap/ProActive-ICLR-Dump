@@ -17,6 +17,7 @@ from proactive.features.normalization import (
     normalize_yes_no,
     normalize_true_false,
     normalize_freeform,
+    normalize_hallusion_binary,
 )
 
 
@@ -82,6 +83,8 @@ class TestFreeformNormalizer:
         assert normalize_freeform("unanswerable") == "unanswerable"
         assert normalize_freeform("not answerable") == "unanswerable"
         assert normalize_freeform("I don't know") == "unanswerable"
+        assert normalize_freeform("no answer") == "unanswerable"
+        assert normalize_freeform("cannot be determined") == "unanswerable"
 
     def test_collapse_whitespace(self):
         assert normalize_freeform("red    car") == "red car"
@@ -91,6 +94,12 @@ class TestNormalizeAnswerDispatch:
 
     def test_hallusionbench(self):
         assert normalize_answer("Yes", "hallusionbench") == "yes"
+        assert normalize_answer("1", "hallusionbench") == "yes"
+        assert normalize_answer("0", "hallusionbench") == "no"
+        assert normalize_answer("2", "hallusionbench") == "uncertain"
+
+    def test_hallusion_binary_does_not_reinterpret_open_answer(self):
+        assert normalize_hallusion_binary("Niger") == "unknown"
 
     def test_pope(self):
         assert normalize_answer("No", "pope") == "no"

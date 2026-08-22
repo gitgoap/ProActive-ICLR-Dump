@@ -24,6 +24,10 @@ _NO_VARIANTS = {
     "no", "nope", "nah", "n", "incorrect", "wrong", "false",
     "negative", "not",
 }
+_UNCERTAIN_VARIANTS = {
+    "2", "uncertain", "unsure", "unknown", "cannot determine",
+    "can't determine", "cannot be determined", "indeterminate",
+}
 
 
 def normalize_yes_no(raw: str) -> str:
@@ -41,6 +45,25 @@ def normalize_yes_no(raw: str) -> str:
     if cleaned.startswith("no"):
         return "no"
     return "unknown"
+
+
+def normalize_hallusion_binary(raw: str) -> str:
+    """Normalize HallusionBench's official 0/1/2 binary interface.
+
+    The benchmark defines 0=No, 1=Yes, and 2=Uncertain.  Textual model
+    responses are accepted through the same yes/no vocabulary, while
+    ambiguous values remain fail-closed as ``unknown``.
+    """
+
+    cleaned = raw.strip().lower().rstrip(".")
+    first_word = cleaned.split()[0] if cleaned.split() else ""
+    if cleaned == "0":
+        return "no"
+    if cleaned == "1":
+        return "yes"
+    if cleaned in _UNCERTAIN_VARIANTS or first_word in _UNCERTAIN_VARIANTS:
+        return "uncertain"
+    return normalize_yes_no(raw)
 
 
 def normalize_true_false(raw: str) -> str:
@@ -68,7 +91,8 @@ _UNANSWERABLE = {
     "unanswerable", "not answerable", "cannot be answered",
     "can't be answered", "cannot answer", "not sure",
     "i don't know", "i do not know", "n/a", "na",
-    "unsuitable", "unsuitable image",
+    "unsuitable", "unsuitable image", "no answer", "there is no answer",
+    "cannot be determined", "can't be determined", "indeterminate",
 }
 
 
@@ -105,7 +129,7 @@ def normalize_freeform(raw: str) -> str:
 
 # Map dataset names to normalizer types
 _DATASET_NORMALIZER = {
-    "hallusionbench": "yes_no",
+    "hallusionbench": "hallusion_binary",
     "pope": "yes_no",
     "repope": "yes_no",
     "vizwiz": "freeform",
@@ -145,6 +169,8 @@ def normalize_answer(
 
     if normalizer_type == "yes_no":
         return normalize_yes_no(raw_answer)
+    elif normalizer_type == "hallusion_binary":
+        return normalize_hallusion_binary(raw_answer)
     elif normalizer_type == "true_false":
         return normalize_true_false(raw_answer)
     elif normalizer_type == "freeform":

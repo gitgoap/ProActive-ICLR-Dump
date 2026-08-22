@@ -1,0 +1,6 @@
+2026-08-20 14:47:56,435 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-08-20 14:47:56,435 INFO [run_teacher] Shard: 3/4
+2026-08-20 14:47:56,435 INFO [run_teacher] Selected rows: 1842; completed: 1814; pending: 28
+2026-08-20 14:47:56,435 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 196
+2026-08-20 14:47:56,435 INFO [run_teacher] Output: outputs/teacher_core_contract_v1/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl
+2026-08-20 14:47:56,435 INFO [run_teacher] Current-failure ledger: outputs/teacher_core_contract_v1/teacher_gemma4_e4b_all_all_shard03-of-04.failures.jsonl

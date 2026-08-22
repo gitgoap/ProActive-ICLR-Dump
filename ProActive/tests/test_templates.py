@@ -32,6 +32,9 @@ class TestPromptTemplates:
         assert "yes or no" in make_dataset_prompt("Is there a dog?", "pope")
         assert "true or false" in make_dataset_prompt("The ball is under the bed.", "vsr")
         assert "Answer the question concisely." in make_dataset_prompt("What is this?", "vizwiz")
+        assert "Answer the question concisely." in make_dataset_prompt(
+            "Which country is first?", "hallusionbench", answer_type="open_ended"
+        )
 
     def test_grounding_prompt_contains_final_answer_tag(self):
         p_pope = make_grounding_prompt("Is there a dog?", "pope")
@@ -43,6 +46,13 @@ class TestPromptTemplates:
 
         p_viz = make_grounding_prompt("What is written on the can?", "vizwiz")
         assert "FINAL_ANSWER: <answer>" in p_viz
+
+        p_hallusion_open = make_grounding_prompt(
+            "Which country is first?",
+            "hallusionbench",
+            answer_type="open_ended",
+        )
+        assert "FINAL_ANSWER: <answer>" in p_hallusion_open
 
     def test_relation_prompt(self):
         p = make_relation_prompt("The cat is right of the dog.", "vsr")

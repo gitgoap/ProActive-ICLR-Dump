@@ -1,0 +1,3 @@
+2026-08-20 18:35:42,119 INFO [refresh_grounding_cache] Model=gemma4_e4b shard=2/4 completed=0 pending=1826
+2026-08-20 18:35:42,119 INFO [refresh_grounding_cache] One grounding pass per pending row; max_new_tokens=1024
+2026-08-20 18:35:42,119 INFO [refresh_grounding_cache] Output=outputs/teacher_core_contract_v1_grounding1024/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl

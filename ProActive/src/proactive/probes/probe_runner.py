@@ -76,6 +76,7 @@ def _build_probe_observation(
     score_method: str = "generation_logits",
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
+    answer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Build a ProbeObservation from generation output and clean baselines."""
     # Fail-closed check: if invalid, do not record flips or conf shifts
@@ -145,18 +146,14 @@ def _build_probe_observation(
     flip = (norm_answer != clean_norm_answer)
     exact_match = 1.0 if (norm_answer == clean_norm_answer) else 0.0
 
-    semantic_match = 0.0
-    try:
-        semantic_match = compute_semantic_match(
-            pred_answer=norm_answer,
-            target_answer=clean_norm_answer,
-            dataset=dataset,
-            threshold=semantic_threshold,
-            embedding_fn=embedding_fn,
-        )
-    except Exception as e:
-        logger.debug(f"Semantic match computation failed for probe {probe_id.value}: {e}")
-        semantic_match = exact_match
+    semantic_match = compute_semantic_match(
+        pred_answer=norm_answer,
+        target_answer=clean_norm_answer,
+        dataset=dataset,
+        threshold=semantic_threshold,
+        embedding_fn=embedding_fn,
+        answer_type=answer_type,
+    )
 
     return ProbeObservation(
         probe_id=probe_id,
@@ -204,6 +201,7 @@ def _run_visual_probe(
     score_method: str = "generation_logits",
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
+    answer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Run a visual image-transform probe."""
     probe_name = probe_id.value
@@ -218,7 +216,10 @@ def _run_visual_probe(
     )
 
     gen_output = adapter.generate(transformed, prompt_text)
-    norm_answer = normalize_answer(gen_output.raw_answer, dataset)
+    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    norm_answer = normalize_answer(
+        gen_output.raw_answer, dataset, normalizer_type=normalizer_type
+    )
 
     # Score method consistency
     token_lps = gen_output.token_logprobs
@@ -249,6 +250,7 @@ def _run_visual_probe(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
 
 
@@ -264,13 +266,18 @@ def _run_grounding_probe(
     score_method: str = "generation_logits",
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
+    answer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Run the grounding probe (describe-then-answer) with isolated final answer scoring."""
-    prompt_text = make_grounding_prompt(question, dataset)
+    prompt_text = make_grounding_prompt(
+        question, dataset, answer_type=answer_type
+    )
     gen_output = adapter.generate(image, prompt_text)
 
     # Parse machine-readable answer
-    parsed = parse_grounding_output(gen_output.raw_answer, dataset)
+    parsed = parse_grounding_output(
+        gen_output.raw_answer, dataset, answer_type=answer_type
+    )
 
     if not parsed.is_valid:
         return _build_probe_observation(
@@ -292,6 +299,7 @@ def _run_grounding_probe(
             parse_status=parsed.parse_status,
             score_method=score_method,
             latency_ms=gen_output.latency_ms,
+            answer_type=answer_type,
         )
 
     # Score ONLY the final answer tokens
@@ -331,6 +339,7 @@ def _run_grounding_probe(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
 
 
@@ -350,6 +359,7 @@ def _run_relation_probe(
     score_method: str = "generation_logits",
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
+    answer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Run the relation swap probe."""
     if swapped_question is not None:
@@ -386,9 +396,14 @@ def _run_relation_probe(
             score_method=score_method,
         )
 
-    prompt_text = make_relation_prompt(swap_text, dataset)
+    prompt_text = make_relation_prompt(
+        swap_text, dataset, answer_type=answer_type
+    )
     gen_output = adapter.generate(image, prompt_text)
-    norm_answer = normalize_answer(gen_output.raw_answer, dataset)
+    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    norm_answer = normalize_answer(
+        gen_output.raw_answer, dataset, normalizer_type=normalizer_type
+    )
 
     token_lps = gen_output.token_logprobs
     token_dists = gen_output.token_distributions
@@ -417,6 +432,7 @@ def _run_relation_probe(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
 
 
@@ -444,12 +460,15 @@ def run_all_probes(
     score_method: str = "generation_logits",
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
+    answer_type: Optional[str] = None,
 ) -> Dict[ProbeAction, ProbeObservation]:
     """Run all applicable probes for one instance independently on the ORIGINAL input."""
     severities = severities or {}
     observations: Dict[ProbeAction, ProbeObservation] = {}
 
-    standard_prompt = make_dataset_prompt(question, dataset)
+    standard_prompt = make_dataset_prompt(
+        question, dataset, answer_type=answer_type
+    )
 
     # 1. Blank image probe (Language prior bit b_L)
     obs_blank = _run_visual_probe(
@@ -468,6 +487,7 @@ def run_all_probes(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
     observations[ProbeAction.BLANK] = obs_blank
 
@@ -491,6 +511,7 @@ def run_all_probes(
             score_method=score_method,
             semantic_threshold=semantic_threshold,
             embedding_fn=embedding_fn,
+            answer_type=answer_type,
         )
         observations[probe_id] = obs
 
@@ -507,6 +528,7 @@ def run_all_probes(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
     observations[ProbeAction.GROUNDING] = obs_ground
 
@@ -528,6 +550,7 @@ def run_all_probes(
             score_method=score_method,
             semantic_threshold=semantic_threshold,
             embedding_fn=embedding_fn,
+            answer_type=answer_type,
         )
         observations[ProbeAction.RELATION] = obs_rel
 

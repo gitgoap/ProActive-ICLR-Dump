@@ -119,3 +119,19 @@ class TestGroundingParsing:
             "vizwiz",
         )
         assert res.is_valid is False
+
+    def test_open_hallusion_answer_uses_freeform_contract(self):
+        res = parse_grounding_output(
+            "The table lists five countries.\nFINAL_ANSWER: Niger",
+            "hallusionbench",
+            answer_type="open_ended",
+        )
+        assert res.is_valid is True
+        assert res.norm_final_answer == "niger"
+
+    def test_binary_hallusion_numeric_indicator(self):
+        res = parse_grounding_output(
+            "The object is visible.\nFINAL_ANSWER: 1", "hallusionbench"
+        )
+        assert res.is_valid is True
+        assert res.norm_final_answer == "yes"

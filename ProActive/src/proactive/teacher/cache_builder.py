@@ -20,7 +20,11 @@ from proactive.features.clean_features import (
 )
 from proactive.features.evidence_state import ProbeAction
 from proactive.features.normalization import normalize_answer
-from proactive.features.semantic import SemanticMatcher, get_default_semantic_matcher
+from proactive.features.semantic import (
+    SemanticMatcher,
+    compute_reference_match,
+    get_default_semantic_matcher,
+)
 from proactive.models.base_adapter import MLLMAdapter
 from proactive.probes.image_transforms import CANONICAL_SEVERITIES, PILOT_SEVERITIES
 from proactive.probes.probe_runner import _run_visual_probe, run_all_probes
@@ -130,6 +134,8 @@ def process_instance(
     image_path = record["image_path"]
     question = record["question"]
     gold_answer = record["gold_answer"]
+    answer_type = record.get("answer_type")
+    reference_answers = record.get("reference_answers", [gold_answer])
     relation_applicable = record.get("relation_applicable", False)
     swapped_question = record.get("swapped_question")
     swapped_gold_answer = record.get("swapped_gold_answer")
@@ -137,9 +143,15 @@ def process_instance(
 
     # Determine embedding function if semantic matcher provided or available
     embedding_fn: Optional[Callable[[str, str], float]] = None
+    dataset_key = dataset_name.lower().replace("-", "").replace(" ", "_")
+    needs_semantic = answer_type == "open_ended" or dataset_key in {
+        "vizwiz",
+        "vizwiz_vqa",
+        "gqa",
+    }
     if semantic_matcher is not None and semantic_matcher.is_available:
         embedding_fn = semantic_matcher.similarity
-    else:
+    elif needs_semantic:
         gm = get_default_semantic_matcher()
         if gm and gm.is_available:
             embedding_fn = gm.similarity
@@ -148,12 +160,39 @@ def process_instance(
     img = _load_image_safely(image_path, dataset_name)
 
     # --- Clean inference ---
-    prompt = make_dataset_prompt(question, dataset_name)
+    prompt = make_dataset_prompt(
+        question, dataset_name, answer_type=answer_type
+    )
     clean_gen = adapter.generate(img, prompt)
 
-    norm_answer = normalize_answer(clean_gen.raw_answer, dataset_name)
-    norm_gold = normalize_answer(gold_answer, dataset_name)
-    correct = (norm_answer == norm_gold)
+    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    norm_answer = normalize_answer(
+        clean_gen.raw_answer,
+        dataset_name,
+        normalizer_type=normalizer_type,
+    )
+    norm_gold = normalize_answer(
+        gold_answer,
+        dataset_name,
+        normalizer_type=normalizer_type,
+    )
+    if answer_type == "open_ended":
+        correct = bool(
+            compute_reference_match(
+                pred_answer=clean_gen.raw_answer,
+                reference_answers=reference_answers,
+                dataset=dataset_name,
+                threshold=semantic_threshold,
+                embedding_fn=embedding_fn,
+                answer_type=answer_type,
+                semantic_fallback=record.get("answer_match_mode") != "exact_alias",
+            )
+        )
+    else:
+        # Preserve the frozen Week 4 clean-label contract for all unaffected
+        # datasets.  The reference-set extension is intentionally limited to
+        # the released HallusionBench open-ended anomalies repaired here.
+        correct = norm_answer == norm_gold
 
     # Score method selection & validation
     score_method = "generation_logits"
@@ -206,6 +245,7 @@ def process_instance(
         score_method=score_method,
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
+        answer_type=answer_type,
     )
 
     # --- Evaluate relation swap outcome ---
@@ -268,6 +308,15 @@ def process_instance(
         "question": question,
         "prompt_text": prompt,
         "gold_answer": gold_answer,
+        "answer_type": answer_type,
+        "answer_contract_version": record.get("answer_contract_version"),
+        "answer_match_mode": record.get("answer_match_mode"),
+        "benchmark_gold_answer": record.get("benchmark_gold_answer"),
+        "gt_answer_details": record.get("gt_answer_details"),
+        "reference_answers": list(reference_answers),
+        "vizwiz_gold_policy": record.get("vizwiz_gold_policy"),
+        "vizwiz_answer_counts": record.get("vizwiz_answer_counts"),
+        "vizwiz_tied_top_answer_count": record.get("vizwiz_tied_top_answer_count"),
         "relation_applicable": relation_applicable,
         "relation_outcome_status": rel_status.value,
         "score_method": score_method,
@@ -381,6 +430,7 @@ def process_severity_grid_instance(
                     score_method=canonical["score_method"],
                     semantic_threshold=semantic_threshold,
                     embedding_fn=embedding_fn,
+                    answer_type=record.get("answer_type"),
                 )
                 probe_dict = observation.to_dict()
 

@@ -398,6 +398,7 @@ def main() -> None:
                     score_method=base["score_method"],
                     semantic_threshold=float(semantic["threshold"]),
                     embedding_fn=matcher.similarity,
+                    answer_type=base.get("answer_type"),
                 )
                 if not observation.valid:
                     raise ValueError(observation.invalid_reason or "invalid grounding refresh")
