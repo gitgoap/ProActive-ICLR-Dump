@@ -1,0 +1,121 @@
+2026-08-23 23:44:26,146 INFO [run_teacher] Model: internvl3_9b (OpenGVLab/InternVL3-9B)
+2026-08-23 23:44:26,146 INFO [run_teacher] Shard: 0/1
+2026-08-23 23:44:26,146 INFO [run_teacher] Selected rows: 100; completed: 0; pending: 100
+2026-08-23 23:44:26,146 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 702
+2026-08-23 23:44:26,146 INFO [run_teacher] Output: outputs/week4_staging/internvl_limit100_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.jsonl
+2026-08-23 23:44:26,146 INFO [run_teacher] Current-failure ledger: outputs/week4_staging/internvl_limit100_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.failures.jsonl
+2026-08-23 23:44:28,084 INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: /home/models/all-MiniLM-L6-v2
+2026-08-23 23:44:29,219 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-23 23:44:29,296 INFO [run_teacher] Loading model on cuda:0
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+2026-08-23 23:44:29,537 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-23 23:44:29,537 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] ps_version: v2
+2026-08-23 23:44:29,537 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-23 23:44:29,537 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] max_dynamic_patch: 12
+2026-08-23 23:44:29,641 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] num_image_token: 256
+2026-08-23 23:44:29,641 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] ps_version: v2
+FlashAttention2 is not installed.
+Warning: Flash attention is not available, using eager attention instead.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  7.76it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  8.53it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  8.86it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  9.21it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  8.93it/s]
+2026-08-23 23:44:33,543 INFO [run_teacher] [1/100] vizwiz_VizWiz_val_00001872_1872
+2026-08-23 23:44:53,756 INFO [run_teacher] [2/100] pope_random_745_random_745
+2026-08-23 23:45:10,468 INFO [run_teacher] [3/100] vizwiz_VizWiz_val_00001954_1954
+2026-08-23 23:45:29,095 INFO [run_teacher] [4/100] pope_random_1579_random_1579
+2026-08-23 23:45:35,510 INFO [run_teacher] [5/100] pope_random_2232_random_2232
+2026-08-23 23:45:45,882 INFO [run_teacher] [6/100] vizwiz_VizWiz_val_00002029_2029
+2026-08-23 23:46:06,925 INFO [run_teacher] [7/100] vizwiz_VizWiz_val_00000720_720
+2026-08-23 23:46:27,060 INFO [run_teacher] [8/100] vizwiz_VizWiz_val_00001467_1467
+2026-08-23 23:46:48,004 INFO [run_teacher] [9/100] vizwiz_VizWiz_val_00001216_1216
+2026-08-23 23:47:06,906 INFO [run_teacher] [10/100] pope_random_1662_random_1662
+2026-08-23 23:47:19,277 INFO [run_teacher] [11/100] vizwiz_VizWiz_val_00002819_2819
+2026-08-23 23:47:39,613 INFO [run_teacher] [12/100] hallusionbench_296_296
+2026-08-23 23:47:47,936 INFO [run_teacher] [13/100] vizwiz_VizWiz_val_00001697_1697
+2026-08-23 23:48:07,654 INFO [run_teacher] [14/100] pope_random_2861_random_2861
+2026-08-23 23:48:31,922 INFO [run_teacher] [15/100] pope_random_410_random_410
+2026-08-23 23:48:52,657 INFO [run_teacher] [16/100] vizwiz_VizWiz_val_00002632_2632
+2026-08-23 23:49:12,959 INFO [run_teacher] [17/100] hallusionbench_19_19
+2026-08-23 23:49:38,284 INFO [run_teacher] [18/100] pope_random_478_random_478
+2026-08-23 23:49:43,858 INFO [run_teacher] [19/100] vizwiz_VizWiz_val_00002490_2490
+2026-08-23 23:50:03,402 INFO [run_teacher] [20/100] pope_random_1207_random_1207
+2026-08-23 23:50:14,306 INFO [run_teacher] [21/100] vizwiz_VizWiz_val_00000802_802
+2026-08-23 23:50:37,457 INFO [run_teacher] [22/100] vizwiz_VizWiz_val_00001236_1236
+2026-08-23 23:50:58,834 INFO [run_teacher] [23/100] vizwiz_VizWiz_val_00001175_1175
+2026-08-23 23:51:18,437 INFO [run_teacher] [24/100] hallusionbench_815_815
+2026-08-23 23:51:30,133 INFO [run_teacher] [25/100] vizwiz_VizWiz_val_00000177_177
+2026-08-23 23:51:52,226 INFO [run_teacher] [26/100] pope_random_2182_random_2182
+2026-08-23 23:52:12,128 INFO [run_teacher] [27/100] hallusionbench_493_493
+2026-08-23 23:52:32,588 INFO [run_teacher] [28/100] pope_random_2450_random_2450
+2026-08-23 23:52:51,566 INFO [run_teacher] [29/100] pope_random_142_random_142
+2026-08-23 23:53:12,243 INFO [run_teacher] [30/100] vizwiz_VizWiz_val_00001241_1241
+2026-08-23 23:53:35,869 INFO [run_teacher] [31/100] vizwiz_VizWiz_val_00000203_203
+2026-08-23 23:53:56,479 INFO [run_teacher] [32/100] vizwiz_VizWiz_val_00000119_119
+2026-08-23 23:54:23,645 INFO [run_teacher] [33/100] pope_random_2482_random_2482
+2026-08-23 23:54:44,588 INFO [run_teacher] [34/100] hallusionbench_774_774
+2026-08-23 23:55:16,195 INFO [run_teacher] [35/100] pope_random_1410_random_1410
+2026-08-23 23:55:36,514 INFO [run_teacher] [36/100] vizwiz_VizWiz_val_00000456_456
+2026-08-23 23:55:56,291 INFO [run_teacher] [37/100] pope_random_1429_random_1429
+2026-08-23 23:56:22,083 INFO [run_teacher] [38/100] vizwiz_VizWiz_val_00002501_2501
+2026-08-23 23:56:43,435 INFO [run_teacher] [39/100] vizwiz_VizWiz_val_00002508_2508
+2026-08-23 23:57:03,020 INFO [run_teacher] [40/100] vizwiz_VizWiz_val_00002215_2215
+2026-08-23 23:57:24,197 INFO [run_teacher] [41/100] pope_random_1150_random_1150
+2026-08-23 23:57:50,264 INFO [run_teacher] [42/100] pope_random_117_random_117
+2026-08-23 23:58:01,152 INFO [run_teacher] [43/100] pope_random_2424_random_2424
+2026-08-23 23:58:05,093 INFO [run_teacher] [44/100] vizwiz_VizWiz_val_00002552_2552
+2026-08-23 23:58:25,644 INFO [run_teacher] [45/100] pope_random_536_random_536
+2026-08-23 23:58:52,903 INFO [run_teacher] [46/100] hallusionbench_83_83
+2026-08-23 23:59:16,129 INFO [run_teacher] [47/100] hallusionbench_683_683
+2026-08-23 23:59:30,624 INFO [run_teacher] [48/100] vizwiz_VizWiz_val_00002899_2899
+2026-08-23 23:59:57,024 INFO [run_teacher] [49/100] vizwiz_VizWiz_val_00001392_1392
+2026-08-24 00:00:15,978 INFO [run_teacher] [50/100] hallusionbench_566_566
+2026-08-24 00:00:23,159 INFO [run_teacher] [51/100] vizwiz_VizWiz_val_00002835_2835
+2026-08-24 00:00:47,826 INFO [run_teacher] [52/100] pope_random_758_random_758
+2026-08-24 00:01:11,110 INFO [run_teacher] [53/100] vizwiz_VizWiz_val_00001987_1987
+2026-08-24 00:01:36,918 INFO [run_teacher] [54/100] vsr_294_294
+2026-08-24 00:01:57,420 INFO [run_teacher] [55/100] pope_random_590_random_590
+2026-08-24 00:02:22,270 INFO [run_teacher] [56/100] hallusionbench_196_196
+2026-08-24 00:02:33,775 INFO [run_teacher] [57/100] pope_random_606_random_606
+2026-08-24 00:02:52,611 INFO [run_teacher] [58/100] hallusionbench_248_248
+2026-08-24 00:03:05,032 INFO [run_teacher] [59/100] hallusionbench_674_674
+2026-08-24 00:03:09,481 INFO [run_teacher] [60/100] hallusionbench_395_395
+2026-08-24 00:03:16,312 INFO [run_teacher] [61/100] pope_random_1254_random_1254
+2026-08-24 00:03:36,572 INFO [run_teacher] [62/100] vizwiz_VizWiz_val_00000982_982
+2026-08-24 00:04:04,805 INFO [run_teacher] [63/100] vizwiz_VizWiz_val_00000477_477
+2026-08-24 00:04:28,347 INFO [run_teacher] [64/100] pope_random_983_random_983
+2026-08-24 00:04:40,127 INFO [run_teacher] [65/100] pope_random_2984_random_2984
+2026-08-24 00:05:06,993 INFO [run_teacher] [66/100] hallusionbench_428_428
+2026-08-24 00:05:22,838 INFO [run_teacher] [67/100] vizwiz_VizWiz_val_00000933_933
+2026-08-24 00:05:41,873 INFO [run_teacher] [68/100] pope_random_1364_random_1364
+2026-08-24 00:06:09,123 INFO [run_teacher] [69/100] vizwiz_VizWiz_val_00002177_2177
+2026-08-24 00:06:35,797 INFO [run_teacher] [70/100] pope_random_234_random_234
+2026-08-24 00:06:54,833 INFO [run_teacher] [71/100] vsr_304_304
+2026-08-24 00:07:17,326 INFO [run_teacher] [72/100] hallusionbench_794_794
+2026-08-24 00:07:26,198 INFO [run_teacher] [73/100] vizwiz_VizWiz_val_00000042_42
+2026-08-24 00:07:50,490 INFO [run_teacher] [74/100] hallusionbench_864_864
+2026-08-24 00:08:03,311 INFO [run_teacher] [75/100] vizwiz_VizWiz_val_00000305_305
+2026-08-24 00:08:21,797 INFO [run_teacher] [76/100] pope_random_2650_random_2650
+2026-08-24 00:08:37,467 INFO [run_teacher] [77/100] hallusionbench_836_836
+2026-08-24 00:08:50,321 INFO [run_teacher] [78/100] hallusionbench_511_511
+2026-08-24 00:08:59,385 INFO [run_teacher] [79/100] pope_random_1135_random_1135
+2026-08-24 00:09:19,429 INFO [run_teacher] [80/100] pope_random_901_random_901
+2026-08-24 00:09:46,545 INFO [run_teacher] [81/100] hallusionbench_585_585
+2026-08-24 00:10:05,214 INFO [run_teacher] [82/100] vizwiz_VizWiz_val_00000896_896
+2026-08-24 00:11:04,836 INFO [run_teacher] [83/100] pope_random_77_random_77
+2026-08-24 00:11:25,821 INFO [run_teacher] [84/100] vizwiz_VizWiz_val_00002573_2573
+2026-08-24 00:11:52,887 INFO [run_teacher] [85/100] vizwiz_VizWiz_val_00001288_1288
+2026-08-24 00:12:14,380 INFO [run_teacher] [86/100] pope_random_278_random_278
+2026-08-24 00:12:33,857 INFO [run_teacher] [87/100] vizwiz_VizWiz_val_00000688_688
+2026-08-24 00:12:54,634 INFO [run_teacher] [88/100] vizwiz_VizWiz_val_00000567_567
+2026-08-24 00:13:23,658 INFO [run_teacher] [89/100] pope_random_2819_random_2819
+2026-08-24 00:13:41,752 INFO [run_teacher] [90/100] vsr_334_334
+2026-08-24 00:13:54,215 INFO [run_teacher] [91/100] vizwiz_VizWiz_val_00001599_1599
+2026-08-24 00:14:14,000 INFO [run_teacher] [92/100] pope_random_663_random_663
+2026-08-24 00:14:34,527 INFO [run_teacher] [93/100] pope_random_1742_random_1742
+2026-08-24 00:15:00,943 INFO [run_teacher] [94/100] vizwiz_VizWiz_val_00001126_1126
+2026-08-24 00:15:21,745 INFO [run_teacher] [95/100] pope_random_361_random_361
+2026-08-24 00:15:32,592 INFO [run_teacher] [96/100] vizwiz_VizWiz_val_00002289_2289
+2026-08-24 00:15:59,100 INFO [run_teacher] [97/100] pope_random_842_random_842
+2026-08-24 00:16:17,868 INFO [run_teacher] [98/100] pope_random_1514_random_1514
+2026-08-24 00:16:22,434 INFO [run_teacher] [99/100] vizwiz_VizWiz_val_00000737_737
+2026-08-24 00:16:55,523 INFO [run_teacher] [100/100] vizwiz_VizWiz_val_00002931_2931
+2026-08-24 00:17:25,163 INFO [run_teacher] Shard finished in 1979.0s with 0 failed rows
+2026-08-24 00:17:25,163 INFO [run_teacher] Unresolved failure-ledger rows: 0

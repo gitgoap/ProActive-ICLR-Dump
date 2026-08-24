@@ -123,6 +123,50 @@ def make_grounding_prompt(
         )
 
 
+def make_concise_grounding_retry_prompt(
+    question: str, dataset: str, answer_type: Optional[str] = None
+) -> str:
+    """Uniform formatting-recovery prompt for a failed grounding generation.
+
+    This is intentionally a second-stage policy, never the default grounding
+    prompt.  It preserves the required visible-evidence description while
+    prohibiting chain-of-thought-style calculation that previously exhausted
+    the token budget before ``FINAL_ANSWER``.
+    """
+    dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
+    prefix = (
+        "Describe only the visible evidence in exactly one short sentence "
+        "(maximum 25 words). Do not explain your reasoning or show calculations.\n"
+    )
+    suffix = "\nWrite nothing after the FINAL_ANSWER line."
+    if dataset_lower in ("vsr", "gqa_relation"):
+        return (
+            f"{prefix}"
+            f"Then decide whether this statement is true or false.\n"
+            f"Statement: {question}\n"
+            f"On a new line, output exactly:\n"
+            f"FINAL_ANSWER: <true or false>{suffix}"
+        )
+    if answer_type == HALLUSION_OPEN_ENDED or dataset_lower in (
+        "vizwiz",
+        "vizwiz_vqa",
+    ):
+        return (
+            f"{prefix}"
+            f"Then answer this question with only the shortest sufficient answer.\n"
+            f"Question: {question}\n"
+            f"On a new line, output exactly:\n"
+            f"FINAL_ANSWER: <answer>{suffix}"
+        )
+    return (
+        f"{prefix}"
+        f"Then answer this question with yes or no.\n"
+        f"Question: {question}\n"
+        f"On a new line, output exactly:\n"
+        f"FINAL_ANSWER: <yes or no>{suffix}"
+    )
+
+
 _EXPLICIT_TERMINAL_ANSWER_RE = re.compile(
     r"^(?:[-*]\s*)?(?:\*\*)?"
     r"(?:(?:the|my)\s+)?(?:final\s+)?answer(?:\*\*)?\s+"

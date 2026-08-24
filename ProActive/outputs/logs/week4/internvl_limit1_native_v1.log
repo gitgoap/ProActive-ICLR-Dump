@@ -1,0 +1,22 @@
+2026-08-23 01:16:55,440 INFO [run_teacher] Model: internvl3_9b (OpenGVLab/InternVL3-9B)
+2026-08-23 01:16:55,440 INFO [run_teacher] Shard: 0/1
+2026-08-23 01:16:55,440 INFO [run_teacher] Selected rows: 1; completed: 0; pending: 1
+2026-08-23 01:16:55,440 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7
+2026-08-23 01:16:55,440 INFO [run_teacher] Output: outputs/week4_staging/internvl_limit1_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.jsonl
+2026-08-23 01:16:55,440 INFO [run_teacher] Current-failure ledger: outputs/week4_staging/internvl_limit1_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.failures.jsonl
+2026-08-23 01:16:57,349 INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: /home/models/all-MiniLM-L6-v2
+2026-08-23 01:16:58,480 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-23 01:16:58,558 INFO [run_teacher] Loading model on cuda:0
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+2026-08-23 01:16:58,815 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-23 01:16:58,815 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] ps_version: v2
+2026-08-23 01:16:58,815 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-23 01:16:58,815 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] max_dynamic_patch: 12
+2026-08-23 01:16:58,932 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] num_image_token: 256
+2026-08-23 01:16:58,932 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] ps_version: v2
+FlashAttention2 is not installed.
+Warning: Flash attention is not available, using eager attention instead.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.02s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.33it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.83it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.58it/s]
+2026-08-23 01:18:16,581 INFO [run_teacher] [1/1] vizwiz_VizWiz_val_00001872_1872
+2026-08-23 01:18:37,057 INFO [run_teacher] Shard finished in 101.6s with 0 failed rows
+2026-08-23 01:18:37,057 INFO [run_teacher] Unresolved failure-ledger rows: 0

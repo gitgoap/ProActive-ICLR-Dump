@@ -1,0 +1,18 @@
+2026-08-24 16:48:19,277 INFO [recover_grounding_failures] Model=gemma4_e4b shard=3/4 valid_source=1841 retry_scope=1
+2026-08-24 16:48:19,278 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:48:19,278 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl
+2026-08-24 16:48:19,768 INFO [recover_grounding_failures] Completed=1841 pending retries=1
+2026-08-24 16:48:23,990 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 45914.90it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-24 16:48:24,288 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 297/2076 [00:00<00:00, 2956.14it/s]Loading weights:  29%|██▊       | 593/2076 [00:00<00:00, 2902.09it/s]Loading weights:  43%|████▎     | 884/2076 [00:01<00:02, 478.47it/s] Loading weights:  51%|█████     | 1053/2076 [00:01<00:02, 488.53it/s]Loading weights:  57%|█████▋    | 1176/2076 [00:01<00:01, 496.87it/s]Loading weights:  61%|██████▏   | 1274/2076 [00:02<00:01, 468.69it/s]Loading weights:  65%|██████▌   | 1352/2076 [00:02<00:01, 436.97it/s]Loading weights:  68%|██████▊   | 1416/2076 [00:02<00:01, 429.14it/s]Loading weights:  80%|████████  | 1667/2076 [00:02<00:00, 732.91it/s]Loading weights:  94%|█████████▍| 1958/2076 [00:02<00:00, 1108.44it/s]Loading weights: 100%|██████████| 2076/2076 [00:02<00:00, 719.82it/s] 
+2026-08-24 16:48:30,362 INFO [recover_grounding_failures] [1/1] hallusionbench_728_728
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-24 16:48:32,790 INFO [recover_grounding_failures] Recovery finished in 13.0s; new failures=0 unresolved=0 completed=1842/1842

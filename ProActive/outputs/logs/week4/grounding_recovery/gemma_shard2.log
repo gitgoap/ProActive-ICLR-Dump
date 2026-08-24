@@ -1,0 +1,18 @@
+2026-08-24 16:48:04,331 INFO [recover_grounding_failures] Model=gemma4_e4b shard=2/4 valid_source=1825 retry_scope=1
+2026-08-24 16:48:04,331 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:48:04,331 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl
+2026-08-24 16:48:04,790 INFO [recover_grounding_failures] Completed=1825 pending retries=1
+2026-08-24 16:48:08,915 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 47578.56it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-24 16:48:09,595 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 290/2076 [00:00<00:00, 2891.29it/s]Loading weights:  28%|██▊       | 580/2076 [00:00<00:00, 2655.88it/s]Loading weights:  41%|████      | 847/2076 [00:01<00:02, 476.73it/s] Loading weights:  48%|████▊     | 1003/2076 [00:01<00:02, 462.61it/s]Loading weights:  54%|█████▎    | 1115/2076 [00:02<00:02, 446.78it/s]Loading weights:  58%|█████▊    | 1201/2076 [00:02<00:01, 440.42it/s]Loading weights:  61%|██████▏   | 1272/2076 [00:02<00:01, 439.71it/s]Loading weights:  64%|██████▍   | 1334/2076 [00:02<00:01, 433.15it/s]Loading weights:  67%|██████▋   | 1389/2076 [00:02<00:01, 433.07it/s]Loading weights:  71%|███████   | 1465/2076 [00:02<00:01, 490.87it/s]Loading weights:  85%|████████▌ | 1767/2076 [00:02<00:00, 999.48it/s]Loading weights: 100%|██████████| 2076/2076 [00:02<00:00, 1446.36it/s]Loading weights: 100%|██████████| 2076/2076 [00:02<00:00, 698.27it/s] 
+2026-08-24 16:48:15,438 INFO [recover_grounding_failures] [1/1] hallusionbench_729_729
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-24 16:48:17,854 INFO [recover_grounding_failures] Recovery finished in 13.1s; new failures=0 unresolved=0 completed=1826/1826

@@ -22,9 +22,10 @@
 - Implemented the Week 4 deterministic four-shard teacher runner with strict resume validation, frozen-config provenance, and immutable-revision enforcement.
 - Implemented independent label recomputation, leakage-safe pre-policy partial states, a blinded 180-example audit exporter, class/bit reports, checksum manifests, and readiness/progress/full gates.
 - Added Week 4 unit/adversarial/integration, revision-parser, compute-authorization,
-  grounding-recovery, failure-ledger, and HallusionBench answer-contract
-  regression tests. The complete local CPU suite passes: `213 passed` on
-  2026-08-20.
+  grounding-recovery, failure-ledger, HallusionBench answer-contract, and
+  InternVL native-adapter regression tests. After adding the final grounding
+  recovery tests, the isolated server CPU suite passes: `230 passed` on
+  2026-08-24; the focused recovery/parser/refresh suite passes `26` tests.
 - Audited the combined manifest: 7,291 rows (951 HallusionBench, 3,000 POPE, 3,000 VizWiz, 340 VSR), including 110 relation-applicable rows. Qwen plus Gemma require 14,582 teacher rows and 102,294 clean/probe passes.
 - Accepted consistent server revision evidence and pinned Qwen
   `0c351dd01ed87e9c1b53cbc748cba10e6187ff3b`, Gemma
@@ -33,9 +34,15 @@
 - InternVL3-9B is downloaded at `/home/models/InternVL3-9B`; model availability
   and revision provenance are no longer blockers. Its first two one-row smoke
   attempts exposed a missing dependency and then Transformers-5/custom-code API
-  incompatibility; no InternVL teacher row has yet been produced. An isolated
-  Transformers-4.37.2 runtime and corrected native adapter are implemented
-  locally and await server validation.
+  incompatibility. The isolated
+  Python-3.11/Transformers-4.37.2 environment and corrected native adapter now
+  pass `11` focused adapter tests; the expanded repository suite now passes
+  all `230` tests on the server. The
+  corrected one-row GPU smoke also passed with one valid teacher row, six
+  applicable probes, and zero failures in 101.6 seconds. The 10-row stage then
+  passed with 10 unique valid rows, 60 probes, and zero failures in 170.0
+  seconds. The 100-row and complete-VSR stages also passed with 100 and 340
+  valid rows respectively and zero model failures.
 
 **Current Blocker:**
 - The released HallusionBench JSON contains 14 genuinely open-ended image-table
@@ -91,16 +98,17 @@
   seconds.
 - Complete Qwen VSR is pilot validated and locally archived: 340 rows, 2,150
   probes, zero errors, 1,325.9 seconds, and matching decompressed/server SHA-256.
-- InternVL3-9B is downloaded and pinned on the documented Week 4 catch-up path;
-  GPU validation/cache generation have not started. GQA-Relation remains
-  scheduled for Week 7–8.
+- InternVL3-9B is downloaded and pinned on the documented Week 4 catch-up path.
+  Its isolated runtime plus corrected 1/10/100-row and complete-VSR GPU stages
+  are server-validated. The catch-up now covers all four datasets and complete
+  VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
 **Next Tasks (Week 4):**
-1. Run a uniform grounding-only refresh from the corrected base cache and
-   validate exactly 7,291 rows/model with zero refresh failures. Do not build
-   labels against the stale manifest/cache.
-2. Build labels/states from the corrected cache, complete the InternVL
-   catch-up/final audit, and run the full Week 4 gate.
+1. Recover the six Qwen and three Gemma grounding failures with one uniform,
+   documented answer-only retry policy; validate exactly 7,291 valid rows per
+   core model with no exclusions.
+2. Build labels/states from the corrected cache, export the final audit with
+   validated InternVL coverage, and run the full Week 4 gate.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

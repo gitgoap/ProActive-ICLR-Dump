@@ -1,0 +1,17 @@
+Obtaining file:///home/aman/ProActive
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: proactive
+  Building editable for proactive (pyproject.toml): started
+  Building editable for proactive (pyproject.toml): finished with status 'done'
+  Created wheel for proactive: filename=proactive-0.1.0-0.editable-py3-none-any.whl size=1497 sha256=7e0d36af7d3bb1557f1b27f4c9cb2cec9f1f28e86f8003b34c96c0d9accae4d2
+  Stored in directory: /tmp/pip-ephem-wheel-cache-hc_74wg6/wheels/d3/b2/3f/258dadb3ccc235e7ed1edb6f42a245942ebea668259b272503
+Successfully built proactive
+Installing collected packages: proactive
+Successfully installed proactive-0.1.0

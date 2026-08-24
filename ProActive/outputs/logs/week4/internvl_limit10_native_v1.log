@@ -1,0 +1,31 @@
+2026-08-23 01:33:14,769 INFO [run_teacher] Model: internvl3_9b (OpenGVLab/InternVL3-9B)
+2026-08-23 01:33:14,769 INFO [run_teacher] Shard: 0/1
+2026-08-23 01:33:14,769 INFO [run_teacher] Selected rows: 10; completed: 0; pending: 10
+2026-08-23 01:33:14,769 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 70
+2026-08-23 01:33:14,769 INFO [run_teacher] Output: outputs/week4_staging/internvl_limit10_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.jsonl
+2026-08-23 01:33:14,770 INFO [run_teacher] Current-failure ledger: outputs/week4_staging/internvl_limit10_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.failures.jsonl
+2026-08-23 01:33:16,686 INFO [sentence_transformers.SentenceTransformer] Load pretrained SentenceTransformer: /home/models/all-MiniLM-L6-v2
+2026-08-23 01:33:17,813 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+2026-08-23 01:33:17,890 INFO [run_teacher] Loading model on cuda:0
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+2026-08-23 01:33:18,126 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] vision_select_layer: -1
+2026-08-23 01:33:18,126 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] ps_version: v2
+2026-08-23 01:33:18,126 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] min_dynamic_patch: 1
+2026-08-23 01:33:18,126 INFO [transformers_modules.InternVL3-9B.configuration_internvl_chat] max_dynamic_patch: 12
+2026-08-23 01:33:18,231 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] num_image_token: 256
+2026-08-23 01:33:18,231 INFO [transformers_modules.InternVL3-9B.modeling_internvl_chat] ps_version: v2
+FlashAttention2 is not installed.
+Warning: Flash attention is not available, using eager attention instead.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  7.74it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  8.43it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  8.76it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  9.03it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  8.79it/s]
+2026-08-23 01:33:22,249 INFO [run_teacher] [1/10] vizwiz_VizWiz_val_00001872_1872
+2026-08-23 01:33:42,474 INFO [run_teacher] [2/10] pope_random_745_random_745
+2026-08-23 01:33:59,202 INFO [run_teacher] [3/10] vizwiz_VizWiz_val_00001954_1954
+2026-08-23 01:34:17,871 INFO [run_teacher] [4/10] pope_random_1579_random_1579
+2026-08-23 01:34:24,294 INFO [run_teacher] [5/10] pope_random_2232_random_2232
+2026-08-23 01:34:34,599 INFO [run_teacher] [6/10] vizwiz_VizWiz_val_00002029_2029
+2026-08-23 01:34:54,701 INFO [run_teacher] [7/10] vizwiz_VizWiz_val_00000720_720
+2026-08-23 01:35:13,419 INFO [run_teacher] [8/10] vizwiz_VizWiz_val_00001467_1467
+2026-08-23 01:35:33,513 INFO [run_teacher] [9/10] vizwiz_VizWiz_val_00001216_1216
+2026-08-23 01:35:52,215 INFO [run_teacher] [10/10] pope_random_1662_random_1662
+2026-08-23 01:36:04,745 INFO [run_teacher] Shard finished in 170.0s with 0 failed rows
+2026-08-23 01:36:04,745 INFO [run_teacher] Unresolved failure-ledger rows: 0

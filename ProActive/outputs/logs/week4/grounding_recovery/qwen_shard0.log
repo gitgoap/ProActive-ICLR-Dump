@@ -1,0 +1,18 @@
+2026-08-24 16:47:24,396 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=0/4 valid_source=1821 retry_scope=1
+2026-08-24 16:47:24,396 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:47:24,396 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+2026-08-24 16:47:24,848 INFO [recover_grounding_failures] Completed=1821 pending retries=1
+2026-08-24 16:47:29,313 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 47494.87it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-08-24 16:47:29,597 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   0%|          | 1/750 [00:00<01:44,  7.18it/s]Loading weights:   0%|          | 2/750 [00:00<02:10,  5.72it/s]Loading weights:   2%|▏         | 16/750 [00:00<00:15, 47.35it/s]Loading weights:   4%|▍         | 32/750 [00:00<00:08, 80.27it/s]Loading weights:   6%|▋         | 48/750 [00:00<00:07, 97.87it/s]Loading weights:   8%|▊         | 61/750 [00:00<00:06, 104.15it/s]Loading weights:  11%|█         | 81/750 [00:00<00:05, 127.77it/s]Loading weights:  13%|█▎        | 95/750 [00:01<00:05, 123.16it/s]Loading weights:  15%|█▌        | 114/750 [00:01<00:04, 136.62it/s]Loading weights:  17%|█▋        | 129/750 [00:01<00:04, 134.64it/s]Loading weights:  20%|█▉        | 147/750 [00:01<00:04, 142.62it/s]Loading weights:  22%|██▏       | 162/750 [00:01<00:04, 133.92it/s]Loading weights:  23%|██▎       | 176/750 [00:01<00:04, 134.60it/s]Loading weights:  25%|██▌       | 191/750 [00:01<00:04, 137.11it/s]Loading weights:  27%|██▋       | 205/750 [00:01<00:04, 130.22it/s]Loading weights:  30%|██▉       | 224/750 [00:01<00:03, 138.35it/s]Loading weights:  32%|███▏      | 238/750 [00:02<00:03, 131.01it/s]Loading weights:  34%|███▍      | 256/750 [00:02<00:03, 139.12it/s]Loading weights:  36%|███▌      | 270/750 [00:02<00:03, 128.57it/s]Loading weights:  38%|███▊      | 288/750 [00:02<00:03, 141.55it/s]Loading weights:  40%|████      | 303/750 [00:02<00:03, 125.35it/s]Loading weights:  43%|████▎     | 321/750 [00:02<00:03, 138.62it/s]Loading weights:  45%|████▍     | 336/750 [00:02<00:03, 122.70it/s]Loading weights:  47%|████▋     | 352/750 [00:02<00:03, 130.16it/s]Loading weights:  49%|████▉     | 367/750 [00:03<00:02, 131.94it/s]Loading weights:  51%|█████     | 381/750 [00:03<00:02, 123.07it/s]Loading weights:  53%|█████▎    | 397/750 [00:03<00:02, 132.20it/s]Loading weights:  73%|███████▎  | 549/750 [00:03<00:00, 503.40it/s]Loading weights:  94%|█████████▍| 707/750 [00:03<00:00, 799.05it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 210.78it/s]
+2026-08-24 16:47:34,314 INFO [recover_grounding_failures] [1/1] hallusionbench_693_693
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-08-24 16:47:36,383 INFO [recover_grounding_failures] Recovery finished in 11.5s; new failures=0 unresolved=0 completed=1822/1822

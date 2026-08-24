@@ -46,6 +46,7 @@ REQUIRED_WEEK4_FILES = (
     "src/proactive/audits/human_audit.py",
     "src/proactive/audits/week4_validation.py",
     "scripts/run_teacher.py",
+    "scripts/recover_grounding_failures.py",
     "scripts/build_labels.py",
     "scripts/sample_states.py",
     "scripts/export_human_audit.py",
@@ -53,6 +54,7 @@ REQUIRED_WEEK4_FILES = (
     "configs/experiments/teacher_core.yaml",
     "doc/docs/WEEK_04_REQUIREMENTS.md",
     "tests/test_week4_pipeline.py",
+    "tests/test_grounding_failure_recovery.py",
 )
 
 

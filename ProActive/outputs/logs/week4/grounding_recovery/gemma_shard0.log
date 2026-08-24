@@ -1,0 +1,4 @@
+2026-08-24 16:47:48,057 INFO [recover_grounding_failures] Model=gemma4_e4b shard=0/4 valid_source=1836 retry_scope=0
+2026-08-24 16:47:48,058 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:47:48,058 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl
+2026-08-24 16:47:48,514 INFO [recover_grounding_failures] Completed=1836 pending retries=0

@@ -379,6 +379,51 @@
   generation-score extraction, and teacher-forced scoring. Added a pre-load
   Transformers-version guard so an incompatible runtime fails immediately.
 - Added focused CPU tests for version gating, deterministic tiling, and
-  generation configuration. Syntax compilation passed locally; the local
-  environment lacks pytest, so the focused/full pytest suites and the revised
-  one-row GPU smoke remain pending. No GPU success is claimed.
+  generation configuration. The persistent server environment
+  `proactive-internvl` was created with Python 3.11.15, PyTorch 2.6.0+cu124,
+  Transformers 4.37.2, Accelerate 0.30.1, and einops 0.6.1; `pip check`
+  reported no broken requirements.
+- Server CPU validation passed all `11` focused InternVL adapter tests and all
+  `225` repository tests. The one warning is a non-blocking Hugging Face
+  `resume_download` deprecation.
+- The corrected one-row GPU smoke then completed on physical A6000 GPU 0 in
+  101.6 seconds with one valid VizWiz teacher row, six applicable probes,
+  relation correctly marked not applicable, valid tagged grounding, and zero
+  unresolved failures. Output SHA-256 is
+  `fd813be00a5b37fa6fb75586afdbefb4b58869882ed99198f67cf8c0dcf8fca0`.
+  This validates the native adapter on a real GPU; larger staged and catch-up
+  runs remain pending.
+- The InternVL 10-row stage then produced 10 unique valid rows and 60 legal
+  probe observations across POPE and VizWiz with no invalid applicable probe
+  and no failure ledger. It completed in 170.0 seconds; output SHA-256 is
+  `635b8095415e669da6c725798c6ab4983a602a65b1d2c843e90cca59a3d661ef`.
+- Parallel InternVL 100-row and complete-VSR stages completed on 2026-08-24
+  with zero model failures. The 100-row cache contains all four datasets, 100
+  valid rows, 602 probes, and two relation rows in 1,979.0 seconds (SHA-256
+  `c1a447aebad945ac270fea11f8ad7d500b9e7e14db867aed292a44fc9f1369bd`).
+  Complete VSR contains 340 valid rows, 2,150 probes, and all 110 relation rows
+  in 5,682.5 seconds (SHA-256
+  `929b563aa9302e943918e797b8204040f7e8363fc581c929dcb6bf836987ba2b`).
+- The generic Week 3 schema validator marked only calibration/test rows as
+  invalid (20 in the 100-row stage; 67 in VSR). This is an expected scope
+  mismatch: that pilot validator intentionally admits train/val only, while
+  Week 4 teacher generation requires train/val/cal/test. Independent Week 4
+  integrity checks found zero actual invalid teacher rows, duplicates, probe
+  errors, manifest mismatches, or provenance errors. No inference rerun is
+  required.
+- Implemented a non-destructive final grounding recovery path for the remaining
+  six Qwen and three Gemma parse failures. The trigger is strictly membership
+  in the 1,024-token malformed-grounding ledger; the same concise
+  describe-then-answer prompt applies to every triggered row. All existing
+  valid rows are copied unchanged except for immediate source provenance, and
+  recovered labels are recomputed. Source file/record hashes, retry policy,
+  prompt/generation hashes, attempts, and any continued failures remain
+  auditable. Syntax compilation and a direct prompt-contract check pass
+  locally. Server validation on 2026-08-24 passed all 26 focused
+  recovery/refresh/parser tests and the complete 230-test repository suite;
+  all eight real-source recovery dry-runs then passed. Their deterministic
+  retry scope is exactly six Qwen rows (`1/1/3/1` by shard) and three Gemma
+  rows (`0/1/1/1`), with no exclusions or unexpected records. GPU execution
+  was authorized on 2026-08-24 when the owner explicitly approved
+  `concise_describe_then_answer_retry_v1` for all nine remaining malformed
+  rows with no exclusions.

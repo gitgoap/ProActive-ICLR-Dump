@@ -2,7 +2,20 @@
 
 This runbook outlines how to execute scripts on the remote compute server and return the necessary logs/outputs to the local workspace for analysis by Antigravity.
 
-## Use and verify the existing server environment
+## Environment map (read before opening tmux panes)
+
+ProActive intentionally uses two server environments:
+
+| Workload | Environment | Required Python / Transformers |
+| --- | --- | --- |
+| Qwen, Gemma, manifests, labels, states, and validators | existing `(base)` shell | Python 3.13 / Transformers 5.5.4 |
+| InternVL3 only | `proactive-internvl` | Python 3.11 / Transformers 4.37.2 |
+
+Never run InternVL3 in `(base)`, and never downgrade `(base)`. Environment
+activation is local to each tmux pane, so every pane that runs InternVL must
+activate `proactive-internvl` independently.
+
+## Use and verify the existing base environment
 
 Use the Python environment already available in the server shell. Do not run a
 separate Conda activation step for the current ProActive workflow. If the
@@ -82,12 +95,17 @@ Create `proactive-internvl` once using the commands in
 and verify it explicitly:
 
 ```bash
+source ~/miniconda3/etc/profile.d/conda.sh
 conda activate proactive-internvl
 which python
 python --version
-python -c "import transformers; print(transformers.__version__)"
+python -c "import torch, transformers; print('torch', torch.__version__, 'transformers', transformers.__version__)"
 ```
 
-The expected Transformers version is `4.37.2`. After the InternVL command,
-`conda deactivate` returns to base. Qwen/Gemma commands must continue using
-their original environment.
+The expected interpreter is
+`/home/aman/miniconda3/envs/proactive-internvl/bin/python`; the expected
+versions are PyTorch `2.6.0+cu124` and Transformers `4.37.2`. This environment
+was server-validated on 2026-08-23 with `11` focused adapter tests and all
+`225` repository tests passing. After the InternVL command, `conda deactivate`
+returns to base. Qwen/Gemma commands must continue using their original
+environment.

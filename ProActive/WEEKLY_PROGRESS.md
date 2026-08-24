@@ -106,6 +106,22 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
     existing raw generations, invalidates all 14 prompt-changed rows for every
     model, and records source file/record plus old/new manifest hashes in a
     separate output directory.
+14. Completed migration-v2 recovery and a uniform 1,024-token grounding
+    refresh. Every Qwen/Gemma model-instance slot remains accounted for; Qwen
+    has 7,285 valid plus 6 explicit failures, and Gemma has 7,288 valid plus 3
+    explicit failures.
+15. Rebuilt InternVL around its native image-token interface and isolated its
+    official Transformers-4.37.2 runtime from the accepted Qwen/Gemma base
+    environment. The focused 11-test adapter suite passed on the server; after
+    adding grounding recovery coverage, all 26 focused recovery/parser/refresh
+    tests and all 230 repository tests pass.
+16. Completed InternVL 1/10/100-row and complete-VSR GPU stages with zero model
+    failures. The 100-row stage covers all four active datasets; complete VSR
+    contains 340 rows, 2,150 probes, and all 110 relation-applicable examples.
+17. Validated the final grounding-recovery implementation with 26 focused
+    tests, all 230 repository tests, and eight real-source dry-runs. The dry
+    runs identify exactly six Qwen and three Gemma format failures under one
+    uniform retry policy; no row is excluded.
 
 **Local validation:**
 - Initial Week 4 implementation added 10 focused tests and passed the then-complete 168-test CPU suite.
@@ -127,12 +143,16 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
   released-source-order tie resolution; manifests now preserve normalized
   counts/tie size, and migration recomputes correctness/labels without rerunning
   VizWiz inference.
+- InternVL server validation passed 1, 10, 100, and 340-row stages with zero
+  failures. A generic Week 3 schema check falsely rejected only cal/test rows;
+  independent Week 4 checks confirmed every row, probe set, manifest field, and
+  provenance hash is valid.
 
 **Still required for completion:**
-1. The deterministic manifest, parser-compatible migration v2, and pending-row
-   recovery are server validated. All open Hallusion rows succeeded; 36 Qwen
-   and 74 Gemma grounding-only failures remain. Run the uniform grounding
-   refresh/checksum validation (full compute approved 2026-08-13).
-2. InternVL GPU catch-up cache for the required final three-model audit.
-3. Offline label/state artifacts and balance/leakage reports.
-4. Final 180-example audit packet and a passing full Week 4 gate.
+1. Apply one uniform answer-only recovery rule to the remaining six Qwen and
+   three Gemma grounding-format failures; require 7,291 valid rows per core
+   model with no exclusions.
+2. Build offline label/state artifacts and balance/leakage reports.
+3. Export the final 180-example audit packet using the validated InternVL
+   catch-up coverage.
+4. Complete human annotation and pass the full Week 4 gate.

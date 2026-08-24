@@ -267,9 +267,10 @@ def _run_grounding_probe(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    prompt_text_override: Optional[str] = None,
 ) -> ProbeObservation:
     """Run the grounding probe (describe-then-answer) with isolated final answer scoring."""
-    prompt_text = make_grounding_prompt(
+    prompt_text = prompt_text_override or make_grounding_prompt(
         question, dataset, answer_type=answer_type
     )
     gen_output = adapter.generate(image, prompt_text)

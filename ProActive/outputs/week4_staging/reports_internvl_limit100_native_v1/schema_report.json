@@ -1,0 +1,95 @@
+{
+  "path": "outputs/week4_staging/internvl_limit100_native_v1",
+  "files_checked": 1,
+  "files": [
+    {
+      "file_path": "outputs/week4_staging/internvl_limit100_native_v1/teacher_internvl3_9b_all_all_shard00-of-01.jsonl",
+      "total_rows": 100,
+      "valid_rows": 80,
+      "invalid_rows": 20,
+      "unique_records": 100,
+      "duplicate_rows": 0,
+      "datasets": [
+        "hallusionbench",
+        "pope",
+        "vizwiz",
+        "vsr"
+      ],
+      "models": [
+        "OpenGVLab/InternVL3-9B"
+      ],
+      "splits": [
+        "cal",
+        "test",
+        "train",
+        "val"
+      ],
+      "is_valid": false,
+      "errors": [
+        "Row 3: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 8: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 9: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 12: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 22: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 26: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 28: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 31: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 39: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 55: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 58: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 59: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 61: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 72: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 74: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 81: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 85: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 87: Invalid split 'test'. Must be one of {'val', 'train'}",
+        "Row 88: Invalid split 'cal'. Must be one of {'val', 'train'}",
+        "Row 98: Invalid split 'test'. Must be one of {'val', 'train'}"
+      ]
+    }
+  ],
+  "total_rows": 100,
+  "valid_rows": 80,
+  "invalid_rows": 20,
+  "unique_records": 100,
+  "duplicate_rows": 0,
+  "datasets": [
+    "hallusionbench",
+    "pope",
+    "vizwiz",
+    "vsr"
+  ],
+  "models": [
+    "OpenGVLab/InternVL3-9B"
+  ],
+  "splits": [
+    "cal",
+    "test",
+    "train",
+    "val"
+  ],
+  "is_valid": false,
+  "errors": [
+    "Row 3: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 8: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 9: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 12: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 22: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 26: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 28: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 31: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 39: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 55: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 58: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 59: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 61: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 72: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 74: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 81: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 85: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 87: Invalid split 'test'. Must be one of {'val', 'train'}",
+    "Row 88: Invalid split 'cal'. Must be one of {'val', 'train'}",
+    "Row 98: Invalid split 'test'. Must be one of {'val', 'train'}"
+  ]
+}

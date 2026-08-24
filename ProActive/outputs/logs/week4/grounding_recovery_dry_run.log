@@ -1,0 +1,41 @@
+===== qwen3_vl_8b shard 0 =====
+2026-08-24 16:28:36,812 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=0/4 valid_source=1821 retry_scope=1
+2026-08-24 16:28:36,812 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:36,812 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+qwen3_vl_8b shard 0 dry-run exit code: 0
+===== qwen3_vl_8b shard 1 =====
+2026-08-24 16:28:37,419 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=1/4 valid_source=1820 retry_scope=1
+2026-08-24 16:28:37,419 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:37,419 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl
+qwen3_vl_8b shard 1 dry-run exit code: 0
+===== qwen3_vl_8b shard 2 =====
+2026-08-24 16:28:38,028 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=2/4 valid_source=1798 retry_scope=3
+2026-08-24 16:28:38,028 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:38,028 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl
+qwen3_vl_8b shard 2 dry-run exit code: 0
+===== qwen3_vl_8b shard 3 =====
+2026-08-24 16:28:38,639 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=3/4 valid_source=1846 retry_scope=1
+2026-08-24 16:28:38,639 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:38,639 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl
+qwen3_vl_8b shard 3 dry-run exit code: 0
+===== gemma4_e4b shard 0 =====
+2026-08-24 16:28:39,241 INFO [recover_grounding_failures] Model=gemma4_e4b shard=0/4 valid_source=1836 retry_scope=0
+2026-08-24 16:28:39,241 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:39,241 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl
+gemma4_e4b shard 0 dry-run exit code: 0
+===== gemma4_e4b shard 1 =====
+2026-08-24 16:28:39,841 INFO [recover_grounding_failures] Model=gemma4_e4b shard=1/4 valid_source=1786 retry_scope=1
+2026-08-24 16:28:39,841 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:39,841 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl
+gemma4_e4b shard 1 dry-run exit code: 0
+===== gemma4_e4b shard 2 =====
+2026-08-24 16:28:40,449 INFO [recover_grounding_failures] Model=gemma4_e4b shard=2/4 valid_source=1825 retry_scope=1
+2026-08-24 16:28:40,449 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:40,449 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl
+gemma4_e4b shard 2 dry-run exit code: 0
+===== gemma4_e4b shard 3 =====
+2026-08-24 16:28:41,057 INFO [recover_grounding_failures] Model=gemma4_e4b shard=3/4 valid_source=1841 retry_scope=1
+2026-08-24 16:28:41,057 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-08-24 16:28:41,057 INFO [recover_grounding_failures] Output=outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl
+gemma4_e4b shard 3 dry-run exit code: 0
+GROUNDING_RECOVERY_DRY_RUN_ALL_OK=1
