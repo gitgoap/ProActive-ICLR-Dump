@@ -1,0 +1,642 @@
+{
+  "artifacts": {
+    "bit_distribution_rows": [
+      {
+        "bit": "visual",
+        "dataset": "hallusionbench",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 440,
+        "positive_count": 328,
+        "positive_fraction": 0.4270833333333333
+      },
+      {
+        "bit": "language",
+        "dataset": "hallusionbench",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 357,
+        "positive_count": 411,
+        "positive_fraction": 0.53515625
+      },
+      {
+        "bit": "alignment",
+        "dataset": "hallusionbench",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 581,
+        "positive_count": 187,
+        "positive_fraction": 0.24348958333333334
+      },
+      {
+        "bit": "visual",
+        "dataset": "hallusionbench",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 522,
+        "positive_count": 246,
+        "positive_fraction": 0.3203125
+      },
+      {
+        "bit": "language",
+        "dataset": "hallusionbench",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 265,
+        "positive_count": 503,
+        "positive_fraction": 0.6549479166666666
+      },
+      {
+        "bit": "alignment",
+        "dataset": "hallusionbench",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 564,
+        "positive_count": 204,
+        "positive_fraction": 0.265625
+      },
+      {
+        "bit": "visual",
+        "dataset": "pope",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 1882,
+        "positive_count": 471,
+        "positive_fraction": 0.20016999575010624
+      },
+      {
+        "bit": "language",
+        "dataset": "pope",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 1018,
+        "positive_count": 1335,
+        "positive_fraction": 0.5673608159796005
+      },
+      {
+        "bit": "alignment",
+        "dataset": "pope",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 2257,
+        "positive_count": 96,
+        "positive_fraction": 0.040798980025499365
+      },
+      {
+        "bit": "visual",
+        "dataset": "pope",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 1759,
+        "positive_count": 594,
+        "positive_fraction": 0.2524436889077773
+      },
+      {
+        "bit": "language",
+        "dataset": "pope",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 961,
+        "positive_count": 1392,
+        "positive_fraction": 0.5915852103697408
+      },
+      {
+        "bit": "alignment",
+        "dataset": "pope",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 2221,
+        "positive_count": 132,
+        "positive_fraction": 0.05609859753506162
+      },
+      {
+        "bit": "visual",
+        "dataset": "vizwiz",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 615,
+        "positive_count": 1752,
+        "positive_fraction": 0.7401774397972116
+      },
+      {
+        "bit": "language",
+        "dataset": "vizwiz",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 1838,
+        "positive_count": 529,
+        "positive_fraction": 0.22348964934516266
+      },
+      {
+        "bit": "alignment",
+        "dataset": "vizwiz",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 591,
+        "positive_count": 1776,
+        "positive_fraction": 0.7503168567807351
+      },
+      {
+        "bit": "visual",
+        "dataset": "vizwiz",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 86,
+        "positive_count": 2281,
+        "positive_fraction": 0.9636670891423743
+      },
+      {
+        "bit": "language",
+        "dataset": "vizwiz",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 1373,
+        "positive_count": 994,
+        "positive_fraction": 0.41994085340092946
+      },
+      {
+        "bit": "alignment",
+        "dataset": "vizwiz",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 157,
+        "positive_count": 2210,
+        "positive_fraction": 0.9336713138994508
+      },
+      {
+        "bit": "visual",
+        "dataset": "vsr",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 181,
+        "positive_count": 92,
+        "positive_fraction": 0.336996336996337
+      },
+      {
+        "bit": "language",
+        "dataset": "vsr",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 142,
+        "positive_count": 131,
+        "positive_fraction": 0.47985347985347987
+      },
+      {
+        "bit": "alignment",
+        "dataset": "vsr",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "negative_count": 209,
+        "positive_count": 64,
+        "positive_fraction": 0.23443223443223443
+      },
+      {
+        "bit": "visual",
+        "dataset": "vsr",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 125,
+        "positive_count": 148,
+        "positive_fraction": 0.5421245421245421
+      },
+      {
+        "bit": "language",
+        "dataset": "vsr",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 164,
+        "positive_count": 109,
+        "positive_fraction": 0.3992673992673993
+      },
+      {
+        "bit": "alignment",
+        "dataset": "vsr",
+        "model_id": "google/gemma-4-E4B-it",
+        "negative_count": 186,
+        "positive_count": 87,
+        "positive_fraction": 0.31868131868131866
+      }
+    ],
+    "class_balance_record_count": 11522,
+    "class_balance_splits": [
+      "train",
+      "val"
+    ],
+    "class_counts": {
+      "alignment": 343,
+      "language-prior": 3357,
+      "mixed": 4772,
+      "no-failure": 1444,
+      "unclear": 94,
+      "visual": 1512
+    },
+    "class_distribution_rows": [
+      {
+        "count": 28,
+        "dataset": "hallusionbench",
+        "fraction": 0.036458333333333336,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 235,
+        "dataset": "hallusionbench",
+        "fraction": 0.3059895833333333,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 242,
+        "dataset": "hallusionbench",
+        "fraction": 0.3151041666666667,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 100,
+        "dataset": "hallusionbench",
+        "fraction": 0.13020833333333334,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 27,
+        "dataset": "hallusionbench",
+        "fraction": 0.03515625,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 136,
+        "dataset": "hallusionbench",
+        "fraction": 0.17708333333333334,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 11,
+        "dataset": "hallusionbench",
+        "fraction": 0.014322916666666666,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 329,
+        "dataset": "hallusionbench",
+        "fraction": 0.4283854166666667,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 227,
+        "dataset": "hallusionbench",
+        "fraction": 0.2955729166666667,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 58,
+        "dataset": "hallusionbench",
+        "fraction": 0.07552083333333333,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 17,
+        "dataset": "hallusionbench",
+        "fraction": 0.022135416666666668,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 126,
+        "dataset": "hallusionbench",
+        "fraction": 0.1640625,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 2,
+        "dataset": "pope",
+        "fraction": 0.0008499787505312367,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 1240,
+        "dataset": "pope",
+        "fraction": 0.5269868253293668,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 139,
+        "dataset": "pope",
+        "fraction": 0.05907352316192095,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 616,
+        "dataset": "pope",
+        "fraction": 0.2617934551636209,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 2,
+        "dataset": "pope",
+        "fraction": 0.0008499787505312367,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 354,
+        "dataset": "pope",
+        "fraction": 0.1504462388440289,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 13,
+        "dataset": "pope",
+        "fraction": 0.0055248618784530384,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 1246,
+        "dataset": "pope",
+        "fraction": 0.5295367615809605,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 198,
+        "dataset": "pope",
+        "fraction": 0.08414789630259244,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 474,
+        "dataset": "pope",
+        "fraction": 0.2014449638759031,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 3,
+        "dataset": "pope",
+        "fraction": 0.0012749681257968552,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 419,
+        "dataset": "pope",
+        "fraction": 0.1780705482362941,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 269,
+        "dataset": "vizwiz",
+        "fraction": 0.11364596535699198,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 157,
+        "dataset": "vizwiz",
+        "fraction": 0.06632868610054922,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 1572,
+        "dataset": "vizwiz",
+        "fraction": 0.6641318124207858,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 78,
+        "dataset": "vizwiz",
+        "fraction": 0.032953105196451206,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 31,
+        "dataset": "vizwiz",
+        "fraction": 0.01309674693705112,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 260,
+        "dataset": "vizwiz",
+        "fraction": 0.10984368398817068,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 10,
+        "dataset": "vizwiz",
+        "fraction": 0.004224757076468103,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 19,
+        "dataset": "vizwiz",
+        "fraction": 0.008027038445289396,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 2228,
+        "dataset": "vizwiz",
+        "fraction": 0.9412758766370933,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 24,
+        "dataset": "vizwiz",
+        "fraction": 0.010139416983523447,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 4,
+        "dataset": "vizwiz",
+        "fraction": 0.0016899028305872412,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 82,
+        "dataset": "vizwiz",
+        "fraction": 0.034643008027038444,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 0,
+        "dataset": "vsr",
+        "fraction": 0.0,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 78,
+        "dataset": "vsr",
+        "fraction": 0.2857142857142857,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 71,
+        "dataset": "vsr",
+        "fraction": 0.2600732600732601,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 65,
+        "dataset": "vsr",
+        "fraction": 0.23809523809523808,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 6,
+        "dataset": "vsr",
+        "fraction": 0.02197802197802198,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 53,
+        "dataset": "vsr",
+        "fraction": 0.19413919413919414,
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "teacher_label6": "visual"
+      },
+      {
+        "count": 10,
+        "dataset": "vsr",
+        "fraction": 0.03663003663003663,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "alignment"
+      },
+      {
+        "count": 53,
+        "dataset": "vsr",
+        "fraction": 0.19413919413919414,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "language-prior"
+      },
+      {
+        "count": 95,
+        "dataset": "vsr",
+        "fraction": 0.34798534798534797,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "mixed"
+      },
+      {
+        "count": 29,
+        "dataset": "vsr",
+        "fraction": 0.10622710622710622,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "no-failure"
+      },
+      {
+        "count": 4,
+        "dataset": "vsr",
+        "fraction": 0.014652014652014652,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "unclear"
+      },
+      {
+        "count": 82,
+        "dataset": "vsr",
+        "fraction": 0.30036630036630035,
+        "model_id": "google/gemma-4-E4B-it",
+        "teacher_label6": "visual"
+      }
+    ],
+    "dominant_fraction": 0.4141642076028467,
+    "dominant_label": "mixed",
+    "error_count": 0,
+    "errors": [],
+    "expected_forward_passes": 102294,
+    "is_valid": true,
+    "label_records": 14582,
+    "manifest_records": 7291,
+    "model_teacher_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct": 7291,
+      "google/gemma-4-E4B-it": 7291
+    },
+    "require_complete": true,
+    "state_records": 388623,
+    "teacher_records": 14582,
+    "unique_probe_records": 87712,
+    "warning_count": 0,
+    "warnings": []
+  },
+  "catch_up": {
+    "cache_complete": false,
+    "documented": true,
+    "is_valid": true,
+    "model_id": "OpenGVLab/InternVL3-9B"
+  },
+  "human_audit": {
+    "blinded_rows": 180,
+    "errors": [],
+    "is_valid": true,
+    "materialized_images": 180,
+    "observed_dataset_count": 4,
+    "observed_model_count": 3,
+    "private_rows": 180
+  },
+  "is_valid": true,
+  "mode": "full",
+  "readiness": {
+    "approval_status": "APPROVED",
+    "compute_authorization": {
+      "approved_estimated_gpu_hours": 33.23,
+      "full_core_approved": true,
+      "full_core_approved_on": "2026-08-13",
+      "staged_checks_approved": true,
+      "staged_full_dataset_allowlist": [
+        "vsr"
+      ],
+      "staged_max_examples": 100
+    },
+    "dataset_counts": {
+      "hallusionbench": 951,
+      "pope": 3000,
+      "vizwiz": 3000,
+      "vsr": 340
+    },
+    "errors": [],
+    "expected_forward_passes": 102294,
+    "expected_teacher_rows": 14582,
+    "is_valid": true,
+    "manifest_records": 7291,
+    "relation_applicable_records": 110,
+    "required_core_models": [
+      "gemma4_e4b",
+      "qwen3_vl_8b"
+    ]
+  },
+  "teacher_progress": {
+    "completion_by_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "completed": 7291,
+        "expected": 7291,
+        "fraction": 1.0
+      },
+      "google/gemma-4-E4B-it": {
+        "completed": 7291,
+        "expected": 7291,
+        "fraction": 1.0
+      }
+    },
+    "error_count": 0,
+    "errors": [],
+    "is_valid": true,
+    "split_counts": {
+      "Qwen/Qwen3-VL-8B-Instruct|cal": 750,
+      "Qwen/Qwen3-VL-8B-Instruct|test": 780,
+      "Qwen/Qwen3-VL-8B-Instruct|train": 5059,
+      "Qwen/Qwen3-VL-8B-Instruct|val": 702,
+      "google/gemma-4-E4B-it|cal": 750,
+      "google/gemma-4-E4B-it|test": 780,
+      "google/gemma-4-E4B-it|train": 5059,
+      "google/gemma-4-E4B-it|val": 702
+    },
+    "teacher_records": 14582,
+    "unique_probe_records": 87712
+  }
+}

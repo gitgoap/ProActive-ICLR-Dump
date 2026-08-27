@@ -10,10 +10,16 @@ ProActive intentionally uses two server environments:
 | --- | --- | --- |
 | Qwen, Gemma, manifests, labels, states, and validators | existing `(base)` shell | Python 3.13 / Transformers 5.5.4 |
 | InternVL3 only | `proactive-internvl` | Python 3.11 / Transformers 4.37.2 |
+| Weeks 5–7 cached-data tests and small PyTorch networks | `proactive-internvl` | Python 3.11 / PyTorch 2.6.0+cu124 |
 
 Never run InternVL3 in `(base)`, and never downgrade `(base)`. Environment
 activation is local to each tmux pane, so every pane that runs InternVL must
 activate `proactive-internvl` independently.
+
+Weeks 5–7 reuse `proactive-internvl` only as a validated Python/PyTorch test
+and small-network runtime. Those stages never import or run the InternVL model,
+and they do not alter the accepted Qwen/Gemma teacher cache. Follow
+`WEEK_5_6_7_IMPLEMENTATION_AND_SERVER_PLAN.md` for their gated commands.
 
 ## Use and verify the existing base environment
 

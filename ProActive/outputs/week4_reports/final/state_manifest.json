@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "row_count": 48915,
+      "sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "row_count": 47618,
+      "sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "row_count": 48660,
+      "sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "row_count": 49093,
+      "sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "row_count": 48597,
+      "sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "row_count": 48449,
+      "sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "row_count": 47974,
+      "sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "row_count": 49317,
+      "sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f"
+    }
+  ],
+  "row_count": 388623
+}

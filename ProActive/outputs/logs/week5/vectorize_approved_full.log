@@ -1,0 +1,25 @@
+2026-08-26 18:18:22,168 INFO [prepare_week5_data] Validated 8 state files (388623 source rows)
+2026-08-26 18:19:35,092 INFO [prepare_week5_data] Wrote 388623 vectorized states to outputs/week5_data/vectorized_manifest.json
+	Command being timed: "python scripts/prepare_week5_data.py --config configs/experiments/diag_bakeoff.yaml --manifest_path outputs/week4_reports/final/state_manifest.json --state_path outputs/states_v1 --output_dir outputs/week5_data --device cpu --overwrite"
+	User time (seconds): 73.89
+	System time (seconds): 6.97
+	Percent of CPU this job got: 106%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:16.17
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 926412
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 265304
+	Voluntary context switches: 550
+	Involuntary context switches: 2267
+	Swaps: 0
+	File system inputs: 12640
+	File system outputs: 529072
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

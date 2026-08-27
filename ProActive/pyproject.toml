@@ -24,6 +24,8 @@ dependencies = [
     "pandas",
     "scipy",
     "scikit-learn",
+    "matplotlib",
+    "seaborn",
     "tqdm",
     "pyyaml",
     "python-dotenv"

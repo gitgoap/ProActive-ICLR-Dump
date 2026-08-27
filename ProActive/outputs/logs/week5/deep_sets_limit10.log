@@ -1,0 +1,70 @@
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "config_approval": "PENDING",
+  "pilot": true,
+  "manifest": "outputs/week5_data/vectorized_manifest.json",
+  "output": "outputs/week5_staging/deep_sets_limit10/diag_deep_sets_standard_seed42.best.pt"
+}
+2026-08-26 13:15:10,378 INFO [train_diag] epoch=0 train_total=1.125814 score=(-inf, -inf)
+2026-08-26 13:15:10,807 INFO [train_diag] epoch=1 train_total=0.844348 score=(-inf, -inf)
+2026-08-26 13:15:11,236 INFO [train_diag] epoch=2 train_total=0.632091 score=(-inf, -inf)
+2026-08-26 13:15:11,677 INFO [train_diag] epoch=3 train_total=0.486864 score=(-inf, -inf)
+2026-08-26 13:15:12,100 INFO [train_diag] epoch=4 train_total=0.374810 score=(-inf, -inf)
+2026-08-26 13:15:12,531 INFO [train_diag] epoch=5 train_total=0.286556 score=(-inf, -inf)
+{
+  "format_version": "week5_validation_report_v1",
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "pilot": true,
+  "scientifically_weighted": true,
+  "train_rows": 10,
+  "validation_rows": 10,
+  "best_epoch": 0,
+  "metrics": {
+    "is_valid": false,
+    "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+  },
+  "stratified_metrics": {
+    "pooled": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    },
+    "status": "PILOT_STRATA_NOT_REPORTED"
+  },
+  "config_sha256": "b6f6e8199a8a400e170a25563c564ebda77de9ce79f0fed606d5891d5aa58f98",
+  "source_manifest_sha256": "eb0d4d3fd647ef3b0d7934d6dcddc6cbf1261f8b5b3cc815c3f9d24f860ee037",
+  "checkpoint_path": "outputs/week5_staging/deep_sets_limit10/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "2ee73cb58ebe605ceeb607f20bcfcbc8194830e1a78659f3c7584cd329154cc1",
+  "report_sha256": "2911a6f2aef98f098b040e3b9512556851c253f14a40d6ae94862ea1509fcf5b"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=1 python scripts/train_diag.py --config configs/experiments/diag_bakeoff.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --encoder deep_sets --seed 42 --device cuda:0 --limit 10 --output_dir outputs/week5_staging/deep_sets_limit10 --overwrite --allow_unapproved_pilot"
+	User time (seconds): 12.51
+	System time (seconds): 10.40
+	Percent of CPU this job got: 279%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1631856
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 34
+	Minor (reclaiming a frame) page faults: 579800
+	Voluntary context switches: 3156
+	Involuntary context switches: 97365
+	Swaps: 0
+	File system inputs: 10824
+	File system outputs: 22216
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

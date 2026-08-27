@@ -1,0 +1,116 @@
+{
+  "format_version": "permutation_evaluation_v1",
+  "phase": "week5",
+  "split": "val",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "5b36155729f4ec2e7053b1f8e64776658234485e5c0e51f32e1de456b3783de3",
+  "aps_sha256": "711b87b5b1c5987d44f4ba545955f3d6e1d140cb716a51dcc280bc964f94ac84",
+  "freeze_manifest_sha256": null,
+  "limit": null,
+  "is_valid": true,
+  "encoder_name": "masked_slot_mlp",
+  "gru_condition": "standard",
+  "evaluation_budget": 4,
+  "coverage": 0.9,
+  "primary_frozen_stack": true,
+  "prediction_set_drift_applicable": true,
+  "action_drift_applicable": false,
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "maximum_permutations_per_state": 10,
+  "floating_tolerance": 1e-06,
+  "summary": {
+    "state_count": 100,
+    "js_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "bit_l1_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "hidden_relative_l2_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "set_disagreement": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    }
+  },
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.9,
+        0.9
+      ],
+      "average_set_size_by_permutation": [
+        3.566666666666667,
+        3.566666666666667
+      ]
+    },
+    "3": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.9666666666666667,
+        0.9666666666666667,
+        0.9666666666666667,
+        0.9666666666666667,
+        0.9666666666666667,
+        0.9666666666666667
+      ],
+      "average_set_size_by_permutation": [
+        3.2666666666666666,
+        3.2666666666666666,
+        3.2666666666666666,
+        3.2666666666666666,
+        3.2666666666666666,
+        3.2666666666666666
+      ]
+    },
+    "4": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75,
+        0.75
+      ],
+      "average_set_size_by_permutation": [
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625,
+        2.625
+      ]
+    }
+  },
+  "csv_path": "outputs/week5_reports/permutation_week5_masked_slot_mlp_standard_seed43.csv",
+  "csv_sha256": "7b0148d96bf45f570cfc117da23ba0ebda6ba349cebcaf8df5e626a5326a73c5",
+  "figure_path": "outputs/week5_reports/permutation_week5_masked_slot_mlp_standard_seed43.png",
+  "figure_sha256": "a7d4e486f0205b3ce7eda1dabe0d226a3740efedfa6d0d255eaa9ee6cf4150d8",
+  "report_sha256": "4e6f7d8c5c5a5261ec9af428e83efb34feb16ff2011352de13aacc0e61a9ea0d"
+}

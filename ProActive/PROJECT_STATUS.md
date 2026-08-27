@@ -1,8 +1,8 @@
 # Project Status
 
-**Current Phase:** Week 4 — Full teacher cache, labels, and partial states
+**Current Phase:** Week 6 — VOI targets, policies, and validation frontier
 
-**Status:** IMPLEMENTED, NOT VALIDATED
+**Status:** Weeks 1–5 COMPLETE; Weeks 6–7 IMPLEMENTED, NOT VALIDATED
 
 **Completed Work:**
 - Weeks 1–2: repository/data scaffolding, grouped splits, normalization, clean features, and Qwen/Gemma/InternVL adapters.
@@ -24,8 +24,9 @@
 - Added Week 4 unit/adversarial/integration, revision-parser, compute-authorization,
   grounding-recovery, failure-ledger, HallusionBench answer-contract, and
   InternVL native-adapter regression tests. After adding the final grounding
-  recovery tests, the isolated server CPU suite passes: `230 passed` on
-  2026-08-24; the focused recovery/parser/refresh suite passes `26` tests.
+  recovery and offline-sidecar tests, the isolated server CPU suite passes:
+  `236 passed` on 2026-08-24. The focused recovery/parser/refresh suite passes
+  `26` tests, and the focused offline-sidecar/Week-4 suite passes `17` tests.
 - Audited the combined manifest: 7,291 rows (951 HallusionBench, 3,000 POPE, 3,000 VizWiz, 340 VSR), including 110 relation-applicable rows. Qwen plus Gemma require 14,582 teacher rows and 102,294 clean/probe passes.
 - Accepted consistent server revision evidence and pinned Qwen
   `0c351dd01ed87e9c1b53cbc748cba10e6187ff3b`, Gemma
@@ -37,7 +38,7 @@
   incompatibility. The isolated
   Python-3.11/Transformers-4.37.2 environment and corrected native adapter now
   pass `11` focused adapter tests; the expanded repository suite now passes
-  all `230` tests on the server. The
+  all `236` tests on the server. The
   corrected one-row GPU smoke also passed with one valid teacher row, six
   applicable probes, and zero failures in 101.6 seconds. The 10-row stage then
   passed with 10 unique valid rows, 60 probes, and zero failures in 170.0
@@ -45,6 +46,36 @@
   valid rows respectively and zero model failures.
 
 **Current Blocker:**
+- The complete Week 5 experiment matrix is synchronized: `15/15` checkpoint
+  validation reports, `12/12` non-clean permutation studies, `12/12` temporary
+  APS reports, and the shortcut-control report. Pre-gate inspection predicts a
+  passed Deep Sets selection, no Set Transformer trigger, and an appendix-only
+  RAPS trigger.
+- The CPU-only signed Week 5 selection report passed and selected Deep Sets
+  seed 42 without calibration/test access, and the owner approved the measured
+  selection on 2026-08-26. The owner-approved freeze and full Week 5 validator
+  subsequently passed with zero errors and warnings. Week 5 is COMPLETE.
+- There is no remaining Week 4 data, GPU, or validation blocker. Weeks 6 and 7
+  are implemented in advance but their execution remains scientifically gated
+  by the Week 5 and Week 6 validation selections respectively.
+- Week 6 readiness passed with zero errors on 2026-08-27. VOI preflight
+  verified all eight source files and frozen hashes. The immediate gate is a
+  bounded 100-row VOI construction audit before the complete VOI corpus.
+
+**Resolved Week 4 history:**
+- The Qwen/Gemma teacher cache is no longer blocked. The approved final
+  grounding recovery completed on 2026-08-24: all six Qwen and three Gemma
+  format failures recovered, all eight failure ledgers are empty, and official
+  teacher-progress validation passes with 14,582/14,582 rows, 87,712 unique
+  probe records, and zero errors. The active blocker is now generation and
+  validation of offline labels, leakage-safe partial states, and the final
+  three-model human-audit packet. Label/state generation has now completed
+  with 14,582 labels and 388,623 unique leakage-safe states; independent checks
+  pass. The server full report now validates the 180-row, three-model,
+  four-dataset audit packet as well. Its only failing term is
+  `catch_up.documented=false`, caused by the stale server copy of the InternVL
+  catch-up document. After synchronization, the repeated full report passed
+  every term with zero errors and warnings.
 - The released HallusionBench JSON contains 14 genuinely open-ended image-table
   questions among the 951 image-paired records. The old manifest treated the
   benchmark-level `gt_answer` indicator as a literal answer for every row,
@@ -86,7 +117,7 @@
   grounding refresh is now implemented locally for every Qwen and Gemma row;
   server validation is pending.
 
-**Running or Awaiting Server Jobs:**
+**Week 4 server evidence (complete):**
 - Migration-v2 recovery is complete. Qwen has 7,255 valid plus 36
   grounding-only failures; Gemma has 7,217 valid plus 74 grounding-only
   failures. All 14 open Hallusion rows are valid for both models, every one of
@@ -103,12 +134,12 @@
   are server-validated. The catch-up now covers all four datasets and complete
   VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
-**Next Tasks (Week 4):**
-1. Recover the six Qwen and three Gemma grounding failures with one uniform,
-   documented answer-only retry policy; validate exactly 7,291 valid rows per
-   core model with no exclusions.
-2. Build labels/states from the corrected cache, export the final audit with
-   validated InternVL coverage, and run the full Week 4 gate.
+**Next Tasks (Week 6):**
+1. Run the CPU-only Week 6 readiness gate against the signed Week 5 freeze.
+2. Stage and inspect bounded VOI construction before building the complete
+   train/validation VOI corpus.
+3. Continue the three-person human annotations in parallel; they remain a
+   Week 8 agreement study and do not block Week 6 execution.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

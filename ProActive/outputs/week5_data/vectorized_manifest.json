@@ -1,0 +1,319 @@
+{
+  "config_path": "configs/experiments/diag_bakeoff.yaml",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__cal.pt",
+      "row_count": 5311,
+      "sha256": "f3dfbfef0955cf2eeb053ee2d0a330046e783f23c8eea20dd8a5627947abf0db",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__test.pt",
+      "row_count": 4900,
+      "sha256": "37b38fabebf5f3c2899dd6f2fb88f74d92bd9a2cce30c9dd2ed3f876c8e76b45",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__train.pt",
+      "row_count": 34037,
+      "sha256": "486d9b0432227b6e3688f822fb2ce64b1f9edbddc33f0fb9822a58c0ed47bd82",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__val.pt",
+      "row_count": 4667,
+      "sha256": "cdbe0ff562c040eeb88cc868e207ffd3534f9ab5d1f71f03fef55ace34e3e1d3",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__cal.pt",
+      "row_count": 5419,
+      "sha256": "0efb68f34788505707e087cf1a402dfa1df40084c904ac922e0480cc6bf42979",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__test.pt",
+      "row_count": 5103,
+      "sha256": "7dc9ffe47ad038a8902d560a16660e72bca2bc2d423483746f1fe2feac68611a",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__train.pt",
+      "row_count": 32284,
+      "sha256": "e3fac6ba49cbdadfc0c6d2add23684e82de86155f0e6b1da9d29c386401cc830",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__val.pt",
+      "row_count": 4812,
+      "sha256": "b25598a17bee8b5780d12ecc5f86225fbc3a092375351415bb5f50a5cd12be16",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__cal.pt",
+      "row_count": 4622,
+      "sha256": "cdf40588264f50e06465bd14d9640672e83693d4cd6abc9d9aa812169d2c87cc",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__test.pt",
+      "row_count": 5744,
+      "sha256": "c80140b8c168a6ae3542303bf7bf1f87548099532703804425e619ffbe53cd64",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__train.pt",
+      "row_count": 33956,
+      "sha256": "e15b6ce75be2cd77f730c7aedfd59cad07e52533e5f7def0a897d4104e15f37a",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__val.pt",
+      "row_count": 4338,
+      "sha256": "2b652077028d7535d54564a833f8969d654bfa6e9a9e90ba41f2d553ff48bbeb",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__cal.pt",
+      "row_count": 4650,
+      "sha256": "05ef5bca55cfbd8ba4704a91903a3944158db9e585daf53039c4c7a8172b6771",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__test.pt",
+      "row_count": 5006,
+      "sha256": "1f74bdfcb041a3e363d1ef33a1b9fe6f1372e3425405dc734e768db2c3c02a5a",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__train.pt",
+      "row_count": 34570,
+      "sha256": "b61855edc76e7a9bc818a68070694fc3650ab8c2c498c466a7bf858cd6a6f1c9",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__val.pt",
+      "row_count": 4867,
+      "sha256": "7a74dcdb52a30854893fe891bbefc4fa34ad9bac305b64422fbb64e7d18832e1",
+      "source_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__cal.pt",
+      "row_count": 4772,
+      "sha256": "d6e0e45d2fdf3a7e272aa8e0dd8978847e5f836939f7d5e9cca4bc89b109b055",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__test.pt",
+      "row_count": 4770,
+      "sha256": "4965166bb666fa4fd868b8ad33237fa7ca0ec05517c44c89e68011aaf58b6b91",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__train.pt",
+      "row_count": 34756,
+      "sha256": "603201187159dc67e9e5e95a8b69475d79cebf45fb74be93a035e3f584ef4e19",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__val.pt",
+      "row_count": 4299,
+      "sha256": "253431d08fe7ca0445d666f41562833f9d5ae3bf4936213af143e25422c449ff",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__cal.pt",
+      "row_count": 4907,
+      "sha256": "d13fe388bb9db83d9f7075f7584bb10efe9a13be84305dbce4fbc85108c3f00b",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__test.pt",
+      "row_count": 4865,
+      "sha256": "4c7b48820f865a324f037971f7689305e66182a867692434b0b0f546ad82cd08",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__train.pt",
+      "row_count": 33931,
+      "sha256": "3ea0f37bcf6f2ff9d7c46f0d0dbcd6479a3534c4584c72c832aa951f821612b0",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__val.pt",
+      "row_count": 4746,
+      "sha256": "660b618a3b80d9b845c5bc3dd891cc9411bb4f1910534f9cf1d7532b3db8f1a5",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__cal.pt",
+      "row_count": 4991,
+      "sha256": "8a62b4b84611eaff4a9f6379557689b5c5513df9a879fe94162f3f59aaa9ad48",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__test.pt",
+      "row_count": 5082,
+      "sha256": "aac27adc632460a051b2c0773ed1a4174bdd48bdcfeb1d49e21fe7ab759fdf61",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__train.pt",
+      "row_count": 33265,
+      "sha256": "6793b40fd487e7938b9306ef957ddd4d5cf1df7cee8c2d84f9f6beb4183a6f13",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__val.pt",
+      "row_count": 4636,
+      "sha256": "73ab8801807e63be726cbd07f63ab175e9425997d41973a5d78d5e3bef1f7172",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__cal.pt",
+      "row_count": 5332,
+      "sha256": "acba70e49d72854b8038e138e1560955b1b2f9c5dd5db30421b5c127cf0983e7",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__test.pt",
+      "row_count": 5999,
+      "sha256": "af395203b35761547eb40445ef3512cd1a945326a1a3dff08a67b0df8fb226b2",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__train.pt",
+      "row_count": 32983,
+      "sha256": "73aa47ca9be05db8df802fb4314356ccdbd9f9a9bcdfaf923071105f80a5c57f",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__val.pt",
+      "row_count": 5003,
+      "sha256": "bd84a7e75e2200928bcbe30288b913fa5ac27d27a1d2c0c79646ba5c07d2488d",
+      "source_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "split": "val"
+    }
+  ],
+  "format_version": "week5_vector_manifest_v1",
+  "group_count": 7291,
+  "limit": null,
+  "manifest_sha256": "fd3787b45e304e259f32b420b622f3c9c96811be67cd2d00e2a505e5038ca559",
+  "seed": 42,
+  "source_files": [
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "row_count": 48915,
+      "sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "row_count": 47618,
+      "sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "row_count": 48660,
+      "sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "row_count": 49093,
+      "sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "row_count": 48597,
+      "sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "row_count": 48449,
+      "sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "row_count": 47974,
+      "sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "row_count": 49317,
+      "sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f"
+    }
+  ],
+  "source_row_count": 388623,
+  "source_state_manifest_path": "outputs/week4_reports/final/state_manifest.json",
+  "source_state_manifest_sha256": "cf0172e7377ff41df4d5d18bbed8bb713aaef5482a3e24a0fd28ec85a542f1a4",
+  "split_counts": {
+    "cal": 40004,
+    "test": 41469,
+    "train": 269782,
+    "val": 37368
+  },
+  "status": "COMPLETE"
+}

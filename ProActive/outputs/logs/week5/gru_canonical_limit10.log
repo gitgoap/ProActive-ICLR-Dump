@@ -1,0 +1,70 @@
+{
+  "encoder": "gru",
+  "gru_condition": "canonical",
+  "seed": 42,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "config_approval": "PENDING",
+  "pilot": true,
+  "manifest": "outputs/week5_data/vectorized_manifest.json",
+  "output": "outputs/week5_staging/gru_canonical_limit10/diag_gru_canonical_seed42.best.pt"
+}
+2026-08-26 13:16:36,718 INFO [train_diag] epoch=0 train_total=1.287681 score=(-inf, -inf)
+2026-08-26 13:16:37,135 INFO [train_diag] epoch=1 train_total=0.970165 score=(-inf, -inf)
+2026-08-26 13:16:37,565 INFO [train_diag] epoch=2 train_total=0.729550 score=(-inf, -inf)
+2026-08-26 13:16:38,009 INFO [train_diag] epoch=3 train_total=0.612067 score=(-inf, -inf)
+2026-08-26 13:16:38,462 INFO [train_diag] epoch=4 train_total=0.449131 score=(-inf, -inf)
+2026-08-26 13:16:38,913 INFO [train_diag] epoch=5 train_total=0.347670 score=(-inf, -inf)
+{
+  "format_version": "week5_validation_report_v1",
+  "encoder_name": "gru",
+  "gru_condition": "canonical",
+  "seed": 42,
+  "pilot": true,
+  "scientifically_weighted": true,
+  "train_rows": 10,
+  "validation_rows": 10,
+  "best_epoch": 0,
+  "metrics": {
+    "is_valid": false,
+    "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+  },
+  "stratified_metrics": {
+    "pooled": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    },
+    "status": "PILOT_STRATA_NOT_REPORTED"
+  },
+  "config_sha256": "b6f6e8199a8a400e170a25563c564ebda77de9ce79f0fed606d5891d5aa58f98",
+  "source_manifest_sha256": "eb0d4d3fd647ef3b0d7934d6dcddc6cbf1261f8b5b3cc815c3f9d24f860ee037",
+  "checkpoint_path": "outputs/week5_staging/gru_canonical_limit10/diag_gru_canonical_seed42.best.pt",
+  "checkpoint_sha256": "4a68d61d000069bc3208613eb55171bb66ac101118554e588b74d3b52e40ea3f",
+  "report_sha256": "285a17569d7fb931364e8d021aabec85524d646faa8c0323b97c5c871ad93bba"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 python scripts/train_diag.py --config configs/experiments/diag_bakeoff.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --encoder gru --gru_condition canonical --seed 42 --device cuda:0 --limit 10 --output_dir outputs/week5_staging/gru_canonical_limit10 --overwrite --allow_unapproved_pilot"
+	User time (seconds): 12.70
+	System time (seconds): 10.51
+	Percent of CPU this job got: 272%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1654872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 10
+	Minor (reclaiming a frame) page faults: 578340
+	Voluntary context switches: 3117
+	Involuntary context switches: 38862
+	Swaps: 0
+	File system inputs: 3728
+	File system outputs: 30336
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

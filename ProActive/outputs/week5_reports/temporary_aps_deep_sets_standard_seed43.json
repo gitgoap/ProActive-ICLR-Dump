@@ -1,0 +1,156 @@
+{
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "calibration_split_used": false,
+  "checkpoint_path": "outputs/week5_checkpoints/diag_deep_sets_standard_seed43.best.pt",
+  "checkpoint_sha256": "5ffa7f7b20fee4454693132de8995cd3237ff432794237bff2a1702d1370afa6",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "fit_split": "val",
+  "format_version": "temporary_validation_aps_v1",
+  "limit": null,
+  "report_sha256": "2eb817ad045f7d935cdb68d614c50e089d132199af496c71c7cc7126d14e8640",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "status": "TEMPORARY_NOT_FINAL_CALIBRATION",
+  "test_split_used": false,
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "calibration_count": 9844,
+        "target_coverage": 0.9,
+        "threshold": 0.9999912977218628,
+        "validation_metrics": {
+          "average_set_size": 3.5134091832588377,
+          "coverage": 0.900142218610321,
+          "empty_set_rate": 0.05444941080861439,
+          "singleton_rate": 0.2331369362047948
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "calibration_count": 9844,
+        "target_coverage": 0.95,
+        "threshold": 0.999998927116394,
+        "validation_metrics": {
+          "average_set_size": 3.8008939455505892,
+          "coverage": 0.9511377488825681,
+          "empty_set_rate": 0.016659894351889477,
+          "singleton_rate": 0.16659894351889476
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "calibration_count": 17531,
+        "target_coverage": 0.9,
+        "threshold": 0.9999952912330627,
+        "validation_metrics": {
+          "average_set_size": 3.2834407620786035,
+          "coverage": 0.9000627459928128,
+          "empty_set_rate": 0.0557868917916833,
+          "singleton_rate": 0.25520506531287435
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "calibration_count": 17531,
+        "target_coverage": 0.95,
+        "threshold": 0.9999995231628418,
+        "validation_metrics": {
+          "average_set_size": 3.6272888026923735,
+          "coverage": 0.9524841708972677,
+          "empty_set_rate": 0.018082254292396325,
+          "singleton_rate": 0.18669784952370086
+        }
+      }
+    },
+    "3": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "calibration_count": 25419,
+        "target_coverage": 0.9,
+        "threshold": 0.9999973773956299,
+        "validation_metrics": {
+          "average_set_size": 3.168220622369094,
+          "coverage": 0.9004288130925685,
+          "empty_set_rate": 0.0611353711790393,
+          "singleton_rate": 0.26137928321334436
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "calibration_count": 25419,
+        "target_coverage": 0.95,
+        "threshold": 0.9999998211860657,
+        "validation_metrics": {
+          "average_set_size": 3.5747275659939417,
+          "coverage": 0.950509461426492,
+          "empty_set_rate": 0.02549274164994689,
+          "singleton_rate": 0.1780557850426846
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "calibration_count": 33108,
+        "target_coverage": 0.9,
+        "threshold": 0.9999984502792358,
+        "validation_metrics": {
+          "average_set_size": 3.074694937779389,
+          "coverage": 0.9012927389150659,
+          "empty_set_rate": 0.06436510813096533,
+          "singleton_rate": 0.2632596351335025
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "calibration_count": 33108,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999199062586,
+        "validation_metrics": {
+          "average_set_size": 3.57113084450888,
+          "coverage": 0.950042285852362,
+          "empty_set_rate": 0.029449075752084088,
+          "singleton_rate": 0.17536547058112842
+        }
+      }
+    },
+    "7": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "calibration_count": 37368,
+        "target_coverage": 0.9,
+        "threshold": 0.9999988079071045,
+        "validation_metrics": {
+          "average_set_size": 3.0036929993577393,
+          "coverage": 0.9004228216655963,
+          "empty_set_rate": 0.06767822736030829,
+          "singleton_rate": 0.2704988225219439
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "calibration_count": 37368,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999809660949,
+        "validation_metrics": {
+          "average_set_size": 4.269294583600942,
+          "coverage": 0.9500374652108756,
+          "empty_set_rate": 0.03821451509312781,
+          "singleton_rate": 0.10578569899379148
+        }
+      }
+    }
+  }
+}

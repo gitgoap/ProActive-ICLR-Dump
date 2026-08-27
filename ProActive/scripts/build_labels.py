@@ -29,12 +29,22 @@ logger = logging.getLogger("build_labels")
 
 def _jsonl_files(path: Path) -> List[Path]:
     if path.is_file():
+        if path.name.endswith(".failures.jsonl"):
+            raise ValueError(f"Failure ledger is not a teacher artifact: {path}")
         return [path]
     if path.is_dir():
-        files = sorted(path.glob("teacher_*.jsonl"))
+        files = [
+            item
+            for item in sorted(path.glob("teacher_*.jsonl"))
+            if not item.name.endswith(".failures.jsonl")
+        ]
         if files:
             return files
-        return sorted(path.glob("*.jsonl"))
+        return [
+            item
+            for item in sorted(path.glob("*.jsonl"))
+            if not item.name.endswith(".failures.jsonl")
+        ]
     raise FileNotFoundError(path)
 
 

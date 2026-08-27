@@ -1,0 +1,116 @@
+{
+  "action_drift_applicable": false,
+  "aps_sha256": "4580e96edd4dbd93156c989de60c2513e53a590a7488d89a7377102bde72b596",
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "average_set_size_by_permutation": [
+        3.3666666666666667,
+        3.4
+      ],
+      "average_set_size_range": 0.033333333333333215,
+      "coverage_by_permutation": [
+        0.9333333333333333,
+        0.9333333333333333
+      ],
+      "coverage_range": 0.0
+    },
+    "3": {
+      "average_set_size_by_permutation": [
+        3.033333333333333,
+        3.1333333333333333,
+        3.033333333333333,
+        3.033333333333333,
+        3.1666666666666665,
+        3.2
+      ],
+      "average_set_size_range": 0.16666666666666696,
+      "coverage_by_permutation": [
+        0.9,
+        0.9333333333333333,
+        0.9333333333333333,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "coverage_range": 0.033333333333333326
+    },
+    "4": {
+      "average_set_size_by_permutation": [
+        2.425,
+        2.425,
+        2.475,
+        2.475,
+        2.475,
+        2.375,
+        2.525,
+        2.475,
+        2.55,
+        2.5
+      ],
+      "average_set_size_range": 0.17499999999999982,
+      "coverage_by_permutation": [
+        0.8,
+        0.8,
+        0.825,
+        0.825,
+        0.8,
+        0.75,
+        0.775,
+        0.775,
+        0.8,
+        0.85
+      ],
+      "coverage_range": 0.09999999999999998
+    }
+  },
+  "checkpoint_sha256": "8367d5b51d27e13c307f8d34a495f72acb941e34af40f992c024081274120543",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "coverage": 0.9,
+  "csv_path": "outputs/week5_reports/permutation_week5_gru_canonical_seed43.csv",
+  "csv_sha256": "2d50c1e92a78e49c45eefec0a7417f90a30efbd83b70a3c6e294ed6d10f197a8",
+  "encoder_name": "gru",
+  "evaluation_budget": 4,
+  "figure_path": "outputs/week5_reports/permutation_week5_gru_canonical_seed43.png",
+  "figure_sha256": "db66652a307b9bcd841d6d0c01373f91ecc76484d597ff56465d65f8ec8f69ed",
+  "floating_tolerance": 1e-06,
+  "format_version": "permutation_evaluation_v1",
+  "freeze_manifest_sha256": null,
+  "gru_condition": "canonical",
+  "is_valid": true,
+  "limit": null,
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "maximum_permutations_per_state": 10,
+  "phase": "week5",
+  "prediction_set_drift_applicable": true,
+  "primary_frozen_stack": true,
+  "report_sha256": "a02046d662bf130fd8358dec71bf914f770238c8d3b86a1822722c769aecd06b",
+  "split": "val",
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "bit_l1_drift": {
+      "max": 0.1368655381122335,
+      "mean": 0.027858614642074044,
+      "median": 0.017482797140413748
+    },
+    "hidden_relative_l2_drift": {
+      "max": 0.20544138737128792,
+      "mean": 0.08338473083390875,
+      "median": 0.07571639639971262
+    },
+    "js_drift": {
+      "max": 0.020303450249860407,
+      "mean": 0.0009601235841065922,
+      "median": 7.558796804048975e-05
+    },
+    "set_disagreement": {
+      "max": 0.5555555555555556,
+      "mean": 0.11640370370370372,
+      "median": 0.0
+    },
+    "state_count": 100
+  }
+}

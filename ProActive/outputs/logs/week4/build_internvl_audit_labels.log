@@ -1,0 +1,3 @@
+2026-08-24 19:53:05,306 INFO outputs/week4_staging/internvl_vsr_complete_native_v1/teacher_internvl3_9b_vsr_all_shard00-of-01.jsonl -> outputs/labels_internvl_audit/labels_internvl3_9b_vsr_all_shard00-of-01.jsonl (340 rows)
+2026-08-24 19:53:05,308 INFO Validated complete label output; skipping
+2026-08-24 19:53:05,308 INFO Processed 340 unique teacher records

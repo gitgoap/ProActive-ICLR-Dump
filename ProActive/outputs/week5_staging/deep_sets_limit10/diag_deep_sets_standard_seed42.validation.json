@@ -1,0 +1,27 @@
+{
+  "best_epoch": 0,
+  "checkpoint_path": "outputs/week5_staging/deep_sets_limit10/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "2ee73cb58ebe605ceeb607f20bcfcbc8194830e1a78659f3c7584cd329154cc1",
+  "config_sha256": "b6f6e8199a8a400e170a25563c564ebda77de9ce79f0fed606d5891d5aa58f98",
+  "encoder_name": "deep_sets",
+  "format_version": "week5_validation_report_v1",
+  "gru_condition": "standard",
+  "metrics": {
+    "is_valid": false,
+    "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+  },
+  "pilot": true,
+  "report_sha256": "2911a6f2aef98f098b040e3b9512556851c253f14a40d6ae94862ea1509fcf5b",
+  "scientifically_weighted": true,
+  "seed": 42,
+  "source_manifest_sha256": "eb0d4d3fd647ef3b0d7934d6dcddc6cbf1261f8b5b3cc815c3f9d24f860ee037",
+  "stratified_metrics": {
+    "pooled": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    },
+    "status": "PILOT_STRATA_NOT_REPORTED"
+  },
+  "train_rows": 10,
+  "validation_rows": 10
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "epoch": 0,
+    "train_loss": {
+      "signature": 0.3640771508216858,
+      "six_way": 4.277198314666748,
+      "source_bits": 0.7830936908721924,
+      "total": 2.9581005573272705
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  },
+  {
+    "epoch": 1,
+    "train_loss": {
+      "signature": 0.15119926631450653,
+      "six_way": 2.7994461059570312,
+      "source_bits": 0.6738284230232239,
+      "total": 2.0886714458465576
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  },
+  {
+    "epoch": 2,
+    "train_loss": {
+      "signature": 0.07837795466184616,
+      "six_way": 1.9027498960494995,
+      "source_bits": 0.5738991498947144,
+      "total": 1.533111810684204
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  },
+  {
+    "epoch": 3,
+    "train_loss": {
+      "signature": 0.058159492909908295,
+      "six_way": 1.430065631866455,
+      "source_bits": 0.5059033632278442,
+      "total": 1.2267520427703857
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  },
+  {
+    "epoch": 4,
+    "train_loss": {
+      "signature": 0.04636167362332344,
+      "six_way": 1.1532551050186157,
+      "source_bits": 0.44584470987319946,
+      "total": 1.0271084308624268
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  },
+  {
+    "epoch": 5,
+    "train_loss": {
+      "signature": 0.04505111649632454,
+      "six_way": 0.8928442001342773,
+      "source_bits": 0.38669994473457336,
+      "total": 0.837627112865448
+    },
+    "validation": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    }
+  }
+]

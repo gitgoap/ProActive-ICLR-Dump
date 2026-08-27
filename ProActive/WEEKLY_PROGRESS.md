@@ -73,7 +73,7 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
 ---
 
 ## Week 4: Full teacher cache, labels, and partial states
-**Status:** IMPLEMENTED, NOT VALIDATED
+**Status:** COMPLETE
 **Dates:** August 9, 2026–present
 
 **What has been implemented locally:**
@@ -122,6 +122,25 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
     tests, all 230 repository tests, and eight real-source dry-runs. The dry
     runs identify exactly six Qwen and three Gemma format failures under one
     uniform retry policy; no row is excluded.
+18. Completed the approved nine-row GPU recovery. The final core cache contains
+    7,291 valid Qwen rows and 7,291 valid Gemma rows, all failure ledgers are
+    empty, and teacher-progress validation passes with 87,712 unique probes and
+    zero errors.
+19. Hardened offline artifact discovery so failure-ledger sidecars cannot enter
+    label, state, or audit construction. The focused suite passes 17 tests and
+    the complete server suite passes 236 tests.
+20. Generated 14,582 offline labels and 388,623 leakage-safe partial states.
+    Independent inspection found no duplicate IDs, forbidden learner metadata,
+    observation/name mismatch, or missing mandatory sampling sources. The
+    dominant train/validation class is 41.42%, below the approved 80% gate,
+    and every dataset/model/source-bit slice clears the 5/5 balance minimum.
+21. Exported and server-validated the 180-row human-audit packet with 30 rows
+    per label, 180 images, all three models, and all four datasets. The first
+    full report passes every scientific artifact check and is false only
+    because the server copy of the InternVL catch-up document was stale.
+22. Synced the final catch-up document and reran the full validator on
+    2026-08-26. Every readiness, teacher, label/state, audit, and catch-up term
+    passes with zero errors and warnings. Week 4 is COMPLETE.
 
 **Local validation:**
 - Initial Week 4 implementation added 10 focused tests and passed the then-complete 168-test CPU suite.
@@ -148,11 +167,103 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
   independent Week 4 checks confirmed every row, probe set, manifest field, and
   provenance hash is valid.
 
-**Still required for completion:**
-1. Apply one uniform answer-only recovery rule to the remaining six Qwen and
-   three Gemma grounding-format failures; require 7,291 valid rows per core
-   model with no exclusions.
-2. Build offline label/state artifacts and balance/leakage reports.
-3. Export the final 180-example audit packet using the validated InternVL
-   catch-up coverage.
-4. Complete human annotation and pass the full Week 4 gate.
+**Completion evidence:**
+1. The uniform recovery resolved all nine remaining format failures with no
+   exclusions; Qwen and Gemma each have 7,291 valid rows.
+2. Offline generation produced 14,582 labels and 388,623 leakage-safe states.
+3. The final audit packet contains 180 rows/images over three models and four
+   datasets.
+4. `validate_week4.py --mode full` passed on 2026-08-26 with zero errors and
+   zero warnings. Human agreement scoring continues as a later parallel study.
+
+---
+
+## Week 5: Shared-state encoder bake-off
+**Status:** COMPLETE
+**Dates:** August 26, 2026–present
+
+**Implemented locally:**
+1. Strict metadata-free tensor contract and resume-safe vectorization of the
+   frozen Week 4 states.
+2. Clean-only MLP, canonical/random-order GRU, exact masked-slot MLP, and
+   sum-pooled Deep Sets with shared source-bit, six-way, and signature heads.
+3. Train-only normalization/class weighting, validation-only selection,
+   temporary APS, identity shortcut controls, and permutation-drift metrics.
+4. Three-seed selection gate with Deep Sets as the declared primary encoder;
+   Set Transformer remains disabled unless the predeclared validation gate
+   fires.
+5. Unit, adversarial, resume, leakage, and synthetic end-to-end tests. Local
+   syntax compilation passes; PyTorch execution awaits the server suite.
+6. Server validation on 2026-08-26 passed all `279` tests, vectorized all
+   388,623 states in 75.06 seconds, and passed isolated 1/10/100-row Deep Sets
+   and canonical-GRU stages with exit code zero.
+7. The owner approved the proposed Weeks 5–7 scientific settings on
+   2026-08-26. Full Week 5 training is now authorized after regenerating the
+   vectorized artifacts under the approved configuration hash.
+8. Approved-hash vectorization and Week 5 readiness passed. The first two
+   mandatory full checkpoints also passed: Deep Sets seed 42 completed in
+   6:09.83 with source-bit/six-way Macro-F1 `0.8641/0.5025`; canonical GRU
+   seed 42 completed in 2:31.51 with `0.8621/0.4675`. Thirteen checkpoints
+   remain before the validation-only selection gate.
+9. The latest synchronized snapshot contains `11/15` complete validation
+   reports. Seed-42 temporary APS and permutation evaluation passed for Deep
+   Sets and canonical GRU. Deep Sets produced exactly zero drift, while the
+   canonical GRU produced nonzero order drift (mean JS `0.000586`, hidden
+   relative drift `0.07684`, bit-probability L1 drift `0.02585`, and set
+   disagreement `0.08522`), confirming the intended contrast.
+10. The subsequent synchronized snapshot contains all `15/15` checkpoint
+    validation reports, all `12/12` non-clean permutation reports, all `12/12`
+    temporary APS reports, and the shortcut-control report. Aggregated
+    validation evidence predicts that the Deep Sets gate will pass: its
+    source-bit Macro-F1 is `0.864217`, only `0.000116` behind the best GRU and
+    exactly invariant; its six-way Macro-F1 is the best at `0.508031`; and its
+    advantage over the identity-only control is `0.097711`. The Set Transformer
+    trigger is not reached. CPU-only signed selection and owner review remain.
+11. The signed CPU-only selection report passed and selected Deep Sets seed 42
+    with completion gate true. It used train/validation only, did not access
+    calibration or test, passed the shortcut gate, and did not trigger the Set
+    Transformer. Its report SHA-256 is `03a2e49f...36916`. The owner approved
+    Deep Sets seed 42 and authorized the signed freeze on 2026-08-26; freeze
+    creation and full validation remain.
+12. The owner-approved freeze was written with Deep Sets seed 42 and validated
+    successfully. Freeze SHA-256 is `0512ca85...a7929`; the full Week 5 report
+    is valid with zero errors/warnings and SHA-256 `026ef289...207e`.
+
+## Week 6: VOI targets, policy, and baseline frontier
+**Status:** IMPLEMENTED, NOT VALIDATED; Week 5 prerequisite satisfied
+**Dates:** August 26, 2026–present
+
+**Implemented locally:**
+1. Exact cached realized-VOI construction over train/validation only, with one
+   counterfactual evaluation reused over the declared cost grid.
+2. Action-conditioned VOI head, ranking/MSE/action-CE objective, legal masks,
+   exact cost accounting, and STOP for nonpositive predicted value.
+3. Main/GRU/masked learned-policy support plus random, four fixed,
+   validation-selected dataset-specific fixed, non-leaking uncertainty,
+   scalar, clean-only, distilled, full-teacher, oracle-next, and batched
+   oracle-subset controls.
+4. Three-seed validation selection, matched-cost frontiers, paper CSV/plots,
+   action frequencies, oracle gaps, provenance gates, and Week 6 validator.
+5. Server readiness passed on 2026-08-27 with zero errors. The VOI preflight
+   verified eight hash-bound state/teacher sources, budgets `1/2/4`, all five
+   approved cost multipliers, the frozen Deep Sets checkpoint, and no
+   calibration/test access.
+6. The 100-row CPU VOI construction audit passed in 4.36 seconds with 100
+   train rows, no calibration/test access, mixed positive/negative targets at
+   every cost, and monotonic STOP growth from 39% at cost 0 to 54% at cost
+   0.4. Complete architecture-specific VOI construction is authorized.
+
+## Week 7: Frozen stack, APS, and locked test
+**Status:** IMPLEMENTED, NOT VALIDATED; blocked on Week 6 selection
+**Dates:** August 26, 2026–present
+
+**Implemented locally:**
+1. Explicit owner-approved freeze of the selected diagnostic, policy,
+   controls, dataset schedule, configs, and hashes before calibration.
+2. Calibration-only frozen-policy trajectories and finite-sample APS at
+   budgets 1/2/3/4/full for both 90% and 95% targets, including independently
+   calibrated zero-acquisition controls.
+3. Freeze-bound locked-test frontier and full permutation protocol with the
+   GRU canonical/random-augmentation comparison.
+4. Fail-closed coverage/comparator gates and an automatically generated Week 7
+   go/no-go memo. No test execution is possible before freeze plus calibration.

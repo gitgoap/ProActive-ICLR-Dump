@@ -1,0 +1,16 @@
+{
+  "config_approval": "APPROVED",
+  "errors": [],
+  "format_version": "week5_validation_v1",
+  "is_valid": true,
+  "mode": "readiness",
+  "report_sha256": "b96b1c504192187445e1a3d99dec1e21e87637d36c5b48ae5606c391ae265dd3",
+  "split_counts": {
+    "cal": 40004,
+    "test": 41469,
+    "train": 269782,
+    "val": 37368
+  },
+  "vector_status": "COMPLETE",
+  "warnings": []
+}

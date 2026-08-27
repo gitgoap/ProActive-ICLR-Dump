@@ -16,5 +16,7 @@ pyyaml
 python-dotenv
 scipy
 scikit-learn>=1.2.2
+matplotlib
+seaborn
 tqdm
 pytest>=8,<10

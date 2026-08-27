@@ -1,0 +1,144 @@
+2026-08-27 19:10:18,570 INFO [build_voi_targets] Processed 100 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl
+{
+  "format_version": "week6_voi_manifest_v1",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "state_manifest_sha256": "cf0172e7377ff41df4d5d18bbed8bb713aaef5482a3e24a0fd28ec85a542f1a4",
+  "freeze_manifest_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "temporary_aps_sha256": "af5b015ee18198370f38a40a34a907b8ab64d4d1bed2afe7e2e693c4d9e9138c",
+  "limit": 100,
+  "status": "PILOT",
+  "fit_splits": [
+    "train",
+    "val"
+  ],
+  "calibration_used": false,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "eta_loss": 0.25,
+  "cost_multipliers": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "target_coverage": 0.9,
+  "row_count": 100,
+  "split_counts": {
+    "train": 100,
+    "val": 0
+  },
+  "sign_counts": {
+    "0": {
+      "zero": 100,
+      "positive": 226,
+      "negative": 59
+    },
+    "0.05": {
+      "zero": 100,
+      "positive": 161,
+      "negative": 124
+    },
+    "0.1": {
+      "zero": 100,
+      "positive": 140,
+      "negative": 145
+    },
+    "0.2": {
+      "zero": 100,
+      "positive": 120,
+      "negative": 165
+    },
+    "0.4": {
+      "zero": 100,
+      "positive": 107,
+      "negative": 178
+    }
+  },
+  "best_action_counts": {
+    "0": {
+      "blank": 27,
+      "stop": 39,
+      "grounding": 10,
+      "crop": 8,
+      "blur": 7,
+      "brightness": 8,
+      "noise": 1
+    },
+    "0.05": {
+      "blank": 27,
+      "stop": 40,
+      "grounding": 10,
+      "crop": 7,
+      "blur": 7,
+      "brightness": 8,
+      "noise": 1
+    },
+    "0.1": {
+      "blank": 27,
+      "stop": 43,
+      "grounding": 10,
+      "crop": 5,
+      "blur": 7,
+      "brightness": 8
+    },
+    "0.2": {
+      "blank": 27,
+      "stop": 47,
+      "grounding": 10,
+      "crop": 3,
+      "blur": 7,
+      "brightness": 6
+    },
+    "0.4": {
+      "blank": 27,
+      "stop": 54,
+      "grounding": 4,
+      "crop": 2,
+      "blur": 7,
+      "brightness": 6
+    }
+  },
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 100,
+      "sha256": "647fe0cc9626d59e14d623e70cf33e3c9518aa352cded4332fc04191d6af69b0",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    }
+  ],
+  "manifest_sha256": "2fd7150ee07cc75a1cfd711f7cf389d22b3ef8fbcb625c1b4e152395efdc5d2f"
+}
+	Command being timed: "python scripts/build_voi_targets.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --state_manifest outputs/week4_reports/final/state_manifest.json --checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --temporary_aps outputs/week5_reports/temporary_aps_deep_sets_standard_seed42.json --teacher_path outputs/teacher_core_contract_v1_recovered --output_dir outputs/week6_staging/voi_limit100_cpu --limit 100 --inference_batch_size 512 --device cpu --overwrite"
+	User time (seconds): 6.46
+	System time (seconds): 6.05
+	Percent of CPU this job got: 286%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 917080
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 97
+	Minor (reclaiming a frame) page faults: 191481
+	Voluntary context switches: 516
+	Involuntary context switches: 1612
+	Swaps: 0
+	File system inputs: 3944
+	File system outputs: 512
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

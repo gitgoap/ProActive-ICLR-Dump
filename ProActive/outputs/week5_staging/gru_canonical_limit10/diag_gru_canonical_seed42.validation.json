@@ -1,0 +1,27 @@
+{
+  "best_epoch": 0,
+  "checkpoint_path": "outputs/week5_staging/gru_canonical_limit10/diag_gru_canonical_seed42.best.pt",
+  "checkpoint_sha256": "4a68d61d000069bc3208613eb55171bb66ac101118554e588b74d3b52e40ea3f",
+  "config_sha256": "b6f6e8199a8a400e170a25563c564ebda77de9ce79f0fed606d5891d5aa58f98",
+  "encoder_name": "gru",
+  "format_version": "week5_validation_report_v1",
+  "gru_condition": "canonical",
+  "metrics": {
+    "is_valid": false,
+    "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+  },
+  "pilot": true,
+  "report_sha256": "285a17569d7fb931364e8d021aabec85524d646faa8c0323b97c5c871ad93bba",
+  "scientifically_weighted": true,
+  "seed": 42,
+  "source_manifest_sha256": "eb0d4d3fd647ef3b0d7934d6dcddc6cbf1261f8b5b3cc815c3f9d24f860ee037",
+  "stratified_metrics": {
+    "pooled": {
+      "is_valid": false,
+      "pilot_only_reason": "Cannot compute AUROC: bit 'visual' has one target class"
+    },
+    "status": "PILOT_STRATA_NOT_REPORTED"
+  },
+  "train_rows": 10,
+  "validation_rows": 10
+}

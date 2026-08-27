@@ -79,7 +79,9 @@ PyTorch 2.6.0+cu124, Torchvision 0.21.0+cu124, Transformers 4.37.2,
 Accelerate 0.30.1, and einops 0.6.1. `pip check` reported no broken
 requirements. The focused adapter suite passed `11/11`, followed by the full
 repository suite at `225/225` (one non-blocking Hugging Face deprecation
-warning). These CPU results validate the isolated software contract but do not
+warning). After the grounding-recovery and offline-sidecar regressions were
+added, the expanded server suite passed `236/236` on 2026-08-24. These CPU
+results validate the isolated software contract but do not
 replace the required real-GPU smoke evidence.
 
 ## Corrected GPU smoke evidence

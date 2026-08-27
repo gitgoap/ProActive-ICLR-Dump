@@ -1,0 +1,116 @@
+{
+  "action_drift_applicable": false,
+  "aps_sha256": "da144e70c6251044f227c68e082f98f9fe2350435c38dac156befe34b76c8e93",
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "average_set_size_by_permutation": [
+        2.935483870967742,
+        2.935483870967742
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.8709677419354839,
+        0.8709677419354839
+      ],
+      "coverage_range": 0.0
+    },
+    "3": {
+      "average_set_size_by_permutation": [
+        2.9166666666666665,
+        2.9166666666666665,
+        2.9166666666666665,
+        2.9166666666666665,
+        2.9166666666666665,
+        2.9166666666666665
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "coverage_range": 0.0
+    },
+    "4": {
+      "average_set_size_by_permutation": [
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7575757575757576
+      ],
+      "coverage_range": 0.0
+    }
+  },
+  "checkpoint_sha256": "e0eef01a79c143d07fc70c6557d305ce2042982b5565d9d0755c4fbe0007e1f1",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "coverage": 0.9,
+  "csv_path": "outputs/week5_reports/permutation_week5_deep_sets_standard_seed44.csv",
+  "csv_sha256": "7102e47025c5d329a02bc26f0fefc4b1a096d503a272f0a48453cb97450d6c07",
+  "encoder_name": "deep_sets",
+  "evaluation_budget": 4,
+  "figure_path": "outputs/week5_reports/permutation_week5_deep_sets_standard_seed44.png",
+  "figure_sha256": "888b987007e9a5cc814ffe8c6ad53fb739fa610fb88d0cd595a4739f7a18cbb6",
+  "floating_tolerance": 1e-06,
+  "format_version": "permutation_evaluation_v1",
+  "freeze_manifest_sha256": null,
+  "gru_condition": "standard",
+  "is_valid": true,
+  "limit": null,
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "maximum_permutations_per_state": 10,
+  "phase": "week5",
+  "prediction_set_drift_applicable": true,
+  "primary_frozen_stack": true,
+  "report_sha256": "4ef889e9b674d2ff55a7d43ef3d55b7fe7878175dd64540841693a8ce4311b42",
+  "split": "val",
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "bit_l1_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "hidden_relative_l2_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "js_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "set_disagreement": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "state_count": 100
+  }
+}

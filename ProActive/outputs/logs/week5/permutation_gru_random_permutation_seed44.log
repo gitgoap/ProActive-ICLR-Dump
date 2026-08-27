@@ -1,0 +1,116 @@
+{
+  "format_version": "permutation_evaluation_v1",
+  "phase": "week5",
+  "split": "val",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "a71ea42ea9b1dd6b2f4089bb5e3dc6d1e7556b8d6e55654a060534a841f96a96",
+  "aps_sha256": "3604fe51f11e275bd08a4ac6fe34088cf0aa8c577237fe7790d9caca35a752fc",
+  "freeze_manifest_sha256": null,
+  "limit": null,
+  "is_valid": true,
+  "encoder_name": "gru",
+  "gru_condition": "random_permutation",
+  "evaluation_budget": 4,
+  "coverage": 0.9,
+  "primary_frozen_stack": true,
+  "prediction_set_drift_applicable": true,
+  "action_drift_applicable": false,
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "maximum_permutations_per_state": 10,
+  "floating_tolerance": 1e-06,
+  "summary": {
+    "state_count": 100,
+    "js_drift": {
+      "mean": 0.00022679723567320447,
+      "median": 2.9001955332582257e-05,
+      "max": 0.007409930555185994
+    },
+    "bit_l1_drift": {
+      "mean": 0.00926243548457318,
+      "median": 0.0056517728940687255,
+      "max": 0.04621476762824589
+    },
+    "hidden_relative_l2_drift": {
+      "mean": 0.04533835101806897,
+      "median": 0.03717693129954675,
+      "max": 0.12840048226412704
+    },
+    "set_disagreement": {
+      "mean": 0.05851111111111112,
+      "median": 0.0,
+      "max": 0.6666666666666667
+    }
+  },
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.032258064516129004,
+      "coverage_by_permutation": [
+        0.9032258064516129,
+        0.9032258064516129
+      ],
+      "average_set_size_by_permutation": [
+        3.4838709677419355,
+        3.4516129032258065
+      ]
+    },
+    "3": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.08333333333333348,
+      "coverage_by_permutation": [
+        0.8888888888888888,
+        0.8888888888888888,
+        0.8888888888888888,
+        0.8888888888888888,
+        0.8888888888888888,
+        0.8888888888888888
+      ],
+      "average_set_size_by_permutation": [
+        3.138888888888889,
+        3.0833333333333335,
+        3.111111111111111,
+        3.111111111111111,
+        3.0555555555555554,
+        3.138888888888889
+      ]
+    },
+    "4": {
+      "coverage_range": 0.06060606060606066,
+      "average_set_size_range": 0.12121212121212155,
+      "coverage_by_permutation": [
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7878787878787878,
+        0.7878787878787878,
+        0.7575757575757576,
+        0.7878787878787878,
+        0.8181818181818182,
+        0.7575757575757576,
+        0.7575757575757576,
+        0.7878787878787878
+      ],
+      "average_set_size_by_permutation": [
+        2.1818181818181817,
+        2.272727272727273,
+        2.303030303030303,
+        2.242424242424242,
+        2.212121212121212,
+        2.272727272727273,
+        2.212121212121212,
+        2.242424242424242,
+        2.212121212121212,
+        2.272727272727273
+      ]
+    }
+  },
+  "csv_path": "outputs/week5_reports/permutation_week5_gru_random_permutation_seed44.csv",
+  "csv_sha256": "1a744fdac3e342dd94cdf647717b6f39912e3f05c0802625ac0d5fb9203f7159",
+  "figure_path": "outputs/week5_reports/permutation_week5_gru_random_permutation_seed44.png",
+  "figure_sha256": "524fd1e96a7cb555df19a1e8b2e1870cf2ec05022947bd09c345458bb7c24001",
+  "report_sha256": "ba9d836fc3e0852391715b518c128b3ed9383a94bb03b4609ec69fde71bee838"
+}

@@ -1,0 +1,69 @@
+metadata:
+  version: v1_week6_approved
+  approval_status: APPROVED
+  approved_on: "2026-08-26"
+  approved_scope: optimizer_budget_grid_and_nonleaking_uncertainty_baseline
+  prerequisite: signed_week5_selection
+
+diagnostic_config: configs/experiments/diag_bakeoff.yaml
+seeds: [42, 43, 44]
+primary_seed: 42
+week5_freeze_manifest: outputs/week5_reports/week5_encoder_freeze.json
+teacher_dir: outputs/teacher_core_contract_v1_recovered
+labels_dir: outputs/labels_core
+state_dir: outputs/states_v1
+
+splits:
+  train: train
+  selection: val
+  forbidden_during_week6: [cal, test]
+
+budgets: [1, 2, 4]
+full_budget: 7
+eta_loss: 0.25
+temporary_aps_target_coverage: 0.90
+cost_multiplier_grid: [0.0, 0.05, 0.1, 0.2, 0.4]
+
+active_signal_gate:
+  minimum_relative_full_teacher_gain_over_clean: 0.10
+
+policy:
+  action_embedding_dim: 16
+  budget_embedding_dim: 16
+  hidden_dim: 128
+  dropout: 0.1
+  ranking_margin: 0.05
+  ranking_weight: 1.0
+  mse_weight: 0.25
+  action_ce_weight: 0.5
+  stop_value: 0.0
+
+training_proposal:
+  optimizer: adamw
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 512
+  max_epochs: 30
+  early_stopping_patience: 5
+  gradient_clip_norm: 1.0
+
+baselines:
+  scalar: true
+  clean_only: true
+  random: true
+  fixed: [blank_first, visual_first, grounding_first, relation_first]
+  uncertainty_greedy: supervised_train_only_entropy_reduction_v1
+  one_pass_distilled: true
+  full_teacher: true
+  oracle_next: true
+  oracle_best_subset: true
+
+policy_architectures:
+  main: deep_sets
+  comparisons: [gru, masked_slot_mlp]
+  gru_condition: validation_selected_week5_condition
+
+outputs:
+  voi_dir: outputs/week6_voi
+  checkpoint_dir: outputs/week6_checkpoints
+  report_dir: outputs/week6_reports

@@ -1,0 +1,34 @@
+metadata:
+  version: v1_week7_approved
+  approval_status: APPROVED
+  approved_on: "2026-08-26"
+  approved_scope: final_budget_grid_coverages_and_undercoverage_tolerance
+  prerequisite: signed_week6_stack_selection
+
+policy_config: configs/experiments/policy_train.yaml
+stack_freeze_manifest: outputs/week7_frozen/main_stack_freeze.json
+
+splits:
+  calibration: cal
+  locked_test: test
+
+budgets: [1, 2, 3, 4, 7]
+budget_labels:
+  "1": "1"
+  "2": "2"
+  "3": "3"
+  "4": "4"
+  "7": full
+coverages: [0.90, 0.95]
+undercoverage_tolerance_proposal: 0.03
+
+permutation:
+  subset_sizes: [2, 3, 4]
+  minimum_states: 2000
+  maximum_permutations_per_state: 10
+  floating_tolerance: 1.0e-6
+
+outputs:
+  freeze_dir: outputs/week7_frozen
+  calibration_dir: outputs/week7_calibration
+  report_dir: outputs/week7_reports

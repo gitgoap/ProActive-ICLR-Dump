@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "path": "outputs/labels_core/labels_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "row_count": 1836,
+      "sha256": "19a5e540b71b79536360a774173b9dc43e7b907f24b07d9c2dbf399d271f01b0"
+    },
+    {
+      "path": "outputs/labels_core/labels_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "row_count": 1787,
+      "sha256": "370479b9f8f138d4349b1dee2f9d4f48f718a0c46849bd2e8eee372a81732566"
+    },
+    {
+      "path": "outputs/labels_core/labels_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "row_count": 1826,
+      "sha256": "e859bc821266e501332ad27e39840f0858d79aafc1018ec9805826d56b6a249b"
+    },
+    {
+      "path": "outputs/labels_core/labels_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "row_count": 1842,
+      "sha256": "b70e12f21d7aec6bea6292fed9e846fff3097b03671bda6ecd9240c3eca2b2ce"
+    },
+    {
+      "path": "outputs/labels_core/labels_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "row_count": 1822,
+      "sha256": "af7c038020f43e3c5829ca506873cce8ec55050040ae44d3a742db93698090ec"
+    },
+    {
+      "path": "outputs/labels_core/labels_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "row_count": 1821,
+      "sha256": "040915543ed3cd41a26bab9e1e488cc88198559ddf7b99bfba9b0878cd93d572"
+    },
+    {
+      "path": "outputs/labels_core/labels_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "row_count": 1801,
+      "sha256": "c5fa2f2d18aa738757bc30cf0f3bb8dcc7599dc0d401dd9ddc4b4044a541bba2"
+    },
+    {
+      "path": "outputs/labels_core/labels_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "row_count": 1847,
+      "sha256": "84c906d764f5647b468d5f217627e2c5ce8a0557c734d7b85a8ec5f89df528f1"
+    }
+  ],
+  "row_count": 14582
+}

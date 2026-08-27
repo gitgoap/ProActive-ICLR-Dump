@@ -1,0 +1,116 @@
+{
+  "action_drift_applicable": false,
+  "aps_sha256": "b5d59038e9493f6a9091085730a5a1f28a17a458708a320ae1472cdac47e571a",
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "average_set_size_by_permutation": [
+        2.7096774193548385,
+        2.774193548387097
+      ],
+      "average_set_size_range": 0.06451612903225845,
+      "coverage_by_permutation": [
+        0.9354838709677419,
+        0.9354838709677419
+      ],
+      "coverage_range": 0.0
+    },
+    "3": {
+      "average_set_size_by_permutation": [
+        2.611111111111111,
+        2.638888888888889,
+        2.638888888888889,
+        2.75,
+        2.611111111111111,
+        2.6666666666666665
+      ],
+      "average_set_size_range": 0.13888888888888884,
+      "coverage_by_permutation": [
+        0.8611111111111112,
+        0.8611111111111112,
+        0.8888888888888888,
+        0.9166666666666666,
+        0.8888888888888888,
+        0.8888888888888888
+      ],
+      "coverage_range": 0.05555555555555547
+    },
+    "4": {
+      "average_set_size_by_permutation": [
+        1.696969696969697,
+        1.6666666666666667,
+        1.7575757575757576,
+        1.696969696969697,
+        1.696969696969697,
+        1.6666666666666667,
+        1.7272727272727273,
+        1.5454545454545454,
+        1.7878787878787878,
+        1.6666666666666667
+      ],
+      "average_set_size_range": 0.24242424242424243,
+      "coverage_by_permutation": [
+        0.8484848484848485,
+        0.8181818181818182,
+        0.7878787878787878,
+        0.8181818181818182,
+        0.7878787878787878,
+        0.8484848484848485,
+        0.7575757575757576,
+        0.7878787878787878,
+        0.8484848484848485,
+        0.8181818181818182
+      ],
+      "coverage_range": 0.09090909090909094
+    }
+  },
+  "checkpoint_sha256": "301c175b2bc60f1451015c6d9c87dab78a00a7d30c1c04afaff6c0358427dbdb",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "coverage": 0.9,
+  "csv_path": "outputs/week5_reports/permutation_week5_gru_canonical_seed44.csv",
+  "csv_sha256": "6d0adb66c0954049f21c63d293e36b39f4d31ac57eaf0afd738eb84314024479",
+  "encoder_name": "gru",
+  "evaluation_budget": 4,
+  "figure_path": "outputs/week5_reports/permutation_week5_gru_canonical_seed44.png",
+  "figure_sha256": "af95a98afb3a372e6f590e2fec97452128b9d5fe2ee611eb63f1e637ba121c41",
+  "floating_tolerance": 1e-06,
+  "format_version": "permutation_evaluation_v1",
+  "freeze_manifest_sha256": null,
+  "gru_condition": "canonical",
+  "is_valid": true,
+  "limit": null,
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "maximum_permutations_per_state": 10,
+  "phase": "week5",
+  "prediction_set_drift_applicable": true,
+  "primary_frozen_stack": true,
+  "report_sha256": "46bfe3df640734a83b5b510d714504fb5c05dfa7f97ac7df65a5452631080266",
+  "split": "val",
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "bit_l1_drift": {
+      "max": 0.25901394585768384,
+      "mean": 0.024919776771738084,
+      "median": 0.013911613987551783
+    },
+    "hidden_relative_l2_drift": {
+      "max": 0.24053229754032723,
+      "mean": 0.07793504618044808,
+      "median": 0.07846526185246686
+    },
+    "js_drift": {
+      "max": 0.027179240884071053,
+      "mean": 0.0010522263841614757,
+      "median": 0.00012455444471453774
+    },
+    "set_disagreement": {
+      "max": 0.5333333333333333,
+      "mean": 0.09267407407407408,
+      "median": 0.0
+    },
+    "state_count": 100
+  }
+}

@@ -55,6 +55,7 @@ REQUIRED_WEEK4_FILES = (
     "doc/docs/WEEK_04_REQUIREMENTS.md",
     "tests/test_week4_pipeline.py",
     "tests/test_grounding_failure_recovery.py",
+    "tests/test_offline_failure_sidecar_filtering.py",
 )
 
 

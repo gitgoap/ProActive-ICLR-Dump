@@ -427,3 +427,159 @@
   was authorized on 2026-08-24 when the owner explicitly approved
   `concise_describe_then_answer_retry_v1` for all nine remaining malformed
   rows with no exclusions.
+- The two-model GPU recovery then completed successfully. All nine targeted
+  rows recovered, all eight failure ledgers are empty, and the official Week 4
+  teacher-progress report passes with 14,582 teacher rows, 87,712 unique legal
+  probe records, exact 7,291-row coverage per core model, and zero errors.
+  Independent recovery-metadata inspection found 14,573 unchanged copied rows,
+  exactly nine recovered rows, and no duplicate or policy-drifted records.
+- Before offline generation, preflight inspection found that label/state/audit
+  discovery could include empty `*.failures.jsonl` sidecars. Those sidecars are
+  now explicitly excluded and rejected as direct inputs. The focused
+  sidecar/Week-4 suite passes 17 tests and the complete server suite passes
+  236 tests.
+- The first human-audit export attempt made no changes because the orchestration
+  command pre-created an empty audit directory and then requested `--resume`.
+  The exporter correctly refused the directory because it had no completed
+  manifest. The nine teacher and nine label pool files are intact; the initial
+  export must use `--overwrite`, after which `--resume` becomes valid.
+- The corrected audit export selected exactly 180 rows, 30 per six-way label.
+  The server full validator passed readiness, the complete 14,582-row teacher
+  cache, all 14,582 labels, all 388,623 states, and the audit packet (180
+  images, three models, four datasets) with zero artifact errors or warnings.
+  The aggregate report remained false only because the server had an older
+  InternVL catch-up document, so `catch_up.documented=false`; syncing the
+  already updated document and rerunning the CPU validator is sufficient.
+- Offline generation completed from the recovered core cache: 14,582 unique
+  label records and 388,623 unique pre-policy partial states across all 14,582
+  teacher keys. Independent inspection found zero duplicate state IDs, zero
+  forbidden learner fields, exact observation/name alignment, all mandatory
+  empty/random sources, and no phase/deferred-source drift. Train/validation
+  label balance also passes preliminarily: the dominant `mixed` class is
+  41.42% (gate 80%), and every dataset/model/bit slice has at least five
+  positives and negatives. Official full validation remains pending the final
+  audit packet.
+- On 2026-08-26 the updated catch-up document was present on the server and the
+  repeated full validator passed: readiness, teacher progress, labels/states,
+  human-audit packet, and catch-up are all valid. Final evidence is 14,582
+  teachers, 87,712 legal probe records, 14,582 labels, 388,623 states, 180
+  audit rows/images, three models, four datasets, zero errors, and zero
+  warnings. Week 4 is complete; human agreement scoring remains a parallel
+  Week 8 study rather than a blocker on Week 5 implementation.
+
+## 2026-08-26 — Shared Week 5–7 code implementation
+
+- Implemented the Week 5 tensor substrate, four mandatory diagnostic
+  encoders, shared heads/losses, validation-temporary APS, shortcut controls,
+  permutation study, three-seed gate, and signed freeze. The clean-only
+  baseline uses one empty state per model-instance for normalization/class
+  weighting so relation-capable examples are not silently overweighted.
+- Implemented exact offline realized VOI, an action-conditioned policy head,
+  legal acquisition/STOP semantics, three-seed cost selection, and the full
+  reviewer-facing baseline matrix. The uncertainty comparator predicts
+  expected entropy reduction from the acquired state only; realized cached
+  outcomes remain restricted to offline labels and explicit oracles.
+- Added a validation-selected dataset-specific fixed schedule as a control.
+  It is never an input to the main learner and is hash-frozen before test.
+- Added separately calibrated APS for clean-only, scalar-confidence, and
+  one-pass-distilled baselines to avoid applying the main model's conformal
+  threshold to another model. Locked evaluation reuses every trajectory to
+  report both 90% and 95% coverage.
+- Reworked oracle-best-subset evaluation to batch all candidate subsets for an
+  example/budget in one small-network forward call. The mandatory oracle is
+  retained while avoiding hundreds of tiny GPU calls per row.
+- Implemented stack freeze, calibration-only trajectories, final APS,
+  locked-test authorization, complete permutation gates, and an automatic
+  Week 7 go/no-go memo. Cal/test split access remains impossible before the
+  preceding signed gates.
+- Added unit, adversarial, configuration, and synthetic diagnostic→APS→VOI→
+  policy integration tests. Local Python syntax compilation passes. The local
+  runtime has no PyTorch/pytest, so server tests and staged runs are still
+  required; no GPU behavior is claimed.
+- The proposed optimizer, budget schedule, train-only uncertainty baseline,
+  and 3-point undercoverage tolerance remain `PENDING` in `DECISIONS.md` and
+  all non-pilot training fails closed until owner approval.
+- Final implementation audit fixed budget projection through clean-only views,
+  bounded VOI pilots before counterfactual expansion, made final test budgets
+  originate from the frozen APS artifact, required the validation-selected
+  dataset schedule to cover all five final budgets, and added row-level
+  calibration hashes. Temporary APS now records validation set-size and
+  singleton evidence for the plan-fixed RAPS gate; RAPS remains outside the
+  critical path unless that gate fires.
+
+## 2026-08-26 — Week 5 staging passed and Weeks 5–7 settings approved
+
+- The server regression suite passed `279` tests with one non-blocking
+  Hugging Face deprecation warning. Full CPU preprocessing validated eight
+  source state files and vectorized all 388,623 states in 75.06 seconds;
+  resume verification accepted the completed output.
+- Deep Sets and canonical GRU each passed isolated 1/10/100-row GPU stages.
+  All six jobs exited zero in 8.15–9.91 seconds and used approximately
+  1.60–1.65 GB peak host RSS. Their class-deficient pilot metrics are marked
+  scientifically invalid by design and cannot enter model selection.
+- The owner approved AdamW `1e-3`, batch 512, maximum 30 epochs, patience 5;
+  early budgets `1/2/4` and final budgets `1/2/3/4/7`; the train-only expected
+  entropy-reduction baseline; maximum undercoverage gap `0.03`; and Week 5
+  selection thresholds `0.01`, `1e-6`, `0.10`, and `0.015`.
+- Approval is frozen in the three experiment YAMLs and `DECISIONS.md`. Since
+  the vectorized manifest intentionally binds the complete config hash, the
+  75-second preprocessing step must be rerun after syncing the approved YAML
+  before full training.
+- Inspection of the Week 4 blinded human-audit CSV found 180 prepared rows and
+  images but zero completed fields in all three independent annotator blocks.
+  Three-person annotation and later adjudication remain a parallel paper task;
+  they do not block cached-data Week 5 training.
+- The approved-hash refresh and Week 5 readiness subsequently passed. Full
+  Deep Sets seed 42 exited zero in 6:09.83 at best epoch 12, with validation
+  source-bit Macro-F1 `0.864124` and six-way Macro-F1 `0.502543`. Full
+  canonical GRU seed 42 exited zero in 2:31.51 at best epoch 1, with
+  corresponding scores `0.862133` and `0.467460`. Both reports cover 60,483
+  validation projections and bind the same approved config/vector hashes.
+- The next synchronized snapshot contains `11/15` complete checkpoint
+  validation reports. Seed-42 temporary APS and 100-state permutation checks
+  exited zero for Deep Sets and canonical GRU. Deep Sets was exactly invariant
+  on every recorded drift measure; canonical GRU showed mean JS drift
+  `0.000586`, relative hidden drift `0.07684`, bit-probability L1 drift
+  `0.02585`, and prediction-set disagreement `0.08522`. This is the expected
+  validation-only evidence that unordered evidence modeling removes artificial
+  acquisition-order dependence.
+- The final training/evaluation sync contains `15/15` checkpoint validation
+  reports, `12/12` non-clean permutation reports, `12/12` temporary APS
+  reports, and the identity shortcut-control report. Three-seed means are
+  Deep Sets `0.864217/0.508031`, canonical GRU `0.863926/0.500815`, random-GRU
+  `0.864333/0.494725`, masked-slot MLP `0.864605/0.499082`, and clean-only MLP
+  `0.751657/0.272292` for source-bit/six-way Macro-F1. Pre-gate inspection
+  predicts Deep Sets selection: it is within `0.000116` of the best GRU on the
+  primary metric, exactly invariant, and `0.097711` above the identity-only
+  shortcut. The Set Transformer trigger is not reached. The appendix-only
+  RAPS trigger fires because mean 90%-APS size/singleton rate are
+  `3.2087/0.2075`; this does not block the main APS stack.
+- The signed CPU-only Week 5 selection gate then wrote report SHA-256
+  `03a2e49f...36916` with status `SELECTED`, selected Deep Sets seed 42, and
+  confirmed completion gate true, shortcut gate passed, Set Transformer not
+  triggered, and no calibration/test access. RAPS remains a triggered
+  appendix-only ablation. The deliberate nonzero exit requested explicit owner
+  review before writing the freeze manifest.
+- The owner explicitly approved Deep Sets seed 42 as the Week 5 diagnostic
+  encoder and authorized the signed Week 5 freeze on 2026-08-26.
+- The owner-approved Week 5 freeze was written with SHA-256
+  `0512ca85...a7929`. Full Week 5 validation passed with vector status
+  `COMPLETE`, zero errors, zero warnings, and report SHA-256
+  `026ef289...207e`. Week 5 is COMPLETE; Week 6 readiness is unblocked.
+
+## 2026-08-27 — Week 6 readiness passed
+
+- The CPU-only Week 6 readiness report is valid with zero errors. VOI preflight
+  verified eight frozen state/teacher sources, budgets `1/2/4`, cost
+  multipliers `0/0.05/0.1/0.2/0.4`, and the Week 5 freeze/checkpoint/APS
+  hashes. Calibration and test remain locked. A bounded 100-row VOI
+  construction audit is the next execution gate.
+- Added root `ICLR_DEFERRED_WORK_AND_EXTERNAL_SETUP.md` to track deadline
+  deferrals, external dataset/model/human prerequisites, conditional ablations,
+  and safe resume points without conflating them with the core critical path.
+- The bounded Deep Sets VOI audit produced 100 valid train targets in 4.36
+  seconds. Every cost multiplier had both positive and negative targets; STOP
+  selections increased from 39 at cost 0 to 54 at cost 0.4. Calibration/test
+  remained unused. The train-only prefix is valid for construction auditing
+  but cannot support a policy pilot requiring validation rows, so complete
+  architecture-specific VOI corpora are next.
