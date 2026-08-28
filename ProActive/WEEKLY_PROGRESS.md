@@ -252,6 +252,44 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
    train rows, no calibration/test access, mixed positive/negative targets at
    every cost, and monotonic STOP growth from 39% at cost 0 to 54% at cost
    0.4. Complete architecture-specific VOI construction is authorized.
+7. Complete Deep Sets VOI construction passed in 10:41.57 with 496,912
+   train/validation rows and no forbidden-split access. The GRU comparison
+   exposed a fail-closed freeze-contract inconsistency before inference; the
+   implementation and regression test now accept any explicitly frozen
+   diagnostic comparison while continuing to reject unfrozen checkpoints.
+8. The freeze-contract correction passed 14 focused tests and the complete
+   280-test server suite. Complete random-order GRU and masked-slot MLP VOI
+   construction then passed in 10:46.19 and 10:43.50 respectively. All three
+   architecture-specific corpora are `COMPLETE`, contain exactly 496,912
+   train/validation targets (`436,429/60,483`), contain no calibration/test
+   records, and preserve mixed positive/negative targets across the approved
+   cost grid. The next gate is bounded learned-policy and train-only
+   uncertainty-policy training before the full validation grid.
+9. The bounded Deep Sets learned-VOI and train-only entropy-reduction policy
+   pilots both exited zero. Each used exactly 100 train and 100 validation
+   rows with no calibration/test access. The VOI policy selected epoch 19
+   with validation loss `0.616179`, next-action agreement `0.72`, and STOP
+   rate `0.40`; the uncertainty baseline selected epoch 13 with loss
+   `0.541400`, agreement `0.66`, and STOP rate `0.46`. Complete training for
+   these two paths is now the final measured step before scheduling the full
+   Deep Sets cost/seed grid.
+10. Complete Deep Sets policy training passed for cost multiplier `0.1`, seed
+    42 in 25:59.92. It used all `436,429/60,483` train/validation targets,
+    selected epoch 16, and achieved validation loss `0.580301`, next-action
+    agreement `0.797365`, and STOP rate `0.534960`. The complete train-only
+    entropy-reduction baseline passed in 19:26.90, selected epoch 10, and
+    achieved loss `0.416474`, agreement `0.821586`, and STOP rate `0.406313`.
+    Both reports are scientifically valid and explicitly exclude calibration
+    and test. At measured throughput, the remaining 14-run Deep Sets grid is
+    about six GPU-hours or roughly three wall-clock hours on two GPUs.
+9. The bounded Deep Sets learned-VOI and train-only entropy-reduction policy
+   pilots both exited zero. Each used exactly 100 train and 100 validation
+   rows with no calibration/test access. The VOI policy selected epoch 19
+   with validation loss `0.616179`, next-action agreement `0.72`, and STOP
+   rate `0.40`; the uncertainty baseline selected epoch 13 with loss
+   `0.541400`, agreement `0.66`, and STOP rate `0.46`. Complete training for
+   these two paths is now the final measured step before scheduling the full
+   Deep Sets cost/seed grid.
 
 ## Week 7: Frozen stack, APS, and locked test
 **Status:** IMPLEMENTED, NOT VALIDATED; blocked on Week 6 selection

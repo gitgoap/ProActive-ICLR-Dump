@@ -111,3 +111,30 @@ def validate_freeze_manifest(path: str | Path, require_policy: bool = True) -> D
         if not artifact_path.exists() or file_sha256(artifact_path) != item.get("sha256"):
             raise ValueError(f"Frozen artifact drift: {name}")
     return value
+
+
+def freeze_includes_file(
+    freeze: Mapping[str, Any],
+    path: str | Path,
+    *,
+    artifact_name_prefix: str | None = None,
+) -> bool:
+    """Return whether ``path`` is hash-bound in an already validated freeze.
+
+    ``write_freeze_manifest`` stores the selected diagnostic under
+    ``diagnostic_checkpoint`` and comparison diagnostics under names such as
+    ``diagnostic_checkpoint_gru_random_permutation``. Week 6 must accept any
+    explicitly frozen diagnostic comparison while still rejecting arbitrary
+    checkpoints.
+    """
+
+    artifacts = freeze.get("artifacts")
+    if not isinstance(artifacts, Mapping):
+        raise ValueError("Freeze manifest artifact block is missing")
+    expected_sha = file_sha256(path)
+    return any(
+        (artifact_name_prefix is None or str(name).startswith(artifact_name_prefix))
+        and isinstance(item, Mapping)
+        and item.get("sha256") == expected_sha
+        for name, item in artifacts.items()
+    )

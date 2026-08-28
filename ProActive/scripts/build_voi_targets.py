@@ -17,7 +17,11 @@ import yaml
 from proactive.conformal.aps import prediction_sets
 from proactive.networks.diagnostic import build_diagnostic_model
 from proactive.networks.losses import diagnostic_loss
-from proactive.train.checkpoints import load_checkpoint, validate_freeze_manifest
+from proactive.train.checkpoints import (
+    freeze_includes_file,
+    load_checkpoint,
+    validate_freeze_manifest,
+)
 from proactive.train.state_data import FeatureNormalizer, collate_vectorized_states, vectorize_state
 from proactive.train.voi import (
     add_cached_observation,
@@ -282,8 +286,12 @@ def main() -> None:
     freeze_path = Path(args.freeze_manifest or config["week5_freeze_manifest"])
     freeze = validate_freeze_manifest(freeze_path, require_policy=False)
     checkpoint = load_checkpoint(checkpoint_path, map_location="cpu")
-    if freeze["artifacts"].get("diagnostic_checkpoint", {}).get("sha256") != file_sha256(checkpoint_path):
-        raise SystemExit("VOI checkpoint is not the frozen Week 5 diagnostic checkpoint")
+    if not freeze_includes_file(
+        freeze,
+        checkpoint_path,
+        artifact_name_prefix="diagnostic_checkpoint",
+    ):
+        raise SystemExit("VOI checkpoint is not included in the Week 5 diagnostic freeze")
     aps = _read_json(aps_path)
     if aps.get("checkpoint_sha256") != file_sha256(checkpoint_path):
         raise SystemExit("Temporary APS/checkpoint hash mismatch")

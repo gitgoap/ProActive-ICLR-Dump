@@ -17,6 +17,7 @@ from proactive.networks.diagnostic import build_diagnostic_model
 from proactive.networks.voi import ActionConditionedVOIHead, FrozenDiagnosticPolicy
 from proactive.train.checkpoints import (
     POLICY_CHECKPOINT_VERSION,
+    freeze_includes_file,
     load_checkpoint,
     save_checkpoint,
     validate_freeze_manifest,
@@ -86,9 +87,10 @@ def main() -> None:
     freeze_path = Path(args.freeze_manifest or config["week5_freeze_manifest"])
     freeze = validate_freeze_manifest(freeze_path, require_policy=False)
     diagnostic_sha = file_sha256(diagnostic_path)
-    if not any(
-        name.startswith("diagnostic_checkpoint") and item.get("sha256") == diagnostic_sha
-        for name, item in freeze["artifacts"].items()
+    if not freeze_includes_file(
+        freeze,
+        diagnostic_path,
+        artifact_name_prefix="diagnostic_checkpoint",
     ):
         raise SystemExit("Policy diagnostic checkpoint is not included in the Week 5 freeze")
     diagnostic_checkpoint = load_checkpoint(diagnostic_path, map_location="cpu")

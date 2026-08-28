@@ -1,0 +1,309 @@
+2026-08-27 20:28:32,666 INFO [build_voi_targets] Processed 62636 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl
+2026-08-27 20:29:49,426 INFO [build_voi_targets] Processed 60031 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl
+2026-08-27 20:31:10,671 INFO [build_voi_targets] Processed 61965 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl
+2026-08-27 20:32:32,316 INFO [build_voi_targets] Processed 63783 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl
+2026-08-27 20:33:52,643 INFO [build_voi_targets] Processed 63161 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+2026-08-27 20:35:13,412 INFO [build_voi_targets] Processed 62611 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl
+2026-08-27 20:36:33,189 INFO [build_voi_targets] Processed 61319 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl
+2026-08-27 20:37:53,174 INFO [build_voi_targets] Processed 61406 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl
+{
+  "format_version": "week6_voi_manifest_v1",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "state_manifest_sha256": "cf0172e7377ff41df4d5d18bbed8bb713aaef5482a3e24a0fd28ec85a542f1a4",
+  "freeze_manifest_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "checkpoint_sha256": "883b78c4264d7336dab9aa45e5dcc8eabafc83c8ea058b63d935278fe0dd8126",
+  "temporary_aps_sha256": "83fa687d76924a421624868d9a14a135760747671fe105819e344a5a214db068",
+  "limit": null,
+  "status": "COMPLETE",
+  "fit_splits": [
+    "train",
+    "val"
+  ],
+  "calibration_used": false,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "eta_loss": 0.25,
+  "cost_multipliers": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "target_coverage": 0.9,
+  "row_count": 496912,
+  "split_counts": {
+    "train": 436429,
+    "val": 60483
+  },
+  "sign_counts": {
+    "0": {
+      "zero": 496912,
+      "positive": 1021306,
+      "negative": 331673
+    },
+    "0.05": {
+      "zero": 496912,
+      "positive": 462146,
+      "negative": 890833
+    },
+    "0.1": {
+      "zero": 496912,
+      "positive": 401621,
+      "negative": 951358
+    },
+    "0.2": {
+      "zero": 496912,
+      "positive": 348554,
+      "negative": 1004425
+    },
+    "0.4": {
+      "zero": 496912,
+      "positive": 332616,
+      "negative": 1020363
+    }
+  },
+  "best_action_counts": {
+    "0": {
+      "grounding": 47951,
+      "blank": 139817,
+      "stop": 203237,
+      "crop": 21876,
+      "noise": 15631,
+      "blur": 52917,
+      "brightness": 15017,
+      "relation": 466
+    },
+    "0.05": {
+      "grounding": 34209,
+      "blank": 123805,
+      "stop": 268505,
+      "noise": 8439,
+      "blur": 38007,
+      "crop": 13775,
+      "brightness": 9761,
+      "relation": 411
+    },
+    "0.1": {
+      "grounding": 32008,
+      "blank": 117338,
+      "stop": 282947,
+      "noise": 8223,
+      "blur": 33324,
+      "crop": 13207,
+      "brightness": 9464,
+      "relation": 401
+    },
+    "0.2": {
+      "grounding": 29631,
+      "blank": 98718,
+      "stop": 305615,
+      "noise": 8119,
+      "blur": 32165,
+      "brightness": 9328,
+      "crop": 12962,
+      "relation": 374
+    },
+    "0.4": {
+      "grounding": 28341,
+      "blank": 94573,
+      "stop": 311977,
+      "noise": 8053,
+      "blur": 31665,
+      "brightness": 9195,
+      "crop": 12755,
+      "relation": 353
+    }
+  },
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 55084,
+      "sha256": "514b42dbd02a66ccd1e32dd60b89ba288f2e8e4af82eed44b16770179bbe3da1",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7552,
+      "sha256": "6643570e6b126e63990d00b1ff71cb1d52588131f8e4400cc75f3a81f05ef489",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 52258,
+      "sha256": "25ab294af1fde9ec043d42417998b2daf7a956f2fba68ce5e704cf4e4e9830e3",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7773,
+      "sha256": "babade79419db7762601d1f7b94076e2f6849eba2774bcd42c2e43131f28c034",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 54938,
+      "sha256": "a35db743f1b5201b64e89d25bea0afd7ba214e9fe49963b7c52c8083bb50a310",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7027,
+      "sha256": "483e3169547706753f9cf243e8dd24058f572b5db487809253fc3dfaad77febf",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 55894,
+      "sha256": "492c0b51e8df22ce57c7073786c667679bbb81fefe1335ddbe2c0a1acac08b25",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7889,
+      "sha256": "2ab37b841da3b4963d5cb3b921d0e9465a384dd57f9caf77822eeeb8c93b81c5",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 56194,
+      "sha256": "cba6d18f4641730ba3b3d2cfe4fe1a3511f7a1f4ebde2bc18d058c33472baf4f",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 6967,
+      "sha256": "6e5330eeb4b9a53db68ac83a9294b959af429993d70fb712535dd537c72b9590",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 54923,
+      "sha256": "9e938976defd97335033f35b88f0a8bcf178ead4950e685d725413556ccbed24",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7688,
+      "sha256": "4fd870d063e5dc817157c9f3514096079105555bf0629340c2bdccce3ce9f511",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 53815,
+      "sha256": "0e61cf0f52cd904381466b032b55c279878f58469978754f6529bc8f6ce1ff21",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7504,
+      "sha256": "ca77d1ede05f5b493eab791feb403c1af39dc54bd1e93a0b306a642b42d30c5c",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 53323,
+      "sha256": "57d1a013ad866fc98118aebb3ce7bd7a4b9b9d8b95bba103a06033721282efd1",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 8083,
+      "sha256": "28e715f1dc8e8ffbb40eecfb4256087506602dc08156f4def7205e384a7cfba9",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f"
+    }
+  ],
+  "manifest_sha256": "3422d631395b2c0f0f795dae3a0240d412981ae4179db972474ad68e4660c31e"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=1 python scripts/build_voi_targets.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --state_manifest outputs/week4_reports/final/state_manifest.json --checkpoint outputs/week5_checkpoints/diag_gru_random_permutation_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --temporary_aps outputs/week5_reports/temporary_aps_gru_random_permutation_seed42.json --teacher_path outputs/teacher_core_contract_v1_recovered --output_dir outputs/week6_voi_gru_random --inference_batch_size 2048 --device cuda:0 --resume"
+	User time (seconds): 637.76
+	System time (seconds): 14.04
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:46.19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3922004
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 1531182
+	Voluntary context switches: 7100
+	Involuntary context switches: 3407
+	Swaps: 0
+	File system inputs: 328
+	File system outputs: 2414800
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

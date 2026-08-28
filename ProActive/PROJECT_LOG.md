@@ -583,3 +583,42 @@
   remained unused. The train-only prefix is valid for construction auditing
   but cannot support a policy pilot requiring validation rows, so complete
   architecture-specific VOI corpora are next.
+- Complete Deep Sets VOI construction then passed in 10:41.57 with 496,912
+  train/validation targets (`436,429/60,483`), mixed-sign targets at every
+  cost, and no calibration/test access. The parallel GRU build failed closed
+  before inference because `build_voi_targets.py` accepted only the primary
+  freeze artifact even though the signed Week 5 freeze and Week 6 requirements
+  include GRU/masked comparison diagnostics. The contract was corrected to
+  accept any hash-bound `diagnostic_checkpoint*` artifact and reject unfrozen
+  files; a regression test covers selected, comparison, unrelated, and
+  wrong-prefix artifacts.
+- The correction passed 14 focused tests and the complete server suite
+  (`280 passed`, one non-blocking Hugging Face deprecation warning). Retried
+  full VOI construction passed for random-order GRU in 10:46.19 and
+  masked-slot MLP in 10:43.50. Together with Deep Sets, all three signed VOI
+  manifests are `COMPLETE`, each records 496,912 train/validation targets
+  (`436,429/60,483`), and none accesses calibration or test. The Week 6
+  execution gate therefore advances to bounded policy-training pilots.
+- The 100-row Deep Sets learned-VOI policy and train-only entropy-reduction
+  policy pilots both exited zero in 40.94 and 30.24 seconds. Each consumed 100
+  train plus 100 validation targets and explicitly records
+  `calibration_used=false` and `test_used=false`. The learned-VOI pilot's best
+  epoch/loss/agreement/STOP rate are `19/0.616179/0.72/0.40`; the uncertainty
+  pilot's are `13/0.541400/0.66/0.46`. Both paths are pilot validated. One
+  complete run of each is next so the remaining grid is scheduled from
+  measured full-corpus throughput rather than extrapolated tiny-batch timing.
+- Complete training then passed for both paths. The Deep Sets VOI policy at
+  multiplier `0.1`, seed 42 trained on `436,429` rows, validated on `60,483`,
+  selected epoch 16, and completed in 25:59.92 with validation loss
+  `0.580301`, next-action agreement `0.797365`, and STOP rate `0.534960`. The
+  train-only entropy-reduction baseline selected epoch 10 and completed in
+  19:26.90 with loss `0.416474`, agreement `0.821586`, and STOP rate
+  `0.406313`. Both reports are scientifically valid, hash-bound, and record no
+  calibration/test access. These measurements project the remaining 14-policy
+  grid at approximately six GPU-hours or three wall-clock hours on two GPUs.
+- The owner approved all 14 remaining Deep Sets cost/seed policies on
+  2026-08-28, restricted to physical GPU 0. The approved one-GPU sequential
+  schedule preserves the full five-multiplier/three-seed grid and is expected
+  to require about six GPU-hours and 6–7 wall-clock hours. The already valid
+  multiplier-0.1/seed-42 checkpoint is excluded from the loop rather than
+  overwritten.

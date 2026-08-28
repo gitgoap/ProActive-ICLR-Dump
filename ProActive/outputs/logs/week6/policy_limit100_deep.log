@@ -1,0 +1,93 @@
+2026-08-27 21:14:28,399 INFO [train_policy] epoch=0 val_loss=0.758095 oracle_agreement=0.7000
+2026-08-27 21:14:28,461 INFO [train_policy] epoch=1 val_loss=0.742902 oracle_agreement=0.7000
+2026-08-27 21:14:28,526 INFO [train_policy] epoch=2 val_loss=0.734175 oracle_agreement=0.7000
+2026-08-27 21:14:28,590 INFO [train_policy] epoch=3 val_loss=0.727542 oracle_agreement=0.6900
+2026-08-27 21:14:28,656 INFO [train_policy] epoch=4 val_loss=0.721340 oracle_agreement=0.6900
+2026-08-27 21:14:28,724 INFO [train_policy] epoch=5 val_loss=0.715020 oracle_agreement=0.6900
+2026-08-27 21:14:28,777 INFO [train_policy] epoch=6 val_loss=0.708434 oracle_agreement=0.6900
+2026-08-27 21:14:28,838 INFO [train_policy] epoch=7 val_loss=0.701344 oracle_agreement=0.6900
+2026-08-27 21:14:28,901 INFO [train_policy] epoch=8 val_loss=0.693554 oracle_agreement=0.6900
+2026-08-27 21:14:28,964 INFO [train_policy] epoch=9 val_loss=0.685785 oracle_agreement=0.6900
+2026-08-27 21:14:29,029 INFO [train_policy] epoch=10 val_loss=0.677956 oracle_agreement=0.6900
+2026-08-27 21:14:29,089 INFO [train_policy] epoch=11 val_loss=0.669784 oracle_agreement=0.7000
+2026-08-27 21:14:29,156 INFO [train_policy] epoch=12 val_loss=0.661018 oracle_agreement=0.7100
+2026-08-27 21:14:29,222 INFO [train_policy] epoch=13 val_loss=0.651621 oracle_agreement=0.7200
+2026-08-27 21:14:29,287 INFO [train_policy] epoch=14 val_loss=0.642803 oracle_agreement=0.7300
+2026-08-27 21:14:29,353 INFO [train_policy] epoch=15 val_loss=0.634546 oracle_agreement=0.7400
+2026-08-27 21:14:29,417 INFO [train_policy] epoch=16 val_loss=0.627709 oracle_agreement=0.7400
+2026-08-27 21:14:29,482 INFO [train_policy] epoch=17 val_loss=0.621973 oracle_agreement=0.7300
+2026-08-27 21:14:29,548 INFO [train_policy] epoch=18 val_loss=0.617964 oracle_agreement=0.7200
+2026-08-27 21:14:29,611 INFO [train_policy] epoch=19 val_loss=0.616179 oracle_agreement=0.7200
+2026-08-27 21:14:31,679 INFO [train_policy] epoch=20 val_loss=0.617261 oracle_agreement=0.7200
+2026-08-27 21:14:32,119 INFO [train_policy] epoch=21 val_loss=0.621285 oracle_agreement=0.7200
+2026-08-27 21:14:32,171 INFO [train_policy] epoch=22 val_loss=0.627819 oracle_agreement=0.7100
+2026-08-27 21:14:32,219 INFO [train_policy] epoch=23 val_loss=0.636589 oracle_agreement=0.7100
+2026-08-27 21:14:32,275 INFO [train_policy] epoch=24 val_loss=0.647425 oracle_agreement=0.7100
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.1,
+  "target_kind": "voi",
+  "limit": 100,
+  "seed": 42,
+  "pilot": true,
+  "config_approval": "APPROVED",
+  "output": "outputs/week6_staging/policy_limit100_deep/policy_deep_sets_standard_lambda0p1_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.1,
+  "target_kind": "voi",
+  "train_rows": 100,
+  "validation_rows": 100,
+  "best_epoch": 19,
+  "metrics": {
+    "total": 0.6161785125732422,
+    "ranking": 0.08193213492631912,
+    "mse": 0.4790046215057373,
+    "action_ce": 0.8289903998374939,
+    "best_action_accuracy": 0.72,
+    "stop_prediction_rate": 0.4,
+    "row_count": 100
+  },
+  "checkpoint_path": "outputs/week6_staging/policy_limit100_deep/policy_deep_sets_standard_lambda0p1_seed42.best.pt",
+  "checkpoint_sha256": "b62b907b72fe1262bdb6343b19ba2cb9bbc43a567b4bcd132efe9f9eeaad8e0b",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "80886682b9ebb933236ec2af1a04582b24499e8595f058813baaf9b0b8a8f286",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "limit": 100,
+  "report_sha256": "ba85f6ec4dfc35aba8a1f518452398485f87ba7bb44abd509d09c0d7932a6bd4"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --voi_manifest outputs/week6_voi/voi_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --cost_multiplier 0.1 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week6_staging/policy_limit100_deep --limit 100 --overwrite"
+	User time (seconds): 30.00
+	System time (seconds): 10.66
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:40.94
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6564904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 75
+	Minor (reclaiming a frame) page faults: 1587909
+	Voluntary context switches: 815
+	Involuntary context switches: 77268
+	Swaps: 0
+	File system inputs: 31904
+	File system outputs: 41400
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -59,8 +59,16 @@
   are implemented in advance but their execution remains scientifically gated
   by the Week 5 and Week 6 validation selections respectively.
 - Week 6 readiness passed with zero errors on 2026-08-27. VOI preflight
-  verified all eight source files and frozen hashes. The immediate gate is a
-  bounded 100-row VOI construction audit before the complete VOI corpus.
+  verified all eight source files and frozen hashes. The bounded audit and
+  complete Deep Sets, random-order GRU, and masked-slot MLP VOI builds all
+  passed. Each complete corpus contains 496,912 train/validation targets and
+  no calibration/test records. Bounded learned-policy and non-leaking
+  entropy-reduction policy training also passed with finite metrics, 100/100
+  train/validation rows, and no calibration/test access. The immediate gate
+  advanced through one complete run of each path. Both are scientifically
+  valid; the main cost-0.1/seed-42 policy took 25:59.92 and the uncertainty
+  baseline took 19:26.90. The remaining gate is the 14-run validation-only
+  Deep Sets cost/seed grid, followed by matched-cost frontier generation.
 
 **Resolved Week 4 history:**
 - The Qwen/Gemma teacher cache is no longer blocked. The approved final
@@ -135,9 +143,10 @@
   VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
 **Next Tasks (Week 6):**
-1. Run the CPU-only Week 6 readiness gate against the signed Week 5 freeze.
-2. Stage and inspect bounded VOI construction before building the complete
-   train/validation VOI corpus.
+1. Execute the owner-approved remaining 14 Deep Sets cost/seed policies
+   sequentially on physical GPU 0; do not access calibration or test.
+2. Train the scalar and one-pass distilled controls, then generate all 15
+   matched-cost validation frontiers needed by the Week 6 selection gate.
 3. Continue the three-person human annotations in parallel; they remain a
    Week 8 agreement study and do not block Week 6 execution.
 

@@ -1,0 +1,87 @@
+2026-08-27 21:14:47,139 INFO [train_policy] epoch=0 val_loss=0.575568 oracle_agreement=0.6300
+2026-08-27 21:14:47,189 INFO [train_policy] epoch=1 val_loss=0.568428 oracle_agreement=0.6400
+2026-08-27 21:14:47,239 INFO [train_policy] epoch=2 val_loss=0.564576 oracle_agreement=0.6400
+2026-08-27 21:14:47,289 INFO [train_policy] epoch=3 val_loss=0.561231 oracle_agreement=0.6400
+2026-08-27 21:14:47,347 INFO [train_policy] epoch=4 val_loss=0.557803 oracle_agreement=0.6400
+2026-08-27 21:14:47,405 INFO [train_policy] epoch=5 val_loss=0.554719 oracle_agreement=0.6500
+2026-08-27 21:14:47,463 INFO [train_policy] epoch=6 val_loss=0.551873 oracle_agreement=0.6500
+2026-08-27 21:14:47,528 INFO [train_policy] epoch=7 val_loss=0.549489 oracle_agreement=0.6600
+2026-08-27 21:14:47,591 INFO [train_policy] epoch=8 val_loss=0.547364 oracle_agreement=0.6600
+2026-08-27 21:14:47,656 INFO [train_policy] epoch=9 val_loss=0.546169 oracle_agreement=0.6600
+2026-08-27 21:14:47,721 INFO [train_policy] epoch=10 val_loss=0.545308 oracle_agreement=0.6600
+2026-08-27 21:14:47,786 INFO [train_policy] epoch=11 val_loss=0.543828 oracle_agreement=0.6600
+2026-08-27 21:14:47,850 INFO [train_policy] epoch=12 val_loss=0.542722 oracle_agreement=0.6600
+2026-08-27 21:14:47,915 INFO [train_policy] epoch=13 val_loss=0.541400 oracle_agreement=0.6600
+2026-08-27 21:14:47,977 INFO [train_policy] epoch=14 val_loss=0.542329 oracle_agreement=0.6600
+2026-08-27 21:14:48,040 INFO [train_policy] epoch=15 val_loss=0.544823 oracle_agreement=0.6600
+2026-08-27 21:14:48,102 INFO [train_policy] epoch=16 val_loss=0.549300 oracle_agreement=0.6600
+2026-08-27 21:14:48,166 INFO [train_policy] epoch=17 val_loss=0.555579 oracle_agreement=0.6600
+2026-08-27 21:14:48,230 INFO [train_policy] epoch=18 val_loss=0.561973 oracle_agreement=0.6600
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "entropy_reduction",
+  "limit": 100,
+  "seed": 42,
+  "pilot": true,
+  "config_approval": "APPROVED",
+  "output": "outputs/week6_staging/uncertainty_limit100_deep/uncertainty_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "entropy_reduction",
+  "train_rows": 100,
+  "validation_rows": 100,
+  "best_epoch": 13,
+  "metrics": {
+    "total": 0.5414001941680908,
+    "ranking": 0.050090763717889786,
+    "mse": 0.06830497831106186,
+    "action_ce": 0.9484663605690002,
+    "best_action_accuracy": 0.66,
+    "stop_prediction_rate": 0.46,
+    "row_count": 100
+  },
+  "checkpoint_path": "outputs/week6_staging/uncertainty_limit100_deep/uncertainty_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "181e965dd8408a4f21b0288801722e4802161dd0f222a8af902f60c8f5313a5a",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "80886682b9ebb933236ec2af1a04582b24499e8595f058813baaf9b0b8a8f286",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "limit": 100,
+  "report_sha256": "990f9aeab7a27d32d91abf13a3b3302b6cb6a27e1aa549426356a880e8f37558"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --voi_manifest outputs/week6_voi/voi_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --cost_multiplier 0 --target_kind entropy_reduction --seed 42 --device cuda:0 --output_dir outputs/week6_staging/uncertainty_limit100_deep --limit 100 --overwrite"
+	User time (seconds): 27.14
+	System time (seconds): 9.60
+	Percent of CPU this job got: 121%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:30.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6563852
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 1587146
+	Voluntary context switches: 491
+	Involuntary context switches: 100657
+	Swaps: 0
+	File system inputs: 512
+	File system outputs: 30304
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

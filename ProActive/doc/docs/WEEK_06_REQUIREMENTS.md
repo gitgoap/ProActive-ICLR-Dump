@@ -15,18 +15,18 @@ improve diagnostic quality.
 
 | ID | Requirement | Code location | Unit/adversarial test | Integration test | Required artifact | Status |
 |---|---|---|---|---|---|---|
-| W6-01 | Accept only a frozen Week 5 diagnostic checkpoint | `src/proactive/train/checkpoints.py` | `tests/test_freeze_contracts.py` | VOI dry run | checkpoint freeze manifest | IMPLEMENTED, NOT VALIDATED |
-| W6-02 | Realized VOI uses cached legal counterfactuals and validation-temporary APS only | `src/proactive/train/voi.py`, `scripts/build_voi_targets.py` | `tests/test_voi_targets.py` | synthetic VOI build | `voi_targets/*.jsonl` | IMPLEMENTED, NOT VALIDATED |
-| W6-03 | Exact Plan §9.1 VOI formula and sign/scale audit | `src/proactive/train/voi.py` | `tests/test_voi_targets.py` | VOI validation report | VOI statistics JSON | IMPLEMENTED, NOT VALIDATED |
-| W6-04 | Action-conditioned VOI head | `src/proactive/networks/voi.py` | `tests/test_policy.py` | synthetic policy training | policy checkpoint | IMPLEMENTED, NOT VALIDATED |
-| W6-05 | Ranking + 0.25 MSE + 0.5 action CE objective | `src/proactive/networks/losses.py` | `tests/test_policy.py` | synthetic policy training | loss history | IMPLEMENTED, NOT VALIDATED |
+| W6-01 | Accept only a frozen Week 5 diagnostic checkpoint | `src/proactive/train/checkpoints.py` | `tests/test_freeze_contracts.py` | Three complete signed VOI builds | checkpoint freeze manifest | PILOT VALIDATED |
+| W6-02 | Realized VOI uses cached legal counterfactuals and validation-temporary APS only | `src/proactive/train/voi.py`, `scripts/build_voi_targets.py` | `tests/test_voi_targets.py` | Three complete architecture-specific VOI builds | `outputs/week6_voi*/voi_manifest.json` | PILOT VALIDATED |
+| W6-03 | Exact Plan §9.1 VOI formula and sign/scale audit | `src/proactive/train/voi.py` | `tests/test_voi_targets.py` | Complete VOI manifest sign/action audits | `outputs/week6_voi*/voi_manifest.json` | PILOT VALIDATED |
+| W6-04 | Action-conditioned VOI head | `src/proactive/networks/voi.py` | `tests/test_policy.py` | 100-row learned-VOI and uncertainty pilots | policy checkpoint | PILOT VALIDATED |
+| W6-05 | Ranking + 0.25 MSE + 0.5 action CE objective | `src/proactive/networks/losses.py` | `tests/test_policy.py` | Finite 100-row GPU training histories | loss history | PILOT VALIDATED |
 | W6-06 | Legal mask, no repeated action, budget accounting, and STOP at nonpositive value | `src/proactive/policy/controller.py` | `tests/test_policy.py` | rollout integration | action trace JSONL | IMPLEMENTED, NOT VALIDATED |
 | W6-07 | Random, four fixed schedules, and a validation-selected dataset-specific fixed control at matched cost | `src/proactive/eval/baselines.py`, `scripts/eval_frontier.py` | `tests/test_baselines.py` | frontier integration | baseline CSV + frozen schedule | IMPLEMENTED, NOT VALIDATED |
 | W6-08 | Scalar, clean-only, one-pass distilled, full-teacher, oracle-next, and batched oracle-subset controls with separate APS | `scripts/train_one_pass_baselines.py`, `scripts/calibrate_static_baseline_aps.py`, `scripts/eval_frontier.py` | `tests/test_baselines.py`, `tests/test_policy_rollout.py` | frontier integration | baseline CSV | IMPLEMENTED, NOT VALIDATED |
-| W6-09 | Uncertainty-greedy baseline cannot inspect an unacquired outcome | `src/proactive/eval/baselines.py` | `tests/test_baselines.py` | baseline audit | baseline contract JSON | IMPLEMENTED, NOT VALIDATED |
+| W6-09 | Uncertainty-greedy baseline cannot inspect an unacquired outcome | `src/proactive/eval/baselines.py` | `tests/test_baselines.py` | 100-row train-only entropy-reduction pilot | baseline contract JSON | PILOT VALIDATED |
 | W6-10 | Cost multipliers selected over three seeds using validation only | `scripts/train_policy.py`, `scripts/select_week6_policy.py` | split-guard/config tests | policy selection | selection CSV | IMPLEMENTED, NOT VALIDATED |
 | W6-11 | Frontier, action/STOP frequencies, and oracle gap | `scripts/eval_frontier.py` | metric tests | Week 6 validation | frontier/action/oracle CSVs | IMPLEMENTED, NOT VALIDATED |
-| W6-12 | Resume-safe and provenance-bound outputs | Week 6 scripts | resume/hash tests | interrupted-run simulation | manifests | IMPLEMENTED, NOT VALIDATED |
+| W6-12 | Resume-safe and provenance-bound outputs | Week 6 scripts | resume/hash tests | Completed/resumed VOI builds with signed hashes | manifests | PILOT VALIDATED |
 | W6-13 | Main, GRU, and masked-slot learned-policy frontiers | generic `scripts/train_policy.py` and `scripts/eval_frontier.py` | encoder/policy tests | architecture frontier validation | comparison frontiers | IMPLEMENTED, NOT VALIDATED |
 | W6-14 | Full evidence provides at least the plan risk-register's 10% relative source-bit Macro-F1 gain over clean-only | `scripts/select_week6_policy.py` | configuration/gate tests | three-seed validation selection | signed active-signal gate | IMPLEMENTED, NOT VALIDATED |
 
