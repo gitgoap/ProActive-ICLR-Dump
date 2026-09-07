@@ -376,7 +376,7 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
    Deep Sets cost/seed grid.
 
 ## Week 7: Frozen stack, APS, and locked test
-**Status:** IMPLEMENTED, NOT VALIDATED; Week 6 prerequisite satisfied
+**Status:** COMPLETE
 **Dates:** August 26, 2026–present
 
 **Implemented locally:**
@@ -403,9 +403,8 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
    once, and the CSV, figure, and dataset-schedule hashes match. Calibration
    and test were not used.
 
-**Next gate:** Run the CPU-only freeze preview, review the exact bound artifact
-paths, and obtain explicit owner approval before writing the main-stack freeze.
-Calibration and test remain locked.
+**Completion gate:** Passed. The immutable stack, final APS, complete locked
+frontier, and all three permutation reports produced a signed `GO` decision.
 
 7. The CPU-only freeze preview passed with exit code zero on 2026-09-06. The
    reviewed bundle contains the selected Deep Sets seed-42 diagnostic,
@@ -442,3 +441,21 @@ Calibration and test remain locked.
     permutation studies on physical GPU 2, only after free-device and
     contract-only checks. Combined compute is capped at one GPU-hour and no
     post-test tuning is permitted.
+14. After GPU 1 failed its original empty-device preflight without reading test,
+    the owner remapped the lightweight frontier/permutation jobs to shared
+    physical GPUs 3/0 with a 1,536-MiB free-memory floor. All four contract
+    checks and executions then exited zero. The frontier is complete and valid
+    over 1,560 test model-instances, 142 rows, five budgets, both coverages,
+    all controls, and both oracles; ProActive beats random and fixed. Every
+    0.90/0.95 coverage cell passes the frozen 0.03 tolerance. Deep Sets records
+    exactly zero permutation drift across 2,000 states, while canonical and
+    random-order GRU provide the two required 2,000-state comparisons. Every
+    self-hash and artifact binding matches. Aggregate GPU time was 548.41
+    seconds (`0.1523` GPU-hours), below the approved one-hour ceiling. Only the
+    CPU full validator remains; post-test tuning is prohibited.
+15. The synchronized CPU-only full validator passed on 2026-09-07 with
+    `is_valid=true`, `errors=[]`, and `go_no_go=GO`. Report self-hash
+    `47fe3b99...9d0d7` reproduces, the emitted memo has no blocking findings,
+    and its sole warning is the predeclared optional RAPS appendix trigger.
+    APS remains the unchanged locked main method. Week 7 is COMPLETE and the
+    project moves to Week 8 without any post-test tuning.

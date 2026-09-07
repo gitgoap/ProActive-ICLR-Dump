@@ -284,7 +284,7 @@ Code already implemented for:
 
 Week 6 selection is now complete. The next required step is a validation-only expansion from budgets 1/2/4 to the approved final grid 1/2/3/4/7, followed by the signed stack freeze. Only then may calibration and the single locked test evaluation run.
 
-The three static controls completed that five-budget validation expansion with both 90% and 95% targets and no calibration/test access. The selected Deep Sets frontier then passed over 1,404 validation model-instances with all 15 conditions, both oracles, and all five budgets in 7:38.52. Its hash-valid dataset schedule was bound into the owner-approved main-stack freeze; all 11 frozen artifact hashes match. Calibration then produced 7,500 frozen-policy trajectories and final main/static APS thresholds at both coverage targets. Every main calibration cell passes the 0.03 undercoverage tolerance. Model selection and calibration are closed; the single locked-test bundle is next.
+The three static controls completed that five-budget validation expansion with both 90% and 95% targets and no calibration/test access. The selected Deep Sets frontier then passed over 1,404 validation model-instances with all 15 conditions, both oracles, and all five budgets in 7:38.52. Its hash-valid dataset schedule was bound into the owner-approved main-stack freeze; all 11 frozen artifact hashes match. Calibration then produced 7,500 frozen-policy trajectories and final main/static APS thresholds at both coverage targets. Every main calibration cell passes the 0.03 undercoverage tolerance. The one-time locked test subsequently passed over 1,560 model-instances, and the final validator emitted `GO` with zero errors. Week 7 is complete; no post-test tuning is allowed.
 
 ### Week 8 — robustness, ablations, latency, and human audit: planned
 
@@ -304,7 +304,7 @@ The final phase packages tables and figures, regenerates checksums and run metad
 | Week 4 teacher cache/labels/states | Complete | Optional independent human annotations remain useful |
 | Week 5 encoder bake-off/freeze | Complete | RAPS appendix is deferred |
 | Week 6 policies/frontier | Complete | Full validator passed with zero errors and 496,912 complete VOI rows |
-| Week 7 calibration/test | Active | Build final-budget validation schedule, then sign the stack freeze before calibration/test |
+| Week 7 calibration/test | Complete | Signed freeze, final APS, one-time locked test, permutations, and final `GO` all passed |
 | Week 8 robustness/ablations/audit | Planned | Prioritize cached analyses and human audit |
 | Week 9 assets/reproducibility | Planned | Requires frozen results |
 
@@ -416,11 +416,14 @@ If the adaptivity result is weak, do **not** spend days forcing it. Pivot the pa
 
 ### Needed now
 
-1. Run the Week 7 validation-only final-budget schedule and sync its complete outputs.
-2. Review and sign the immutable main-stack freeze before calibration or test.
-3. Preserve the approved hyperparameters, timeouts, seeds, hashes, and GPU-hour ceilings in the run logs.
-4. Identify up to three genuinely independent annotators for the 180-row blinded human audit, if feasible within the deadline.
-5. Protect the test split: do not inspect or rerun it for model selection.
+1. Recruit three genuinely independent annotators and start the existing
+   180-row blinded audit immediately; all three blocks are currently empty.
+2. Run cached Week 8 slices, ablations, latency, oracle-gap, bootstrap, and
+   paper-asset generation before starting multi-day optional experiments.
+3. If held-out shift evidence is required, legally obtain and checksum PRE-HAL
+   and IllusionBench now; their loaders/evaluator still require implementation.
+4. Preserve the approved settings, hashes, and one-time test boundary. Do not
+   rerun or tune from locked-test outcomes.
 
 ### External setup that is optional or deferred
 

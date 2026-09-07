@@ -1,8 +1,8 @@
 # Project Status
 
-**Current Phase:** Week 7 — stack freeze, final-budget validation schedule, calibration, and locked test
+**Current Phase:** Week 8 — robustness, cached ablations, latency, held-out shift decisions, and human audit
 
-**Status:** Weeks 1–6 COMPLETE; Week 7 IMPLEMENTED, NOT VALIDATED
+**Status:** Weeks 1–7 COMPLETE; Week 8 NOT STARTED
 
 **Completed Work:**
 - Weeks 1–2: repository/data scaffolding, grouped splits, normalization, clean features, and Qwen/Gemma/InternVL adapters.
@@ -124,6 +124,20 @@
   `0.95`, bind to the main freeze, and have `limit=null`. All ten main APS
   calibration cells satisfy the approved 0.03 undercoverage tolerance. The
   trajectory GPU job took 49.71 seconds (`0.0138` GPU-hours).
+- The one-time locked test is now synchronized and independently audited. The
+  complete frontier is valid over 1,560 test model-instances, 142 summary rows,
+  budgets `1/2/3/4/7`, both target coverages, all required controls, and both
+  oracles. ProActive beats random and fixed controls. Its lowest target-relative
+  result is 0.88 coverage for the 0.90/budget-1 cell, which remains inside the
+  frozen 0.03 tolerance. Deep Sets has exactly zero representation, prediction,
+  set, action, coverage, and set-size permutation drift across 2,000 states;
+  both required GRU comparison reports also contain 2,000 states. All report
+  self-hashes and every referenced CSV, figure, checkpoint, APS, freeze,
+  schedule, and teacher-cache hash match. The four GPU jobs used 548.41 seconds
+  in aggregate (`0.1523` GPU-hours), below the one-hour ceiling. No post-test
+  tuning is permitted. The CPU-only full Week 7 validator subsequently passed
+  with `is_valid=true`, `errors=[]`, and `go_no_go=GO`; its self-hash is
+  `47fe3b99...9d0d7`. Week 7 is COMPLETE.
 
 **Resolved Week 4 history:**
 - The Qwen/Gemma teacher cache is no longer blocked. The approved final
@@ -197,12 +211,17 @@
   are server-validated. The catch-up now covers all four datasets and complete
   VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
-**Next Tasks (Week 7):**
-1. Obtain explicit authorization for the one-time locked-test bundle, then run
-   the complete test frontier and three required permutation studies without
-   tuning or reruns based on outcomes.
-3. Continue the three-person human annotations in parallel; they remain a
-   Week 8 agreement study and do not block Week 6 execution.
+**Next Tasks (Week 8):**
+1. Start the already exported three-person blinded human audit immediately;
+   all three 180-row annotator blocks are currently empty.
+2. Prioritize cached-data analyses: dataset/model slices, mandatory ablations,
+   action/STOP behavior, oracle gaps, latency, bootstrap intervals, and
+   paper-facing tables/figures.
+3. Decide immediately whether PRE-HAL and IllusionBench are worth the remaining
+   loader, provenance, teacher-cache, and shift-evaluation cost. If included,
+   obtain and checksum the official releases now; never use them for tuning.
+4. Keep GQA-Relation as a separate third setup decision. Its construction
+   script and required 100-pair manual inspection are not yet complete.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

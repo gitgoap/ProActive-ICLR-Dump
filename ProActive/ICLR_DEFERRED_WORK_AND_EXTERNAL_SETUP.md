@@ -1,6 +1,6 @@
 # ProActive ICLR Deferred Work and External Setup
 
-**Last updated:** 2026-08-27  
+**Last updated:** 2026-09-07  
 **Purpose:** preserve a paper-facing record of work deferred under the ICLR
 deadline, work blocked on external inputs, and conditional work that correctly
 did not enter the main path. This file is a recovery checklist, not permission
@@ -8,14 +8,16 @@ to alter frozen train/validation/test decisions.
 
 ## Current critical path
 
-Weeks 1–5 are complete. The immediate critical path is:
+Weeks 1–7 are complete. The immediate critical path is:
 
-1. Week 6 cached VOI construction, policy/baseline training, validation
-   frontier, and signed policy selection.
-2. Week 7 main-stack freeze, calibration-only APS, one locked test evaluation,
-   and the final permutation study.
-3. Paper tables, figures, ablations, shift/transfer experiments, and human
-   agreement evidence.
+1. Start the three-person human audit immediately because people, not compute,
+   determine its latency.
+2. Generate cached Week 8 robustness, ablation, latency, uncertainty, and
+   paper-facing results.
+3. Decide whether PRE-HAL and IllusionBench shift evidence justifies new loader
+   and teacher-cache work; if yes, obtain and checksum both official releases
+   now while cached analyses proceed.
+4. Freeze paper tables, figures, claims, and the reproducibility package.
 
 Weeks 6–7 use cached features and small networks. They do not require another
 Qwen, Gemma, or InternVL download and do not repeat the Week 4 teacher passes.
@@ -24,7 +26,7 @@ Qwen, Gemma, or InternVL download and do not repeat the Week 4 teacher passes.
 
 | Priority | Item | Current state | What is needed | Why it was deferred / when to resume |
 |---|---|---|---|---|
-| P0, parallel human work | Three-person human audit | The blinded 180-row packet and all 180 images exist; `0/540` independent annotator blocks were complete at last inspection | Three different people each annotate all 180 rows in exactly one block (`ann1_*`, `ann2_*`, or `ann3_*`); then adjudicate disagreements without opening the private key; only afterward compare with hidden rule-backed labels | No GPU is needed. Start immediately in parallel because recruiting and annotation latency cannot be recovered with compute |
+| P0, parallel human work | Three-person human audit | The blinded 180-row packet and all 180 images exist; direct inspection on 2026-09-07 confirms `0/540` independent row-blocks complete | Three different people each annotate all 180 rows in exactly one block (`ann1_*`, `ann2_*`, or `ann3_*`); then adjudicate disagreements without opening the private key; only afterward compare with hidden rule-backed labels | No GPU is needed. Start immediately in parallel because recruiting and annotation latency cannot be recovered with compute |
 | P1, transfer evidence | Complete InternVL3-9B teacher cache over all 7,291 core instances | InternVL environment/model are validated; 1/10/100-row all-dataset stages and complete 340-row VSR passed, but a complete four-dataset cache was not run | Use `/home/models/InternVL3-9B` in `proactive-internvl`; obtain explicit high-cost approval; run deterministic resumable shards; rebuild compatible labels/states without changing Qwen/Gemma | Deferred to protect the core schedule. Needed for a complete three-model leave-one-model-out claim; otherwise describe InternVL as staged/catch-up evidence only |
 | P1, relation coverage | GQA-Relation slice | Config and loader contract exist; construction status is `pending`; the referenced construction script is not present | Download GQA images plus `sceneGraphs/val_sceneGraphs.json`; implement/audit `scripts/build_gqa_relation.py`; construct up to 1,000 reversible-relation examples; manually inspect at least 100 pairs; then build a frozen manifest and teacher cache | Resume before the relation-heavy/transfer appendix if time permits. Do not fabricate a slice or reuse VSR labels as GQA |
 | P1, held-out shift | PRE-HAL | `configs/data/prehal.yaml` is a placeholder; no registered loader or shift-evaluation script currently exists | Obtain the official dataset under its license; place it at `${PROACTIVE_DATA_ROOT}/PREHAL`; document schema/images/answers; implement loader, tests, frozen held-out manifest, and shift evaluation | Run only after the main stack is frozen. It is held-out evaluation data and must never influence thresholds or model selection |

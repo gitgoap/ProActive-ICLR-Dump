@@ -882,3 +882,27 @@
   frontier/permutation process. The scientific boundary is unchanged: one
   complete locked-test pass, no post-test tuning, 20-minute frontier cap,
   13-minute cap for each permutation, and one combined GPU-hour ceiling.
+- The amended locked-test bundle completed and was synchronized on 2026-09-07.
+  All four contract checks and executions exit zero. The test frontier is
+  `is_valid=true`, complete over 1,560 model-instances, 142 summary rows,
+  budgets `1/2/3/4/7`, targets `0.90/0.95`, all 15 conditions, and both
+  mandatory oracles. It reports ProActive beating random and fixed schedules;
+  the 0.88 budget-1 coverage at target 0.90 passes the frozen 0.03 tolerance.
+  The primary Deep Sets permutation report has 2,000 states and exactly zero
+  JS, bit, hidden-state, set, action, coverage, and set-size drift. Both GRU
+  comparison reports also have 2,000 states. All four report self-hashes and
+  every CSV, PNG, checkpoint, APS, freeze, schedule, manifest, and eight
+  teacher-cache bindings independently match. Runtime was 524.43 seconds for
+  the frontier and 23.98 seconds across the three permutations, totaling
+  548.41 seconds (`0.1523` GPU-hours), below the approved one-hour ceiling.
+  The frozen test has now been read once; no post-test tuning or outcome-driven
+  rerun is authorized. The CPU-only full Week 7 validator is the final gate.
+- The synchronized full Week 7 validator then passed with `is_valid=true`,
+  `errors=[]`, and `go_no_go=GO`. Its self-hash independently reproduces as
+  `47fe3b99974f64be83d00a4b7c6838351d5e90ab65be97d392e7e2da14e9d0d7`,
+  its log payload exactly matches the report, and the memo declares no blocking
+  findings. The only warning is the validation-triggered optional RAPS appendix
+  ablation; the locked APS main result remains unchanged. Week 7 is COMPLETE.
+  Week 8 begins with cached robustness analyses and the already prepared but
+  entirely unfilled three-person human audit; PRE-HAL/IllusionBench setup is a
+  time-sensitive optional shift decision rather than a Week 7 dependency.

@@ -1,0 +1,13 @@
+{
+  "format_version": "week7_validation_v1",
+  "mode": "full",
+  "is_valid": true,
+  "config_approval": "APPROVED",
+  "errors": [],
+  "warnings": [
+    "Validation APS triggered the optional appendix RAPS ablation; the locked APS main result remains unchanged"
+  ],
+  "go_no_go": "GO",
+  "memo_path": "outputs/week7_reports/week7_go_no_go.md",
+  "report_sha256": "47fe3b99974f64be83d00a4b7c6838351d5e90ab65be97d392e7e2da14e9d0d7"
+}
