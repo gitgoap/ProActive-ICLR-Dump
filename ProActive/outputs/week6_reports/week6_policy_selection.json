@@ -1,0 +1,204 @@
+{
+  "calibration_used": false,
+  "candidate_scores": [
+    {
+      "mean_cost": 2.2847420069642292,
+      "mean_macro_f1": 0.9425666055068979,
+      "mean_set_size": 2.1672206394428617,
+      "multiplier": 0.0,
+      "primary_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "primary_report_path": "outputs/week6_frontiers/deep_lambda0_seed42/frontier_validation.json",
+      "seed_scores": [
+        {
+          "mean_cost": 2.2905982905982905,
+          "mean_macro_f1": 0.9441517433243537,
+          "mean_set_size": 2.1794871794871797,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0_seed42/frontier_validation.json",
+          "seed": 42
+        },
+        {
+          "mean_cost": 2.2875118708452042,
+          "mean_macro_f1": 0.9410747033125715,
+          "mean_set_size": 2.1574074074074074,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed43.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0_seed43/frontier_validation.json",
+          "seed": 43
+        },
+        {
+          "mean_cost": 2.2761158594491926,
+          "mean_macro_f1": 0.9424733698837684,
+          "mean_set_size": 2.1647673314339984,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed44.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0_seed44/frontier_validation.json",
+          "seed": 44
+        }
+      ]
+    },
+    {
+      "mean_cost": 1.7114593225704338,
+      "mean_macro_f1": 0.9372587876031695,
+      "mean_set_size": 2.1999050332383665,
+      "multiplier": 0.05,
+      "primary_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p05_seed42.best.pt",
+      "primary_report_path": "outputs/week6_frontiers/deep_lambda0p05_seed42/frontier_validation.json",
+      "seed_scores": [
+        {
+          "mean_cost": 1.7238841405508074,
+          "mean_macro_f1": 0.9382342928760807,
+          "mean_set_size": 2.195156695156695,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p05_seed42.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p05_seed42/frontier_validation.json",
+          "seed": 42
+        },
+        {
+          "mean_cost": 1.705128205128205,
+          "mean_macro_f1": 0.937413578577443,
+          "mean_set_size": 2.2115384615384617,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p05_seed43.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p05_seed43/frontier_validation.json",
+          "seed": 43
+        },
+        {
+          "mean_cost": 1.7053656220322888,
+          "mean_macro_f1": 0.9361284913559847,
+          "mean_set_size": 2.193019943019943,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p05_seed44.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p05_seed44/frontier_validation.json",
+          "seed": 44
+        }
+      ]
+    },
+    {
+      "mean_cost": 1.5903767014878127,
+      "mean_macro_f1": 0.9276197450480779,
+      "mean_set_size": 2.2147831592276037,
+      "multiplier": 0.1,
+      "primary_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p1_seed42.best.pt",
+      "primary_report_path": "outputs/week6_frontiers/deep_lambda0p1_seed42/frontier_validation.json",
+      "seed_scores": [
+        {
+          "mean_cost": 1.5778727445394112,
+          "mean_macro_f1": 0.9245912810417012,
+          "mean_set_size": 2.226258309591643,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p1_seed42.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p1_seed42/frontier_validation.json",
+          "seed": 42
+        },
+        {
+          "mean_cost": 1.5959164292497627,
+          "mean_macro_f1": 0.9309049227601047,
+          "mean_set_size": 2.206315289648623,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p1_seed43.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p1_seed43/frontier_validation.json",
+          "seed": 43
+        },
+        {
+          "mean_cost": 1.597340930674264,
+          "mean_macro_f1": 0.9273630313424277,
+          "mean_set_size": 2.211775878442545,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p1_seed44.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p1_seed44/frontier_validation.json",
+          "seed": 44
+        }
+      ]
+    },
+    {
+      "mean_cost": 1.5261949984172207,
+      "mean_macro_f1": 0.919955344568371,
+      "mean_set_size": 2.242798353909465,
+      "multiplier": 0.2,
+      "primary_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p2_seed42.best.pt",
+      "primary_report_path": "outputs/week6_frontiers/deep_lambda0p2_seed42/frontier_validation.json",
+      "seed_scores": [
+        {
+          "mean_cost": 1.559116809116809,
+          "mean_macro_f1": 0.9243825350188114,
+          "mean_set_size": 2.2264957264957266,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p2_seed42.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p2_seed42/frontier_validation.json",
+          "seed": 42
+        },
+        {
+          "mean_cost": 1.4836182336182338,
+          "mean_macro_f1": 0.9141163385040182,
+          "mean_set_size": 2.2751661918328585,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p2_seed43.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p2_seed43/frontier_validation.json",
+          "seed": 43
+        },
+        {
+          "mean_cost": 1.5358499525166192,
+          "mean_macro_f1": 0.9213671601822836,
+          "mean_set_size": 2.22673314339981,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p2_seed44.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p2_seed44/frontier_validation.json",
+          "seed": 44
+        }
+      ]
+    },
+    {
+      "mean_cost": 1.4142924976258309,
+      "mean_macro_f1": 0.9136437607224582,
+      "mean_set_size": 2.3322253877809436,
+      "multiplier": 0.4,
+      "primary_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p4_seed42.best.pt",
+      "primary_report_path": "outputs/week6_frontiers/deep_lambda0p4_seed42/frontier_validation.json",
+      "seed_scores": [
+        {
+          "mean_cost": 1.416429249762583,
+          "mean_macro_f1": 0.9150092231916441,
+          "mean_set_size": 2.3378442545109213,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p4_seed42.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p4_seed42/frontier_validation.json",
+          "seed": 42
+        },
+        {
+          "mean_cost": 1.4147673314339981,
+          "mean_macro_f1": 0.9107955352319866,
+          "mean_set_size": 2.3193257359924027,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p4_seed43.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p4_seed43/frontier_validation.json",
+          "seed": 43
+        },
+        {
+          "mean_cost": 1.4116809116809117,
+          "mean_macro_f1": 0.9151265237437438,
+          "mean_set_size": 2.3395061728395063,
+          "policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0p4_seed44.best.pt",
+          "report_path": "outputs/week6_frontiers/deep_lambda0p4_seed44/frontier_validation.json",
+          "seed": 44
+        }
+      ]
+    }
+  ],
+  "completion_gate_passed": true,
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "fit_split": "train",
+  "format_version": "week6_policy_selection_v1",
+  "gate_components": {
+    "active_signal_gate_config": {
+      "minimum_relative_full_teacher_gain_over_clean": 0.1
+    },
+    "active_signal_gate_passed": true,
+    "beats_fixed": true,
+    "beats_random": true,
+    "budget_progress": true,
+    "full_teacher_source_bit_macro_f1_mean": 0.9970492589980061,
+    "full_teacher_stronger_than_no_acquisition": true,
+    "no_acquisition_source_bit_macro_f1_mean": 0.7666181864284828,
+    "relative_full_teacher_gain_over_clean": 0.3005812758539613
+  },
+  "report_sha256": "c6554fb716e92788d3d4958718a7b14e78ad672596ec644f877783f7d69d9073",
+  "selected_cost_multiplier": 0.0,
+  "selected_frontier_path": "outputs/week6_frontiers/deep_lambda0_seed42/frontier_validation.json",
+  "selected_frontier_sha256": "5255e938ef4087c84bddf843a8acf7b02f4cfa315a92451ebf05e09c3db49189",
+  "selected_policy_path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "selected_policy_sha256": "fea21bc3b3d6d44ff29ca3179362550759b21bf2a910f7df8eef8177d9321789",
+  "selected_seed": 42,
+  "selection_rule": "max mean source-bit Macro-F1; then min mean set size; then min cost; then min lambda",
+  "selection_split": "val",
+  "status": "SELECTED",
+  "test_used": false,
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+}

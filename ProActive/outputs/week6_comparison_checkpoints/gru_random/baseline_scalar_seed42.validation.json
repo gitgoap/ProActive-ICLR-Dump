@@ -1,0 +1,90 @@
+{
+  "baseline_type": "scalar",
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week6_comparison_checkpoints/gru_random/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "aac89ea00d4f9d5f14c5604ebf8312da701006a7fd87602f8c935efc950c4a7c",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "diagnostic_checkpoint_sha256": "883b78c4264d7336dab9aa45e5dcc8eabafc83c8ea058b63d935278fe0dd8126",
+  "fit_split": "train",
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "limit": null,
+  "metrics": {
+    "record_count": 1404,
+    "signature_mse": 0.09353750401788821,
+    "six_way_balanced_accuracy": 0.3403344566666792,
+    "six_way_confusion_matrix": [
+      [
+        1,
+        33,
+        35,
+        17,
+        11,
+        90
+      ],
+      [
+        9,
+        17,
+        22,
+        7,
+        20,
+        317
+      ],
+      [
+        2,
+        8,
+        11,
+        8,
+        8,
+        7
+      ],
+      [
+        10,
+        23,
+        89,
+        432,
+        24,
+        17
+      ],
+      [
+        0,
+        2,
+        3,
+        0,
+        2,
+        5
+      ],
+      [
+        1,
+        10,
+        8,
+        3,
+        4,
+        148
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.23947397409291163,
+    "source_bit_auroc": {
+      "alignment": 0.9543428108242922,
+      "language": 0.5900705875628716,
+      "visual": 0.8883410903239605
+    },
+    "source_bit_hamming_loss": 0.2514245014245014,
+    "source_bit_macro_f1": 0.7371932051739574,
+    "source_bit_micro_f1": 0.7315589353612167
+  },
+  "report_sha256": "da98053eb6d6cd27f21bdaa094d88fa750eb2b2c6ee326443a05dd65f631946a",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "test_used": false,
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858"
+}

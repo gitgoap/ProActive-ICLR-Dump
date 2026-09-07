@@ -1,0 +1,130 @@
+===== gru_random scalar baseline =====
+Allowed seconds: 2700
+2026-09-06 00:23:56,296 INFO [train_one_pass_baselines] epoch=0 train_loss=1.491959 val_macro_f1=0.7250
+2026-09-06 00:23:57,597 INFO [train_one_pass_baselines] epoch=1 train_loss=1.302326 val_macro_f1=0.7356
+2026-09-06 00:23:58,892 INFO [train_one_pass_baselines] epoch=2 train_loss=1.284063 val_macro_f1=0.7365
+2026-09-06 00:24:00,199 INFO [train_one_pass_baselines] epoch=3 train_loss=1.277282 val_macro_f1=0.7372
+2026-09-06 00:24:01,505 INFO [train_one_pass_baselines] epoch=4 train_loss=1.272611 val_macro_f1=0.7364
+2026-09-06 00:24:02,718 INFO [train_one_pass_baselines] epoch=5 train_loss=1.268462 val_macro_f1=0.7324
+2026-09-06 00:24:04,050 INFO [train_one_pass_baselines] epoch=6 train_loss=1.271115 val_macro_f1=0.7324
+2026-09-06 00:24:05,327 INFO [train_one_pass_baselines] epoch=7 train_loss=1.264833 val_macro_f1=0.7328
+2026-09-06 00:24:06,688 INFO [train_one_pass_baselines] epoch=8 train_loss=1.262537 val_macro_f1=0.7313
+{
+  "baseline": "scalar",
+  "pilot": false,
+  "output": "outputs/week6_comparison_checkpoints/gru_random/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 1404,
+    "source_bit_micro_f1": 0.7315589353612167,
+    "source_bit_macro_f1": 0.7371932051739574,
+    "source_bit_hamming_loss": 0.2514245014245014,
+    "source_bit_auroc": {
+      "visual": 0.8883410903239605,
+      "language": 0.5900705875628716,
+      "alignment": 0.9543428108242922
+    },
+    "six_way_macro_f1": 0.23947397409291163,
+    "six_way_balanced_accuracy": 0.3403344566666792,
+    "six_way_confusion_matrix": [
+      [
+        1,
+        33,
+        35,
+        17,
+        11,
+        90
+      ],
+      [
+        9,
+        17,
+        22,
+        7,
+        20,
+        317
+      ],
+      [
+        2,
+        8,
+        11,
+        8,
+        8,
+        7
+      ],
+      [
+        10,
+        23,
+        89,
+        432,
+        24,
+        17
+      ],
+      [
+        0,
+        2,
+        3,
+        0,
+        2,
+        5
+      ],
+      [
+        1,
+        10,
+        8,
+        3,
+        4,
+        148
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.09353750401788821
+  },
+  "checkpoint_path": "outputs/week6_comparison_checkpoints/gru_random/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "aac89ea00d4f9d5f14c5604ebf8312da701006a7fd87602f8c935efc950c4a7c",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "883b78c4264d7336dab9aa45e5dcc8eabafc83c8ea058b63d935278fe0dd8126",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": null,
+  "report_sha256": "da98053eb6d6cd27f21bdaa094d88fa750eb2b2c6ee326443a05dd65f631946a"
+}
+	Command being timed: "timeout --signal=INT --kill-after=120s 2700s env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_gru_random_permutation_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline scalar --seed 42 --device cuda:0 --output_dir outputs/week6_comparison_checkpoints/gru_random --resume"
+	User time (seconds): 23.94
+	System time (seconds): 6.94
+	Percent of CPU this job got: 177%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.44
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1560872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 340989
+	Voluntary context switches: 1172
+	Involuntary context switches: 39029
+	Swaps: 0
+	File system inputs: 1176
+	File system outputs: 21408
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gru_random scalar baseline exit code: 0

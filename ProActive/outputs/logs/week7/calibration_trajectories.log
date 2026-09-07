@@ -1,0 +1,181 @@
+2026-09-06 12:10:39,026 INFO [build_policy_trajectories] Budget 1: wrote 1500 calibration trajectories
+2026-09-06 12:10:45,551 INFO [build_policy_trajectories] Budget 2: wrote 1500 calibration trajectories
+2026-09-06 12:10:54,365 INFO [build_policy_trajectories] Budget 3: wrote 1500 calibration trajectories
+2026-09-06 12:11:05,302 INFO [build_policy_trajectories] Budget 4: wrote 1500 calibration trajectories
+2026-09-06 12:11:20,785 INFO [build_policy_trajectories] Budget 7: wrote 1500 calibration trajectories
+{
+  "format_version": "week7_calibration_trajectories_v1",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "policy_checkpoint_sha256": "fea21bc3b3d6d44ff29ca3179362550759b21bf2a910f7df8eef8177d9321789",
+  "limit": null,
+  "status": "COMPLETE",
+  "split": "cal",
+  "calibration_only": true,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "base_model_instances": 1500,
+  "row_count": 7500,
+  "six_way_labels": [
+    "visual",
+    "language-prior",
+    "alignment",
+    "mixed",
+    "unclear",
+    "no-failure"
+  ],
+  "teacher_files": [
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948",
+      "calibration_rows": 199
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9",
+      "calibration_rows": 205
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec",
+      "calibration_rows": 172
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e",
+      "calibration_rows": 174
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4",
+      "calibration_rows": 179
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65",
+      "calibration_rows": 184
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711",
+      "calibration_rows": 188
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f",
+      "calibration_rows": 199
+    }
+  ],
+  "files": [
+    {
+      "path": "calibration_trajectories_budget1.jsonl",
+      "budget": 1,
+      "row_count": 1500,
+      "sha256": "fa85bfa19b6e1a0c8b82735aa0cc7647345819d354250e669213bc1a1ebdb1d5",
+      "action_counts": {
+        "blank": 1035,
+        "stop": 1500,
+        "grounding": 137,
+        "blur": 310,
+        "brightness": 7,
+        "crop": 11
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget2.jsonl",
+      "budget": 2,
+      "row_count": 1500,
+      "sha256": "9279b9a4f27a949f93696c33637104a974dca9968b676cf23fde360def33f07e",
+      "action_counts": {
+        "blank": 1214,
+        "blur": 1211,
+        "stop": 1500,
+        "grounding": 363,
+        "crop": 116,
+        "noise": 29,
+        "brightness": 56,
+        "relation": 4
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget3.jsonl",
+      "budget": 3,
+      "row_count": 1500,
+      "sha256": "5cef3da70e24f00d7b987850bd25cb16866293e73be6dbc9c3036093e6f130a3",
+      "action_counts": {
+        "blank": 1375,
+        "crop": 863,
+        "grounding": 773,
+        "stop": 1500,
+        "blur": 1315,
+        "noise": 53,
+        "brightness": 98,
+        "relation": 8
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget4.jsonl",
+      "budget": 4,
+      "row_count": 1500,
+      "sha256": "0c145159ae966884fd84d61a864eebc545aaf68f44872de1c9c6c9e3ab734ee5",
+      "action_counts": {
+        "blank": 1436,
+        "crop": 1164,
+        "grounding": 978,
+        "blur": 1413,
+        "stop": 1500,
+        "noise": 108,
+        "brightness": 691,
+        "relation": 9
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget7.jsonl",
+      "budget": 7,
+      "row_count": 1500,
+      "sha256": "2e32b1c03ee15f8d0a0259d80e79bea4821fbf326964e998c6168407c1425499",
+      "action_counts": {
+        "blank": 1473,
+        "grounding": 1222,
+        "crop": 1278,
+        "blur": 1435,
+        "brightness": 1206,
+        "stop": 1500,
+        "noise": 1022,
+        "relation": 20
+      }
+    }
+  ],
+  "manifest_sha256": "1205c534a34f6f47067f6b839ed9031c11743c9b01120f2e18438777dcf072c8"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=30s 15m env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/build_policy_trajectories.py --config configs/experiments/calibrate_aps.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --freeze_manifest outputs/week7_frozen/main_stack_freeze.json --teacher_path outputs/teacher_core_contract_v1_recovered --output_dir outputs/week7_calibration/trajectories --seed 42 --device cuda:0 --resume"
+	User time (seconds): 49.41
+	System time (seconds): 6.37
+	Percent of CPU this job got: 112%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:49.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 991568
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 180088
+	Voluntary context switches: 1036
+	Involuntary context switches: 25581
+	Swaps: 0
+	File system inputs: 24
+	File system outputs: 15472
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

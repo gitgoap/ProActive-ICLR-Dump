@@ -1,0 +1,101 @@
+===== gru_random VOI policy =====
+Allowed seconds: 2700
+2026-09-05 23:30:53,836 INFO [train_policy] epoch=0 val_loss=0.614091 oracle_agreement=0.7850
+2026-09-05 23:32:01,895 INFO [train_policy] epoch=1 val_loss=0.606991 oracle_agreement=0.7854
+2026-09-05 23:33:08,517 INFO [train_policy] epoch=2 val_loss=0.604290 oracle_agreement=0.7882
+2026-09-05 23:34:14,366 INFO [train_policy] epoch=3 val_loss=0.602141 oracle_agreement=0.7908
+2026-09-05 23:35:21,336 INFO [train_policy] epoch=4 val_loss=0.602159 oracle_agreement=0.7879
+2026-09-05 23:36:27,556 INFO [train_policy] epoch=5 val_loss=0.600518 oracle_agreement=0.7904
+2026-09-05 23:37:36,351 INFO [train_policy] epoch=6 val_loss=0.600424 oracle_agreement=0.7915
+2026-09-05 23:38:43,435 INFO [train_policy] epoch=7 val_loss=0.599637 oracle_agreement=0.7910
+2026-09-05 23:39:47,891 INFO [train_policy] epoch=8 val_loss=0.598799 oracle_agreement=0.7919
+2026-09-05 23:40:54,894 INFO [train_policy] epoch=9 val_loss=0.598939 oracle_agreement=0.7907
+2026-09-05 23:42:03,591 INFO [train_policy] epoch=10 val_loss=0.597535 oracle_agreement=0.7908
+2026-09-05 23:43:11,781 INFO [train_policy] epoch=11 val_loss=0.597684 oracle_agreement=0.7926
+2026-09-05 23:44:19,658 INFO [train_policy] epoch=12 val_loss=0.597461 oracle_agreement=0.7919
+2026-09-05 23:45:26,394 INFO [train_policy] epoch=13 val_loss=0.597715 oracle_agreement=0.7919
+2026-09-05 23:46:24,415 INFO [train_policy] epoch=14 val_loss=0.595813 oracle_agreement=0.7918
+2026-09-05 23:47:28,725 INFO [train_policy] epoch=15 val_loss=0.597030 oracle_agreement=0.7911
+2026-09-05 23:48:37,482 INFO [train_policy] epoch=16 val_loss=0.595584 oracle_agreement=0.7935
+2026-09-05 23:49:43,456 INFO [train_policy] epoch=17 val_loss=0.595905 oracle_agreement=0.7917
+2026-09-05 23:50:49,546 INFO [train_policy] epoch=18 val_loss=0.596448 oracle_agreement=0.7937
+2026-09-05 23:51:58,865 INFO [train_policy] epoch=19 val_loss=0.595206 oracle_agreement=0.7925
+2026-09-05 23:53:04,546 INFO [train_policy] epoch=20 val_loss=0.593811 oracle_agreement=0.7932
+2026-09-05 23:54:08,490 INFO [train_policy] epoch=21 val_loss=0.594251 oracle_agreement=0.7927
+2026-09-05 23:55:08,489 INFO [train_policy] epoch=22 val_loss=0.595958 oracle_agreement=0.7909
+2026-09-05 23:56:17,269 INFO [train_policy] epoch=23 val_loss=0.595584 oracle_agreement=0.7921
+2026-09-05 23:57:25,061 INFO [train_policy] epoch=24 val_loss=0.594035 oracle_agreement=0.7923
+2026-09-05 23:58:33,665 INFO [train_policy] epoch=25 val_loss=0.592521 oracle_agreement=0.7937
+2026-09-05 23:59:37,796 INFO [train_policy] epoch=26 val_loss=0.592787 oracle_agreement=0.7942
+2026-09-06 00:00:45,780 INFO [train_policy] epoch=27 val_loss=0.594367 oracle_agreement=0.7926
+2026-09-06 00:01:54,903 INFO [train_policy] epoch=28 val_loss=0.594128 oracle_agreement=0.7918
+2026-09-06 00:03:00,123 INFO [train_policy] epoch=29 val_loss=0.594972 oracle_agreement=0.7916
+{
+  "encoder": "gru",
+  "gru_condition": "random_permutation",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week6_comparison_checkpoints/gru_random/policy_gru_random_permutation_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "gru",
+  "gru_condition": "random_permutation",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "best_epoch": 25,
+  "metrics": {
+    "total": 0.5925211498090586,
+    "ranking": 0.07573939607535543,
+    "mse": 0.7365605350016341,
+    "action_ce": 0.6652832345627225,
+    "best_action_accuracy": 0.7937436965758974,
+    "stop_prediction_rate": 0.4019641882843113,
+    "row_count": 60483
+  },
+  "checkpoint_path": "outputs/week6_comparison_checkpoints/gru_random/policy_gru_random_permutation_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "ad9c2a875ddc91f853ee82720b8335f2a51b7c190717e69d778ce8bd70557244",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "5a8215f41501ba2a7e00c9117569d38a5f5fd41dbe9507bab68021931a4f1143",
+  "diagnostic_checkpoint_sha256": "883b78c4264d7336dab9aa45e5dcc8eabafc83c8ea058b63d935278fe0dd8126",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "limit": null,
+  "report_sha256": "c16b1a0b4024267208240ba64565435bc657bd93d7a01c48091b756eed918814"
+}
+	Command being timed: "timeout --signal=INT --kill-after=120s 2700s env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --voi_manifest outputs/week6_voi_gru_random/voi_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_gru_random_permutation_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --cost_multiplier 0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week6_comparison_checkpoints/gru_random --resume"
+	User time (seconds): 2120.44
+	System time (seconds): 12.37
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 35:08.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7239744
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 216
+	Minor (reclaiming a frame) page faults: 1873028
+	Voluntary context switches: 78586
+	Involuntary context switches: 56672
+	Swaps: 0
+	File system inputs: 95368
+	File system outputs: 41416
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gru_random VOI policy exit code: 0

@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from proactive.eval.diagnostic_metrics import diagnostic_metrics
+from proactive.train.state_data import SOURCE_BITS
 
 
 def test_diagnostic_metrics_perfect_predictions() -> None:
@@ -24,3 +25,23 @@ def test_auroc_fails_closed_on_one_class_bit() -> None:
             [[0, 0, 0], [0, 1, 1]],
             [0, 1],
         )
+
+
+def test_non_scientific_pilot_can_record_undefined_auroc_explicitly() -> None:
+    metrics = diagnostic_metrics(
+        [[0.1, 0.1, 0.1]],
+        [[0.9, 0.02, 0.02, 0.02, 0.02, 0.02]],
+        [[0, 0, 0]],
+        [0],
+        allow_undefined_auroc=True,
+    )
+
+    assert metrics["source_bit_auroc"] == {name: None for name in SOURCE_BITS}
+    assert metrics["metrics_scientifically_valid"] is False
+    assert metrics["source_bit_auroc_unavailable"] == {
+        name: {
+            "reason": "AUROC requires both target classes",
+            "observed_classes": [0],
+        }
+        for name in SOURCE_BITS
+    }

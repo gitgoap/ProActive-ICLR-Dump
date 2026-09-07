@@ -1,0 +1,52 @@
+{
+  "artifacts": {
+    "dataset_fixed_schedule": {
+      "path": "outputs/week7_validation/selected_deep_final_budgets/dataset_fixed_schedule_validation.json",
+      "sha256": "354aadbdcfb5f3668130d0acb49c328488b47862517a56b27ccfb806428c58c8"
+    },
+    "diagnostic_checkpoint": {
+      "path": "outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06"
+    },
+    "distilled_baseline": {
+      "path": "outputs/week6_checkpoints/baseline_distilled_seed42.best.pt",
+      "sha256": "4d8f01d29680b6303cf62d55191045b58d42f1de8128a702b0b6adf7adfc7775"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "fea21bc3b3d6d44ff29ca3179362550759b21bf2a910f7df8eef8177d9321789"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "scalar_baseline": {
+      "path": "outputs/week6_checkpoints/baseline_scalar_seed42.best.pt",
+      "sha256": "4034b1a49e613de87f5b106b52fbe96628d608ccaca2d2bcb03c86a9555de660"
+    },
+    "selected_frontier": {
+      "path": "outputs/week6_frontiers/deep_lambda0_seed42/frontier_validation.json",
+      "sha256": "5255e938ef4087c84bddf843a8acf7b02f4cfa315a92451ebf05e09c3db49189"
+    },
+    "selection_report": {
+      "path": "outputs/week6_reports/week6_policy_selection.json",
+      "sha256": "7285458d07d4597afc53358720c3085c912ea77fa3654d6bf8e4046bca988130"
+    },
+    "uncertainty_baseline": {
+      "path": "outputs/week6_checkpoints/uncertainty_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "df3ac9b95e4ea4f7b2d79a420c994f882663a8509ed8865fd2d19644ce2eda3f"
+    },
+    "week5_freeze": {
+      "path": "outputs/week5_reports/week5_encoder_freeze.json",
+      "sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858"
+    },
+    "week7_config": {
+      "path": "configs/experiments/calibrate_aps.yaml",
+      "sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "ec886b2623733bdc8b8a1edf09f395a384d5680088873f49f4f1feee1aab21ef",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

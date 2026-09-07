@@ -1,0 +1,11 @@
+{
+  "config_approval": "APPROVED",
+  "errors": [],
+  "format_version": "week7_validation_v1",
+  "go_no_go": "NO-GO",
+  "is_valid": true,
+  "memo_path": null,
+  "mode": "readiness",
+  "report_sha256": "12e679f38d8e5c0c56c060e70fa71fdb789b739e00eb0558e45b283cbc7f136b",
+  "warnings": []
+}

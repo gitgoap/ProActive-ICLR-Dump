@@ -1,0 +1,141 @@
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,299 INFO [train_one_pass_baselines] epoch=0 train_loss=2.948456 val_macro_f1=0.2545
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,371 INFO [train_one_pass_baselines] epoch=1 train_loss=2.867184 val_macro_f1=0.5229
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,438 INFO [train_one_pass_baselines] epoch=2 train_loss=2.817428 val_macro_f1=0.5049
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,503 INFO [train_one_pass_baselines] epoch=3 train_loss=2.743090 val_macro_f1=0.4500
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,571 INFO [train_one_pass_baselines] epoch=4 train_loss=2.688385 val_macro_f1=0.3782
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,638 INFO [train_one_pass_baselines] epoch=5 train_loss=2.608582 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:10,705 INFO [train_one_pass_baselines] epoch=6 train_loss=2.549913 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+{
+  "baseline": "scalar",
+  "pilot": true,
+  "output": "outputs/week6_staging/baseline_limit100/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 100,
+    "source_bit_micro_f1": 0.6575342465753424,
+    "source_bit_macro_f1": 0.5229390681003584,
+    "source_bit_hamming_loss": 0.25,
+    "source_bit_auroc": {
+      "visual": 0.457093253968254,
+      "language": 0.395625,
+      "alignment": 0.9710669077757687
+    },
+    "six_way_macro_f1": 0.0,
+    "six_way_balanced_accuracy": 0.0,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        13,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        47,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        20,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        19,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.19336609980905506
+  },
+  "checkpoint_path": "outputs/week6_staging/baseline_limit100/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "eb51a853d9e70c4ba228ee4f570afb921fa972a4f31dad6f9a340f32137ca93a",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": 100,
+  "report_sha256": "2815d42ad9bbb1747989d244a1ff32ed1fda68c7dca8897cdf290377a88afb2b"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline scalar --seed 42 --device cuda:0 --limit 100 --output_dir outputs/week6_staging/baseline_limit100 --overwrite"
+	User time (seconds): 11.79
+	System time (seconds): 6.39
+	Percent of CPU this job got: 314%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.77
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1544664
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 337879
+	Voluntary context switches: 598
+	Involuntary context switches: 154325
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14824
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

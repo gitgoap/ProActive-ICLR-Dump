@@ -1,0 +1,91 @@
+===== masked_slot VOI policy =====
+Allowed seconds: 2700
+2026-09-06 00:32:10,444 INFO [train_policy] epoch=0 val_loss=0.559350 oracle_agreement=0.8086
+2026-09-06 00:33:08,066 INFO [train_policy] epoch=1 val_loss=0.554107 oracle_agreement=0.8119
+2026-09-06 00:34:13,157 INFO [train_policy] epoch=2 val_loss=0.551564 oracle_agreement=0.8081
+2026-09-06 00:35:14,527 INFO [train_policy] epoch=3 val_loss=0.547963 oracle_agreement=0.8101
+2026-09-06 00:36:23,149 INFO [train_policy] epoch=4 val_loss=0.547565 oracle_agreement=0.8126
+2026-09-06 00:37:30,001 INFO [train_policy] epoch=5 val_loss=0.544625 oracle_agreement=0.8129
+2026-09-06 00:38:37,665 INFO [train_policy] epoch=6 val_loss=0.544896 oracle_agreement=0.8124
+2026-09-06 00:39:45,793 INFO [train_policy] epoch=7 val_loss=0.544055 oracle_agreement=0.8122
+2026-09-06 00:40:53,688 INFO [train_policy] epoch=8 val_loss=0.542935 oracle_agreement=0.8128
+2026-09-06 00:42:00,861 INFO [train_policy] epoch=9 val_loss=0.541919 oracle_agreement=0.8153
+2026-09-06 00:43:08,875 INFO [train_policy] epoch=10 val_loss=0.541584 oracle_agreement=0.8170
+2026-09-06 00:44:13,720 INFO [train_policy] epoch=11 val_loss=0.541523 oracle_agreement=0.8137
+2026-09-06 00:45:18,179 INFO [train_policy] epoch=12 val_loss=0.541678 oracle_agreement=0.8130
+2026-09-06 00:46:25,055 INFO [train_policy] epoch=13 val_loss=0.543077 oracle_agreement=0.8131
+2026-09-06 00:47:31,567 INFO [train_policy] epoch=14 val_loss=0.539100 oracle_agreement=0.8150
+2026-09-06 00:48:37,328 INFO [train_policy] epoch=15 val_loss=0.540500 oracle_agreement=0.8137
+2026-09-06 00:49:44,608 INFO [train_policy] epoch=16 val_loss=0.542996 oracle_agreement=0.8170
+2026-09-06 00:50:50,695 INFO [train_policy] epoch=17 val_loss=0.540214 oracle_agreement=0.8130
+2026-09-06 00:51:58,355 INFO [train_policy] epoch=18 val_loss=0.540243 oracle_agreement=0.8154
+2026-09-06 00:53:03,190 INFO [train_policy] epoch=19 val_loss=0.540866 oracle_agreement=0.8171
+{
+  "encoder": "masked_slot_mlp",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week6_comparison_checkpoints/masked_slot/policy_masked_slot_mlp_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "masked_slot_mlp",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "best_epoch": 14,
+  "metrics": {
+    "total": 0.5390998300530735,
+    "ranking": 0.07800131739789748,
+    "mse": 0.6154612914535113,
+    "action_ce": 0.6144663795242213,
+    "best_action_accuracy": 0.8150224029892698,
+    "stop_prediction_rate": 0.40072417042805414,
+    "row_count": 60483
+  },
+  "checkpoint_path": "outputs/week6_comparison_checkpoints/masked_slot/policy_masked_slot_mlp_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "2621d801730d7a25abc802738abbb6e756e6692208cdd396fd68428723d286e8",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "b76ad3062c6b4f3d17998fb1c52c2eb639291e7c660d5b3e13236fb29d8c543d",
+  "diagnostic_checkpoint_sha256": "73752aa96aef6a6777087cd908a80c06ccd29133e0ea191d3877e3fe871950e8",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "limit": null,
+  "report_sha256": "2e196c6925cedf8a82efa08833afff781e55a489a70fc8fbe3e38e1a2422a32c"
+}
+	Command being timed: "timeout --signal=INT --kill-after=120s 2700s env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --voi_manifest outputs/week6_voi_masked/voi_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_masked_slot_mlp_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --cost_multiplier 0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week6_comparison_checkpoints/masked_slot --resume"
+	User time (seconds): 1437.24
+	System time (seconds): 11.64
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 23:47.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7227000
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1829137
+	Voluntary context switches: 51738
+	Involuntary context switches: 45163
+	Swaps: 0
+	File system inputs: 144
+	File system outputs: 29400
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+masked_slot VOI policy exit code: 0

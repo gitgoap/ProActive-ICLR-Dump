@@ -1,0 +1,443 @@
+[
+  {
+    "epoch": 0,
+    "train": {
+      "action_ce": 0.823059046542894,
+      "best_action_accuracy": 0.7426408419238868,
+      "mse": 0.6094432802648541,
+      "ranking": 0.0682345421158091,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5690387210749056,
+      "total": 0.6321248856003032
+    },
+    "validation": {
+      "action_ce": 0.8021079947184001,
+      "best_action_accuracy": 0.7494337251789759,
+      "mse": 0.6085653414067249,
+      "ranking": 0.06713264005688994,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5641915910255775,
+      "total": 0.6203279717503887
+    }
+  },
+  {
+    "epoch": 1,
+    "train": {
+      "action_ce": 0.7978058434822187,
+      "best_action_accuracy": 0.7527776568468182,
+      "mse": 0.5866525894813055,
+      "ranking": 0.06857738671938567,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.559845931411524,
+      "total": 0.6141434553894158
+    },
+    "validation": {
+      "action_ce": 0.7994820708791595,
+      "best_action_accuracy": 0.7528892416050791,
+      "mse": 0.6027913828674094,
+      "ranking": 0.06446823718374062,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5714663624489525,
+      "total": 0.6149071193643303
+    }
+  },
+  {
+    "epoch": 2,
+    "train": {
+      "action_ce": 0.7914997014330692,
+      "best_action_accuracy": 0.7551629245535929,
+      "mse": 0.5821568045564766,
+      "ranking": 0.06815816569772555,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5576989613430822,
+      "total": 0.6094472177413045
+    },
+    "validation": {
+      "action_ce": 0.7975190490050135,
+      "best_action_accuracy": 0.7541127258899195,
+      "mse": 0.594004204172981,
+      "ranking": 0.06517870407197679,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5570656217449531,
+      "total": 0.612439280800302
+    }
+  },
+  {
+    "epoch": 3,
+    "train": {
+      "action_ce": 0.7874959426525067,
+      "best_action_accuracy": 0.7563108775997929,
+      "mse": 0.5794242183263525,
+      "ranking": 0.06802623045013968,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5562141837503924,
+      "total": 0.6066302555127447
+    },
+    "validation": {
+      "action_ce": 0.7953832628023998,
+      "best_action_accuracy": 0.7557330158887622,
+      "mse": 0.6032578517186677,
+      "ranking": 0.06268560404780128,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5734007903047137,
+      "total": 0.6111916989763604
+    }
+  },
+  {
+    "epoch": 4,
+    "train": {
+      "action_ce": 0.7850635169311633,
+      "best_action_accuracy": 0.7573282252095989,
+      "mse": 0.5776189815721953,
+      "ranking": 0.06778878018257031,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5567274402021863,
+      "total": 0.6047252836828318
+    },
+    "validation": {
+      "action_ce": 0.7842356965655091,
+      "best_action_accuracy": 0.7563778251740159,
+      "mse": 0.5962139547355055,
+      "ranking": 0.06906554615358342,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5613312831704776,
+      "total": 0.6102368804967496
+    }
+  },
+  {
+    "epoch": 5,
+    "train": {
+      "action_ce": 0.7830075535450246,
+      "best_action_accuracy": 0.757901056070976,
+      "mse": 0.5762720939536886,
+      "ranking": 0.06777020953729736,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5557215492096079,
+      "total": 0.603342009504539
+    },
+    "validation": {
+      "action_ce": 0.7904176888249391,
+      "best_action_accuracy": 0.7560471537456807,
+      "mse": 0.5961838303077766,
+      "ranking": 0.06429305474847886,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.564505728882496,
+      "total": 0.6085478553751001
+    }
+  },
+  {
+    "epoch": 6,
+    "train": {
+      "action_ce": 0.7813374517358541,
+      "best_action_accuracy": 0.7589756867669197,
+      "mse": 0.5746061817516657,
+      "ranking": 0.06787058070575054,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5560767043436619,
+      "total": 0.6021908521357223
+    },
+    "validation": {
+      "action_ce": 0.7840668680968133,
+      "best_action_accuracy": 0.7619827058842981,
+      "mse": 0.5991647172604494,
+      "ranking": 0.0648685227123336,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5660433510242547,
+      "total": 0.6066931360855842
+    }
+  },
+  {
+    "epoch": 7,
+    "train": {
+      "action_ce": 0.7802227862228224,
+      "best_action_accuracy": 0.7594041642512299,
+      "mse": 0.5739662652289609,
+      "ranking": 0.06765767112930672,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5558154934708739,
+      "total": 0.6012606297377016
+    },
+    "validation": {
+      "action_ce": 0.787500794621377,
+      "best_action_accuracy": 0.758791726600863,
+      "mse": 0.5957252788706896,
+      "ranking": 0.06585018320795863,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5647041317394971,
+      "total": 0.6085318986362734
+    }
+  },
+  {
+    "epoch": 8,
+    "train": {
+      "action_ce": 0.7788145796734206,
+      "best_action_accuracy": 0.7600411521690813,
+      "mse": 0.5729920624549808,
+      "ranking": 0.06773236514557089,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5559438075838223,
+      "total": 0.6003876705261008
+    },
+    "validation": {
+      "action_ce": 0.7846107118312989,
+      "best_action_accuracy": 0.7555015458889275,
+      "mse": 0.5917250737408676,
+      "ranking": 0.06674286607552692,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5622406295983996,
+      "total": 0.6069794890485724
+    }
+  },
+  {
+    "epoch": 9,
+    "train": {
+      "action_ce": 0.7781345695489703,
+      "best_action_accuracy": 0.7604008899500262,
+      "mse": 0.5720946690382523,
+      "ranking": 0.06767148345408316,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5557673756785182,
+      "total": 0.5997624342950252
+    },
+    "validation": {
+      "action_ce": 0.786930643560008,
+      "best_action_accuracy": 0.7571218358877702,
+      "mse": 0.5891286385858974,
+      "ranking": 0.06440869936531342,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5594629896003835,
+      "total": 0.6051561797443522
+    }
+  },
+  {
+    "epoch": 10,
+    "train": {
+      "action_ce": 0.7773289513335454,
+      "best_action_accuracy": 0.7607491711137436,
+      "mse": 0.5715391676558175,
+      "ranking": 0.06766849386834227,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5560789956671074,
+      "total": 0.5992177610277657
+    },
+    "validation": {
+      "action_ce": 0.792265858259446,
+      "best_action_accuracy": 0.7583949208868608,
+      "mse": 0.6000659426646623,
+      "ranking": 0.06062439917508444,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5651505381677496,
+      "total": 0.6067738143569107
+    }
+  },
+  {
+    "epoch": 11,
+    "train": {
+      "action_ce": 0.776887240560743,
+      "best_action_accuracy": 0.7608041628764358,
+      "mse": 0.5707763138184471,
+      "ranking": 0.06767285608336117,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.555735297150281,
+      "total": 0.5988105547186969
+    },
+    "validation": {
+      "action_ce": 0.7795508454206387,
+      "best_action_accuracy": 0.7557330158887622,
+      "mse": 0.5883123952871813,
+      "ranking": 0.0690018605479227,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5507663310351669,
+      "total": 0.6058553820349518
+    }
+  },
+  {
+    "epoch": 12,
+    "train": {
+      "action_ce": 0.7755663498447976,
+      "best_action_accuracy": 0.760976012134849,
+      "mse": 0.5700557342203948,
+      "ranking": 0.06767650782769236,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5554442990727014,
+      "total": 0.597973616188061
+    },
+    "validation": {
+      "action_ce": 0.784478054225909,
+      "best_action_accuracy": 0.7606600201709571,
+      "mse": 0.5864412398702787,
+      "ranking": 0.06584618233290011,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.560818742456558,
+      "total": 0.6046955181512738
+    }
+  },
+  {
+    "epoch": 13,
+    "train": {
+      "action_ce": 0.7753109619267555,
+      "best_action_accuracy": 0.7621354217982764,
+      "mse": 0.5699222851043864,
+      "ranking": 0.06757588973416132,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5560950349312259,
+      "total": 0.597711941278741
+    },
+    "validation": {
+      "action_ce": 0.7922511607137025,
+      "best_action_accuracy": 0.7598994758857861,
+      "mse": 0.5893493120355321,
+      "ranking": 0.06167876792306743,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5596448588859679,
+      "total": 0.6051416768324158
+    }
+  },
+  {
+    "epoch": 14,
+    "train": {
+      "action_ce": 0.7744872207696002,
+      "best_action_accuracy": 0.7620758473886933,
+      "mse": 0.569114180871837,
+      "ranking": 0.06746461466008215,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5560033819934056,
+      "total": 0.5969867713152087
+    },
+    "validation": {
+      "action_ce": 0.7788183470262555,
+      "best_action_accuracy": 0.760874956599375,
+      "mse": 0.5932718165512133,
+      "ranking": 0.06667083035019669,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5611163467420598,
+      "total": 0.6043979598294352
+    }
+  },
+  {
+    "epoch": 15,
+    "train": {
+      "action_ce": 0.7738498476709919,
+      "best_action_accuracy": 0.7623210189973627,
+      "mse": 0.5691397128092347,
+      "ranking": 0.0675011438571502,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.556117948165681,
+      "total": 0.5967109957000473
+    },
+    "validation": {
+      "action_ce": 0.7851996462721142,
+      "best_action_accuracy": 0.7599160094572028,
+      "mse": 0.5803043234926378,
+      "ranking": 0.06597954913912955,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.558950448886464,
+      "total": 0.6036554515325323
+    }
+  },
+  {
+    "epoch": 16,
+    "train": {
+      "action_ce": 0.773685811652003,
+      "best_action_accuracy": 0.762552442665359,
+      "mse": 0.5681810078550188,
+      "ranking": 0.06758091077413891,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5557673756785182,
+      "total": 0.5964690699449094
+    },
+    "validation": {
+      "action_ce": 0.7801556142078984,
+      "best_action_accuracy": 0.7607096208852074,
+      "mse": 0.591317735048576,
+      "ranking": 0.06704134750586072,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5606038060281401,
+      "total": 0.6049485903819587
+    }
+  },
+  {
+    "epoch": 17,
+    "train": {
+      "action_ce": 0.7731515129945711,
+      "best_action_accuracy": 0.7627197092768813,
+      "mse": 0.5683362214679873,
+      "ranking": 0.06751638628185402,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5558704852335661,
+      "total": 0.5961761983926175
+    },
+    "validation": {
+      "action_ce": 0.7816051245179183,
+      "best_action_accuracy": 0.7584610551725278,
+      "mse": 0.5815757402712187,
+      "ranking": 0.06828406214597764,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.557842699601541,
+      "total": 0.6044805615698379
+    }
+  },
+  {
+    "epoch": 18,
+    "train": {
+      "action_ce": 0.7726109578580246,
+      "best_action_accuracy": 0.7630840297047171,
+      "mse": 0.5675928211770143,
+      "ranking": 0.0675204239607255,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5555611565684223,
+      "total": 0.5957241088378029
+    },
+    "validation": {
+      "action_ce": 0.7821568872896572,
+      "best_action_accuracy": 0.7572210373162707,
+      "mse": 0.5881283891825221,
+      "ranking": 0.06583821844951546,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.5569664203164526,
+      "total": 0.6039487594192925
+    }
+  },
+  {
+    "epoch": 19,
+    "train": {
+      "action_ce": 0.772152592957283,
+      "best_action_accuracy": 0.7636201993909663,
+      "mse": 0.567518664421687,
+      "ranking": 0.06741324466769168,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5557078012689349,
+      "total": 0.5953692076109944
+    },
+    "validation": {
+      "action_ce": 0.7797513651526179,
+      "best_action_accuracy": 0.7611064265992097,
+      "mse": 0.5844281250968953,
+      "ranking": 0.06770964420350963,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.560686473885224,
+      "total": 0.6036923582973323
+    }
+  },
+  {
+    "epoch": 20,
+    "train": {
+      "action_ce": 0.772069160565237,
+      "best_action_accuracy": 0.7629648808855507,
+      "mse": 0.5671495375461179,
+      "ranking": 0.06756209732922173,
+      "row_count": 436429,
+      "stop_prediction_rate": 0.5555405346574128,
+      "total": 0.5953840615456114
+    },
+    "validation": {
+      "action_ce": 0.7769308391036869,
+      "best_action_accuracy": 0.7592712001719492,
+      "mse": 0.6007989693824836,
+      "ranking": 0.0657320737198431,
+      "row_count": 60483,
+      "stop_prediction_rate": 0.565679612453086,
+      "total": 0.6043972351840668
+    }
+  }
+]

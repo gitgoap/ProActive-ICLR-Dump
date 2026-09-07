@@ -1,0 +1,132 @@
+2026-08-30 16:38:28,264 INFO [train_one_pass_baselines] epoch=0 train_loss=1.489624 val_macro_f1=0.2500
+2026-08-30 16:38:28,334 INFO [train_one_pass_baselines] epoch=1 train_loss=1.332594 val_macro_f1=0.2500
+2026-08-30 16:38:28,411 INFO [train_one_pass_baselines] epoch=2 train_loss=1.263272 val_macro_f1=0.3510
+2026-08-30 16:38:28,489 INFO [train_one_pass_baselines] epoch=3 train_loss=1.216881 val_macro_f1=0.3941
+2026-08-30 16:38:28,565 INFO [train_one_pass_baselines] epoch=4 train_loss=1.187683 val_macro_f1=0.4451
+2026-08-30 16:38:28,643 INFO [train_one_pass_baselines] epoch=5 train_loss=1.180344 val_macro_f1=0.4563
+2026-08-30 16:38:28,719 INFO [train_one_pass_baselines] epoch=6 train_loss=1.158597 val_macro_f1=0.5397
+2026-08-30 16:38:28,797 INFO [train_one_pass_baselines] epoch=7 train_loss=1.155798 val_macro_f1=0.6855
+2026-08-30 16:38:28,874 INFO [train_one_pass_baselines] epoch=8 train_loss=1.139377 val_macro_f1=0.7230
+2026-08-30 16:38:28,945 INFO [train_one_pass_baselines] epoch=9 train_loss=1.134719 val_macro_f1=0.7230
+2026-08-30 16:38:29,015 INFO [train_one_pass_baselines] epoch=10 train_loss=1.125434 val_macro_f1=0.7230
+2026-08-30 16:38:29,084 INFO [train_one_pass_baselines] epoch=11 train_loss=1.121365 val_macro_f1=0.7230
+2026-08-30 16:38:29,152 INFO [train_one_pass_baselines] epoch=12 train_loss=1.122268 val_macro_f1=0.7230
+2026-08-30 16:38:29,221 INFO [train_one_pass_baselines] epoch=13 train_loss=1.117190 val_macro_f1=0.7230
+{
+  "baseline": "distilled",
+  "pilot": true,
+  "output": "outputs/week6_staging/baseline_limit100/baseline_distilled_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "distilled",
+  "metrics": {
+    "record_count": 100,
+    "source_bit_micro_f1": 0.7341772151898734,
+    "source_bit_macro_f1": 0.7230158730158731,
+    "source_bit_hamming_loss": 0.21,
+    "source_bit_auroc": {
+      "visual": 0.7182539682539683,
+      "language": 0.3879166666666667,
+      "alignment": 0.7697408077154912
+    },
+    "six_way_macro_f1": 0.3101781170483461,
+    "six_way_balanced_accuracy": 0.35,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        13,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        47,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        15,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        19,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.09913512908423056
+  },
+  "checkpoint_path": "outputs/week6_staging/baseline_limit100/baseline_distilled_seed42.best.pt",
+  "checkpoint_sha256": "b21f8087344550735c44d622e24d788a68c43723e4bc7014938e0a7c58bb4a16",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": 100,
+  "report_sha256": "541de913ce2a0e8c13f2a4c742730713d05c6e0d571aa265880c1d576ed33f8f"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline distilled --seed 42 --device cuda:0 --limit 100 --output_dir outputs/week6_staging/baseline_limit100 --overwrite"
+	User time (seconds): 12.55
+	System time (seconds): 6.45
+	Percent of CPU this job got: 295%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1632248
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 358901
+	Voluntary context switches: 629
+	Involuntary context switches: 152348
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 43384
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

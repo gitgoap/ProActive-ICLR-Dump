@@ -1,0 +1,90 @@
+{
+  "baseline_type": "distilled",
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week6_staging/baseline_limit10/baseline_distilled_seed42.best.pt",
+  "checkpoint_sha256": "867d99a0055290c3d0bf8bcf6e131e28eb96e46dd5828814be28effe79d1c4db",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "fit_split": "train",
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "limit": 10,
+  "metrics": {
+    "record_count": 10,
+    "signature_mse": 0.1007189959164623,
+    "six_way_balanced_accuracy": 0.3125,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.25384615384615383,
+    "source_bit_auroc": {
+      "alignment": 0.5416666666666666,
+      "language": 0.875,
+      "visual": 0.75
+    },
+    "source_bit_hamming_loss": 0.23333333333333334,
+    "source_bit_macro_f1": 0.5185185185185185,
+    "source_bit_micro_f1": 0.72
+  },
+  "report_sha256": "6fc13f9faafe2fbb5b3db7b4b9bd774c15281e58591f25c7e0ce01a474c67e7d",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "test_used": false,
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858"
+}

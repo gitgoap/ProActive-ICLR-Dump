@@ -230,7 +230,7 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
     is valid with zero errors/warnings and SHA-256 `026ef289...207e`.
 
 ## Week 6: VOI targets, policy, and baseline frontier
-**Status:** IMPLEMENTED, NOT VALIDATED; Week 5 prerequisite satisfied
+**Status:** COMPLETE
 **Dates:** August 26, 2026–present
 
 **Implemented locally:**
@@ -282,6 +282,90 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
     Both reports are scientifically valid and explicitly exclude calibration
     and test. At measured throughput, the remaining 14-run Deep Sets grid is
     about six GPU-hours or roughly three wall-clock hours on two GPUs.
+11. The owner-approved remaining grid completed on physical GPU 0 in 7.5586
+    GPU-hours. The final matrix contains exactly 15/15 validation reports and
+    60/60 expected policy files over all five cost multipliers and seeds
+    42/43/44. Every report is scientifically valid with 436,429 training and
+    60,483 validation targets; calibration/test flags are false, all checkpoint
+    SHA-256 values match, and there are no missing, extra, or duplicate
+    seed/cost combinations. Baseline staging is the next gate.
+12. Scalar-confidence and one-pass-distilled baseline staging passed at limits
+    1, 10, and 100. All six runs exited zero in 5.53--6.51 seconds, produced
+    hash-matching best/last checkpoints and reports, and excluded calibration
+    and test. The one-row reports correctly record undefined AUROCs as `null`
+    and `metrics_scientifically_valid=false`; limits 10 and 100 have finite
+    scientific metrics. Complete baseline training now awaits compute approval.
+13. Complete scalar and distilled controls passed with scientifically valid
+    full reports over all 1,404 validation model-instances, no calibration/test
+    use, and matching checkpoint hashes. Scalar selected epoch 1 (Macro-F1
+    `0.739826`, 15.75 seconds); distilled selected epoch 7 (Macro-F1 `0.757429`,
+    24.53 seconds). Both happened sequentially on physical GPU 2 and remained
+    far below the approved combined one-GPU-hour ceiling.
+14. Temporary validation-only APS passed for clean-only, scalar-confidence,
+    and one-pass-distilled controls. Each report fits all 1,404 validation
+    rows at budgets 1/2/4 and coverages 0.90/0.95, excludes calibration/test,
+    matches its checkpoint, and passes its signed self-hash. All three CPU jobs
+    exited zero in under three seconds each.
+15. The 100-row end-to-end validation frontier passed in 1:08.45 on physical
+    GPU 2. All 15 required conditions, both oracles, budgets 1/2/4, full
+    teacher at budget 7, signed dataset-specific schedule, and bound JSON/CSV/
+    PNG hashes are present. Pilot indicators show ProActive beating random and
+    fixed at one or more budgets; full 15-policy validation remains required.
+16. The owner-approved complete Deep Sets validation-frontier matrix is now
+    synchronized and audited. All 15/15 seed/cost reports are full validation
+    runs over 1,404 model-instances, all 60 referenced report/CSV/PNG/schedule
+    artifacts have matching hashes, and all 15 logs exit zero. The matrix used
+    0.930472 GPU-hours total (214.87--238.12 seconds per run), far below the
+    approved 7.5 GPU-hour ceiling. Read-only aggregation predicts lambda 0.0
+    as the selection winner (mean source-bit Macro-F1 0.942567, mean cost
+    2.284742, mean set size 2.167221), but the signed CPU-only selection and
+    owner review remain mandatory. The GRU and masked-slot learned-policy
+    comparison frontiers remain the other blocker to full Week 6 validation.
+17. The formal CPU-only selection review produced a valid, self-hash-bound
+    report and selected lambda 0.0 with primary seed 42 under the predeclared
+    rule. No calibration or test data were accessed. ProActive beats random
+    and fixed, budget progress passes, and the full-teacher-over-clean relative
+    gain is 30.0581% against the 10% active-signal threshold. The command's
+    review-stage exit code is intentionally nonzero pending explicit owner
+    approval; Week 6 is not frozen or complete. GRU/masked comparison
+    frontiers and the full validator remain required afterward.
+18. The owner approved the measured lambda-0.0/seed-42 operating point on
+    2026-09-04. This freezes the selection decision once the identical
+    CPU-only command is rerun with `--approve_selection`; it does not authorize
+    calibration/test access and does not replace the mandatory GRU/masked
+    comparison frontiers or full Week 6 validation.
+19. The CPU acceptance rerun reproduced the selected report without the
+    review-stage stop. GRU and masked-slot VOI/entropy-reduction 100-row pilots
+    then passed on GPU 3: 4/4 logs exit zero, 16/16 artifacts are present,
+    checkpoint/report hashes match, each report uses 100 train and 100
+    validation rows, and no calibration/test data were accessed. The four
+    finite pilot losses are 0.755266, 0.533853, 0.548091, and 0.451863; total
+    measured runtime is 129.85 seconds. `is_valid=false` correctly distinguishes
+    bounded pilot checkpoints from complete scientific checkpoints. Full
+    comparison training/frontiers and the full Week 6 validator remain.
+20. The owner approved the complete random-permutation GRU and masked-slot MLP
+    comparison bundle on 2026-09-05. It must run sequentially on a verified-free
+    physical GPU 3, with a combined `3` GPU-hour ceiling, a `45`-minute timeout
+    per training job, and a `15`-minute timeout per frontier. This authorization
+    includes the architecture-bound scalar/distilled controls and temporary
+    validation APS needed by each frontier; it does not unlock calibration or
+    test data.
+21. The complete comparison bundle was synchronized on 2026-09-06 after
+    execution on verified-free physical GPU 1. All 14 logs exit zero in a
+    combined 6,815.44 seconds (`1.8932` GPU-hours). Four complete policies,
+    four architecture-bound one-pass controls, four temporary validation APS
+    reports, and two complete frontiers are present and hash-consistent. Each
+    frontier covers all 1,404 validation model-instances, 43 rows, 15
+    conditions, budgets `1/2/4`, and both oracles. Both comparison policies
+    beat random and fixed at one or more budgets. No calibration/test records
+    were used; the CPU-only full Week 6 validator is now the final gate.
+22. The CPU-only full Week 6 validator passed on 2026-09-06 with
+    `is_valid=true`, `errors=[]`, approved configuration, and a complete
+    496,912-row VOI corpus. Its self-hash independently reproduces as
+    `fade7dc83ec2b94e3bbf3110457c18a800647026e7cc5de4ed05a8dedf29ff64`.
+    Weeks 1--6 are therefore complete. Calibration/test remain locked while
+    Week 7 first expands the validation-only dataset schedule to final budgets
+    `1/2/3/4/7` and signs the main-stack freeze.
 9. The bounded Deep Sets learned-VOI and train-only entropy-reduction policy
    pilots both exited zero. Each used exactly 100 train and 100 validation
    rows with no calibration/test access. The VOI policy selected epoch 19
@@ -292,7 +376,7 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
    Deep Sets cost/seed grid.
 
 ## Week 7: Frozen stack, APS, and locked test
-**Status:** IMPLEMENTED, NOT VALIDATED; blocked on Week 6 selection
+**Status:** IMPLEMENTED, NOT VALIDATED; Week 6 prerequisite satisfied
 **Dates:** August 26, 2026–present
 
 **Implemented locally:**
@@ -305,3 +389,56 @@ but does not count as the required InternVL GPU smoke/catch-up validation.
    GRU canonical/random-augmentation comparison.
 4. Fail-closed coverage/comparator gates and an automatically generated Week 7
    go/no-go memo. No test execution is possible before freeze plus calibration.
+5. The three validation-only static controls were expanded to the approved
+   final budget grid `1/2/3/4/7` on 2026-09-06. Clean-only, scalar-confidence,
+   and one-pass-distilled APS reports all contain both `0.90` and `0.95`
+   targets, use the complete validation split, and record no calibration/test
+   access. Their report hashes are `d4e62406...a292f`,
+   `c2dc1bbc...ca732`, and `b8d81cab...7cd90`, respectively.
+6. The selected Deep Sets lambda-0.0/seed-42 final-budget validation frontier
+   completed on physical GPU 1 in `7:38.52` (`0.1274` GPU-hours), below the
+   approved `0.25` GPU-hour and 15-minute limits. It is valid over 1,404
+   validation model-instances, 71 frontier rows, all 15 conditions, both
+   oracles, and budgets `1/2/3/4/7`. ProActive beats random and fixed at least
+   once, and the CSV, figure, and dataset-schedule hashes match. Calibration
+   and test were not used.
+
+**Next gate:** Run the CPU-only freeze preview, review the exact bound artifact
+paths, and obtain explicit owner approval before writing the main-stack freeze.
+Calibration and test remain locked.
+
+7. The CPU-only freeze preview passed with exit code zero on 2026-09-06. The
+   reviewed bundle contains the selected Deep Sets seed-42 diagnostic,
+   lambda-0.0/seed-42 policy, signed Week 6 selection report, uncertainty,
+   scalar and distilled controls, and the five-budget validation schedule.
+   No freeze was written and calibration/test remain locked until explicit
+   owner approval.
+8. The owner approved the exact previewed main-stack boundary on 2026-09-06
+   and authorized writing `outputs/week7_frozen/main_stack_freeze.json`.
+   Calibration/test remain locked until the resulting manifest passes the
+   synchronized hash audit.
+9. The synchronized main-stack manifest passed that audit: status `FROZEN`,
+   `owner_approved=true`, internal freeze hash `ec886b26...b21ef`, and all
+   11 bound artifact hashes match. W7-01 is COMPLETE and the model-selection
+   boundary is closed before any calibration or test access.
+10. Week 7 readiness passed on 2026-09-06 with `is_valid=true`, approved
+    configuration, zero errors, zero warnings, and self-hash
+    `12e679f3...f136b`. `go_no_go=NO-GO` is the intentional readiness-mode
+    state; the final locked validator alone can issue `GO`.
+11. The owner approved complete calibration-only execution on 2026-09-06:
+    frozen-policy trajectories on physical GPU 1 under `0.25` GPU-hours and a
+    15-minute timeout, plus the three static APS calibration jobs on CPU in
+    parallel. Test access remains prohibited.
+12. Calibration completed and passed artifact audit. Five trajectory files
+    contain exactly 1,500 rows each (7,500 total), every recorded file hash
+    matches, the trajectory manifest is `COMPLETE`, and all provenance is
+    calibration-only. The GPU job took 49.71 seconds (`0.0138` GPU-hours).
+    Main APS plus clean/scalar/distilled APS are `FINAL_FROZEN`, cover budgets
+    `1/2/3/4/7` at targets `0.90/0.95`, and bind to the signed freeze. All ten
+    main APS cells pass the 0.03 undercoverage gate. W7-02 and W7-03 are
+    COMPLETE; test has not yet been accessed.
+13. The owner authorized the one-time complete locked-test bundle on
+    2026-09-06: frontier on physical GPU 1 and primary Deep Sets plus two GRU
+    permutation studies on physical GPU 2, only after free-device and
+    contract-only checks. Combined compute is capped at one GPU-hour and no
+    post-test tuning is permitted.

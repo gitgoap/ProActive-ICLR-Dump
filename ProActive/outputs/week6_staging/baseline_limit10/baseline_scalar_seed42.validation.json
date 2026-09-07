@@ -1,0 +1,90 @@
+{
+  "baseline_type": "scalar",
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week6_staging/baseline_limit10/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "b3eecd32f7e835113b5af77992a989e6dfc0a37fb964273f44f48d304f3fd76e",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "fit_split": "train",
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "limit": 10,
+  "metrics": {
+    "record_count": 10,
+    "signature_mse": 0.3001469012752865,
+    "six_way_balanced_accuracy": 0.25,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.045454545454545456,
+    "source_bit_auroc": {
+      "alignment": 0.7083333333333334,
+      "language": 0.5,
+      "visual": 0.0
+    },
+    "source_bit_hamming_loss": 0.26666666666666666,
+    "source_bit_macro_f1": 0.2962962962962963,
+    "source_bit_micro_f1": 0.6666666666666666
+  },
+  "report_sha256": "8e4f86a5b531d87eafba8c295ab04f6fbc69a0934455166d74dddc471ea71baa",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "test_used": false,
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858"
+}

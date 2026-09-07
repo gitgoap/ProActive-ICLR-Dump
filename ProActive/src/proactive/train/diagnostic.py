@@ -124,7 +124,11 @@ def predict(
     }
 
 
-def evaluate_predictions(predictions: Mapping[str, Any]) -> Dict[str, Any]:
+def evaluate_predictions(
+    predictions: Mapping[str, Any],
+    *,
+    allow_undefined_auroc: bool = False,
+) -> Dict[str, Any]:
     return diagnostic_metrics(
         bit_probabilities=predictions["bit_probabilities"],
         six_way_probabilities=predictions["six_way_probabilities"],
@@ -132,6 +136,7 @@ def evaluate_predictions(predictions: Mapping[str, Any]) -> Dict[str, Any]:
         six_way_targets=predictions["six_way_targets"],
         signature_predictions=predictions["signature_predictions"],
         signature_targets=predictions["signature_targets"],
+        allow_undefined_auroc=allow_undefined_auroc,
     )
 
 

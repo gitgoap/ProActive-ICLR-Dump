@@ -1,0 +1,125 @@
+2026-08-31 15:22:36,329 INFO [train_one_pass_baselines] epoch=0 train_loss=1.499297 val_macro_f1=0.7189
+2026-08-31 15:22:37,741 INFO [train_one_pass_baselines] epoch=1 train_loss=1.305213 val_macro_f1=0.7398
+2026-08-31 15:22:39,261 INFO [train_one_pass_baselines] epoch=2 train_loss=1.282540 val_macro_f1=0.7346
+2026-08-31 15:22:40,788 INFO [train_one_pass_baselines] epoch=3 train_loss=1.276948 val_macro_f1=0.7348
+2026-08-31 15:22:42,294 INFO [train_one_pass_baselines] epoch=4 train_loss=1.269784 val_macro_f1=0.7334
+2026-08-31 15:22:43,678 INFO [train_one_pass_baselines] epoch=5 train_loss=1.267523 val_macro_f1=0.7317
+2026-08-31 15:22:45,160 INFO [train_one_pass_baselines] epoch=6 train_loss=1.264782 val_macro_f1=0.7305
+{
+  "baseline": "scalar",
+  "pilot": false,
+  "output": "outputs/week6_checkpoints/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 1404,
+    "source_bit_micro_f1": 0.7316700610997964,
+    "source_bit_macro_f1": 0.7398256514513099,
+    "source_bit_hamming_loss": 0.2502374169040836,
+    "source_bit_auroc": {
+      "visual": 0.8883410903239605,
+      "language": 0.5758346805800509,
+      "alignment": 0.9543428108242922
+    },
+    "six_way_macro_f1": 0.22079266424660393,
+    "six_way_balanced_accuracy": 0.3380799446215268,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        35,
+        14,
+        24,
+        114
+      ],
+      [
+        0,
+        0,
+        19,
+        7,
+        35,
+        331
+      ],
+      [
+        0,
+        0,
+        11,
+        8,
+        15,
+        10
+      ],
+      [
+        0,
+        0,
+        84,
+        429,
+        50,
+        32
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        2,
+        7
+      ],
+      [
+        0,
+        0,
+        7,
+        3,
+        9,
+        155
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.09674017632599048
+  },
+  "checkpoint_path": "outputs/week6_checkpoints/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "4034b1a49e613de87f5b106b52fbe96628d608ccaca2d2bcb03c86a9555de660",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": null,
+  "report_sha256": "95af3e958d26485c4bab1882c6599f882e590b474bb7636b9aaf09b621878450"
+}
+	Command being timed: "timeout --signal=INT 30m env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline scalar --seed 42 --device cuda:0 --output_dir outputs/week6_checkpoints --resume"
+	User time (seconds): 22.25
+	System time (seconds): 6.44
+	Percent of CPU this job got: 182%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:15.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1549672
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 339598
+	Voluntary context switches: 1001
+	Involuntary context switches: 130140
+	Swaps: 0
+	File system inputs: 1528
+	File system outputs: 14824
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

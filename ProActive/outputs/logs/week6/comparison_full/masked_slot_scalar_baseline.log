@@ -1,0 +1,129 @@
+===== masked_slot scalar baseline =====
+Allowed seconds: 2700
+2026-09-06 01:17:15,949 INFO [train_one_pass_baselines] epoch=0 train_loss=1.493120 val_macro_f1=0.7293
+2026-09-06 01:17:17,273 INFO [train_one_pass_baselines] epoch=1 train_loss=1.307847 val_macro_f1=0.7338
+2026-09-06 01:17:18,487 INFO [train_one_pass_baselines] epoch=2 train_loss=1.283616 val_macro_f1=0.7369
+2026-09-06 01:17:19,798 INFO [train_one_pass_baselines] epoch=3 train_loss=1.283168 val_macro_f1=0.7348
+2026-09-06 01:17:21,109 INFO [train_one_pass_baselines] epoch=4 train_loss=1.274659 val_macro_f1=0.7358
+2026-09-06 01:17:22,309 INFO [train_one_pass_baselines] epoch=5 train_loss=1.272695 val_macro_f1=0.7345
+2026-09-06 01:17:23,632 INFO [train_one_pass_baselines] epoch=6 train_loss=1.271056 val_macro_f1=0.7324
+2026-09-06 01:17:24,934 INFO [train_one_pass_baselines] epoch=7 train_loss=1.269149 val_macro_f1=0.7323
+{
+  "baseline": "scalar",
+  "pilot": false,
+  "output": "outputs/week6_comparison_checkpoints/masked_slot/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 1404,
+    "source_bit_micro_f1": 0.7294057638357562,
+    "source_bit_macro_f1": 0.7369163267295771,
+    "source_bit_hamming_loss": 0.25189933523266855,
+    "source_bit_auroc": {
+      "visual": 0.8883410903239605,
+      "language": 0.5792701597099745,
+      "alignment": 0.9543428108242922
+    },
+    "six_way_macro_f1": 0.26726756057323864,
+    "six_way_balanced_accuracy": 0.3273139506586334,
+    "six_way_confusion_matrix": [
+      [
+        6,
+        77,
+        38,
+        14,
+        0,
+        52
+      ],
+      [
+        19,
+        71,
+        23,
+        6,
+        0,
+        273
+      ],
+      [
+        5,
+        16,
+        12,
+        8,
+        0,
+        3
+      ],
+      [
+        22,
+        44,
+        93,
+        428,
+        0,
+        8
+      ],
+      [
+        0,
+        6,
+        3,
+        0,
+        0,
+        3
+      ],
+      [
+        3,
+        28,
+        8,
+        3,
+        0,
+        132
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.0941737198167384
+  },
+  "checkpoint_path": "outputs/week6_comparison_checkpoints/masked_slot/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "13c7552b2ad4a94086e91a11c643e3e500dd79ff93b096eb749dc20762d1966d",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "73752aa96aef6a6777087cd908a80c06ccd29133e0ea191d3877e3fe871950e8",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": null,
+  "report_sha256": "c4beabc15ac14afdaf0248c89510ab05382107b0e7f164072282b857ae3c233f"
+}
+	Command being timed: "timeout --signal=INT --kill-after=120s 2700s env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_masked_slot_mlp_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline scalar --seed 42 --device cuda:0 --output_dir outputs/week6_comparison_checkpoints/masked_slot --resume"
+	User time (seconds): 22.57
+	System time (seconds): 6.63
+	Percent of CPU this job got: 187%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:15.54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1557972
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 340279
+	Voluntary context switches: 1029
+	Involuntary context switches: 44494
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 18112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+masked_slot scalar baseline exit code: 0

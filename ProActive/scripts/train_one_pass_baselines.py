@@ -178,7 +178,10 @@ def main() -> None:
             total += float(loss.detach().cpu()) * batch_count
             count += batch_count
         predictions = predict(student, val_loader, normalizer=normalizer, device=device)
-        metrics = evaluate_predictions(predictions)
+        metrics = evaluate_predictions(
+            predictions,
+            allow_undefined_auroc=pilot,
+        )
         score = float(metrics["source_bit_macro_f1"])
         improved = score > best_score
         if improved:
@@ -211,7 +214,10 @@ def main() -> None:
             break
     best = load_checkpoint(best_path, map_location=device)
     student.load_state_dict(best["model_state_dict"])
-    metrics = evaluate_predictions(predict(student, val_loader, normalizer=normalizer, device=device))
+    metrics = evaluate_predictions(
+        predict(student, val_loader, normalizer=normalizer, device=device),
+        allow_undefined_auroc=pilot,
+    )
     report: Dict[str, Any] = {
         "format_version": "week6_one_pass_baseline_validation_v1",
         "is_valid": not pilot,

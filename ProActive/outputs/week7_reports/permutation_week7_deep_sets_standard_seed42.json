@@ -1,0 +1,121 @@
+{
+  "action_drift_applicable": true,
+  "aps_sha256": "cc60c08220c09bc12fa7606764d8dabc3330d91e36add8d19c3323a1112e97a0",
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "average_set_size_by_permutation": [
+        4.1456,
+        4.1456
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.968,
+        0.968
+      ],
+      "coverage_range": 0.0
+    },
+    "3": {
+      "average_set_size_by_permutation": [
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008
+      ],
+      "coverage_range": 0.0
+    },
+    "4": {
+      "average_set_size_by_permutation": [
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537
+      ],
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289
+      ],
+      "coverage_range": 0.0
+    }
+  },
+  "checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "coverage": 0.9,
+  "csv_path": "outputs/week7_reports/permutation_week7_deep_sets_standard_seed42.csv",
+  "csv_sha256": "e872549c6abee893bf678df09b54b71b98352d226486872ca7c2f4a59e690be6",
+  "encoder_name": "deep_sets",
+  "evaluation_budget": 4,
+  "figure_path": "outputs/week7_reports/permutation_week7_deep_sets_standard_seed42.png",
+  "figure_sha256": "8444e559c5beb6e448711ba6b4b7b806c04209ccfe2fa5b0626b1c0775e8684b",
+  "floating_tolerance": 1e-06,
+  "format_version": "permutation_evaluation_v1",
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "gru_condition": "standard",
+  "is_valid": true,
+  "limit": null,
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "maximum_permutations_per_state": 10,
+  "phase": "week7",
+  "prediction_set_drift_applicable": true,
+  "primary_frozen_stack": true,
+  "report_sha256": "2198f7fbb022260184f77bcf39e7067d2906a0f62125bac006ba89b6c248009b",
+  "split": "test",
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "action_agreement": {
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0
+    },
+    "bit_l1_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "hidden_relative_l2_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "js_drift": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "set_disagreement": {
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "state_count": 2000
+  }
+}

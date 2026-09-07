@@ -1,0 +1,129 @@
+===== masked_slot scalar validation APS =====
+Allowed seconds: 900
+{
+  "format_version": "static_baseline_aps_v1",
+  "status": "TEMPORARY_VALIDATION",
+  "baseline": "scalar_confidence",
+  "fit_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "approval_config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "13c7552b2ad4a94086e91a11c643e3e500dd79ff93b096eb749dc20762d1966d",
+  "freeze_manifest_sha256": null,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "limit": null,
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9567522145807743,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.4914529914529915,
+          "singleton_rate": 0.1225071225071225,
+          "empty_set_rate": 0.014957264957264958
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999664723873,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9529914529914529,
+          "average_set_size": 5.212250712250713,
+          "singleton_rate": 0.0,
+          "empty_set_rate": 0.0
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9567522145807743,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.4914529914529915,
+          "singleton_rate": 0.1225071225071225,
+          "empty_set_rate": 0.014957264957264958
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999664723873,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9529914529914529,
+          "average_set_size": 5.212250712250713,
+          "singleton_rate": 0.0,
+          "empty_set_rate": 0.0
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9567522145807743,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.4914529914529915,
+          "singleton_rate": 0.1225071225071225,
+          "empty_set_rate": 0.014957264957264958
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999664723873,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9529914529914529,
+          "average_set_size": 5.212250712250713,
+          "singleton_rate": 0.0,
+          "empty_set_rate": 0.0
+        }
+      }
+    }
+  },
+  "report_sha256": "e1c896554f6b5a5aa158a3256c01f501e214cfd9b93d770c777846804f4ec0a2"
+}
+	Command being timed: "timeout --signal=INT --kill-after=120s 900s env CUDA_VISIBLE_DEVICES=1 PYTHONPATH=src python scripts/calibrate_static_baseline_aps.py --approval_config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --checkpoint outputs/week6_comparison_checkpoints/masked_slot/baseline_scalar_seed42.best.pt --phase validation --budgets 1 2 4 --coverages 0.90 0.95 --output_dir outputs/week6_reports/comparisons/masked_slot/static_aps_validation --seed 42 --device cuda:0 --resume"
+	User time (seconds): 9.72
+	System time (seconds): 5.99
+	Percent of CPU this job got: 506%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 879288
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 157683
+	Voluntary context switches: 497
+	Involuntary context switches: 37620
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+masked_slot scalar validation APS exit code: 0

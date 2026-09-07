@@ -23,6 +23,8 @@ def diagnostic_metrics(
     six_way_targets: Sequence[int],
     signature_predictions: Sequence[Sequence[float]] | None = None,
     signature_targets: Sequence[Sequence[float]] | None = None,
+    *,
+    allow_undefined_auroc: bool = False,
 ) -> Dict[str, Any]:
     bit_probability = np.asarray(bit_probabilities, dtype=np.float64)
     six_probability = np.asarray(six_way_probabilities, dtype=np.float64)
@@ -42,10 +44,19 @@ def diagnostic_metrics(
         raise ValueError("Six-way probability rows must sum to one")
     bit_prediction = (bit_probability >= 0.5).astype(np.int64)
     six_prediction = six_probability.argmax(axis=1)
-    per_bit_auroc: Dict[str, float] = {}
+    per_bit_auroc: Dict[str, float | None] = {}
+    unavailable_auroc: Dict[str, Dict[str, Any]] = {}
     for index, name in enumerate(SOURCE_BITS):
-        if np.unique(bit_truth[:, index]).size != 2:
-            raise ValueError(f"Cannot compute AUROC: bit {name!r} has one target class")
+        observed_classes = np.unique(bit_truth[:, index])
+        if observed_classes.size != 2:
+            if not allow_undefined_auroc:
+                raise ValueError(f"Cannot compute AUROC: bit {name!r} has one target class")
+            per_bit_auroc[name] = None
+            unavailable_auroc[name] = {
+                "reason": "AUROC requires both target classes",
+                "observed_classes": observed_classes.astype(int).tolist(),
+            }
+            continue
         per_bit_auroc[name] = float(
             roc_auc_score(bit_truth[:, index], bit_probability[:, index])
         )
@@ -62,6 +73,9 @@ def diagnostic_metrics(
         ).tolist(),
         "six_way_labels": list(SIX_WAY_LABELS),
     }
+    if unavailable_auroc:
+        result["metrics_scientifically_valid"] = False
+        result["source_bit_auroc_unavailable"] = unavailable_auroc
     if (signature_predictions is None) != (signature_targets is None):
         raise ValueError("Signature predictions and targets must be provided together")
     if signature_predictions is not None:
@@ -97,4 +111,3 @@ def within_group_metrics(
         except ValueError as exc:
             output[group] = {"record_count": int(indices.size), "is_valid": False, "error": str(exc)}
     return output
-

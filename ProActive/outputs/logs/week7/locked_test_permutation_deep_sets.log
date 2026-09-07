@@ -1,0 +1,144 @@
+{
+  "format_version": "permutation_evaluation_v1",
+  "phase": "week7",
+  "split": "test",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "aps_sha256": "cc60c08220c09bc12fa7606764d8dabc3330d91e36add8d19c3323a1112e97a0",
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "limit": null,
+  "is_valid": true,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "evaluation_budget": 4,
+  "coverage": 0.9,
+  "primary_frozen_stack": true,
+  "prediction_set_drift_applicable": true,
+  "action_drift_applicable": true,
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "maximum_permutations_per_state": 10,
+  "floating_tolerance": 1e-06,
+  "summary": {
+    "state_count": 2000,
+    "js_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "bit_l1_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "hidden_relative_l2_drift": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "set_disagreement": {
+      "mean": 0.0,
+      "median": 0.0,
+      "max": 0.0
+    },
+    "action_agreement": {
+      "mean": 1.0,
+      "median": 1.0,
+      "max": 1.0
+    }
+  },
+  "calibration_drift_by_subset_size": {
+    "2": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.968,
+        0.968
+      ],
+      "average_set_size_by_permutation": [
+        4.1456,
+        4.1456
+      ]
+    },
+    "3": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008,
+        0.9502196193265008
+      ],
+      "average_set_size_by_permutation": [
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104,
+        3.931185944363104
+      ]
+    },
+    "4": {
+      "coverage_range": 0.0,
+      "average_set_size_range": 0.0,
+      "coverage_by_permutation": [
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289,
+        0.930635838150289
+      ],
+      "average_set_size_by_permutation": [
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537,
+        3.7210982658959537
+      ]
+    }
+  },
+  "csv_path": "outputs/week7_reports/permutation_week7_deep_sets_standard_seed42.csv",
+  "csv_sha256": "e872549c6abee893bf678df09b54b71b98352d226486872ca7c2f4a59e690be6",
+  "figure_path": "outputs/week7_reports/permutation_week7_deep_sets_standard_seed42.png",
+  "figure_sha256": "8444e559c5beb6e448711ba6b4b7b806c04209ccfe2fa5b0626b1c0775e8684b",
+  "report_sha256": "2198f7fbb022260184f77bcf39e7067d2906a0f62125bac006ba89b6c248009b"
+}
+	Command being timed: "timeout 13m env CUDA_VISIBLE_DEVICES=0 PYTHONPATH=src python scripts/eval_permutation.py --config configs/experiments/calibrate_aps.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --aps_report outputs/week7_calibration/aps_thresholds.json --freeze_manifest outputs/week7_frozen/main_stack_freeze.json --phase week7 --output_dir outputs/week7_reports --seed 42 --device cuda:0 --policy_checkpoint outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt --resume"
+	User time (seconds): 8.66
+	System time (seconds): 5.79
+	Percent of CPU this job got: 178%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1027520
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8
+	Minor (reclaiming a frame) page faults: 187292
+	Voluntary context switches: 473
+	Involuntary context switches: 143927
+	Swaps: 0
+	File system inputs: 7944
+	File system outputs: 456
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

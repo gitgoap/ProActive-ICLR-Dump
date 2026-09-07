@@ -1,0 +1,18 @@
+{
+  "format_version": "permutation_evaluation_v1",
+  "phase": "week7",
+  "split": "test",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "883b78c4264d7336dab9aa45e5dcc8eabafc83c8ea058b63d935278fe0dd8126",
+  "aps_sha256": "cc60c08220c09bc12fa7606764d8dabc3330d91e36add8d19c3323a1112e97a0",
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "limit": null,
+  "subset_sizes": [
+    2,
+    3,
+    4
+  ],
+  "minimum_states": 2000,
+  "output": "outputs/week7_reports/permutation_week7_gru_random_permutation_seed42.json"
+}

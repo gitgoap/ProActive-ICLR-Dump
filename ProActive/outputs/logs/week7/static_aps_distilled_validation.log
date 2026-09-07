@@ -1,0 +1,157 @@
+{
+  "format_version": "static_baseline_aps_v1",
+  "status": "TEMPORARY_VALIDATION",
+  "baseline": "one_pass_distilled",
+  "fit_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "approval_config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "checkpoint_sha256": "4d8f01d29680b6303cf62d55191045b58d42f1de8128a702b0b6adf7adfc7775",
+  "freeze_manifest_sha256": null,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "limit": null,
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9969525337219238,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.866809116809117,
+          "singleton_rate": 0.13247863247863248,
+          "empty_set_rate": 0.07977207977207977
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9975576400756836,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9508547008547008,
+          "average_set_size": 3.933048433048433,
+          "singleton_rate": 0.17236467236467237,
+          "empty_set_rate": 0.029914529914529916
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9969525337219238,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.866809116809117,
+          "singleton_rate": 0.13247863247863248,
+          "empty_set_rate": 0.07977207977207977
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9975576400756836,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9508547008547008,
+          "average_set_size": 3.933048433048433,
+          "singleton_rate": 0.17236467236467237,
+          "empty_set_rate": 0.029914529914529916
+        }
+      }
+    },
+    "3": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9969525337219238,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.866809116809117,
+          "singleton_rate": 0.13247863247863248,
+          "empty_set_rate": 0.07977207977207977
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9975576400756836,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9508547008547008,
+          "average_set_size": 3.933048433048433,
+          "singleton_rate": 0.17236467236467237,
+          "empty_set_rate": 0.029914529914529916
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9969525337219238,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.866809116809117,
+          "singleton_rate": 0.13247863247863248,
+          "empty_set_rate": 0.07977207977207977
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9975576400756836,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9508547008547008,
+          "average_set_size": 3.933048433048433,
+          "singleton_rate": 0.17236467236467237,
+          "empty_set_rate": 0.029914529914529916
+        }
+      }
+    },
+    "7": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9969525337219238,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9009971509971509,
+          "average_set_size": 3.866809116809117,
+          "singleton_rate": 0.13247863247863248,
+          "empty_set_rate": 0.07977207977207977
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9975576400756836,
+        "fit_count": 1404,
+        "fit_metrics": {
+          "coverage": 0.9508547008547008,
+          "average_set_size": 3.933048433048433,
+          "singleton_rate": 0.17236467236467237,
+          "empty_set_rate": 0.029914529914529916
+        }
+      }
+    }
+  },
+  "report_sha256": "b8d81cab7ceb7e0a7ec701a8f906a7eaf180082b9c21b53654ec75ba3017cd90"
+}

@@ -1,0 +1,159 @@
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,030 INFO [train_one_pass_baselines] epoch=0 train_loss=1.170567 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,080 INFO [train_one_pass_baselines] epoch=1 train_loss=0.921084 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,131 INFO [train_one_pass_baselines] epoch=2 train_loss=0.652523 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,183 INFO [train_one_pass_baselines] epoch=3 train_loss=0.490708 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,231 INFO [train_one_pass_baselines] epoch=4 train_loss=0.390805 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+2026-08-30 16:38:16,281 INFO [train_one_pass_baselines] epoch=5 train_loss=0.286443 val_macro_f1=0.3333
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+{
+  "baseline": "distilled",
+  "pilot": true,
+  "output": "outputs/week6_staging/baseline_limit1/baseline_distilled_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "distilled",
+  "metrics": {
+    "record_count": 1,
+    "source_bit_micro_f1": 0.6666666666666666,
+    "source_bit_macro_f1": 0.3333333333333333,
+    "source_bit_hamming_loss": 0.3333333333333333,
+    "source_bit_auroc": {
+      "visual": null,
+      "language": null,
+      "alignment": null
+    },
+    "six_way_macro_f1": 0.0,
+    "six_way_balanced_accuracy": 0.0,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "metrics_scientifically_valid": false,
+    "source_bit_auroc_unavailable": {
+      "visual": {
+        "reason": "AUROC requires both target classes",
+        "observed_classes": [
+          0
+        ]
+      },
+      "language": {
+        "reason": "AUROC requires both target classes",
+        "observed_classes": [
+          1
+        ]
+      },
+      "alignment": {
+        "reason": "AUROC requires both target classes",
+        "observed_classes": [
+          1
+        ]
+      }
+    },
+    "signature_mse": 0.15369957879114446
+  },
+  "checkpoint_path": "outputs/week6_staging/baseline_limit1/baseline_distilled_seed42.best.pt",
+  "checkpoint_sha256": "5d84f66bfbbcf69bff585f72dd2b9e7c1d93bab7dd07a1753f485233d5ea1385",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": 1,
+  "report_sha256": "31023747f4f055d4db28000d90eb08e16b816e717b4a50453735ef7d2c48a871"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline distilled --seed 42 --device cuda:0 --limit 1 --output_dir outputs/week6_staging/baseline_limit1 --overwrite"
+	User time (seconds): 11.85
+	System time (seconds): 6.40
+	Percent of CPU this job got: 326%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1662904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 364700
+	Voluntary context switches: 641
+	Involuntary context switches: 196119
+	Swaps: 0
+	File system inputs: 152
+	File system outputs: 13808
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

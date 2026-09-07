@@ -1,0 +1,125 @@
+2026-08-30 16:38:04,614 INFO [train_one_pass_baselines] epoch=0 train_loss=1.434773 val_macro_f1=0.2000
+2026-08-30 16:38:04,672 INFO [train_one_pass_baselines] epoch=1 train_loss=1.393156 val_macro_f1=0.2963
+2026-08-30 16:38:04,725 INFO [train_one_pass_baselines] epoch=2 train_loss=1.363470 val_macro_f1=0.2963
+2026-08-30 16:38:04,778 INFO [train_one_pass_baselines] epoch=3 train_loss=1.323045 val_macro_f1=0.2963
+2026-08-30 16:38:04,832 INFO [train_one_pass_baselines] epoch=4 train_loss=1.293850 val_macro_f1=0.2963
+2026-08-30 16:38:04,886 INFO [train_one_pass_baselines] epoch=5 train_loss=1.257116 val_macro_f1=0.2963
+2026-08-30 16:38:04,939 INFO [train_one_pass_baselines] epoch=6 train_loss=1.209648 val_macro_f1=0.2963
+{
+  "baseline": "scalar",
+  "pilot": true,
+  "output": "outputs/week6_staging/baseline_limit10/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 10,
+    "source_bit_micro_f1": 0.6666666666666666,
+    "source_bit_macro_f1": 0.2962962962962963,
+    "source_bit_hamming_loss": 0.26666666666666666,
+    "source_bit_auroc": {
+      "visual": 0.0,
+      "language": 0.5,
+      "alignment": 0.7083333333333334
+    },
+    "six_way_macro_f1": 0.045454545454545456,
+    "six_way_balanced_accuracy": 0.25,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.3001469012752865
+  },
+  "checkpoint_path": "outputs/week6_staging/baseline_limit10/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "b3eecd32f7e835113b5af77992a989e6dfc0a37fb964273f44f48d304f3fd76e",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858",
+  "seed": 42,
+  "limit": 10,
+  "report_sha256": "8e4f86a5b531d87eafba8c295ab04f6fbc69a0934455166d74dddc471ea71baa"
+}
+	Command being timed: "env CUDA_VISIBLE_DEVICES=2 PYTHONPATH=src python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week5_reports/week5_encoder_freeze.json --baseline scalar --seed 42 --device cuda:0 --limit 10 --output_dir outputs/week6_staging/baseline_limit10 --overwrite"
+	User time (seconds): 11.92
+	System time (seconds): 6.23
+	Percent of CPU this job got: 325%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1537696
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 335756
+	Voluntary context switches: 551
+	Involuntary context switches: 147175
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14824
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

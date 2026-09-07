@@ -1,0 +1,30 @@
+Starting remaining 14-run Week 6 policy grid
+===== seed=42, lambda=0 =====
+seed=42, lambda=0, exit_code=0
+===== seed=42, lambda=0.05 =====
+seed=42, lambda=0.05, exit_code=0
+===== seed=42, lambda=0.2 =====
+seed=42, lambda=0.2, exit_code=0
+===== seed=42, lambda=0.4 =====
+seed=42, lambda=0.4, exit_code=0
+===== seed=43, lambda=0 =====
+seed=43, lambda=0, exit_code=0
+===== seed=43, lambda=0.05 =====
+seed=43, lambda=0.05, exit_code=0
+===== seed=43, lambda=0.1 =====
+seed=43, lambda=0.1, exit_code=0
+===== seed=43, lambda=0.2 =====
+seed=43, lambda=0.2, exit_code=0
+===== seed=43, lambda=0.4 =====
+seed=43, lambda=0.4, exit_code=0
+===== seed=44, lambda=0 =====
+seed=44, lambda=0, exit_code=0
+===== seed=44, lambda=0.05 =====
+seed=44, lambda=0.05, exit_code=0
+===== seed=44, lambda=0.1 =====
+seed=44, lambda=0.1, exit_code=0
+===== seed=44, lambda=0.2 =====
+seed=44, lambda=0.2, exit_code=0
+===== seed=44, lambda=0.4 =====
+seed=44, lambda=0.4, exit_code=0
+All 14 remaining policy runs completed

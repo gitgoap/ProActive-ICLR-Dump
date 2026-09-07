@@ -1,0 +1,10 @@
+{
+  "config_approval": "APPROVED",
+  "errors": [],
+  "format_version": "week6_validation_v1",
+  "is_valid": true,
+  "mode": "full",
+  "report_sha256": "fade7dc83ec2b94e3bbf3110457c18a800647026e7cc5de4ed05a8dedf29ff64",
+  "voi_rows": 496912,
+  "voi_status": "COMPLETE"
+}

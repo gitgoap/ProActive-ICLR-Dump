@@ -1,0 +1,13 @@
+{
+  "diagnostic_checkpoint": "outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+  "policy_checkpoint": "outputs/week6_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "selection_report": "outputs/week6_reports/week6_policy_selection.json",
+  "controls": {
+    "uncertainty_baseline": "outputs/week6_checkpoints/uncertainty_deep_sets_standard_lambda0_seed42.best.pt",
+    "scalar_baseline": "outputs/week6_checkpoints/baseline_scalar_seed42.best.pt",
+    "distilled_baseline": "outputs/week6_checkpoints/baseline_distilled_seed42.best.pt"
+  },
+  "dataset_schedule": "outputs/week7_validation/selected_deep_final_budgets/dataset_fixed_schedule_validation.json",
+  "output": "outputs/week7_frozen/main_stack_freeze.json",
+  "owner_approval_required": true
+}

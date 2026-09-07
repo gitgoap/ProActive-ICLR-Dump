@@ -1,0 +1,111 @@
+{
+  "baseline_type": "scalar",
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week6_staging/baseline_limit1/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "dcba7d3f3f341253d0f06d9c398b2f04e0ae4a9260a41ccae0261fa591817f05",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "diagnostic_checkpoint_sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06",
+  "fit_split": "train",
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": false,
+  "limit": 1,
+  "metrics": {
+    "metrics_scientifically_valid": false,
+    "record_count": 1,
+    "signature_mse": 0.43278879644012297,
+    "six_way_balanced_accuracy": 0.0,
+    "six_way_confusion_matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.0,
+    "source_bit_auroc": {
+      "alignment": null,
+      "language": null,
+      "visual": null
+    },
+    "source_bit_auroc_unavailable": {
+      "alignment": {
+        "observed_classes": [
+          1
+        ],
+        "reason": "AUROC requires both target classes"
+      },
+      "language": {
+        "observed_classes": [
+          1
+        ],
+        "reason": "AUROC requires both target classes"
+      },
+      "visual": {
+        "observed_classes": [
+          0
+        ],
+        "reason": "AUROC requires both target classes"
+      }
+    },
+    "source_bit_hamming_loss": 0.0,
+    "source_bit_macro_f1": 0.6666666666666666,
+    "source_bit_micro_f1": 1.0
+  },
+  "report_sha256": "593938112c806a290868aef65b533689abe0866a2fd32d024e12ad1b229cf473",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "test_used": false,
+  "week5_freeze_sha256": "d6323ee4dae857fbb6bdca8df392f743924f319339c4e21935d68ebda389a858"
+}
