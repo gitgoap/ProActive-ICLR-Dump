@@ -1,0 +1,63 @@
+===== no_relation_probe stack freeze =====
+Timeout 600s; worker ceiling remaining 5402s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_relation_probe/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "ad6849f34d87158dcfb1691af60ec3065cd4c5f1bb8aebcc015f4438ab578de3"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_relation_probe_diag.yaml",
+      "sha256": "40a0b8bbfe15091afadd165a90bf19eabeee6d40092120cf7568335fe4971e21"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_ablations/no_relation_probe/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "c0f70b94edeb372accc285f7b247024e241b283d1b57b9a151a46ae778d7c3d0"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_relation_probe_policy.yaml",
+      "sha256": "6bca10d636ecc049defad77ca60a03391ab20fce0e76ef4ed0f1b17c652b67ce"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_relation_probe/freeze/predeclared_stack_selection.json",
+      "sha256": "e9c1092552db32eb4f14aed36fb4e7f5b39c053b6a0a11c79d87d82607c2b9a3"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_relation_probe/vectorized/vectorized_manifest.json",
+      "sha256": "51761a83249824422cbb826666b4926f32838d5fac45f2cd196eb667b64d7f8f"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "799cf96aaaf44ec2a0b607ed6fbd8faa010145b34e1d4b40c2475783271caf35",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_ablation_stack.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id no_relation_probe --diag_config outputs/week8_data/ablation_configs/no_relation_probe_diag.yaml --policy_config outputs/week8_data/ablation_configs/no_relation_probe_policy.yaml --vector_manifest outputs/week8_ablations/no_relation_probe/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_relation_probe/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --policy_checkpoint outputs/week8_ablations/no_relation_probe/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt --output_dir outputs/week8_ablations/no_relation_probe/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.77
+	System time (seconds): 5.36
+	Percent of CPU this job got: 525%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 430596
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62332
+	Voluntary context switches: 197
+	Involuntary context switches: 141881
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_relation_probe stack freeze exit code: 0

@@ -1,0 +1,13 @@
+{
+  "clean_checkpoint_sha256": "7d1e48c72ec5737e01e333e8bf1c71aabe2ffa541e61b3938957e9a98278e4dd",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "encoder": "deep_sets",
+  "fold_manifest_sha256": "2a47540475981396efb756ecd94a4fa97e7457968a82422c53a841c151a38197",
+  "format_version": "lomo_predeclared_selection_v1",
+  "heldout_model_id": "google/gemma-4-E4B-it",
+  "heldout_test_used": false,
+  "report_sha256": "d1c42cc1c50395841720de39c5bbb2a98a05b1c25946afdb204a26ce93a70e48",
+  "seed": 42,
+  "selection_split": "none_in_fold",
+  "status": "PREDECLARED_NOT_SELECTED_ON_HELDOUT"
+}

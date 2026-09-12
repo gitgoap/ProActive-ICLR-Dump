@@ -77,6 +77,7 @@ def _build_probe_observation(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Build a ProbeObservation from generation output and clean baselines."""
     # Fail-closed check: if invalid, do not record flips or conf shifts
@@ -153,6 +154,7 @@ def _build_probe_observation(
         threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
     return ProbeObservation(
@@ -202,6 +204,7 @@ def _run_visual_probe(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Run a visual image-transform probe."""
     probe_name = probe_id.value
@@ -216,7 +219,8 @@ def _run_visual_probe(
     )
 
     gen_output = adapter.generate(transformed, prompt_text)
-    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    if normalizer_type is None and answer_type == "open_ended":
+        normalizer_type = "freeform"
     norm_answer = normalize_answer(
         gen_output.raw_answer, dataset, normalizer_type=normalizer_type
     )
@@ -251,6 +255,7 @@ def _run_visual_probe(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
 
@@ -267,6 +272,7 @@ def _run_grounding_probe(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
     prompt_text_override: Optional[str] = None,
 ) -> ProbeObservation:
     """Run the grounding probe (describe-then-answer) with isolated final answer scoring."""
@@ -277,7 +283,10 @@ def _run_grounding_probe(
 
     # Parse machine-readable answer
     parsed = parse_grounding_output(
-        gen_output.raw_answer, dataset, answer_type=answer_type
+        gen_output.raw_answer,
+        dataset,
+        answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
     if not parsed.is_valid:
@@ -301,6 +310,7 @@ def _run_grounding_probe(
             score_method=score_method,
             latency_ms=gen_output.latency_ms,
             answer_type=answer_type,
+            normalizer_type=normalizer_type,
         )
 
     # Score ONLY the final answer tokens
@@ -341,6 +351,7 @@ def _run_grounding_probe(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
 
@@ -361,6 +372,7 @@ def _run_relation_probe(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> ProbeObservation:
     """Run the relation swap probe."""
     if swapped_question is not None:
@@ -401,7 +413,8 @@ def _run_relation_probe(
         swap_text, dataset, answer_type=answer_type
     )
     gen_output = adapter.generate(image, prompt_text)
-    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    if normalizer_type is None and answer_type == "open_ended":
+        normalizer_type = "freeform"
     norm_answer = normalize_answer(
         gen_output.raw_answer, dataset, normalizer_type=normalizer_type
     )
@@ -434,6 +447,7 @@ def _run_relation_probe(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
 
@@ -462,6 +476,7 @@ def run_all_probes(
     semantic_threshold: float = 0.82,
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> Dict[ProbeAction, ProbeObservation]:
     """Run all applicable probes for one instance independently on the ORIGINAL input."""
     severities = severities or {}
@@ -489,6 +504,7 @@ def run_all_probes(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
     observations[ProbeAction.BLANK] = obs_blank
 
@@ -513,6 +529,7 @@ def run_all_probes(
             semantic_threshold=semantic_threshold,
             embedding_fn=embedding_fn,
             answer_type=answer_type,
+            normalizer_type=normalizer_type,
         )
         observations[probe_id] = obs
 
@@ -530,6 +547,7 @@ def run_all_probes(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
     observations[ProbeAction.GROUNDING] = obs_ground
 
@@ -552,6 +570,7 @@ def run_all_probes(
             semantic_threshold=semantic_threshold,
             embedding_fn=embedding_fn,
             answer_type=answer_type,
+            normalizer_type=normalizer_type,
         )
         observations[ProbeAction.RELATION] = obs_rel
 

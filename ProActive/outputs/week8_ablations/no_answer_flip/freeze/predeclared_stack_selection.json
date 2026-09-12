@@ -1,0 +1,16 @@
+{
+  "ablation_id": "no_answer_flip",
+  "calibration_used": false,
+  "clean_checkpoint_sha256": null,
+  "diagnostic_checkpoint_sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415",
+  "format_version": "week8_predeclared_stack_selection_v1",
+  "heldout_shift_used": false,
+  "policy_checkpoint_sha256": "36dbd8c8aef518f176824804b49ce6b2ddcb7f0ab50dd1055fb106a5ef282ea3",
+  "report_sha256": "0bfcd5ed0f167e0e257901a5d2bca03a3fd3bde12d39b22095f8d6332ec031a0",
+  "seed": 42,
+  "selection_split": "val",
+  "status": "PREDECLARED_NOT_SELECTED_ON_TEST",
+  "test_used": false,
+  "vector_manifest_sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c",
+  "week8_config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+}

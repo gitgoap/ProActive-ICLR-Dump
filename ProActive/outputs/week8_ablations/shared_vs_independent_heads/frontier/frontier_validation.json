@@ -1,0 +1,2832 @@
+{
+  "ablation_id": "shared_vs_independent_heads",
+  "aps_sha256": "cc3d9395d3a7d5d9229384b0f21eb9f6c3e2289a6fefd305db438d1b27ea9edd",
+  "base_model_instances": 1404,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "calibration_used": false,
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "csv_path": "outputs/week8_ablations/shared_vs_independent_heads/frontier/frontier_validation.csv",
+  "csv_sha256": "ad080a815fbb51c2657582dc55af371b54a424070416412ce42ec08219b9f72d",
+  "diagnostic_checkpoint_sha256": "5001ef1c30fb93e3b5e251c90a0717322588c92e6c75eb1a38fec201abec6d2e",
+  "evaluation_split": "val",
+  "format_version": "week8_ablation_frontier_v1",
+  "freeze_manifest_sha256": "ef2f9e2816a72bb9e8131ef0b5192852c3ef62f8fe8498031cf1661a4f2db7f6",
+  "global_aps_evaluation_split": "val",
+  "global_aps_fit_split": "val",
+  "global_aps_thresholds": {
+    "0.9": 0.999996542930603,
+    "0.95": 0.9999991655349731
+  },
+  "heldout_shift_used": false,
+  "manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "policy_checkpoint_sha256": "8ff56d4f273834dc89e763121e14ef5ddbd090f4847e5a3677cba350464de178",
+  "post_test_tuning_used": false,
+  "report_sha256": "49d6e9efeac14c5c54dbb7b890b20aab4df9ca0a85345c45ec84d74adeccabfb",
+  "seed": 42,
+  "status": "COMPLETE",
+  "summaries": {
+    "proactive_global_aps|1|0.9": {
+      "action_counts": {
+        "blank": 885,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.031117996517204045,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9725549513358156,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 0.9992877492877493,
+      "prediction_sets": {
+        "average_set_size": 3.1695156695156697,
+        "coverage": 0.9850427350427351,
+        "empty_set_rate": 0.007122507122507123,
+        "singleton_rate": 0.15954415954415954
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|1|0.95": {
+      "action_counts": {
+        "blank": 885,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.031117996517204045,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9725549513358156,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 0.9992877492877493,
+      "prediction_sets": {
+        "average_set_size": 3.7037037037037037,
+        "coverage": 0.9971509971509972,
+        "empty_set_rate": 0.0,
+        "singleton_rate": 0.11823361823361823
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|2|0.9": {
+      "action_counts": {
+        "blank": 1086,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016788798894184512,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.9922533313737018,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 1.9985754985754987,
+      "prediction_sets": {
+        "average_set_size": 2.4437321937321936,
+        "coverage": 0.9195156695156695,
+        "empty_set_rate": 0.07621082621082621,
+        "singleton_rate": 0.1972934472934473
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|2|0.95": {
+      "action_counts": {
+        "blank": 1086,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016788798894184512,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.9922533313737018,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 1.9985754985754987,
+      "prediction_sets": {
+        "average_set_size": 3.1061253561253563,
+        "coverage": 0.99002849002849,
+        "empty_set_rate": 0.00641025641025641,
+        "singleton_rate": 0.18447293447293447
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|3|0.9": {
+      "action_counts": {
+        "blank": 1321,
+        "blur": 926,
+        "brightness": 88,
+        "crop": 741,
+        "grounding": 1039,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.00791524950739275,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996570644718793,
+          "language": 0.9994753902932916,
+          "visual": 0.9842612866759683
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 2.988603988603989,
+      "prediction_sets": {
+        "average_set_size": 2.200854700854701,
+        "coverage": 0.8739316239316239,
+        "empty_set_rate": 0.12108262108262108,
+        "singleton_rate": 0.19943019943019943
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|3|0.95": {
+      "action_counts": {
+        "blank": 1321,
+        "blur": 926,
+        "brightness": 88,
+        "crop": 741,
+        "grounding": 1039,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.00791524950739275,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996570644718793,
+          "language": 0.9994753902932916,
+          "visual": 0.9842612866759683
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 2.988603988603989,
+      "prediction_sets": {
+        "average_set_size": 2.7777777777777777,
+        "coverage": 0.9465811965811965,
+        "empty_set_rate": 0.04985754985754986,
+        "singleton_rate": 0.1752136752136752
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|4|0.9": {
+      "action_counts": {
+        "blank": 1383,
+        "blur": 952,
+        "brightness": 389,
+        "crop": 995,
+        "grounding": 1103,
+        "noise": 531,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006841120231779241,
+        "six_way_balanced_accuracy": 0.8632061706605318,
+        "six_way_confusion_matrix": [
+          [
+            178,
+            0,
+            0,
+            0,
+            3,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            24,
+            15,
+            552,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8122918582864759,
+        "source_bit_auroc": {
+          "alignment": 0.9997755331088665,
+          "language": 0.9999326376641191,
+          "visual": 0.9904757055127251
+        },
+        "source_bit_hamming_loss": 0.014007597340930674,
+        "source_bit_macro_f1": 0.9860576040081209,
+        "source_bit_micro_f1": 0.9850063532401525
+      },
+      "mean_acquisition_cost": 3.8176638176638176,
+      "prediction_sets": {
+        "average_set_size": 2.017094017094017,
+        "coverage": 0.8618233618233618,
+        "empty_set_rate": 0.13532763532763534,
+        "singleton_rate": 0.2727920227920228
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|4|0.95": {
+      "action_counts": {
+        "blank": 1383,
+        "blur": 952,
+        "brightness": 389,
+        "crop": 995,
+        "grounding": 1103,
+        "noise": 531,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006841120231779241,
+        "six_way_balanced_accuracy": 0.8632061706605318,
+        "six_way_confusion_matrix": [
+          [
+            178,
+            0,
+            0,
+            0,
+            3,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            24,
+            15,
+            552,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8122918582864759,
+        "source_bit_auroc": {
+          "alignment": 0.9997755331088665,
+          "language": 0.9999326376641191,
+          "visual": 0.9904757055127251
+        },
+        "source_bit_hamming_loss": 0.014007597340930674,
+        "source_bit_macro_f1": 0.9860576040081209,
+        "source_bit_micro_f1": 0.9850063532401525
+      },
+      "mean_acquisition_cost": 3.8176638176638176,
+      "prediction_sets": {
+        "average_set_size": 2.571937321937322,
+        "coverage": 0.9309116809116809,
+        "empty_set_rate": 0.06623931623931624,
+        "singleton_rate": 0.23575498575498577
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|7|0.9": {
+      "action_counts": {
+        "blank": 1369,
+        "blur": 1247,
+        "brightness": 896,
+        "crop": 1069,
+        "grounding": 1226,
+        "noise": 906,
+        "relation": 12,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007481512800855426,
+        "six_way_balanced_accuracy": 0.881591194471519,
+        "six_way_confusion_matrix": [
+          [
+            185,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            4,
+            13,
+            3,
+            575,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8497348435039216,
+        "source_bit_auroc": {
+          "alignment": 0.9999937648085797,
+          "language": 0.9998734404598602,
+          "visual": 0.9972522939984316
+        },
+        "source_bit_hamming_loss": 0.0073599240265906935,
+        "source_bit_macro_f1": 0.9926697884149056,
+        "source_bit_micro_f1": 0.9921657821582006
+      },
+      "mean_acquisition_cost": 4.7898860398860394,
+      "prediction_sets": {
+        "average_set_size": 2.128205128205128,
+        "coverage": 0.8632478632478633,
+        "empty_set_rate": 0.13319088319088318,
+        "singleton_rate": 0.3141025641025641
+      },
+      "row_count": 1404
+    },
+    "proactive_global_aps|7|0.95": {
+      "action_counts": {
+        "blank": 1369,
+        "blur": 1247,
+        "brightness": 896,
+        "crop": 1069,
+        "grounding": 1226,
+        "noise": 906,
+        "relation": 12,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007481512800855426,
+        "six_way_balanced_accuracy": 0.881591194471519,
+        "six_way_confusion_matrix": [
+          [
+            185,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            4,
+            13,
+            3,
+            575,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8497348435039216,
+        "source_bit_auroc": {
+          "alignment": 0.9999937648085797,
+          "language": 0.9998734404598602,
+          "visual": 0.9972522939984316
+        },
+        "source_bit_hamming_loss": 0.0073599240265906935,
+        "source_bit_macro_f1": 0.9926697884149056,
+        "source_bit_micro_f1": 0.9921657821582006
+      },
+      "mean_acquisition_cost": 4.7898860398860394,
+      "prediction_sets": {
+        "average_set_size": 2.4401709401709404,
+        "coverage": 0.9024216524216524,
+        "empty_set_rate": 0.09472934472934473,
+        "singleton_rate": 0.27136752136752135
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|1|0.9": {
+      "action_counts": {
+        "blank": 886,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.03101538159682765,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9726427265007512,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 1.0,
+      "prediction_sets": {
+        "average_set_size": 2.3233618233618234,
+        "coverage": 0.8525641025641025,
+        "empty_set_rate": 0.08618233618233619,
+        "singleton_rate": 0.4636752136752137
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|1|0.95": {
+      "action_counts": {
+        "blank": 886,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.03101538159682765,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9726427265007512,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 1.0,
+      "prediction_sets": {
+        "average_set_size": 2.7186609686609686,
+        "coverage": 0.9558404558404558,
+        "empty_set_rate": 0.027065527065527065,
+        "singleton_rate": 0.39316239316239315
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|2|0.9": {
+      "action_counts": {
+        "blank": 1088,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016771639719894545,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.992288033183095,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 2.0,
+      "prediction_sets": {
+        "average_set_size": 1.7386039886039886,
+        "coverage": 0.8198005698005698,
+        "empty_set_rate": 0.1396011396011396,
+        "singleton_rate": 0.5605413105413105
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|2|0.95": {
+      "action_counts": {
+        "blank": 1088,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016771639719894545,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.992288033183095,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 2.0,
+      "prediction_sets": {
+        "average_set_size": 2.435185185185185,
+        "coverage": 0.9173789173789174,
+        "empty_set_rate": 0.07834757834757834,
+        "singleton_rate": 0.1972934472934473
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|3|0.9": {
+      "action_counts": {
+        "blank": 1322,
+        "blur": 926,
+        "brightness": 95,
+        "crop": 743,
+        "grounding": 1045,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007942180038488891,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996591428690194,
+          "language": 0.9994815141420079,
+          "visual": 0.9842612866759682
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 3.0,
+      "prediction_sets": {
+        "average_set_size": 1.6160968660968662,
+        "coverage": 0.8041310541310541,
+        "empty_set_rate": 0.17592592592592593,
+        "singleton_rate": 0.5299145299145299
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|3|0.95": {
+      "action_counts": {
+        "blank": 1322,
+        "blur": 926,
+        "brightness": 95,
+        "crop": 743,
+        "grounding": 1045,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007942180038488891,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996591428690194,
+          "language": 0.9994815141420079,
+          "visual": 0.9842612866759682
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 3.0,
+      "prediction_sets": {
+        "average_set_size": 2.3554131054131053,
+        "coverage": 0.9017094017094017,
+        "empty_set_rate": 0.0933048433048433,
+        "singleton_rate": 0.19373219373219372
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|4|0.9": {
+      "action_counts": {
+        "blank": 1384,
+        "blur": 954,
+        "brightness": 472,
+        "crop": 1045,
+        "grounding": 1123,
+        "noise": 631,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006961787480315998,
+        "six_way_balanced_accuracy": 0.8652178844369512,
+        "six_way_confusion_matrix": [
+          [
+            179,
+            0,
+            0,
+            0,
+            2,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            20,
+            15,
+            556,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8151298038926477,
+        "source_bit_auroc": {
+          "alignment": 0.9997734547117264,
+          "language": 0.9999571330589849,
+          "visual": 0.9910582436272164
+        },
+        "source_bit_hamming_loss": 0.01282051282051282,
+        "source_bit_macro_f1": 0.9872604441935696,
+        "source_bit_micro_f1": 0.9862944162436548
+      },
+      "mean_acquisition_cost": 4.0,
+      "prediction_sets": {
+        "average_set_size": 1.6032763532763532,
+        "coverage": 0.8433048433048433,
+        "empty_set_rate": 0.14173789173789172,
+        "singleton_rate": 0.584045584045584
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|4|0.95": {
+      "action_counts": {
+        "blank": 1384,
+        "blur": 954,
+        "brightness": 472,
+        "crop": 1045,
+        "grounding": 1123,
+        "noise": 631,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006961787480315998,
+        "six_way_balanced_accuracy": 0.8652178844369512,
+        "six_way_confusion_matrix": [
+          [
+            179,
+            0,
+            0,
+            0,
+            2,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            20,
+            15,
+            556,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8151298038926477,
+        "source_bit_auroc": {
+          "alignment": 0.9997734547117264,
+          "language": 0.9999571330589849,
+          "visual": 0.9910582436272164
+        },
+        "source_bit_hamming_loss": 0.01282051282051282,
+        "source_bit_macro_f1": 0.9872604441935696,
+        "source_bit_micro_f1": 0.9862944162436548
+      },
+      "mean_acquisition_cost": 4.0,
+      "prediction_sets": {
+        "average_set_size": 2.4366096866096867,
+        "coverage": 0.9081196581196581,
+        "empty_set_rate": 0.08831908831908832,
+        "singleton_rate": 0.2706552706552707
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|7|0.9": {
+      "action_counts": {
+        "blank": 1404,
+        "blur": 1404,
+        "brightness": 1404,
+        "crop": 1404,
+        "grounding": 1404,
+        "noise": 1404,
+        "relation": 16,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.008265239770664425,
+        "six_way_balanced_accuracy": 0.9143677899581987,
+        "six_way_confusion_matrix": [
+          [
+            187,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            391,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            3,
+            588,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            8,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.871856731327736,
+        "source_bit_auroc": {
+          "alignment": 0.9999958432057198,
+          "language": 1.0,
+          "visual": 0.9998981576722918
+        },
+        "source_bit_hamming_loss": 0.0026115859449192783,
+        "source_bit_macro_f1": 0.9973391049155792,
+        "source_bit_micro_f1": 0.9972354863030912
+      },
+      "mean_acquisition_cost": 6.011396011396012,
+      "prediction_sets": {
+        "average_set_size": 1.8753561253561253,
+        "coverage": 0.8810541310541311,
+        "empty_set_rate": 0.11538461538461539,
+        "singleton_rate": 0.3717948717948718
+      },
+      "row_count": 1404
+    },
+    "proactive_no_stop|7|0.95": {
+      "action_counts": {
+        "blank": 1404,
+        "blur": 1404,
+        "brightness": 1404,
+        "crop": 1404,
+        "grounding": 1404,
+        "noise": 1404,
+        "relation": 16,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.008265239770664425,
+        "six_way_balanced_accuracy": 0.9143677899581987,
+        "six_way_confusion_matrix": [
+          [
+            187,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            391,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            3,
+            1,
+            3,
+            588,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            8,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.871856731327736,
+        "source_bit_auroc": {
+          "alignment": 0.9999958432057198,
+          "language": 1.0,
+          "visual": 0.9998981576722918
+        },
+        "source_bit_hamming_loss": 0.0026115859449192783,
+        "source_bit_macro_f1": 0.9973391049155792,
+        "source_bit_micro_f1": 0.9972354863030912
+      },
+      "mean_acquisition_cost": 6.011396011396012,
+      "prediction_sets": {
+        "average_set_size": 2.3917378917378915,
+        "coverage": 0.9173789173789174,
+        "empty_set_rate": 0.07977207977207977,
+        "singleton_rate": 0.3262108262108262
+      },
+      "row_count": 1404
+    },
+    "proactive|1|0.9": {
+      "action_counts": {
+        "blank": 885,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.031117996517204045,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9725549513358156,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 0.9992877492877493,
+      "prediction_sets": {
+        "average_set_size": 2.3233618233618234,
+        "coverage": 0.8525641025641025,
+        "empty_set_rate": 0.08618233618233619,
+        "singleton_rate": 0.4636752136752137
+      },
+      "row_count": 1404
+    },
+    "proactive|1|0.95": {
+      "action_counts": {
+        "blank": 885,
+        "blur": 372,
+        "brightness": 23,
+        "crop": 25,
+        "grounding": 98,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.031117996517204045,
+        "six_way_balanced_accuracy": 0.5883103241296519,
+        "six_way_confusion_matrix": [
+          [
+            80,
+            0,
+            5,
+            2,
+            22,
+            78
+          ],
+          [
+            4,
+            379,
+            2,
+            5,
+            2,
+            0
+          ],
+          [
+            3,
+            0,
+            20,
+            3,
+            18,
+            0
+          ],
+          [
+            50,
+            57,
+            70,
+            405,
+            12,
+            1
+          ],
+          [
+            6,
+            0,
+            2,
+            0,
+            2,
+            2
+          ],
+          [
+            19,
+            0,
+            4,
+            0,
+            6,
+            145
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.537842459145396,
+        "source_bit_auroc": {
+          "alignment": 0.9838778733840463,
+          "language": 0.9725549513358156,
+          "visual": 0.9412838243830901
+        },
+        "source_bit_hamming_loss": 0.10018993352326686,
+        "source_bit_macro_f1": 0.8927588044343832,
+        "source_bit_micro_f1": 0.891124871001032
+      },
+      "mean_acquisition_cost": 0.9992877492877493,
+      "prediction_sets": {
+        "average_set_size": 2.719373219373219,
+        "coverage": 0.9558404558404558,
+        "empty_set_rate": 0.027065527065527065,
+        "singleton_rate": 0.3924501424501424
+      },
+      "row_count": 1404
+    },
+    "proactive|2|0.9": {
+      "action_counts": {
+        "blank": 1086,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016788798894184512,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.9922533313737018,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 1.9985754985754987,
+      "prediction_sets": {
+        "average_set_size": 1.7378917378917378,
+        "coverage": 0.8198005698005698,
+        "empty_set_rate": 0.1396011396011396,
+        "singleton_rate": 0.5612535612535613
+      },
+      "row_count": 1404
+    },
+    "proactive|2|0.95": {
+      "action_counts": {
+        "blank": 1086,
+        "blur": 836,
+        "brightness": 31,
+        "crop": 82,
+        "grounding": 765,
+        "noise": 5,
+        "relation": 1,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.016788798894184512,
+        "six_way_balanced_accuracy": 0.7809335646484299,
+        "six_way_confusion_matrix": [
+          [
+            154,
+            0,
+            0,
+            1,
+            16,
+            16
+          ],
+          [
+            1,
+            386,
+            0,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            34,
+            2,
+            7,
+            1
+          ],
+          [
+            18,
+            38,
+            44,
+            488,
+            6,
+            1
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            5,
+            4
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            22,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7097646721576484,
+        "source_bit_auroc": {
+          "alignment": 0.997566196948913,
+          "language": 0.9922533313737018,
+          "visual": 0.9724679451273538
+        },
+        "source_bit_hamming_loss": 0.04772079772079772,
+        "source_bit_macro_f1": 0.9497141272967632,
+        "source_bit_micro_f1": 0.9478328575136258
+      },
+      "mean_acquisition_cost": 1.9985754985754987,
+      "prediction_sets": {
+        "average_set_size": 2.4344729344729346,
+        "coverage": 0.9173789173789174,
+        "empty_set_rate": 0.07834757834757834,
+        "singleton_rate": 0.1972934472934473
+      },
+      "row_count": 1404
+    },
+    "proactive|3|0.9": {
+      "action_counts": {
+        "blank": 1321,
+        "blur": 926,
+        "brightness": 88,
+        "crop": 741,
+        "grounding": 1039,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.00791524950739275,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996570644718793,
+          "language": 0.9994753902932916,
+          "visual": 0.9842612866759683
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 2.988603988603989,
+      "prediction_sets": {
+        "average_set_size": 1.6146723646723646,
+        "coverage": 0.8034188034188035,
+        "empty_set_rate": 0.17663817663817663,
+        "singleton_rate": 0.5299145299145299
+      },
+      "row_count": 1404
+    },
+    "proactive|3|0.95": {
+      "action_counts": {
+        "blank": 1321,
+        "blur": 926,
+        "brightness": 88,
+        "crop": 741,
+        "grounding": 1039,
+        "noise": 77,
+        "relation": 4,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.00791524950739275,
+        "six_way_balanced_accuracy": 0.858328064768227,
+        "six_way_confusion_matrix": [
+          [
+            169,
+            0,
+            0,
+            0,
+            12,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            40,
+            2,
+            2,
+            0
+          ],
+          [
+            6,
+            29,
+            25,
+            534,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            7,
+            5
+          ],
+          [
+            3,
+            0,
+            0,
+            0,
+            22,
+            149
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.7854494617107814,
+        "source_bit_auroc": {
+          "alignment": 0.9996570644718793,
+          "language": 0.9994753902932916,
+          "visual": 0.9842612866759683
+        },
+        "source_bit_hamming_loss": 0.023266856600189935,
+        "source_bit_macro_f1": 0.9765530063196204,
+        "source_bit_micro_f1": 0.9749232343909928
+      },
+      "mean_acquisition_cost": 2.988603988603989,
+      "prediction_sets": {
+        "average_set_size": 2.358974358974359,
+        "coverage": 0.9024216524216524,
+        "empty_set_rate": 0.09259259259259259,
+        "singleton_rate": 0.19301994301994302
+      },
+      "row_count": 1404
+    },
+    "proactive|4|0.9": {
+      "action_counts": {
+        "blank": 1383,
+        "blur": 952,
+        "brightness": 389,
+        "crop": 995,
+        "grounding": 1103,
+        "noise": 531,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006841120231779241,
+        "six_way_balanced_accuracy": 0.8632061706605318,
+        "six_way_confusion_matrix": [
+          [
+            178,
+            0,
+            0,
+            0,
+            3,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            24,
+            15,
+            552,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8122918582864759,
+        "source_bit_auroc": {
+          "alignment": 0.9997755331088665,
+          "language": 0.9999326376641191,
+          "visual": 0.9904757055127251
+        },
+        "source_bit_hamming_loss": 0.014007597340930674,
+        "source_bit_macro_f1": 0.9860576040081209,
+        "source_bit_micro_f1": 0.9850063532401525
+      },
+      "mean_acquisition_cost": 3.8176638176638176,
+      "prediction_sets": {
+        "average_set_size": 1.566951566951567,
+        "coverage": 0.8084045584045584,
+        "empty_set_rate": 0.1745014245014245,
+        "singleton_rate": 0.5562678062678063
+      },
+      "row_count": 1404
+    },
+    "proactive|4|0.95": {
+      "action_counts": {
+        "blank": 1383,
+        "blur": 952,
+        "brightness": 389,
+        "crop": 995,
+        "grounding": 1103,
+        "noise": 531,
+        "relation": 7,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.006841120231779241,
+        "six_way_balanced_accuracy": 0.8632061706605318,
+        "six_way_confusion_matrix": [
+          [
+            178,
+            0,
+            0,
+            0,
+            3,
+            6
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            41,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            24,
+            15,
+            552,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            23,
+            151
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8122918582864759,
+        "source_bit_auroc": {
+          "alignment": 0.9997755331088665,
+          "language": 0.9999326376641191,
+          "visual": 0.9904757055127251
+        },
+        "source_bit_hamming_loss": 0.014007597340930674,
+        "source_bit_macro_f1": 0.9860576040081209,
+        "source_bit_micro_f1": 0.9850063532401525
+      },
+      "mean_acquisition_cost": 3.8176638176638176,
+      "prediction_sets": {
+        "average_set_size": 2.4800569800569803,
+        "coverage": 0.9116809116809117,
+        "empty_set_rate": 0.08547008547008547,
+        "singleton_rate": 0.24216524216524216
+      },
+      "row_count": 1404
+    },
+    "proactive|7|0.9": {
+      "action_counts": {
+        "blank": 1369,
+        "blur": 1247,
+        "brightness": 896,
+        "crop": 1069,
+        "grounding": 1226,
+        "noise": 906,
+        "relation": 12,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007481512800855426,
+        "six_way_balanced_accuracy": 0.881591194471519,
+        "six_way_confusion_matrix": [
+          [
+            185,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            4,
+            13,
+            3,
+            575,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8497348435039216,
+        "source_bit_auroc": {
+          "alignment": 0.9999937648085797,
+          "language": 0.9998734404598602,
+          "visual": 0.9972522939984316
+        },
+        "source_bit_hamming_loss": 0.0073599240265906935,
+        "source_bit_macro_f1": 0.9926697884149056,
+        "source_bit_micro_f1": 0.9921657821582006
+      },
+      "mean_acquisition_cost": 4.7898860398860394,
+      "prediction_sets": {
+        "average_set_size": 1.7492877492877492,
+        "coverage": 0.8269230769230769,
+        "empty_set_rate": 0.16381766381766383,
+        "singleton_rate": 0.3782051282051282
+      },
+      "row_count": 1404
+    },
+    "proactive|7|0.95": {
+      "action_counts": {
+        "blank": 1369,
+        "blur": 1247,
+        "brightness": 896,
+        "crop": 1069,
+        "grounding": 1226,
+        "noise": 906,
+        "relation": 12,
+        "stop": 1404
+      },
+      "diagnostic": {
+        "record_count": 1404,
+        "signature_mse": 0.007481512800855426,
+        "six_way_balanced_accuracy": 0.881591194471519,
+        "six_way_confusion_matrix": [
+          [
+            185,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            392,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            42,
+            1,
+            1,
+            0
+          ],
+          [
+            4,
+            13,
+            3,
+            575,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            6,
+            5
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            21,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.8497348435039216,
+        "source_bit_auroc": {
+          "alignment": 0.9999937648085797,
+          "language": 0.9998734404598602,
+          "visual": 0.9972522939984316
+        },
+        "source_bit_hamming_loss": 0.0073599240265906935,
+        "source_bit_macro_f1": 0.9926697884149056,
+        "source_bit_micro_f1": 0.9921657821582006
+      },
+      "mean_acquisition_cost": 4.7898860398860394,
+      "prediction_sets": {
+        "average_set_size": 2.4245014245014245,
+        "coverage": 0.9009971509971509,
+        "empty_set_rate": 0.09615384615384616,
+        "singleton_rate": 0.2727920227920228
+      },
+      "row_count": 1404
+    }
+  },
+  "teacher_files": [
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "selected_rows": 175,
+      "sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "selected_rows": 180,
+      "sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "selected_rows": 163,
+      "sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "selected_rows": 184,
+      "sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "selected_rows": 162,
+      "sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "selected_rows": 179,
+      "sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "selected_rows": 174,
+      "sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711"
+    },
+    {
+      "path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "selected_rows": 187,
+      "sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f"
+    }
+  ],
+  "test_used": false,
+  "trajectory_path": "outputs/week8_ablations/shared_vs_independent_heads/frontier/trajectories_validation.jsonl",
+  "trajectory_sha256": "38a5ee0a78ad871c8a95c7ddc505b7d78fda09a2a448012127dbfb928cd7175c",
+  "week8_config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+}

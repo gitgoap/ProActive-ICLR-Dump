@@ -1,6 +1,6 @@
 # Week 8 Requirements — Generalization, shift, ablations, latency, and human audit
 
-**Status:** NOT STARTED
+**Status:** IMPLEMENTED, NOT VALIDATED
 
 **Prerequisite:** Week 7 is COMPLETE. The immutable main stack, final APS, and
 one-time locked core test are closed; no Week 8 result may be used to tune them.
@@ -25,16 +25,16 @@ one-time locked core test are closed; no Week 8 result may be used to tune them.
 
 | ID | Requirement | Required implementation/evidence | Status |
 |---|---|---|---|
-| W8-01 | Leave-one-model-out transfer for feasible model families | LOMO cache/evaluator, matched controls, CSV and confidence intervals | NOT STARTED |
-| W8-02 | Held-out shift on PRE-HAL and IllusionBench | Official releases, provenance, tested loaders, frozen manifests, identical cost accounting, `shift.csv` | NOT STARTED |
+| W8-01 | Leave-one-model-out transfer for feasible model families | `build_lomo_fold.py`, `freeze_lomo_stack.py`, `eval_lomo.py`, `test_week8_lomo_and_human.py`, `lomo.csv` | COMPLETE |
+| W8-02 | Held-out shift on PRE-HAL and IllusionBench | `heldout.py`, setup/manifest scripts, `eval_frontier.py --phase shift`, `test_week8_heldout.py`, frozen manifest and `shift.csv` | COMPLETE |
 | W8-03 | Optional leave-one-dataset-out | Run only if W8-01/02 and paper-critical work are secure | NOT STARTED |
-| W8-04 | Mandatory component ablations | Frozen no-identity, clean-only, no-grounding/no-visual where scientifically defined, and one-pass comparisons | NOT STARTED |
-| W8-05 | Fixed-hardware latency and cost accounting | Warm-up policy, synchronized timing, hardware/runtime record, `latency.csv` | NOT STARTED |
-| W8-06 | Three-person blinded human audit | Three independent 180-row blocks, adjudication, agreement/label-match summary | NOT STARTED |
-| W8-07 | Grouped bootstrap confidence intervals | Resample by base instance, not partial state; fixed seed and interval report | NOT STARTED |
-| W8-08 | Within-dataset and within-model controls | Frozen aggregate and slice tables with sample counts | NOT STARTED |
-| W8-09 | Positive and negative qualitative cases | Provenance-bound examples chosen without changing the model | NOT STARTED |
-| W8-10 | Shift/calibration claim audit | No target-domain tuning and no formal shift-coverage claim without target-like calibration | NOT STARTED |
+| W8-04 | Mandatory component ablations | Feature-manifest builder, real zero-budget/independent-source architectures, loss-only VOI, no-STOP rollout, signed comparison/aggregation scripts | COMPLETE |
+| W8-05 | Fixed-hardware latency and cost accounting | `measure_latency.py`: full controller, CUDA synchronization, 10 warm-ups/100 measurements, cached pass accounting | COMPLETE |
+| W8-06 | Three-person blinded human audit | `human_annotation/`, packet/merge/analyze scripts, `test_week8_lomo_and_human.py`; final agreement output pending people | IMPLEMENTED, NOT VALIDATED |
+| W8-07 | Grouped bootstrap confidence intervals and paired primary tests | `statistics.py`, `analyze_week8.py`, `test_week8_statistics.py`; predeclared comparison family with Holm correction; output pending | IMPLEMENTED, NOT VALIDATED |
+| W8-08 | Within-dataset and within-model controls | Frozen slice generation in `analyze_week8.py`; output pending | IMPLEMENTED, NOT VALIDATED |
+| W8-09 | Positive and negative qualitative cases | Deterministic frozen-outcome ranking in `analyze_week8.py`; output pending | IMPLEMENTED, NOT VALIDATED |
+| W8-10 | Shift/calibration claim audit | Frozen source APS enforcement plus full validator; server evidence pending | IMPLEMENTED, NOT VALIDATED |
 
 ## External dataset setup
 
@@ -59,8 +59,10 @@ human audit unless the paper explicitly needs a stronger relation claim.
 
 ## Human audit execution contract
 
-The packet already exists at `outputs/human_audit/` with 180 blinded rows and
-180 materialized images. As of 2026-09-07, all three annotator blocks are empty.
+The source packet already exists at `outputs/human_audit/` with 180 blinded rows
+and 180 materialized images. `prepare_human_annotation_packets.py` creates one
+private working copy for each of three annotators. As of 2026-09-08, the three
+completed annotator files have not been returned.
 
 1. Recruit three genuinely independent annotators now.
 2. Give them only `human_audit_blinded.csv`, `images/`, and `README.md`.
@@ -94,3 +96,53 @@ with one person.
 - the three-person human audit is complete; if annotators are unavailable,
   Week 8 remains incomplete and the paper must disclose that limitation;
 - no leakage, post-test tuning, or unsupported coverage claim remains.
+
+## LOMO result recorded on 2026-09-11
+
+The approved two-fold run completed in 2,944 seconds (0.818 aggregate
+GPU-hours on one GPU), below the five-GPU-hour ceiling. All 28 preparation and
+evaluation stages exited zero. Both reports contain 780 held-out test examples,
+use source-model calibration only, and pass every recorded artifact and
+self-hash check.
+
+At budget 7, ProActive source-bit Macro-F1 is `0.9692` when Qwen is held out,
+versus `0.6826` for clean-only and `0.6964` for scalar confidence. When Gemma
+is held out it is `0.9948`, versus `0.7956` and `0.7804`. The corresponding
+six-way Macro-F1 values for ProActive are `0.7927` and `0.8063`. This satisfies
+the predeclared diagnostic-quality transfer gate. Cross-model conformal coverage
+is not uniformly preserved: Qwen-held-out coverage at the 0.90 target is
+`0.9910`, while Gemma-held-out coverage is `0.7115` at budget 7 (and `0.9205`
+at budget 1). Therefore the paper may claim useful diagnostic transfer, but
+must explicitly report calibration degradation on the Gemma transfer fold and
+must not claim a distribution-free cross-model coverage guarantee.
+
+## Ablation execution authorization recorded on 2026-09-11
+
+All 15 mandatory ablations are approved at seed 42 on validation evidence
+only. At most two GPUs may be used after a free-device check. The aggregate
+ceiling is eight GPU-hours; each training job is capped at 45 minutes and each
+frontier at 20 minutes. No core test or held-out-shift result may select,
+calibrate, or tune an ablation. `scripts/run_week8_ablations.sh` enforces these
+limits and writes the final signed bundle to
+`outputs/week8_reports/ablations.json`. Status remains IMPLEMENTED, NOT
+VALIDATED until that artifact passes the Week 8 validator.
+
+## Ablation execution result recorded on 2026-09-12
+
+All expensive stages have completed within the authorization: the conservative
+ledger totals 28,275 seconds (`7.8542` GPU-hours), including two earlier
+bounded timeouts and one APS provenance refusal that were later resolved. The no-budget recovery passed
+exact early-stopping-history and APS scientific-equivalence checks before its
+downstream provenance chain was rebuilt. All 15 mandatory evidence JSON files
+are present, and an independent local audit reproduced every evidence self-hash
+and all 29 bound input hashes. The combined report was not written because the
+aggregator retained only the last of repeated `--evidence` CLI arguments. The
+parser now accumulates those arguments and is covered by a regression test.
+No training, frontier, or other GPU stage was rerun for this issue; the only
+remaining actions at that point were the focused test and CPU-only aggregation.
+
+The corrected server rerun passed its focused regression and produced the
+signed aggregate on 2026-09-12. It binds 15/15 unique evidence reports and 121
+comparison rows, with report SHA-256 `ee0a3eb...e14b` and CSV SHA-256
+`7dfcbbb7...2613`. Independent verification reproduced both hashes and every
+evidence binding. W8-04 is therefore COMPLETE.

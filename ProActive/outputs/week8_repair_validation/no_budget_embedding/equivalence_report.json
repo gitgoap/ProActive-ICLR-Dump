@@ -1,0 +1,36 @@
+{
+  "aps_thresholds_and_metrics_exact": true,
+  "epoch_count": 11,
+  "format_version": "week8_ablation_rebuild_equivalence_v1",
+  "history_exact_through_stopping_boundary": true,
+  "ignored_packaging_fields": [
+    "checkpoint_path",
+    "checkpoint_sha256",
+    "report_sha256"
+  ],
+  "inputs": {
+    "archived_history": {
+      "path": "outputs/week8_recovery_archive/no_budget_embedding_early_stop_drift_20260912T140439Z/diag_deep_sets_standard_seed42.history.json",
+      "sha256": "2459b2e9aa9591b7bfa192b162af435344f013fcc7edb81ede4eeb90c0133c1f"
+    },
+    "rebuilt_aps": {
+      "path": "outputs/week8_repair_validation/no_budget_embedding/temporary_aps/temporary_aps_deep_sets_standard_seed42.json",
+      "sha256": "86bb40a786ee69c71f800df634b9f8d2c07cd35e7e7d3fbdd905bd79bc6c32af"
+    },
+    "rebuilt_history": {
+      "path": "outputs/week8_ablations/no_budget_embedding/diagnostic_checkpoints/diag_deep_sets_standard_seed42.history.json",
+      "sha256": "88cc97f3a649a4a45d3d1180c082d545611ad97c90b63bcdc2e69dcb514903b0"
+    },
+    "reference_aps": {
+      "path": "outputs/week8_ablations/no_budget_embedding/temporary_aps/temporary_aps_deep_sets_standard_seed42.json",
+      "sha256": "e2067f12607081fa39d4593ab67b172d4f3df8c1b3e6bd0625d916287d957890"
+    },
+    "reference_voi": {
+      "path": "outputs/week8_ablations/no_budget_embedding/voi/voi_manifest.json",
+      "sha256": "df46a5f135d440421014c891ffd2b52d9c05e3f4af4f9c22d96c36f30229ca1f"
+    }
+  },
+  "is_valid": true,
+  "report_sha256": "0248b23898514fc3237286fb14206e36b5eceb3b98c77aeee7c2836caa00838f",
+  "stopping_epoch": 10
+}

@@ -1,0 +1,67 @@
+===== gemma4_e4b complete-stack freeze =====
+Timeout: 300s; bundle remaining: 15279s
+{
+  "artifacts": {
+    "clean_checkpoint": {
+      "path": "outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt",
+      "sha256": "7d1e48c72ec5737e01e333e8bf1c71aabe2ffa541e61b3938957e9a98278e4dd"
+    },
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7"
+    },
+    "diagnostic_config": {
+      "path": "configs/experiments/diag_bakeoff.yaml",
+      "sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74"
+    },
+    "fold_manifest": {
+      "path": "outputs/week8_lomo/gemma4_e4b/lomo_fold_manifest.json",
+      "sha256": "2a47540475981396efb756ecd94a4fa97e7457968a82422c53a841c151a38197"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_lomo/gemma4_e4b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "ae3e03feae6096f689ce663683e578143f2fca2321ae4952338f62a9d3fff4e2"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "scalar_baseline": {
+      "path": "outputs/week8_lomo/gemma4_e4b/checkpoints/baselines/baseline_scalar_seed42.best.pt",
+      "sha256": "40ca44c24a8a56e16239396be3b7880c7144f8041e013649d4300dab24889fdb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_lomo/gemma4_e4b/freeze/lomo_predeclared_selection.json",
+      "sha256": "1f1e5597ef34398d569671fbef0775d1f085a256edef0fcb57ee3404303a706d"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "20a55a660cf562627e68fb0d286e0c000678e0f65464dad640cc6e4d554526d3",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/freeze_lomo_stack.py --stage stack --fold_manifest outputs/week8_lomo/gemma4_e4b/lomo_fold_manifest.json --diagnostic_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --clean_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt --policy_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt --scalar_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/baselines/baseline_scalar_seed42.best.pt --output_dir outputs/week8_lomo/gemma4_e4b/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.75
+	System time (seconds): 5.54
+	Percent of CPU this job got: 545%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.33
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 432536
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 61291
+	Voluntary context switches: 175
+	Involuntary context switches: 37526
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b complete-stack freeze exit code: 0

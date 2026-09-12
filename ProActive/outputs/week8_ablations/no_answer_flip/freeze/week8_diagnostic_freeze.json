@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml",
+      "sha256": "fbdbea18d6f76e344772a5d68ba6d67dca78397a1eec7b153ad2b9c1783357d5"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml",
+      "sha256": "0bbb0d0629d34962ccc8450e8797674af2950efb8add1211aef133b2975cb9cb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_answer_flip/freeze/predeclared_selection.json",
+      "sha256": "3e07877097df1d59a7927448874ebadb0b6be8a71e07c4c3ce195f081b60e054"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json",
+      "sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "4117e11862d8d3cb9ab7d778b575a02f9c4e2f5f6f6c8e35743937682373678e",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

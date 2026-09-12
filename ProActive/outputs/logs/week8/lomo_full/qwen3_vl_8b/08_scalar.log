@@ -1,0 +1,131 @@
+===== qwen3_vl_8b scalar baseline =====
+Timeout: 300s; bundle remaining: 16662s
+2026-09-11 13:30:11,638 INFO [train_one_pass_baselines] epoch=0 train_loss=1.515206 val_macro_f1=0.7524
+2026-09-11 13:30:12,288 INFO [train_one_pass_baselines] epoch=1 train_loss=1.317526 val_macro_f1=0.7631
+2026-09-11 13:30:12,841 INFO [train_one_pass_baselines] epoch=2 train_loss=1.201068 val_macro_f1=0.7747
+2026-09-11 13:30:13,487 INFO [train_one_pass_baselines] epoch=3 train_loss=1.176132 val_macro_f1=0.7735
+2026-09-11 13:30:14,138 INFO [train_one_pass_baselines] epoch=4 train_loss=1.171731 val_macro_f1=0.7775
+2026-09-11 13:30:14,782 INFO [train_one_pass_baselines] epoch=5 train_loss=1.159138 val_macro_f1=0.7756
+2026-09-11 13:30:15,423 INFO [train_one_pass_baselines] epoch=6 train_loss=1.157873 val_macro_f1=0.7753
+2026-09-11 13:30:16,068 INFO [train_one_pass_baselines] epoch=7 train_loss=1.162847 val_macro_f1=0.7724
+2026-09-11 13:30:16,713 INFO [train_one_pass_baselines] epoch=8 train_loss=1.157247 val_macro_f1=0.7734
+2026-09-11 13:30:17,361 INFO [train_one_pass_baselines] epoch=9 train_loss=1.152137 val_macro_f1=0.7769
+{
+  "baseline": "scalar",
+  "pilot": false,
+  "output": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/baselines/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 702,
+    "source_bit_micro_f1": 0.7748837209302326,
+    "source_bit_macro_f1": 0.7775280077573413,
+    "source_bit_hamming_loss": 0.22981956315289648,
+    "source_bit_auroc": {
+      "visual": 0.9177121617106584,
+      "language": 0.5532766199934874,
+      "alignment": 0.9766943629846856
+    },
+    "six_way_macro_f1": 0.26704503868222756,
+    "six_way_balanced_accuracy": 0.31350954836393957,
+    "six_way_confusion_matrix": [
+      [
+        1,
+        58,
+        10,
+        8,
+        12,
+        0
+      ],
+      [
+        0,
+        167,
+        9,
+        2,
+        17,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        2,
+        2,
+        0
+      ],
+      [
+        5,
+        17,
+        26,
+        279,
+        16,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        64,
+        1,
+        1,
+        2,
+        0
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.09470282448945368
+  },
+  "checkpoint_path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/baselines/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "3231329e9745080fe234b0e60895c1537d1f542be32679f062b480512c5fc768",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "0109dca021172e495c8920583501a30c326a2a4097152b1323aa8848831142bb",
+  "diagnostic_checkpoint_sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0",
+  "week5_freeze_sha256": "e62e710c549b2ab49e8a5e111906b490b3eda818dea44576c1b39cfde2a5244f",
+  "seed": 42,
+  "limit": null,
+  "report_sha256": "e91ecfbe8dc1d6ffbd53508353f6b7d92eef0a776ffd421da14b443684a303ca"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week8_lomo/qwen3_vl_8b/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_diagnostic_freeze.json --baseline scalar --seed 42 --device cuda:0 --output_dir outputs/week8_lomo/qwen3_vl_8b/checkpoints/baselines --resume"
+	User time (seconds): 17.35
+	System time (seconds): 6.71
+	Percent of CPU this job got: 209%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1372208
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 282482
+	Voluntary context switches: 866
+	Involuntary context switches: 34912
+	Swaps: 0
+	File system inputs: 288
+	File system outputs: 23072
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+qwen3_vl_8b scalar baseline exit code: 0

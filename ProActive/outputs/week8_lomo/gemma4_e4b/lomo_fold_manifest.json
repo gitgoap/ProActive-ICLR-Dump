@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "kind": "vector_manifest",
+      "path": "outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json",
+      "sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f"
+    },
+    {
+      "kind": "teacher",
+      "path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "row_count": 7291,
+      "sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "split_counts": {
+        "cal": 750,
+        "test": 780,
+        "train": 5059,
+        "val": 702
+      }
+    },
+    {
+      "kind": "labels",
+      "path": "outputs/week8_lomo/gemma4_e4b/labels/labels_lomo.jsonl",
+      "row_count": 7291,
+      "sha256": "396607f79a450b435ef280e9480d848ae035b567dc96e7f5a03c154d205834e7",
+      "split_counts": {
+        "cal": 750,
+        "test": 780,
+        "train": 5059,
+        "val": 702
+      }
+    },
+    {
+      "kind": "states",
+      "path": "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl",
+      "row_count": 194374,
+      "sha256": "caec0d4b8a73a51464a4f98a99c25527d64df5dd8a532d519045ddb2d3e97e91",
+      "split_counts": {
+        "cal": 20002,
+        "test": 20753,
+        "train": 134935,
+        "val": 18684
+      }
+    }
+  ],
+  "builder_revision": "metadata_identity_v2",
+  "format_version": "lomo_fold_v1",
+  "heldout_model_config": "configs/models/gemma4_e4b.yaml",
+  "heldout_model_config_sha256": "c05e2f1bb9b466b6b392c588fe6a666ed44e10848c1b6043a5ad430b79620547",
+  "heldout_model_id": "google/gemma-4-E4B-it",
+  "model_identity_used_as_learner_feature": false,
+  "report_sha256": "92382fa8e47f64ad3ebfa52563e3222444b7a872910b7ddcf2eabff649fd07ea",
+  "selection_rule": "source_train_val_cal_exclude_model__test_only_model_v1",
+  "source_vector_manifest": "outputs/week5_data/vectorized_manifest.json",
+  "source_vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "split_counts": {
+    "cal": 20002,
+    "test": 20753,
+    "train": 134935,
+    "val": 18684
+  },
+  "status": "COMPLETE"
+}

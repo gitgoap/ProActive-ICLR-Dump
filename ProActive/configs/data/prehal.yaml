@@ -1,14 +1,28 @@
-# PRE-HAL held-out stress dataset
+# PRE-HAL held-out stress dataset (official Hugging Face release, pinned)
 dataset_name: prehal
 data_path: "${PROACTIVE_DATA_ROOT}/PREHAL"
 default_server_path: ""
 
 sample_cap: 600
-normalizer_type: "yes_no"
+normalizer_type: "multiple_choice"
 relation_applicable: false
 
 split_seed: 42
-# Held-out: no split — used entirely for evaluation
 role: "held_out"
-
 loader: "prehal"
+
+official_url: "https://huggingface.co/datasets/TerryHWong/PRE-HAL"
+repo_id: "TerryHWong/PRE-HAL"
+revision: "3aac833638f7808dea7eb0145af4d8c6f028714b"
+license: "CC-BY-4.0"
+annotation_file: "dataset.csv"
+annotation_sha256: "86265fdeb6a8ce9ab35369f10af87520158908de999dacf3243bb6f6363fa64b"
+expected_source_rows: 10000
+expected_unique_images: 6469
+
+# The repository also contains unrelated model_weights/.  The Week 8 setup
+# intentionally downloads only the annotation CSV, README, and images.
+download_allow_patterns:
+  - "README.md"
+  - "dataset.csv"
+  - "images/**"

@@ -1,0 +1,182 @@
+===== no_signature_regression temporary validation APS =====
+Timeout 900s; worker ceiling remaining 5028s
+{
+  "format_version": "temporary_validation_aps_v1",
+  "status": "TEMPORARY_NOT_FINAL_CALIBRATION",
+  "fit_split": "val",
+  "calibration_split_used": false,
+  "test_split_used": false,
+  "config_sha256": "58262427a826d57bc490099d38663e68309e9a6d3bba9d13b4c2f75f1e181ac6",
+  "checkpoint_path": "outputs/week8_ablations/no_signature_regression/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "4b7988e218fe75bdbdee321819cb694e10eb2158a26ae9b09bba184284bcc49a",
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "limit": null,
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999982118606567,
+        "calibration_count": 9844,
+        "validation_metrics": {
+          "coverage": 0.9003453880536367,
+          "average_set_size": 3.6395774075579035,
+          "singleton_rate": 0.1436407964242178,
+          "empty_set_rate": 0.0674522551808208
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999998807907104,
+        "calibration_count": 9844,
+        "validation_metrics": {
+          "coverage": 0.964546932141406,
+          "average_set_size": 4.00568874441284,
+          "singleton_rate": 0.12271434376269809,
+          "empty_set_rate": 0.011682242990654205
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999992847442627,
+        "calibration_count": 17531,
+        "validation_metrics": {
+          "coverage": 0.9022303348354344,
+          "average_set_size": 3.515657977297359,
+          "singleton_rate": 0.15737835833666078,
+          "empty_set_rate": 0.06930580115224459
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999998807907104,
+        "calibration_count": 17531,
+        "validation_metrics": {
+          "coverage": 0.9547088015515373,
+          "average_set_size": 3.7936227254577606,
+          "singleton_rate": 0.14996292282242885,
+          "empty_set_rate": 0.02378643545719012
+        }
+      }
+    },
+    "3": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999995231628418,
+        "calibration_count": 25419,
+        "validation_metrics": {
+          "coverage": 0.9021991423738148,
+          "average_set_size": 3.4131161729415003,
+          "singleton_rate": 0.1745938077815807,
+          "empty_set_rate": 0.07148196231165664
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999999701976776,
+        "calibration_count": 25419,
+        "validation_metrics": {
+          "coverage": 0.9515323183445454,
+          "average_set_size": 4.276368071127896,
+          "singleton_rate": 0.09048349659703371,
+          "empty_set_rate": 0.0354459262756206
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999996423721313,
+        "calibration_count": 33108,
+        "validation_metrics": {
+          "coverage": 0.9051890781684185,
+          "average_set_size": 3.320134106560348,
+          "singleton_rate": 0.19436389996375497,
+          "empty_set_rate": 0.07052676090370907
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 1.0,
+        "calibration_count": 33108,
+        "validation_metrics": {
+          "coverage": 0.9938081430469977,
+          "average_set_size": 4.711248036728283,
+          "singleton_rate": 0.11039627884499215,
+          "empty_set_rate": 0.0
+        }
+      }
+    },
+    "7": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999996423721313,
+        "calibration_count": 37368,
+        "validation_metrics": {
+          "coverage": 0.9035538428602012,
+          "average_set_size": 3.229287090558767,
+          "singleton_rate": 0.20482766002997216,
+          "empty_set_rate": 0.07303040034253908
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 1.0,
+        "calibration_count": 37368,
+        "validation_metrics": {
+          "coverage": 0.9939252836651681,
+          "average_set_size": 4.673838578462856,
+          "singleton_rate": 0.11911260971954614,
+          "empty_set_rate": 0.0
+        }
+      }
+    }
+  },
+  "report_sha256": "543fdaad0ae3347d54bbadc3de97d9ebd04016402d96dbdc2c4f9b6f361d2ccd"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 900s env CUDA_VISIBLE_DEVICES=1 python scripts/fit_temporary_aps.py --config outputs/week8_data/ablation_configs/no_signature_regression_diag.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --checkpoint outputs/week8_ablations/no_signature_regression/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/no_signature_regression/temporary_aps --seed 42 --device cuda:0 --resume"
+	User time (seconds): 18.87
+	System time (seconds): 6.03
+	Percent of CPU this job got: 193%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:12.83
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1124652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 215441
+	Voluntary context switches: 593
+	Involuntary context switches: 71496
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_signature_regression temporary validation APS exit code: 0

@@ -1,0 +1,323 @@
+{
+  "ablation_id": "no_relation_probe",
+  "config_path": "configs/experiments/diag_bakeoff.yaml",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__cal.pt",
+      "row_count": 5280,
+      "sha256": "797cdef124b9fc853b04081f6610f44cc86467d5c9904326c763cc666429f250",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard00-of-04__cal.pt",
+      "source_sha256": "f3dfbfef0955cf2eeb053ee2d0a330046e783f23c8eea20dd8a5627947abf0db",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__test.pt",
+      "row_count": 4900,
+      "sha256": "7342867d0944247bd8563bd25a171aee5598fa8d7870ae5591a3264a9e932206",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard00-of-04__test.pt",
+      "source_sha256": "37b38fabebf5f3c2899dd6f2fb88f74d92bd9a2cce30c9dd2ed3f876c8e76b45",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__train.pt",
+      "row_count": 33804,
+      "sha256": "f21834ae28a12b5a6918c5170b7bdfa0a772ae57ef4317cc78346b68a9e9e49b",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard00-of-04__train.pt",
+      "source_sha256": "486d9b0432227b6e3688f822fb2ce64b1f9edbddc33f0fb9822a58c0ed47bd82",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__val.pt",
+      "row_count": 4630,
+      "sha256": "e09b451866350ec44b2b08655a5818e4f10c22514c95d95a2a7a43cc7c9b70e9",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard00-of-04__val.pt",
+      "source_sha256": "cdbe0ff562c040eeb88cc868e207ffd3534f9ab5d1f71f03fef55ace34e3e1d3",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__cal.pt",
+      "row_count": 5409,
+      "sha256": "2992c14bb83e18562404a9c86d22003bb56d419d1e01a92bb7f70191c770ee7b",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard01-of-04__cal.pt",
+      "source_sha256": "0efb68f34788505707e087cf1a402dfa1df40084c904ac922e0480cc6bf42979",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__test.pt",
+      "row_count": 5048,
+      "sha256": "b88a6947beeaa167b68d513d85f27dedb55a0d643b557d681ac34f5de41db1bf",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard01-of-04__test.pt",
+      "source_sha256": "7dc9ffe47ad038a8902d560a16660e72bca2bc2d423483746f1fe2feac68611a",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__train.pt",
+      "row_count": 32082,
+      "sha256": "9e07e1bb60175f087ace512bdc3a5a07a6e084d354f524d1198e59987c3ad1b1",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard01-of-04__train.pt",
+      "source_sha256": "e3fac6ba49cbdadfc0c6d2add23684e82de86155f0e6b1da9d29c386401cc830",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__val.pt",
+      "row_count": 4775,
+      "sha256": "19bc8bfb37f4b568633a9df2f6980556941a88b5ae3d21237d744b6f2c2262de",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard01-of-04__val.pt",
+      "source_sha256": "b25598a17bee8b5780d12ecc5f86225fbc3a092375351415bb5f50a5cd12be16",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__cal.pt",
+      "row_count": 4560,
+      "sha256": "7e81b2d87066f22aa0fcb5434952a618f262daf016b0429e979e46200f6cbb78",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard02-of-04__cal.pt",
+      "source_sha256": "cdf40588264f50e06465bd14d9640672e83693d4cd6abc9d9aa812169d2c87cc",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__test.pt",
+      "row_count": 5730,
+      "sha256": "2ed861454cf52c3bcb52b0087738eedf708d5e25ce7fb4ae5b2c38aaa69a4981",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard02-of-04__test.pt",
+      "source_sha256": "c80140b8c168a6ae3542303bf7bf1f87548099532703804425e619ffbe53cd64",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__train.pt",
+      "row_count": 33735,
+      "sha256": "23f7a7650c984c8bec76b2f258960de8320d2267ddc3ea1045caeb4ec2d51bb2",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard02-of-04__train.pt",
+      "source_sha256": "e15b6ce75be2cd77f730c7aedfd59cad07e52533e5f7def0a897d4104e15f37a",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__val.pt",
+      "row_count": 4315,
+      "sha256": "16e82b6dd2411340d1c66f5e36bf310218076619cd7c947ca7f49d38a06b5d3c",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard02-of-04__val.pt",
+      "source_sha256": "2b652077028d7535d54564a833f8969d654bfa6e9a9e90ba41f2d553ff48bbeb",
+      "split": "val"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__cal.pt",
+      "row_count": 4601,
+      "sha256": "d4131579f627b1e76303222e29d80ab3ebae2d20d51b62889168164ce79c03a9",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard03-of-04__cal.pt",
+      "source_sha256": "05ef5bca55cfbd8ba4704a91903a3944158db9e585daf53039c4c7a8172b6771",
+      "split": "cal"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__test.pt",
+      "row_count": 4958,
+      "sha256": "f4688930af1323e00c3496af2b9050b752040636b53164b1079ee9d6ed81d1a5",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard03-of-04__test.pt",
+      "source_sha256": "1f74bdfcb041a3e363d1ef33a1b9fe6f1372e3425405dc734e768db2c3c02a5a",
+      "split": "test"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__train.pt",
+      "row_count": 34284,
+      "sha256": "5eb083ddc8ed8ce1b3d5e422e13ed80f05ca22c142a1f18620505bba5ce39ea1",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard03-of-04__train.pt",
+      "source_sha256": "b61855edc76e7a9bc818a68070694fc3650ab8c2c498c466a7bf858cd6a6f1c9",
+      "split": "train"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__val.pt",
+      "row_count": 4867,
+      "sha256": "f8b1da66f0c343c82c4355db5c0bbb150892b62521c14585b2928f4ae1cc504a",
+      "source_path": "outputs/week5_data/states_gemma4_e4b_all_all_shard03-of-04__val.pt",
+      "source_sha256": "7a74dcdb52a30854893fe891bbefc4fa34ad9bac305b64422fbb64e7d18832e1",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__cal.pt",
+      "row_count": 4742,
+      "sha256": "a36418e69f140b8dc7701661eb90084f88ccf2a8caf7d11bed0f841339271bec",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard00-of-04__cal.pt",
+      "source_sha256": "d6e0e45d2fdf3a7e272aa8e0dd8978847e5f836939f7d5e9cca4bc89b109b055",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__test.pt",
+      "row_count": 4761,
+      "sha256": "c835991d4351fd8f1b2dc9ce94457f507e0a53202fb88e5c3637191b5bd61aa9",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard00-of-04__test.pt",
+      "source_sha256": "4965166bb666fa4fd868b8ad33237fa7ca0ec05517c44c89e68011aaf58b6b91",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__train.pt",
+      "row_count": 34466,
+      "sha256": "02c4508600624bfe27d1e1051466549bf549a4f9f563f32ed249e8103466c770",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard00-of-04__train.pt",
+      "source_sha256": "603201187159dc67e9e5e95a8b69475d79cebf45fb74be93a035e3f584ef4e19",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__val.pt",
+      "row_count": 4287,
+      "sha256": "2105bc6f2706541e155970cd39208d0bf24b623df78f30bed0b61352881a2e41",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard00-of-04__val.pt",
+      "source_sha256": "253431d08fe7ca0445d666f41562833f9d5ae3bf4936213af143e25422c449ff",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__cal.pt",
+      "row_count": 4882,
+      "sha256": "edc6571bdc2906790f4ddd5021d149d97c5cb2e4f2bf730b1659a39a37ae718f",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard01-of-04__cal.pt",
+      "source_sha256": "d13fe388bb9db83d9f7075f7584bb10efe9a13be84305dbce4fbc85108c3f00b",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__test.pt",
+      "row_count": 4840,
+      "sha256": "c9396703196efa0cde3073470eb78281bf2529690d6f0d27b0d1d2df5b31da90",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard01-of-04__test.pt",
+      "source_sha256": "4c7b48820f865a324f037971f7689305e66182a867692434b0b0f546ad82cd08",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__train.pt",
+      "row_count": 33763,
+      "sha256": "8b0584e61a359915c9c8f12fd2bb64e993208460584e21a2d31f8f6048216589",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard01-of-04__train.pt",
+      "source_sha256": "3ea0f37bcf6f2ff9d7c46f0d0dbcd6479a3534c4584c72c832aa951f821612b0",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__val.pt",
+      "row_count": 4734,
+      "sha256": "b1e616a7469c29b92fe44ec555110dd5c2ef7d9a42f7149d844d55964c12a661",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard01-of-04__val.pt",
+      "source_sha256": "660b618a3b80d9b845c5bc3dd891cc9411bb4f1910534f9cf1d7532b3db8f1a5",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__cal.pt",
+      "row_count": 4966,
+      "sha256": "6759e61af69483b1e3a21d0d34409a327678639ebfd02eac7a095fe9339cd613",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard02-of-04__cal.pt",
+      "source_sha256": "8a62b4b84611eaff4a9f6379557689b5c5513df9a879fe94162f3f59aaa9ad48",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__test.pt",
+      "row_count": 5033,
+      "sha256": "c94e7a98315c23bf5030522d1a9681a01f422facda84c223fa1b3b580b4428d8",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard02-of-04__test.pt",
+      "source_sha256": "aac27adc632460a051b2c0773ed1a4174bdd48bdcfeb1d49e21fe7ab759fdf61",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__train.pt",
+      "row_count": 33056,
+      "sha256": "9c17d10c4815d6dffb697873eec59be87959724dfa50dcbf61366545b221de7d",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard02-of-04__train.pt",
+      "source_sha256": "6793b40fd487e7938b9306ef957ddd4d5cf1df7cee8c2d84f9f6beb4183a6f13",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__val.pt",
+      "row_count": 4615,
+      "sha256": "fe5753070fe6d535a0c4af61799c494dcc709508f852742fe8939a13172b83e0",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard02-of-04__val.pt",
+      "source_sha256": "73ab8801807e63be726cbd07f63ab175e9425997d41973a5d78d5e3bef1f7172",
+      "split": "val"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__cal.pt",
+      "row_count": 5264,
+      "sha256": "3ba589dcb1dc2f41dd42851a356f86d791137670b345ed56d0e20a61a7ae5cb0",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard03-of-04__cal.pt",
+      "source_sha256": "acba70e49d72854b8038e138e1560955b1b2f9c5dd5db30421b5c127cf0983e7",
+      "split": "cal"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__test.pt",
+      "row_count": 5965,
+      "sha256": "d72f1757b07b6accf847357b6c7c5dbb531344a98728858b300ef361599b6ebf",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard03-of-04__test.pt",
+      "source_sha256": "af395203b35761547eb40445ef3512cd1a945326a1a3dff08a67b0df8fb226b2",
+      "split": "test"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__train.pt",
+      "row_count": 32736,
+      "sha256": "4ed03d5396fe3b19dff21805c8a268c2bd61dcf22680d5c7a9990aca60945e81",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard03-of-04__train.pt",
+      "source_sha256": "73aa47ca9be05db8df802fb4314356ccdbd9f9a9bcdfaf923071105f80a5c57f",
+      "split": "train"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__val.pt",
+      "row_count": 4955,
+      "sha256": "48e6285473bfc7cfde4d959792fb856c976be7372c1d8f68ec3ce91f4ec967d9",
+      "source_path": "outputs/week5_data/states_qwen3_vl_8b_all_all_shard03-of-04__val.pt",
+      "source_sha256": "bd84a7e75e2200928bcbe30288b913fa5ac27d27a1d2c0c79646ba5c07d2488d",
+      "split": "val"
+    }
+  ],
+  "format_version": "week5_vector_manifest_v1",
+  "group_count": 7291,
+  "limit": null,
+  "manifest_sha256": "4e476df66af41927a7c340c2eecedbb7e0849d81e50d8ed633fc8e0b677ee41c",
+  "model_identity_used_as_input": false,
+  "seed": 42,
+  "source_files": [
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "row_count": 48915,
+      "sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "row_count": 47618,
+      "sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "row_count": 48660,
+      "sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d"
+    },
+    {
+      "path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "row_count": 49093,
+      "sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "row_count": 48597,
+      "sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "row_count": 48449,
+      "sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "row_count": 47974,
+      "sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6"
+    },
+    {
+      "path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "row_count": 49317,
+      "sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f"
+    }
+  ],
+  "source_row_count": 386043,
+  "source_state_manifest_path": "outputs/week4_reports/final/state_manifest.json",
+  "source_state_manifest_sha256": "cf0172e7377ff41df4d5d18bbed8bb713aaef5482a3e24a0fd28ec85a542f1a4",
+  "source_vector_manifest": "outputs/week5_data/vectorized_manifest.json",
+  "source_vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "split_counts": {
+    "cal": 39704,
+    "test": 41235,
+    "train": 267926,
+    "val": 37178
+  },
+  "status": "COMPLETE"
+}

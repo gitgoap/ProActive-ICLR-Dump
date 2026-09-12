@@ -1,0 +1,86 @@
+LOMO builder revision: metadata_identity_v2
+{
+  "format_version": "lomo_fold_v1",
+  "builder_revision": "metadata_identity_v2",
+  "heldout_model_id": "Qwen/Qwen3-VL-8B-Instruct",
+  "heldout_model_config": "configs/models/qwen3_vl_8b.yaml",
+  "heldout_model_config_sha256": "39bd2c240f1c79dd58721188b5ddb8dae2fd4732945e0daaa67d8fd9d9ae7d27",
+  "source_vector_manifest": "outputs/week5_data/vectorized_manifest.json",
+  "source_vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "selection_rule": "source_train_val_cal_exclude_model__test_only_model_v1",
+  "model_identity_used_as_learner_feature": false,
+  "status": "COMPLETE",
+  "split_counts": {
+    "cal": 20002,
+    "test": 20716,
+    "train": 134847,
+    "val": 18684
+  },
+  "artifacts": [
+    {
+      "kind": "vector_manifest",
+      "path": "outputs/week8_lomo/qwen3_vl_8b/vectorized/vectorized_manifest.json",
+      "sha256": "0109dca021172e495c8920583501a30c326a2a4097152b1323aa8848831142bb"
+    },
+    {
+      "kind": "teacher",
+      "path": "outputs/week8_lomo/qwen3_vl_8b/teachers/teacher_lomo.jsonl",
+      "sha256": "8ba8340b05b2f9e37904dffe1cc7e75345fd8cf08175be2081c11228dbce5f7f",
+      "row_count": 7291,
+      "split_counts": {
+        "cal": 750,
+        "test": 780,
+        "train": 5059,
+        "val": 702
+      }
+    },
+    {
+      "kind": "labels",
+      "path": "outputs/week8_lomo/qwen3_vl_8b/labels/labels_lomo.jsonl",
+      "sha256": "7affa699673616cda3a971fc5a9dde083feb65fe81533cd642cdfd59ebeeb0ba",
+      "row_count": 7291,
+      "split_counts": {
+        "cal": 750,
+        "test": 780,
+        "train": 5059,
+        "val": 702
+      }
+    },
+    {
+      "kind": "states",
+      "path": "outputs/week8_lomo/qwen3_vl_8b/states/states_lomo.jsonl",
+      "sha256": "0e0c903fe2fe856a1dd59e95dd9d21e6507143d583b605966148e789124ccf38",
+      "row_count": 194249,
+      "split_counts": {
+        "cal": 20002,
+        "test": 20716,
+        "train": 134847,
+        "val": 18684
+      }
+    }
+  ],
+  "report_sha256": "d8fe4e90b17c64a61cc891d5b89d41dd1ce0aa6c1b3a95d7598647379e1f0c9f"
+}
+	Command being timed: "python scripts/build_lomo_fold.py --model_config configs/models/qwen3_vl_8b.yaml --vector_manifest outputs/week5_data/vectorized_manifest.json --teacher_dir outputs/teacher_core_contract_v1_recovered --labels_dir outputs/labels_core --states_dir outputs/states_v1 --output_dir outputs/week8_lomo/qwen3_vl_8b --overwrite"
+	User time (seconds): 32.27
+	System time (seconds): 7.99
+	Percent of CPU this job got: 177%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:22.73
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2261152
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 684686
+	Voluntary context switches: 760
+	Involuntary context switches: 147972
+	Swaps: 0
+	File system inputs: 16
+	File system outputs: 1212424
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

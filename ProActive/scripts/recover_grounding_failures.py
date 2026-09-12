@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Recover only fail-closed grounding rows with one uniform concise retry.
 
-This script never edits the accepted 1,024-token grounding-refresh cache.  It
-copies every valid source row into a separate output shard, retries every
-remaining *format/truncation* failure with the same concise describe-then-answer
-prompt, recomputes the affected labels, and retains an atomic failure ledger.
+This script never edits its accepted source cache.  It copies every valid
+source row into a separate output shard, retries every remaining
+*format/truncation* grounding failure with the same concise
+describe-then-answer prompt, recomputes the affected labels, and retains an
+atomic failure ledger.  Sources may be either the 1,024-token grounding-refresh
+cache or a fail-closed teacher cache such as the Week 8 held-out shift run.
 Rows cannot be selected by model prediction, gold label, dataset, or desired
 outcome: the retry trigger is exclusively a malformed mandatory grounding
 observation in the source failure ledger.
@@ -69,6 +71,10 @@ RECOVERABLE_MESSAGES = {
     "Empty or unknown free-form output",
     "Empty generation output",
 }
+RECOVERABLE_MESSAGE_PREFIXES = (
+    "Multiple-choice answer is not one option letter:",
+    "Binary dataset answer not in valid domain:",
+)
 
 
 def _parse_args() -> argparse.Namespace:
@@ -76,6 +82,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--config", required=True)
     parser.add_argument("--manifest_path", required=True)
     parser.add_argument("--model", required=True)
+    parser.add_argument(
+        "--split",
+        choices=("all", "train", "val", "cal", "test", "shift"),
+        default="all",
+    )
     parser.add_argument(
         "--input_dir", default="outputs/teacher_core_contract_v1_grounding1024"
     )
@@ -96,10 +107,14 @@ def _parse_args() -> argparse.Namespace:
 
 
 def _source_paths(
-    input_dir: Path, model_name: str, shard_id: int, num_shards: int
+    input_dir: Path,
+    model_name: str,
+    shard_id: int,
+    num_shards: int,
+    split: str = "all",
 ) -> Tuple[Path, Path]:
     name = (
-        f"teacher_{model_name}_all_all_"
+        f"teacher_{model_name}_all_{split}_"
         f"shard{shard_id:02d}-of-{num_shards:02d}.jsonl"
     )
     teacher_path = input_dir / name
@@ -118,29 +133,52 @@ def _load_source_failures(
         return failures
     for row in iter_jsonl(path):
         key = (str(row.get("model_id", "")), str(row.get("instance_id", "")))
-        if row.get("record_type") != "grounding_refresh_failure":
+        record_type = row.get("record_type")
+        if record_type not in {"grounding_refresh_failure", "teacher_failure"}:
             raise ValueError(f"Invalid source grounding failure: {key}")
         if row.get("schema_version") != 1:
             raise ValueError(f"Unsupported source failure schema: {key}")
         if key in failures or key[0] != model_id or key[1] not in selected_ids:
             raise ValueError(f"Duplicate or out-of-scope source failure: {key}")
-        if row.get("uniform_max_new_tokens") != source_max_new_tokens:
-            raise ValueError(f"Source failure token-cap drift: {key}")
-        if row.get("error_message") not in RECOVERABLE_MESSAGES:
+        if record_type == "grounding_refresh_failure":
+            if row.get("uniform_max_new_tokens") != source_max_new_tokens:
+                raise ValueError(f"Source failure token-cap drift: {key}")
+            observation = row.get("grounding_observation")
+            trigger_message = row.get("error_message")
+        else:
+            base = row.get("invalid_teacher_record")
+            if not isinstance(base, Mapping):
+                raise ValueError(f"Teacher failure lacks invalid record: {key}")
+            if (
+                str(base.get("model_id", "")) != model_id
+                or str(base.get("instance_id", "")) != key[1]
+            ):
+                raise ValueError(f"Teacher failure base identity drift: {key}")
+            probes = base.get("probes")
+            observation = probes.get("grounding") if isinstance(probes, Mapping) else None
+            trigger_message = (
+                observation.get("invalid_reason")
+                if isinstance(observation, Mapping)
+                else None
+            )
+        if not isinstance(trigger_message, str) or not (
+            trigger_message in RECOVERABLE_MESSAGES
+            or trigger_message.startswith(RECOVERABLE_MESSAGE_PREFIXES)
+        ):
             raise ValueError(f"Non-format failure is not retryable by this policy: {key}")
-        observation = row.get("grounding_observation")
         if not isinstance(observation, Mapping) or observation.get("valid") is not False:
             raise ValueError(f"Source failure lacks an invalid grounding observation: {key}")
         if observation.get("parse_status") not in {"empty", "malformed"}:
             raise ValueError(f"Source failure is not a parse/format failure: {key}")
-        for field in (
-            "source_kind",
-            "source_path",
-            "source_file_sha256",
-            "source_record_sha256",
-        ):
-            if not row.get(field):
-                raise ValueError(f"Source failure lacks provenance {field}: {key}")
+        if record_type == "grounding_refresh_failure":
+            for field in (
+                "source_kind",
+                "source_path",
+                "source_file_sha256",
+                "source_record_sha256",
+            ):
+                if not row.get(field):
+                    raise ValueError(f"Source failure lacks provenance {field}: {key}")
         failures[key] = row
     return failures
 
@@ -149,6 +187,23 @@ def _find_failure_base(
     failure: Mapping[str, Any], *, model_id: str, instance_id: str
 ) -> Dict[str, Any]:
     """Resolve and hash-check the pre-refresh teacher record for one failure."""
+    if failure.get("record_type") == "teacher_failure":
+        base = failure.get("invalid_teacher_record")
+        if not isinstance(base, dict):
+            raise ValueError(f"Teacher failure lacks invalid record: {instance_id}")
+        if (
+            str(base.get("model_id", "")) != model_id
+            or str(base.get("instance_id", "")) != instance_id
+        ):
+            raise ValueError(f"Teacher failure base identity drift: {instance_id}")
+        clean = base.get("clean")
+        probes = base.get("probes")
+        if not isinstance(clean, Mapping) or clean.get("valid") is not True:
+            raise ValueError(f"Failure base has invalid clean observation: {instance_id}")
+        if not isinstance(probes, Mapping) or "grounding" not in probes:
+            raise ValueError(f"Failure base lacks grounding observation: {instance_id}")
+        return base
+
     source_path = Path(str(failure["source_path"]))
     if not source_path.exists():
         raise FileNotFoundError(f"Missing failure provenance source: {source_path}")
@@ -332,7 +387,8 @@ def main() -> None:
     selected = [
         row
         for row in records
-        if stable_shard_id(str(row["instance_id"]), model_id, args.num_shards)
+        if (args.split == "all" or row.get("split") == args.split)
+        and stable_shard_id(str(row["instance_id"]), model_id, args.num_shards)
         == args.shard_id
     ]
     selected_ids = {str(row["instance_id"]) for row in selected}
@@ -340,7 +396,11 @@ def main() -> None:
     frozen_sha = file_sha256(frozen_path)
     model_name = str(model_config["model_name"])
     teacher_path, failure_path = _source_paths(
-        Path(args.input_dir), model_name, args.shard_id, args.num_shards
+        Path(args.input_dir),
+        model_name,
+        args.shard_id,
+        args.num_shards,
+        args.split,
     )
     if not teacher_path.exists():
         raise FileNotFoundError(f"Missing source teacher shard: {teacher_path}")
@@ -386,7 +446,11 @@ def main() -> None:
     provenance: Dict[Tuple[str, str], Dict[str, str]] = {}
     for key, row in valid_by_key.items():
         provenance[key] = _immediate_provenance(
-            source_kind="grounding1024_valid_teacher",
+            source_kind=(
+                "grounding1024_valid_teacher"
+                if args.split == "all"
+                else "teacher_valid"
+            ),
             path=teacher_path,
             file_sha=teacher_sha,
             row=row,
@@ -396,7 +460,11 @@ def main() -> None:
             failure, model_id=key[0], instance_id=key[1]
         )
         provenance[key] = _immediate_provenance(
-            source_kind="grounding1024_failure",
+            source_kind=(
+                "grounding1024_failure"
+                if failure.get("record_type") == "grounding_refresh_failure"
+                else "teacher_failure"
+            ),
             path=failure_path,
             file_sha=failure_sha,
             row=failure,
@@ -504,6 +572,7 @@ def main() -> None:
                     semantic_threshold=float(semantic["threshold"]),
                     embedding_fn=matcher.similarity,
                     answer_type=base.get("answer_type"),
+                    normalizer_type=base.get("normalizer_type"),
                     prompt_text_override=retry_prompt,
                 )
                 if not observation.valid:
@@ -517,9 +586,7 @@ def main() -> None:
                         or manifest_row.get("pope_split")
                         or ""
                     )
-                rebuilt = _rebuild_teacher_row(
-                    base_for_recovery,
-                    observation.to_dict(),
+                rebuild_provenance = (
                     {
                         field: source_failure[field]
                         for field in (
@@ -528,7 +595,14 @@ def main() -> None:
                             "source_file_sha256",
                             "source_record_sha256",
                         )
-                    },
+                    }
+                    if source_failure.get("record_type") == "grounding_refresh_failure"
+                    else provenance[key]
+                )
+                rebuilt = _rebuild_teacher_row(
+                    base_for_recovery,
+                    observation.to_dict(),
+                    rebuild_provenance,
                     thresholds,
                     args.max_new_tokens,
                 )

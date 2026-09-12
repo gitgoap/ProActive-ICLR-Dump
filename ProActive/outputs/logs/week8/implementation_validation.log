@@ -1,0 +1,10 @@
+{
+  "format_version": "week8_validation_v1",
+  "mode": "implementation",
+  "is_valid": true,
+  "status": "IMPLEMENTED, NOT VALIDATED",
+  "errors": [],
+  "warnings": [],
+  "config_sha256": "bee8a14c0064fba2421b17eed6ad0f3514381dad7a1b52ac76274adbce37917f",
+  "report_sha256": "dd21a68c13e98f65a2c7e9f43010ff8dd52c2e3e56b0e54c3162b27e92a2fd64"
+}

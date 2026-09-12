@@ -1,0 +1,138 @@
+{
+  "best_action_counts": {
+    "0": {
+      "blank": 64460,
+      "blur": 27006,
+      "brightness": 8021,
+      "crop": 12065,
+      "grounding": 31148,
+      "noise": 4337,
+      "relation": 590,
+      "stop": 100870
+    },
+    "0.05": {
+      "blank": 56452,
+      "blur": 20020,
+      "brightness": 5734,
+      "crop": 7995,
+      "grounding": 23503,
+      "noise": 3041,
+      "relation": 566,
+      "stop": 131186
+    },
+    "0.1": {
+      "blank": 54858,
+      "blur": 18443,
+      "brightness": 5457,
+      "crop": 7585,
+      "grounding": 21436,
+      "noise": 2867,
+      "relation": 565,
+      "stop": 137286
+    },
+    "0.2": {
+      "blank": 47314,
+      "blur": 17543,
+      "brightness": 5191,
+      "crop": 7303,
+      "grounding": 19331,
+      "noise": 2755,
+      "relation": 550,
+      "stop": 148510
+    },
+    "0.4": {
+      "blank": 44648,
+      "blur": 17198,
+      "brightness": 5061,
+      "crop": 7066,
+      "grounding": 18262,
+      "noise": 2665,
+      "relation": 514,
+      "stop": 153083
+    }
+  },
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "calibration_used": false,
+  "checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "cost_multipliers": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4
+  ],
+  "eta_loss": 0.25,
+  "files": [
+    {
+      "path": "states_lomo__train.jsonl",
+      "row_count": 218255,
+      "sha256": "e0a70db626901222fca1aca07c62c7f199d3a1787f8e8a8d09847ac62791a9eb",
+      "source_state_path": "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl",
+      "source_state_sha256": "caec0d4b8a73a51464a4f98a99c25527d64df5dd8a532d519045ddb2d3e97e91",
+      "source_teacher_path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "source_teacher_sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "split": "train"
+    },
+    {
+      "path": "states_lomo__val.jsonl",
+      "row_count": 30242,
+      "sha256": "7a1ab4fc70df56bff2422c807ec27ed2203c9127755480d5886ec5fdd9516395",
+      "source_state_path": "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl",
+      "source_state_sha256": "caec0d4b8a73a51464a4f98a99c25527d64df5dd8a532d519045ddb2d3e97e91",
+      "source_teacher_path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "source_teacher_sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "split": "val"
+    }
+  ],
+  "fit_splits": [
+    "train",
+    "val"
+  ],
+  "format_version": "week6_voi_manifest_v1",
+  "freeze_manifest_sha256": "7036287a6a76959b5f2956dae4dca5cf0992f98338117b00025f8ba615968b84",
+  "limit": null,
+  "manifest_sha256": "a550174da2fc4ea9f9d63c358cb9038d94cabfa26e22237b140f58f768d140b9",
+  "row_count": 248497,
+  "sign_counts": {
+    "0": {
+      "negative": 172782,
+      "positive": 503735,
+      "zero": 248498
+    },
+    "0.05": {
+      "negative": 436576,
+      "positive": 239942,
+      "zero": 248497
+    },
+    "0.1": {
+      "negative": 468236,
+      "positive": 208282,
+      "zero": 248497
+    },
+    "0.2": {
+      "negative": 492948,
+      "positive": 183570,
+      "zero": 248497
+    },
+    "0.4": {
+      "negative": 504482,
+      "positive": 172036,
+      "zero": 248497
+    }
+  },
+  "split_counts": {
+    "train": 218255,
+    "val": 30242
+  },
+  "state_manifest_sha256": "8b7098e9b6747d5cae458d2323e57948320abd55ecc7466df947ab917fd06ce3",
+  "status": "COMPLETE",
+  "target_coverage": 0.9,
+  "temporary_aps_sha256": "453f42ff76d00e05bf670b38e3d203735830f4e372c73ff4f77c99d3b364b1c1",
+  "test_used": false,
+  "vector_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f"
+}

@@ -77,6 +77,30 @@ def normalize_true_false(raw: str) -> str:
     return "unknown"
 
 
+def normalize_multiple_choice(raw: str) -> str:
+    """Normalize an explicitly lettered A--F answer.
+
+    Held-out prompts enumerate options with letters and request one letter.  We
+    accept a bare letter, a letter followed by punctuation, or an explicit
+    answer phrase.  Arbitrary prose beginning with an article (for example,
+    ``A person ...``) is deliberately not interpreted as option A.
+    """
+
+    cleaned = raw.strip().replace("**", "").replace("`", "")
+    patterns = (
+        r"^\s*([A-Fa-f])\s*$",
+        r"^\s*([A-Fa-f])\s*[.):,-]",
+        r"^\s*\(([A-Fa-f])\)\s*[.:-]?\s*$",
+        r"^\s*(?:(?:final\s+)?answer\s*(?:is|:)\s*)([A-Fa-f])(?:\s|[.):,-]|$)",
+        r"^\s*(?:option|choice)\s+([A-Fa-f])(?:\s|[.):,-]|$)",
+    )
+    for pattern in patterns:
+        match = re.match(pattern, cleaned, flags=re.IGNORECASE)
+        if match:
+            return match.group(1).upper()
+    return "unknown"
+
+
 # ---------------------------------------------------------------------------
 # Free-form normalizer (VizWiz-VQA style)
 # ---------------------------------------------------------------------------
@@ -136,8 +160,9 @@ _DATASET_NORMALIZER = {
     "vizwiz_vqa": "freeform",
     "vsr": "true_false",
     "gqa_relation": "true_false",
-    "prehal": "yes_no",
-    "illusionbench": "yes_no",
+    "prehal": "multiple_choice",
+    # IllusionBench is mixed true/false and multiple choice.  Its loader sets
+    # ``normalizer_type`` per row; this fallback is intentionally unusable.
 }
 
 
@@ -175,5 +200,7 @@ def normalize_answer(
         return normalize_true_false(raw_answer)
     elif normalizer_type == "freeform":
         return normalize_freeform(raw_answer)
+    elif normalizer_type == "multiple_choice":
+        return normalize_multiple_choice(raw_answer)
     else:
         raise ValueError(f"Unknown normalizer type: {normalizer_type}")

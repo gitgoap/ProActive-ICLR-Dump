@@ -1,0 +1,72 @@
+===== no_confidence_shift policy training =====
+Timeout 2700s; worker ceiling remaining 7854s
+2026-09-12 20:39:45,414 INFO [train_policy] Completed policy run verified; training is unchanged
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_ablations/no_confidence_shift/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "best_epoch": 14,
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week8_ablations/no_confidence_shift/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "3e8f7cb8a5b93a5b3c11cc5faa405f51810260c0cb5f1f6afc4b6607356f3978",
+  "config_sha256": "91e88172a663223bb54cda2e3422945b0a3d66f139e83886819fd68c18448e88",
+  "cost_multiplier": 0.0,
+  "diagnostic_checkpoint_sha256": "7e0475e2f462298c40c0626ce5fd77ed65925f332a0b09c3f25b08ce5e111fbb",
+  "encoder_name": "deep_sets",
+  "fit_split": "train",
+  "format_version": "week6_policy_validation_v1",
+  "gru_condition": "standard",
+  "is_valid": true,
+  "limit": null,
+  "metrics": {
+    "action_ce": 0.6580320738633293,
+    "best_action_accuracy": 0.7968189408594151,
+    "mse": 0.6945546128838422,
+    "ranking": 0.07825216130532082,
+    "row_count": 60483,
+    "stop_prediction_rate": 0.4021625911413124,
+    "total": 0.5809068528913233
+  },
+  "report_sha256": "ee4c2ed7430c9447e61216e6771b8c7de406ec4165aea8288f641cb6ec79c8eb",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "e583a1594ddaa293f7735b543440d31bcb740abe62eb1cdeaa1a9600dafdaaf0",
+  "target_kind": "voi",
+  "test_used": false,
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "vector_manifest_sha256": "708028514d4b1783fd43627df9b8cb77463104d0ea908468cbbc93e678793533",
+  "week5_freeze_sha256": "25383677ede56d69833c12430b3a4f6bc78e90125559e4421a70187d23e4d8f2"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=1 python scripts/train_policy.py --config outputs/week8_data/ablation_configs/no_confidence_shift_policy.yaml --manifest_path outputs/week8_ablations/no_confidence_shift/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_ablations/no_confidence_shift/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_confidence_shift/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/no_confidence_shift/freeze/week8_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/no_confidence_shift/policy_checkpoints --resume"
+	User time (seconds): 15.81
+	System time (seconds): 7.89
+	Percent of CPU this job got: 132%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.94
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4116064
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 990500
+	Voluntary context switches: 164
+	Involuntary context switches: 142703
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_confidence_shift policy training exit code: 0

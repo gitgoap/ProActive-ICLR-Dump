@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "path": "outputs/week8_states/states_gemma4_e4b_all_shift_shard00-of-01.jsonl",
+      "row_count": 31860,
+      "sha256": "b0a1715d0b13563bb141ae2e45710986e0273ac77cf895a9016fe41c62881edc"
+    },
+    {
+      "path": "outputs/week8_states/states_qwen3_vl_8b_all_shift_shard00-of-01.jsonl",
+      "row_count": 31827,
+      "sha256": "1e1531766899d3895204a809c3efe88ed87001219a439cacc25b06929ac42e64"
+    }
+  ],
+  "format_version": "state_manifest_v2",
+  "report_sha256": "4b5b89001ea7fcec5bd9d113f7b9ee05342783abf12d79da5e42e093d489e383",
+  "required_split": "shift",
+  "row_count": 63687,
+  "split_counts": {
+    "shift": 63687
+  },
+  "state_dir": "outputs/week8_states",
+  "teacher_row_count": 2400
+}

@@ -2,7 +2,42 @@
 
 **Current Phase:** Week 8 — robustness, cached ablations, latency, held-out shift decisions, and human audit
 
-**Status:** Weeks 1–7 COMPLETE; Week 8 NOT STARTED
+**Status:** Weeks 1–7 COMPLETE; Week 8 IMPLEMENTED, PARTIALLY VALIDATED
+
+**Immediate Week 8 gate (2026-09-12):** Held-out shift, fixed-hardware latency,
+both source-only LOMO folds, and the signed 15-item mandatory validation-only
+ablation bundle are complete. The no-budget recovery passed its exact-history
+and APS scientific-equivalence gate, and the rebuilt downstream provenance
+chain completed. The final launcher then exposed a CPU-only command-interface
+bug: repeated `--evidence` options replaced one another, so only the last of 15
+items reached the aggregate validator. The corrected parser regression passed
+on the server, and the CPU-only rerun produced 121 aggregate result rows with a
+valid report hash, CSV hash, and 15/15 evidence bindings. W8-04 is COMPLETE.
+Human annotation packets remain ready and unfilled and must be completed by
+three independent annotators. Grouped statistics/slices/qualitative evidence
+and the final Week 8 validator are the remaining machine-executable gates.
+
+The 15-item ablation bundle is owner-approved at seed 42 on validation-only
+evidence: at most two GPUs verified free at launch, eight combined GPU-hours,
+45 minutes per training job, and 20 minutes per frontier. The final ledger
+records 28,275 conservative GPU-seconds (`7.8542` GPU-hours), leaving 525
+seconds under the original approval. Every expensive training/frontier stage
+has a completed final artifact. The ledger intentionally retains three earlier
+fail-closed attempts (two bounded timeouts and one APS hash-drift refusal), all
+subsequently resolved. No additional GPU execution is required for aggregation.
+
+**Held-out traversal result:** Qwen initially produced 1,181 valid + 19
+fail-closed rows and Gemma 1,189 valid + 11 fail-closed rows. All 30 were
+grounding-format failures rather than data or CUDA failures. The approved
+ledger-scoped recovery completed on 2026-09-11 with 1,200/1,200 accepted rows
+per model and empty failure ledgers. Downstream work must use
+`outputs/week8_teacher_recovered`; the original cache remains immutable.
+
+**Held-out substrate and evaluation:** CPU reconstruction contains 2,400 labels and 63,687
+leakage-safe partial states. The corrected state manifest covers all 2,400
+teacher identities, and both `shift` tensor shards match their recorded
+SHA-256 hashes. Immutable Week 7 shift evaluation is complete; no target-domain
+threshold was fitted and its coverage is reported as empirical shift behavior.
 
 **Completed Work:**
 - Weeks 1–2: repository/data scaffolding, grouped splits, normalization, clean features, and Qwen/Gemma/InternVL adapters.
@@ -212,16 +247,25 @@
   VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
 **Next Tasks (Week 8):**
-1. Start the already exported three-person blinded human audit immediately;
-   all three 180-row annotator blocks are currently empty.
-2. Prioritize cached-data analyses: dataset/model slices, mandatory ablations,
-   action/STOP behavior, oracle gaps, latency, bootstrap intervals, and
-   paper-facing tables/figures.
-3. Decide immediately whether PRE-HAL and IllusionBench are worth the remaining
-   loader, provenance, teacher-cache, and shift-evaluation cost. If included,
-   obtain and checksum the official releases now; never use them for tuning.
-4. Keep GQA-Relation as a separate third setup decision. Its construction
-   script and required 100-pair manual inspection are not yet complete.
+1. Run the exact history/APS equivalence gate, archive the stale
+   `no_budget_embedding` descendants, and resume the unfinished mandatory
+   ablations only after that gate passes. Then produce the signed Week 8
+   ablation aggregate, statistical analysis, and full validation.
+2. Finish the three independent 180-row annotation packets immediately; this is
+   the slowest human dependency and runs in parallel with the GPU stages.
+3. Generate grouped intervals, slices, qualitative cases, and paper-facing
+   artifacts from the frozen reports.
+4. Keep GQA-Relation and optional leave-one-dataset-out deferred unless all
+   mandatory Week 8 evidence and the paper are secure.
+
+**LOMO status (2026-09-11):** Both approved source-only folds are complete and
+hash-verified. At budget 7, ProActive source-bit Macro-F1 exceeds clean-only
+and scalar controls for both held-out models (`0.9692` for Qwen and `0.9948`
+for Gemma); corresponding six-way Macro-F1 is `0.7927` and `0.8063`. The Gemma
+fold does not preserve nominal APS coverage at larger
+budgets (`0.7115` at the 0.90 target and budget 7), so the generalization claim
+is limited to diagnostic performance; cross-model calibration robustness is a
+documented negative result. No held-out tuning is allowed.
 
 **Deviations from the Plan:**
 - Week 3 core validation used two models over four active datasets; downloaded

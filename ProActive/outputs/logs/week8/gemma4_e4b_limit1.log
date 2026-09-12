@@ -1,0 +1,12 @@
+2026-09-10 18:41:26,544 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-09-10 18:41:26,544 INFO [run_teacher] Shard: 0/1
+2026-09-10 18:41:26,544 INFO [run_teacher] Selected rows: 1; completed: 0; pending: 1
+2026-09-10 18:41:26,544 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 7
+2026-09-10 18:41:26,544 INFO [run_teacher] Output: outputs/week8_staging/gemma4_e4b_limit1/teacher_gemma4_e4b_all_shift_shard00-of-01.jsonl
+2026-09-10 18:41:26,544 INFO [run_teacher] Current-failure ledger: outputs/week8_staging/gemma4_e4b_limit1/teacher_gemma4_e4b_all_shift_shard00-of-01.failures.jsonl
+2026-09-10 18:41:27,516 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 297/2076 [00:00<00:00, 2965.99it/s]Loading weights:  29%|██▊       | 594/2076 [00:00<00:00, 2596.59it/s]Loading weights:  41%|████▏     | 857/2076 [00:01<00:03, 402.51it/s] Loading weights:  49%|████▊     | 1009/2076 [00:02<00:02, 393.69it/s]Loading weights:  54%|█████▍    | 1116/2076 [00:02<00:02, 379.98it/s]Loading weights:  58%|█████▊    | 1197/2076 [00:02<00:02, 375.94it/s]Loading weights:  61%|██████    | 1263/2076 [00:02<00:02, 374.34it/s]Loading weights:  64%|██████▎   | 1319/2076 [00:02<00:02, 361.58it/s]Loading weights:  66%|██████▌   | 1367/2076 [00:03<00:02, 349.28it/s]Loading weights:  68%|██████▊   | 1410/2076 [00:03<00:01, 347.55it/s]Loading weights:  79%|███████▉  | 1644/2076 [00:03<00:00, 697.76it/s]Loading weights: 100%|██████████| 2076/2076 [00:03<00:00, 607.46it/s]
+2026-09-10 18:41:36,634 INFO [run_teacher] [1/1] illusionbench_10046007_2
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-09-10 18:41:49,474 INFO [run_teacher] Shard finished in 22.9s with 0 failed rows
+2026-09-10 18:41:49,475 INFO [run_teacher] Unresolved failure-ledger rows: 0

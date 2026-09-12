@@ -26,8 +26,9 @@ from proactive.teacher.cache_builder import process_instance
 
 class MockAdapter(MLLMAdapter):
     """Deterministic mock adapter for pipeline testing."""
-    def __init__(self):
+    def __init__(self, answer: str = "yes"):
         super().__init__(model_path="mock/path")
+        self.answer = answer
         self._is_loaded = True
 
     def load_model(self):
@@ -38,13 +39,16 @@ class MockAdapter(MLLMAdapter):
 
     def generate(self, image, prompt, max_new_tokens=32, **kwargs):
         if "FINAL_ANSWER:" in prompt:
-            text = "I see a room with objects.\nFINAL_ANSWER: yes"
+            text = f"I see a room with objects.\nFINAL_ANSWER: {self.answer}"
         else:
-            text = "yes"
+            text = self.answer
         return GenerationOutput(
             raw_answer=text,
             token_logprobs=[-0.1, -0.05],
-            token_distributions=[{"yes": 0.90, "no": 0.10}, {"yes": 0.95, "no": 0.05}],
+            token_distributions=[
+                {self.answer: 0.90, "other": 0.10},
+                {self.answer: 0.95, "other": 0.05},
+            ],
             answer_len_tokens=2,
             latency_ms=45.0,
         )
@@ -52,7 +56,10 @@ class MockAdapter(MLLMAdapter):
     def score(self, image, prompt, target_text, **kwargs):
         return ScoringOutput(
             token_logprobs=[-0.1, -0.05],
-            token_distributions=[{"yes": 0.90, "no": 0.10}, {"yes": 0.95, "no": 0.05}],
+            token_distributions=[
+                {self.answer: 0.90, "other": 0.10},
+                {self.answer: 0.95, "other": 0.05},
+            ],
             total_logprob=-0.15,
             latency_ms=20.0,
         )
@@ -110,3 +117,40 @@ class TestWeek3PipelineIntegration:
 
             estimates = compute_full_run_estimates(records, total_manifest_examples=100, total_models=1, gpus=1)
             assert estimates["projected_total_hours"] > 0
+
+    def test_heldout_row_normalizer_reaches_clean_and_probe_paths(self):
+        """Mixed-format datasets must use the normalizer declared by each row."""
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            img_path = Path(tmpdir) / "illusion.png"
+            Image.new("RGB", (64, 64), (100, 100, 100)).save(img_path)
+            record = {
+                "instance_id": "illusionbench_example_1",
+                "group_id": "illusion_group_1",
+                "dataset": "illusionbench",
+                "split": "shift",
+                "image_path": str(img_path),
+                "question": "Which option is correct?\nA. First\nB. Second",
+                "gold_answer": "B",
+                "answer_type": "multiple_choice",
+                "normalizer_type": "multiple_choice",
+                "answer_match_mode": "choice_exact",
+                "relation_applicable": False,
+            }
+
+            result = process_instance(
+                record=record,
+                adapter=MockAdapter(answer="B"),
+                dataset_name="illusionbench",
+                model_id="mock_model",
+                model_revision="main",
+            )
+
+            assert result["valid"] is True
+            assert result["normalizer_type"] == "multiple_choice"
+            assert result["clean"]["norm_answer"] == "B"
+            assert all(
+                probe["norm_answer"] == "B"
+                for probe in result["probes"].values()
+                if probe["applicable"]
+            )

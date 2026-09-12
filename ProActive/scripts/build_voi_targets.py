@@ -22,6 +22,7 @@ from proactive.train.checkpoints import (
     load_checkpoint,
     validate_freeze_manifest,
 )
+from proactive.train.ablations import FEATURE_ABLATIONS, apply_state_record_ablation
 from proactive.train.state_data import FeatureNormalizer, collate_vectorized_states, vectorize_state
 from proactive.train.voi import (
     add_cached_observation,
@@ -41,6 +42,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="configs/experiments/policy_train.yaml")
     parser.add_argument("--manifest_path", required=True, help="Week 5 vectorized manifest")
     parser.add_argument("--state_manifest", default="outputs/week4_reports/final/state_manifest.json")
+    parser.add_argument(
+        "--state_dir",
+        default=None,
+        help="Override the diagnostic config's state directory (used by leakage-safe LOMO folds)",
+    )
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--freeze_manifest", default=None)
     parser.add_argument("--temporary_aps", required=True)
@@ -138,11 +144,19 @@ def _jobs_for_records(
     *,
     teacher: Mapping[tuple[str, str], Mapping[str, Any]],
     budgets: Sequence[int],
+    ablation_id: str | None = None,
     max_jobs: int | None = None,
 ) -> tuple[List[Any], List[Dict[str, Any]]]:
     vectors: List[Any] = []
     jobs: List[Dict[str, Any]] = []
-    for state in records:
+    for source_state in records:
+        state = (
+            apply_state_record_ablation(source_state, ablation_id)
+            if ablation_id is not None
+            else dict(source_state)
+        )
+        if state is None:
+            continue
         split = state.get("metadata", {}).get("split")
         if split not in ALLOWED_SPLITS:
             continue
@@ -162,6 +176,12 @@ def _jobs_for_records(
             action_indices: Dict[str, int] = {}
             for action in legal_non_stop_actions(current):
                 counterfactual = add_cached_observation(state, source_teacher, action)
+                if ablation_id is not None:
+                    counterfactual = apply_state_record_ablation(counterfactual, ablation_id)
+                    if counterfactual is None:
+                        raise SystemExit(
+                            "A legal ablation counterfactual became unsupported"
+                        )
                 action_indices[action] = len(vectors)
                 vectors.append(vectorize_state(counterfactual, max_budget=budget))
             jobs.append(
@@ -193,6 +213,7 @@ def _records_for_source(
     batch_size: int,
     remaining_limit: int | None,
     provenance: Mapping[str, str],
+    ablation_id: str | None = None,
 ) -> tuple[Dict[str, List[Dict[str, Any]]], int]:
     teacher = _teacher_index(teacher_path)
     state_records = list(iter_jsonl(state_path))
@@ -200,6 +221,7 @@ def _records_for_source(
         state_records,
         teacher=teacher,
         budgets=budgets,
+        ablation_id=ablation_id,
         max_jobs=remaining_limit,
     )
     predictions = _evaluate_vectors(
@@ -296,6 +318,9 @@ def main() -> None:
     if aps.get("checkpoint_sha256") != file_sha256(checkpoint_path):
         raise SystemExit("Temporary APS/checkpoint hash mismatch")
     vector_manifest = _read_json(vector_manifest_path)
+    ablation_id = vector_manifest.get("ablation_id")
+    if ablation_id is not None and ablation_id not in FEATURE_ABLATIONS:
+        raise SystemExit(f"Unsupported vector-manifest ablation_id: {ablation_id}")
     if vector_manifest.get("status") != "COMPLETE" and not pilot:
         raise SystemExit("Full VOI construction requires COMPLETE Week 5 vectors")
     if checkpoint.get("source_manifest_sha256") != file_sha256(vector_manifest_path):
@@ -313,7 +338,7 @@ def main() -> None:
     state_entries = state_manifest.get("files")
     if not isinstance(state_entries, list) or not state_entries:
         raise SystemExit("State manifest contains no files")
-    source_state_dir = Path(diagnostic_config["source_state_dir"])
+    source_state_dir = Path(args.state_dir or diagnostic_config["source_state_dir"])
     source_specs = []
     for entry in state_entries:
         state_path = source_state_dir / Path(entry["path"]).name
@@ -333,6 +358,7 @@ def main() -> None:
         "freeze_manifest_sha256": file_sha256(freeze_path),
         "checkpoint_sha256": file_sha256(checkpoint_path),
         "temporary_aps_sha256": file_sha256(aps_path),
+        "ablation_id": ablation_id,
         "limit": args.limit,
     }
     if final_manifest_path.exists() and args.resume:
@@ -357,6 +383,7 @@ def main() -> None:
         "freeze_manifest_sha256": file_sha256(freeze_path),
         "temporary_aps_fit_split": "val",
         "target_coverage": format(coverage, ".12g"),
+        "ablation_id": str(ablation_id or "none"),
     }
     output_entries: List[Dict[str, Any]] = []
     sign_counts: Dict[str, Counter[str]] = {format(value, ".12g"): Counter() for value in cost_multipliers}
@@ -408,6 +435,7 @@ def main() -> None:
             batch_size=args.inference_batch_size,
             remaining_limit=remaining,
             provenance=provenance,
+            ablation_id=ablation_id,
         )
         for split, records in sorted(split_records.items()):
             output_name = f"{state_path.stem}__{split}.jsonl"

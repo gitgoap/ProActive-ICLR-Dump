@@ -34,8 +34,10 @@ class VOITargetDataset(Dataset):
         if base.split != split or split not in {"train", "val"}:
             raise ValueError("VOI policy data are restricted to train/val")
         multiplier_key = format(float(cost_multiplier), ".12g")
-        if target_kind not in {"voi", "entropy_reduction"}:
-            raise ValueError("target_kind must be 'voi' or 'entropy_reduction'")
+        if target_kind not in {"voi", "entropy_reduction", "loss_only_voi"}:
+            raise ValueError(
+                "target_kind must be 'voi', 'entropy_reduction', or 'loss_only_voi'"
+            )
         by_state = {state_id: index for index, state_id in enumerate(base.state_ids)}
         rows: List[Dict[str, Any]] = []
         seen: set[str] = set()
@@ -55,7 +57,7 @@ class VOITargetDataset(Dataset):
                 target = record.get("targets_by_cost_multiplier", {}).get(multiplier_key)
                 if not isinstance(target, Mapping):
                     raise ValueError(f"VOI record has no target for multiplier {multiplier_key}")
-            else:
+            elif target_kind == "entropy_reduction":
                 components = record.get("counterfactual_components")
                 if not isinstance(components, Mapping):
                     raise ValueError("VOI record lacks entropy-reduction components")
@@ -68,6 +70,29 @@ class VOITargetDataset(Dataset):
                     "realized_voi": {"stop": 0.0, **entropy_values},
                     "best_action": (
                         max(positives, key=lambda action: (entropy_values[action], -ACTION_ORDER.index(action)))
+                        if positives
+                        else "stop"
+                    ),
+                }
+            else:
+                components = record.get("counterfactual_components")
+                if not isinstance(components, Mapping):
+                    raise ValueError("VOI record lacks diagnostic-loss components")
+                loss_values = {
+                    action: float(component["diagnostic_loss_reduction"])
+                    for action, component in components.items()
+                }
+                positives = [action for action, value in loss_values.items() if value > 0]
+                target = {
+                    "realized_voi": {"stop": 0.0, **loss_values},
+                    "best_action": (
+                        max(
+                            positives,
+                            key=lambda action: (
+                                loss_values[action],
+                                -ACTION_ORDER.index(action),
+                            ),
+                        )
                         if positives
                         else "stop"
                     ),

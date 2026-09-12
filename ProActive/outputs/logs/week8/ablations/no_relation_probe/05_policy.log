@@ -1,0 +1,72 @@
+===== no_relation_probe policy training =====
+Timeout 2700s; worker ceiling remaining 5420s
+2026-09-12 21:20:19,550 INFO [train_policy] Completed policy run verified; training is unchanged
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_ablations/no_relation_probe/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "best_epoch": 29,
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week8_ablations/no_relation_probe/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "c0f70b94edeb372accc285f7b247024e241b283d1b57b9a151a46ae778d7c3d0",
+  "config_sha256": "6bca10d636ecc049defad77ca60a03391ab20fce0e76ef4ed0f1b17c652b67ce",
+  "cost_multiplier": 0.0,
+  "diagnostic_checkpoint_sha256": "ad6849f34d87158dcfb1691af60ec3065cd4c5f1bb8aebcc015f4438ab578de3",
+  "encoder_name": "deep_sets",
+  "fit_split": "train",
+  "format_version": "week6_policy_validation_v1",
+  "gru_condition": "standard",
+  "is_valid": true,
+  "limit": null,
+  "metrics": {
+    "action_ce": 0.7130409812680026,
+    "best_action_accuracy": 0.7839734549979261,
+    "mse": 0.5987457477804142,
+    "ranking": 0.07223217065986486,
+    "row_count": 60275,
+    "stop_prediction_rate": 0.40195769390294483,
+    "total": 0.5784390988165983
+  },
+  "report_sha256": "e96ac2980229f5952eb2b559ed408bf8a45257f76ef0f2ea67cf433f6b3649ce",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "c1e7f41f1fc0cba239051a504eb8bdaabeed44be9f41872c7880aea7b1552225",
+  "target_kind": "voi",
+  "test_used": false,
+  "train_rows": 434421,
+  "validation_rows": 60275,
+  "vector_manifest_sha256": "51761a83249824422cbb826666b4926f32838d5fac45f2cd196eb667b64d7f8f",
+  "week5_freeze_sha256": "6f37de0af867b51e1d53d8cca9507163c74aa50ec57d48c37503d332c459b90d"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=1 python scripts/train_policy.py --config outputs/week8_data/ablation_configs/no_relation_probe_policy.yaml --manifest_path outputs/week8_ablations/no_relation_probe/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_ablations/no_relation_probe/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_relation_probe/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/no_relation_probe/freeze/week8_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/no_relation_probe/policy_checkpoints --resume"
+	User time (seconds): 15.76
+	System time (seconds): 7.95
+	Percent of CPU this job got: 132%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4096032
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 985663
+	Voluntary context switches: 172
+	Involuntary context switches: 88718
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_relation_probe policy training exit code: 0

@@ -1,0 +1,77 @@
+{
+  "ablations": [
+    "no_budget_embedding",
+    "no_answer_flip",
+    "no_confidence_shift",
+    "no_semantic_match",
+    "no_relation_probe",
+    "no_signature_regression",
+    "shared_vs_independent_heads"
+  ],
+  "artifacts": [
+    {
+      "path": "outputs/week8_data/ablation_configs/no_budget_embedding_diag.yaml",
+      "sha256": "db49257f77a2e5e6b39c2ea7ea27f06714d3cb6b6458455ca3e2d3452c9af00b"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_budget_embedding_policy.yaml",
+      "sha256": "23ea1ace96a7c7bbcc65edb853575319f0c61a96d457fd25d666861b7f0b6ebc"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml",
+      "sha256": "fbdbea18d6f76e344772a5d68ba6d67dca78397a1eec7b153ad2b9c1783357d5"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml",
+      "sha256": "0bbb0d0629d34962ccc8450e8797674af2950efb8add1211aef133b2975cb9cb"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_confidence_shift_diag.yaml",
+      "sha256": "9ab87a57416ae24e1466dab6b8d38c1ee9d828219b17f28d64de99f4b252ef2a"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_confidence_shift_policy.yaml",
+      "sha256": "91e88172a663223bb54cda2e3422945b0a3d66f139e83886819fd68c18448e88"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_diag.yaml",
+      "sha256": "0faeb26065320ae2308462e480c3ac64e50c1f2937205babb1bb2d24def55f76"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_policy.yaml",
+      "sha256": "0bf6c600963d1002b722e72e84e95315e8554248f5e1ffaad1b79d86c9f090a8"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_relation_probe_diag.yaml",
+      "sha256": "40a0b8bbfe15091afadd165a90bf19eabeee6d40092120cf7568335fe4971e21"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_relation_probe_policy.yaml",
+      "sha256": "6bca10d636ecc049defad77ca60a03391ab20fce0e76ef4ed0f1b17c652b67ce"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_signature_regression_diag.yaml",
+      "sha256": "58262427a826d57bc490099d38663e68309e9a6d3bba9d13b4c2f75f1e181ac6"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/no_signature_regression_policy.yaml",
+      "sha256": "727feb86a929eda47a5f6009c3872b659bacd931cab2e8ec5e81e33e76a6a78f"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_diag.yaml",
+      "sha256": "4240f23d700bd50a1ccc30aea2391143b820254edc186882a64d145bb637f133"
+    },
+    {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_policy.yaml",
+      "sha256": "9aa3b19f12e0752cfbbaa17800ca45e70d4c6e13bf35b3b32e58594956fe6ea5"
+    }
+  ],
+  "base_diag_config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "base_policy_config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "calibration_used": false,
+  "format_version": "week8_ablation_config_bundle_v1",
+  "report_sha256": "d06d49b55e0074de8aceab3f1211fd2f9b8e338dfcea0fc56fe9822a21157390",
+  "status": "APPROVED",
+  "test_used": false,
+  "week8_config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+}

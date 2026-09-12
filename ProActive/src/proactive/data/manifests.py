@@ -163,6 +163,39 @@ def validate_manifest(records: List[Dict[str, Any]]) -> List[str]:
                     errors.append(f"Record {i}: invalid VizWiz top-tie count")
                 if record.get("reference_answers") != [gold]:
                     errors.append(f"Record {i}: invalid VizWiz reference answers")
+        dataset_key = str(record.get("dataset", "")).lower()
+        if dataset_key in {"prehal", "illusionbench"}:
+            if record.get("split") != "shift":
+                errors.append(f"Record {i}: held-out row must use split='shift'")
+            if not str(record.get("heldout_release_revision", "")):
+                errors.append(f"Record {i}: held-out release revision is missing")
+            answer_type = record.get("answer_type")
+            if answer_type == "multiple_choice":
+                choices = record.get("answer_choices")
+                gold = record.get("gold_answer")
+                if (
+                    record.get("normalizer_type") != "multiple_choice"
+                    or record.get("answer_match_mode") != "choice_exact"
+                    or not isinstance(choices, dict)
+                    or len(choices) < 2
+                    or any(
+                        key not in {"A", "B", "C", "D", "E", "F"}
+                        or not isinstance(value, str)
+                        or not value.strip()
+                        for key, value in choices.items()
+                    )
+                    or gold not in choices
+                ):
+                    errors.append(f"Record {i}: invalid held-out multiple-choice contract")
+            elif dataset_key == "illusionbench" and answer_type == "binary":
+                if (
+                    record.get("normalizer_type") != "true_false"
+                    or record.get("answer_match_mode") != "binary_exact"
+                    or record.get("gold_answer") not in {"true", "false"}
+                ):
+                    errors.append(f"Record {i}: invalid IllusionBench binary contract")
+            else:
+                errors.append(f"Record {i}: unsupported held-out answer type {answer_type!r}")
     return errors
 
 

@@ -29,6 +29,10 @@ from proactive.data.hallusion_contract import (
     normalize_hallusion_gold,
 )
 from proactive.probes.relation_swap import swap_relation
+from proactive.data.heldout import (
+    load_illusionbench_release,
+    load_prehal_release,
+)
 
 
 
@@ -70,6 +74,8 @@ def resolve_data_path(config: Dict[str, Any]) -> Path:
         "VSR" if "vsr" in dataset_name.lower() else "",
         "VizWiz" if "vizwiz" in dataset_name.lower() else "",
         "HallusionBench" if "hallusion" in dataset_name.lower() else "",
+        "PREHAL" if "prehal" in dataset_name.lower() else "",
+        "IllusionBench" if "illusion" in dataset_name.lower() else "",
     } - {""})
 
     # Candidate root directories
@@ -632,6 +638,34 @@ def load_vsr(
         records = records[:cap]
 
     return records
+
+
+# ---------------------------------------------------------------------------
+# Week 8 held-out stress datasets
+# ---------------------------------------------------------------------------
+
+@register_loader("prehal")
+def load_prehal(
+    config: Dict[str, Any],
+    limit: Optional[int] = None,
+) -> List[Dict[str, Any]]:
+    """Load the pinned PRE-HAL multiple-choice stress sample."""
+
+    return load_prehal_release(
+        resolve_data_path(config), config, limit=limit
+    ).records
+
+
+@register_loader("illusionbench")
+def load_illusionbench(
+    config: Dict[str, Any],
+    limit: Optional[int] = None,
+) -> List[Dict[str, Any]]:
+    """Load the pinned, strictly filtered IllusionBench stress sample."""
+
+    return load_illusionbench_release(
+        resolve_data_path(config), config, limit=limit
+    ).records
 
 
 # ---------------------------------------------------------------------------

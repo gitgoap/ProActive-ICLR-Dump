@@ -67,6 +67,15 @@ def make_freeform_prompt(question: str) -> str:
     )
 
 
+def make_multiple_choice_prompt(question: str) -> str:
+    """Prompt a preformatted A--F multiple-choice item."""
+
+    return (
+        f"{question}\n"
+        "Answer with exactly one option letter only (for example: A)."
+    )
+
+
 def make_dataset_prompt(
     question: str,
     dataset: str,
@@ -79,6 +88,8 @@ def make_dataset_prompt(
         dataset: Dataset name (e.g., 'pope', 'vizwiz', 'vsr').
     """
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
+    if answer_type == "multiple_choice":
+        return make_multiple_choice_prompt(question)
     if answer_type == HALLUSION_OPEN_ENDED or dataset_lower in ("vizwiz", "vizwiz_vqa"):
         return make_freeform_prompt(question)
     else:
@@ -97,6 +108,13 @@ def make_grounding_prompt(
     Forces visual grounding followed by machine-readable FINAL_ANSWER: tag.
     """
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
+    if answer_type == "multiple_choice":
+        return (
+            "First, describe only the visible evidence in the image in 1-2 sentences.\n"
+            f"Then answer this multiple-choice question:\n{question}\n"
+            "At the very end of your response, format your final answer strictly as:\n"
+            "FINAL_ANSWER: <one option letter>"
+        )
     if dataset_lower in ("vsr", "gqa_relation"):
         return (
             f"First, describe what you see in the image in 1-2 sentences.\n"
@@ -139,6 +157,13 @@ def make_concise_grounding_retry_prompt(
         "(maximum 25 words). Do not explain your reasoning or show calculations.\n"
     )
     suffix = "\nWrite nothing after the FINAL_ANSWER line."
+    if answer_type == "multiple_choice":
+        return (
+            f"{prefix}"
+            f"Then answer this multiple-choice question.\n{question}\n"
+            "On a new line, output exactly:\n"
+            f"FINAL_ANSWER: <one option letter>{suffix}"
+        )
     if dataset_lower in ("vsr", "gqa_relation"):
         return (
             f"{prefix}"
@@ -215,6 +240,7 @@ def parse_grounding_output(
     raw_text: str,
     dataset: str,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> GroundingParsedResult:
     """Parse grounding probe output into description and normalized final answer.
 
@@ -232,13 +258,16 @@ def parse_grounding_output(
 
     clean_text = raw_text.strip()
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
-    normalizer_type = "freeform" if answer_type == HALLUSION_OPEN_ENDED else None
+    if normalizer_type is None and answer_type == HALLUSION_OPEN_ENDED:
+        normalizer_type = "freeform"
     is_binary = (
-        answer_type != HALLUSION_OPEN_ENDED
+        answer_type not in (HALLUSION_OPEN_ENDED, "multiple_choice")
         and dataset_lower
         in ("pope", "vsr", "hallusionbench", "gqa_relation", "prehal", "illusionbench")
     )
+    is_multiple_choice = answer_type == "multiple_choice"
     binary_domain = {"yes", "no", "true", "false"}
+    choice_domain = {"A", "B", "C", "D", "E", "F"}
     if dataset_lower == "hallusionbench":
         binary_domain.add("uncertain")
 
@@ -282,6 +311,26 @@ def parse_grounding_output(
                     parse_status="malformed",
                     invalid_reason=f"Binary dataset answer not in valid domain: '{first_line}' -> '{norm_ans}'",
                 )
+        elif is_multiple_choice:
+            if norm_ans in choice_domain:
+                return GroundingParsedResult(
+                    is_valid=True,
+                    raw_final_answer=first_line,
+                    norm_final_answer=norm_ans,
+                    description=desc_part,
+                    parse_status="ok",
+                )
+            return GroundingParsedResult(
+                is_valid=False,
+                raw_final_answer=first_line,
+                norm_final_answer=norm_ans,
+                description=desc_part,
+                parse_status="malformed",
+                invalid_reason=(
+                    "Multiple-choice answer is not one option letter: "
+                    f"{first_line!r} -> {norm_ans!r}"
+                ),
+            )
         else:
             # Free-form
             # VizWiz uses ``unanswerable`` as a legitimate answer class.  An
@@ -314,7 +363,9 @@ def parse_grounding_output(
         norm_ans = normalize_answer(
             last_line, dataset, normalizer_type=normalizer_type
         )
-        if is_binary and norm_ans in binary_domain:
+        if (is_binary and norm_ans in binary_domain) or (
+            is_multiple_choice and norm_ans in choice_domain
+        ):
             desc_part = "\n".join(lines[:-1]).strip()
             return GroundingParsedResult(
                 is_valid=True,
@@ -345,8 +396,13 @@ def parse_grounding_output(
                         normalizer_type=normalizer_type,
                     )
                 )
-                freeform_valid = not is_binary and norm_candidate != "unknown"
-                if binary_valid or freeform_valid:
+                freeform_valid = (
+                    not is_binary
+                    and not is_multiple_choice
+                    and norm_candidate != "unknown"
+                )
+                choice_valid = is_multiple_choice and norm_candidate in choice_domain
+                if binary_valid or choice_valid or freeform_valid:
                     return GroundingParsedResult(
                         is_valid=True,
                         raw_final_answer=candidate,
@@ -383,6 +439,7 @@ def parse_grounding_output(
         paragraphs = [part.strip() for part in re.split(r"\n\s*\n", clean_text) if part.strip()]
         if (
             not is_binary
+            and not is_multiple_choice
             and len(paragraphs) >= 2
             and paragraphs[-1] == last_line
         ):

@@ -1,0 +1,39 @@
+{
+  "config_path": "configs/data/prehal.yaml",
+  "config_sha256": "5e93ee655918dca7530418949b81fced4bb2b36cc5b19e76636d8885ebccd818",
+  "dataset": "prehal",
+  "eligible_rows": 10000,
+  "exclusion_file_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "exclusion_path": "outputs/week8_data/manifests/prehal_exclusions.jsonl",
+  "format_version": "heldout_release_audit_v1",
+  "license": "CC-BY-4.0",
+  "manifest_content_sha256": "c1c9e2baff18373ca9748bd8ec04734fdd6db4bfd60df32e7f1d5a8de5c64952",
+  "manifest_file_sha256": "158e2b44b2efb19d41ab9266348fcde48eabc5a1b52e6b1391d55343bad69ffb",
+  "manifest_path": "outputs/week8_data/manifests/manifest_prehal_shift.jsonl",
+  "normalized_hallucination_type_counts": {
+    "perception*instance": 4928,
+    "perception*relation": 2981,
+    "perception*scene": 938,
+    "reasoning*instance": 445,
+    "reasoning*relation": 708
+  },
+  "official_url": "https://huggingface.co/datasets/TerryHWong/PRE-HAL",
+  "report_sha256": "b63a1dd5d6d6a721f78ecedd80e163903e76ba2911523c4018fe3934ef119afd",
+  "revision": "3aac833638f7808dea7eb0145af4d8c6f028714b",
+  "selected_rows": 600,
+  "selected_stratum_counts": {
+    "perception*instance": 296,
+    "perception*relation": 179,
+    "perception*scene": 56,
+    "reasoning*instance": 27,
+    "reasoning*relation": 42
+  },
+  "selected_unique_images": 565,
+  "selection_rule": "proportional_strata_sha256_rank_v1",
+  "selection_uses_model_outputs": false,
+  "source_annotation_path": "/home/aman/MMUQ/data/PREHAL/dataset.csv",
+  "source_annotation_sha256": "86265fdeb6a8ce9ab35369f10af87520158908de999dacf3243bb6f6363fa64b",
+  "source_rows": 10000,
+  "source_unique_images": 6469,
+  "split": "shift"
+}

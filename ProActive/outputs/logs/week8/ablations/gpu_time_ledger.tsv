@@ -1,0 +1,91 @@
+214	0	no_answer_flip diagnostic training
+1	0	no_answer_flip diagnostic freeze
+23	0	no_answer_flip temporary validation APS
+292	0	no_budget_embedding diagnostic training
+1	0	no_budget_embedding diagnostic freeze
+25	0	no_budget_embedding temporary validation APS
+626	0	no_budget_embedding VOI targets
+708	0	no_answer_flip VOI targets
+2613	0	no_budget_embedding policy training
+1	0	no_budget_embedding stack freeze
+2701	124	no_answer_flip policy training
+191	0	no_budget_embedding validation frontier
+650	0	no_confidence_shift diagnostic training
+2	0	no_confidence_shift diagnostic freeze
+22	0	no_confidence_shift temporary validation APS
+697	0	no_confidence_shift VOI targets
+2674	0	no_confidence_shift policy training
+1	0	no_confidence_shift stack freeze
+192	0	no_confidence_shift validation frontier
+684	0	no_relation_probe diagnostic training
+1	0	no_relation_probe diagnostic freeze
+23	0	no_relation_probe temporary validation APS
+703	0	no_relation_probe VOI targets
+2089	0	no_relation_probe policy training
+2	0	no_relation_probe stack freeze
+94	0	no_relation_probe validation frontier
+487	0	shared_vs_independent_heads diagnostic training
+1	0	shared_vs_independent_heads diagnostic freeze
+16	0	shared_vs_independent_heads temporary validation APS
+653	0	shared_vs_independent_heads VOI targets
+1661	124	shared_vs_independent_heads policy training
+134	0	no_budget_embedding diagnostic training
+1	0	no_budget_embedding diagnostic freeze
+2	1	no_budget_embedding temporary validation APS
+228	0	no_budget_embedding deterministic checkpoint repair
+13	0	no_budget_embedding rebuild equivalence APS
+2	0	no_budget_embedding diagnostic training
+1	0	no_budget_embedding diagnostic freeze
+3	0	no_budget_embedding temporary validation APS
+601	0	no_budget_embedding VOI targets
+1404	0	no_budget_embedding policy training
+1	0	no_budget_embedding stack freeze
+92	0	no_budget_embedding validation frontier
+2	0	no_answer_flip diagnostic training
+2	0	no_answer_flip diagnostic freeze
+2	0	no_answer_flip temporary validation APS
+11	0	no_answer_flip VOI targets
+291	0	no_answer_flip policy training
+1	0	no_answer_flip stack freeze
+91	0	no_answer_flip validation frontier
+3	0	no_confidence_shift diagnostic training
+1	0	no_confidence_shift diagnostic freeze
+2	0	no_confidence_shift temporary validation APS
+10	0	no_confidence_shift VOI targets
+17	0	no_confidence_shift policy training
+2	0	no_confidence_shift stack freeze
+2	0	no_confidence_shift validation frontier
+189	0	no_semantic_match diagnostic training
+1	0	no_semantic_match diagnostic freeze
+13	0	no_semantic_match temporary validation APS
+688	0	no_semantic_match VOI targets
+1412	0	no_semantic_match policy training
+1	0	no_semantic_match stack freeze
+94	0	no_semantic_match validation frontier
+2	0	no_relation_probe diagnostic training
+1	0	no_relation_probe diagnostic freeze
+2	0	no_relation_probe temporary validation APS
+10	0	no_relation_probe VOI targets
+18	0	no_relation_probe policy training
+1	0	no_relation_probe stack freeze
+2	0	no_relation_probe validation frontier
+369	0	no_signature_regression diagnostic training
+2	0	no_signature_regression diagnostic freeze
+13	0	no_signature_regression temporary validation APS
+606	0	no_signature_regression VOI targets
+1576	0	no_signature_regression policy training
+2	0	no_signature_regression stack freeze
+90	0	no_signature_regression validation frontier
+2	0	shared_vs_independent_heads diagnostic training
+2	0	shared_vs_independent_heads diagnostic freeze
+2	0	shared_vs_independent_heads temporary validation APS
+9	0	shared_vs_independent_heads VOI targets
+820	0	shared_vs_independent_heads policy training
+2	0	shared_vs_independent_heads stack freeze
+122	0	shared_vs_independent_heads validation frontier
+971	0	loss-only VOI policy training
+1	0	loss-only VOI stack freeze
+95	0	loss-only VOI validation frontier
+94	0	reference validation frontier
+93	0	no-VOI validation frontier
+3	0	validation latency measurement

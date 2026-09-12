@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "5001ef1c30fb93e3b5e251c90a0717322588c92e6c75eb1a38fec201abec6d2e"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_diag.yaml",
+      "sha256": "4240f23d700bd50a1ccc30aea2391143b820254edc186882a64d145bb637f133"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_policy.yaml",
+      "sha256": "9aa3b19f12e0752cfbbaa17800ca45e70d4c6e13bf35b3b32e58594956fe6ea5"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/shared_vs_independent_heads/freeze/predeclared_selection.json",
+      "sha256": "64e0c03340da8ca2371e79c3cc8b504f27339fea6962f266a5df141f59a11c37"
+    },
+    "vector_manifest": {
+      "path": "outputs/week5_data/vectorized_manifest.json",
+      "sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "870efab2a6dab29c00986516a55fcf80d6b00dfffe3aaa25aedb8d77ef7cd82d",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

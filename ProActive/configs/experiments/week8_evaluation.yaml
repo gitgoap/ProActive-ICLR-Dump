@@ -1,0 +1,131 @@
+metadata:
+  version: v1_week8_heldout_approved
+  approval_status: APPROVED
+  approved_on: "2026-09-10"
+  approved_scope: complete_two_model_heldout_teacher_cache
+  description: Frozen-stack robustness, transfer, shift, ablation, latency, and audit evaluation.
+  prerequisite: outputs/week7_frozen/main_stack_freeze.json
+
+# Owner-approved after both models passed their 1-row and 10-row parser gates
+# with zero unresolved failures. Held-out evidence may be evaluated with the
+# frozen Week 7 stack but must not be used for post-test tuning.
+compute_authorization:
+  staged_checks_approved: true
+  staged_max_examples: 10
+  staged_full_dataset_allowlist: []
+  full_core_approved: true
+  full_core_approved_on: "2026-09-10"
+  approved_models: [qwen3_vl_8b, gemma4_e4b]
+  approved_manifest_rows_per_model: 1200
+  approved_combined_gpu_hours: 8.0
+  timeout_hours_per_model: 6.0
+  no_exclusions: true
+  frozen_week7_no_post_shift_tuning: true
+
+seed: 42
+frozen_probe_config: configs/probes/frozen_week3_config.yaml
+week7_freeze_manifest: outputs/week7_frozen/main_stack_freeze.json
+final_aps_report: outputs/week7_calibration/aps_thresholds.json
+static_aps_reports:
+  clean_only_learned: outputs/week7_calibration/static_aps/static_aps_clean_only_learned_calibration.json
+  scalar_confidence: outputs/week7_calibration/static_aps/static_aps_scalar_confidence_calibration.json
+  one_pass_distilled: outputs/week7_calibration/static_aps/static_aps_one_pass_distilled_calibration.json
+
+models:
+  qwen3_vl_8b: configs/models/qwen3_vl_8b.yaml
+  gemma4_e4b: configs/models/gemma4_e4b.yaml
+  internvl3_9b: configs/models/internvl3_9b.yaml
+
+core_model_keys: [qwen3_vl_8b, gemma4_e4b]
+active_datasets: [prehal, illusionbench]
+
+heldout:
+  split: shift
+  sample_cap_per_dataset_per_model: 600
+  target_domain_calibration_allowed: false
+  coverage_claim: empirical_shift_only
+
+evaluation:
+  budgets: [1, 2, 3, 4, 7]
+  coverages: [0.90, 0.95]
+  bootstrap_resamples: 2000
+  bootstrap_confidence: 0.95
+  bootstrap_group: group_id
+  # Small, predeclared family for paired tests. The Holm correction is applied
+  # jointly to these three source-bit comparisons only.
+  primary_comparisons:
+    budget: 7
+    coverage: 0.90
+    metric: source_bit_macro_f1
+    controls: [random, clean_only_learned, scalar_confidence]
+    multiplicity_correction: holm
+    familywise_alpha: 0.05
+  lomo_models: [qwen3_vl_8b, gemma4_e4b]
+  allow_optional_lodo: false
+
+ablation_execution:
+  split: val
+  locked_test_reopen_allowed: false
+  compute_authorization:
+    approved: true
+    approved_on: "2026-09-11"
+    max_physical_gpus: 2
+    seed: 42
+    evidence_split: val
+    approved_combined_gpu_hours: 8.0
+    training_timeout_minutes: 45
+    frontier_timeout_minutes: 20
+    heldout_shift_tuning_allowed: false
+  note: >-
+    The one-time core test is already closed. New component ablations must use
+    train/validation evidence unless the owner explicitly authorizes another
+    locked access; no post-test tuning is allowed.
+  mandatory:
+    - deep_sets_vs_gru
+    - deep_sets_vs_masked_slot_mlp
+    - no_budget_embedding
+    - no_stop_action
+    - no_voi_training
+    - loss_only_voi
+    - no_answer_flip
+    - no_confidence_shift
+    - no_semantic_match
+    - no_relation_probe
+    - no_signature_regression
+    - shared_vs_independent_heads
+    - global_vs_per_budget_aps
+    - pass_count_vs_latency
+    - gru_canonical_vs_permutation_augmentation
+
+latency:
+  warmup_examples: 10
+  measured_examples: 100
+  synchronize_cuda: true
+  fixed_hardware_required: true
+
+state_sampling:
+  empty_state: true
+  every_legal_singleton: true
+  every_fixed_baseline_prefix: true
+  random_subsets: 16
+  random_subset_sizes: [1, 2, 3, 4]
+  policy_rollout_subsets: 8
+  policy_rollout_status: deferred_until_first_policy_checkpoint
+  oracle_next_status: deferred_until_oracle_baseline_exists
+
+human_audit:
+  packet_dir: outputs/human_audit
+  annotator_count: 3
+  row_count: 180
+  minimum_fleiss_kappa: 0.20
+  minimum_majority_agreement: 0.75
+  minimum_rule_match_overall: 0.55
+  minimum_rule_match_singleton: 0.65
+
+outputs:
+  data_dir: outputs/week8_data
+  teacher_dir: outputs/week8_teacher
+  labels_dir: outputs/week8_labels
+  states_dir: outputs/week8_states
+  vectorized_dir: outputs/week8_vectorized
+  report_dir: outputs/week8_reports

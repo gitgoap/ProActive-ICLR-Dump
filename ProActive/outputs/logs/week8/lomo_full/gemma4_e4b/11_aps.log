@@ -1,0 +1,179 @@
+===== gemma4_e4b source APS calibration =====
+Timeout: 300s; bundle remaining: 15252s
+{
+  "format_version": "week7_final_aps_v1",
+  "status": "FINAL_FROZEN",
+  "fit_split": "cal",
+  "test_used": false,
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "freeze_manifest_sha256": "b69821ef5d60c95553dff5f0b80783d10778960110f645c21b886768f1e78119",
+  "trajectory_manifest_sha256": "42fd4b16f77071023834bdfb4fda1f35852bf759850f9b6368bfe9d7e4c14edb",
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.999978631734848,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9013333333333333,
+          "average_set_size": 2.616,
+          "singleton_rate": 0.464,
+          "empty_set_rate": 0.004
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.999990701675415,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9533333333333334,
+          "average_set_size": 3.0,
+          "singleton_rate": 0.17466666666666666,
+          "empty_set_rate": 0.0013333333333333333
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999735504388809,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9013333333333333,
+          "average_set_size": 2.1666666666666665,
+          "singleton_rate": 0.416,
+          "empty_set_rate": 0.02666666666666667
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999925009906292,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.952,
+          "average_set_size": 2.712,
+          "singleton_rate": 0.17466666666666666,
+          "empty_set_rate": 0.02
+        }
+      }
+    },
+    "3": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.999962329864502,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9013333333333333,
+          "average_set_size": 1.8853333333333333,
+          "singleton_rate": 0.44533333333333336,
+          "empty_set_rate": 0.050666666666666665
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999953061342239,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.952,
+          "average_set_size": 2.644,
+          "singleton_rate": 0.132,
+          "empty_set_rate": 0.030666666666666665
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999558925628662,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9013333333333333,
+          "average_set_size": 1.7706666666666666,
+          "singleton_rate": 0.4666666666666667,
+          "empty_set_rate": 0.07066666666666667
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999963939189911,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.952,
+          "average_set_size": 2.7626666666666666,
+          "singleton_rate": 0.11866666666666667,
+          "empty_set_rate": 0.042666666666666665
+        }
+      }
+    },
+    "7": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999501705169678,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.9013333333333333,
+          "average_set_size": 1.7826666666666666,
+          "singleton_rate": 0.428,
+          "empty_set_rate": 0.08666666666666667
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999974966049194,
+        "calibration_count": 750,
+        "calibration_metrics": {
+          "coverage": 0.952,
+          "average_set_size": 2.8453333333333335,
+          "singleton_rate": 0.12266666666666666,
+          "empty_set_rate": 0.042666666666666665
+        }
+      }
+    }
+  },
+  "thresholds_sha256": "26f54b575c816f4c31fa658b20d839fa8394ec80c121fef4a5033107f0a40059"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/calibrate_aps.py --config configs/experiments/calibrate_aps.yaml --manifest_path outputs/week8_lomo/gemma4_e4b/calibration/trajectories/calibration_trajectory_manifest.json --freeze_manifest outputs/week8_lomo/gemma4_e4b/freeze/lomo_stack_freeze.json --output_dir outputs/week8_lomo/gemma4_e4b/calibration/aps --seed 42 --device cpu --resume"
+	User time (seconds): 1.98
+	System time (seconds): 5.53
+	Percent of CPU this job got: 477%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.57
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 428220
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 63620
+	Voluntary context switches: 199
+	Involuntary context switches: 184
+	Swaps: 0
+	File system inputs: 8
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b source APS calibration exit code: 0

@@ -87,11 +87,21 @@ class ProbeTokenizer(nn.Module):
 class BudgetEmbedding(nn.Module):
     def __init__(self, output_dim: int = 16, max_budget: int = 7) -> None:
         super().__init__()
+        if output_dim < 0:
+            raise ValueError("Budget embedding dimension must be nonnegative")
         self.max_budget = max_budget
-        self.embedding = nn.Embedding(max_budget + 1, output_dim)
+        self.output_dim = output_dim
+        self.embedding = (
+            nn.Embedding(max_budget + 1, output_dim) if output_dim > 0 else None
+        )
 
     def forward(self, remaining_budget: torch.Tensor) -> torch.Tensor:
         if torch.any(remaining_budget < 0) or torch.any(remaining_budget > self.max_budget):
             raise ValueError("remaining_budget is outside the configured embedding range")
+        if self.embedding is None:
+            return torch.zeros(
+                (*remaining_budget.shape, 0),
+                dtype=torch.float32,
+                device=remaining_budget.device,
+            )
         return self.embedding(remaining_budget.long())
-

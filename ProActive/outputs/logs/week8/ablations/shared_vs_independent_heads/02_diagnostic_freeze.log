@@ -1,0 +1,59 @@
+===== shared_vs_independent_heads diagnostic freeze =====
+Timeout 600s; worker ceiling remaining 2739s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "5001ef1c30fb93e3b5e251c90a0717322588c92e6c75eb1a38fec201abec6d2e"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_diag.yaml",
+      "sha256": "4240f23d700bd50a1ccc30aea2391143b820254edc186882a64d145bb637f133"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/shared_vs_independent_heads_policy.yaml",
+      "sha256": "9aa3b19f12e0752cfbbaa17800ca45e70d4c6e13bf35b3b32e58594956fe6ea5"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/shared_vs_independent_heads/freeze/predeclared_selection.json",
+      "sha256": "64e0c03340da8ca2371e79c3cc8b504f27339fea6962f266a5df141f59a11c37"
+    },
+    "vector_manifest": {
+      "path": "outputs/week5_data/vectorized_manifest.json",
+      "sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "870efab2a6dab29c00986516a55fcf80d6b00dfffe3aaa25aedb8d77ef7cd82d",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_diagnostic.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id shared_vs_independent_heads --diag_config outputs/week8_data/ablation_configs/shared_vs_independent_heads_diag.yaml --policy_config outputs/week8_data/ablation_configs/shared_vs_independent_heads_policy.yaml --vector_manifest outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/shared_vs_independent_heads/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.73
+	System time (seconds): 5.32
+	Percent of CPU this job got: 519%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 433996
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 63185
+	Voluntary context switches: 176
+	Involuntary context switches: 154371
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+shared_vs_independent_heads diagnostic freeze exit code: 0

@@ -21,6 +21,8 @@ from proactive.train.checkpoints import (
     load_checkpoint,
     save_checkpoint,
     validate_freeze_manifest,
+    validate_completed_training_report,
+    validate_early_stopping_history,
 )
 from proactive.train.policy import VOITargetDataset, load_voi_records, policy_epoch
 from proactive.train.state_data import FeatureNormalizer
@@ -41,7 +43,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--diagnostic_checkpoint", required=True)
     parser.add_argument("--freeze_manifest", default=None)
     parser.add_argument("--cost_multiplier", type=float, required=True)
-    parser.add_argument("--target_kind", choices=("voi", "entropy_reduction"), default="voi")
+    parser.add_argument(
+        "--target_kind",
+        choices=("voi", "entropy_reduction", "loss_only_voi"),
+        default="voi",
+    )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--output_dir", default=None)
@@ -82,8 +88,8 @@ def main() -> None:
     grid = [float(value) for value in config["cost_multiplier_grid"]]
     if args.target_kind == "voi" and args.cost_multiplier not in grid:
         raise SystemExit(f"Cost multiplier {args.cost_multiplier} is outside the declared validation grid")
-    if args.target_kind == "entropy_reduction" and args.cost_multiplier != 0.0:
-        raise SystemExit("Entropy-greedy baseline must use --cost_multiplier 0")
+    if args.target_kind in {"entropy_reduction", "loss_only_voi"} and args.cost_multiplier != 0.0:
+        raise SystemExit("Entropy/loss-only ablations must use --cost_multiplier 0")
     freeze_path = Path(args.freeze_manifest or config["week5_freeze_manifest"])
     freeze = validate_freeze_manifest(freeze_path, require_policy=False)
     diagnostic_sha = file_sha256(diagnostic_path)
@@ -108,7 +114,11 @@ def main() -> None:
     multiplier_name = format(args.cost_multiplier, ".12g").replace(".", "p")
     encoder = diagnostic_checkpoint["encoder_name"]
     condition = diagnostic_checkpoint.get("gru_condition", "standard")
-    prefix = "policy" if args.target_kind == "voi" else "uncertainty"
+    prefix = {
+        "voi": "policy",
+        "entropy_reduction": "uncertainty",
+        "loss_only_voi": "loss_only_voi",
+    }[args.target_kind]
     stem = f"{prefix}_{encoder}_{condition}_lambda{multiplier_name}_seed{args.seed}"
     best_path = output_dir / f"{stem}.best.pt"
     last_path = output_dir / f"{stem}.last.pt"
@@ -128,6 +138,52 @@ def main() -> None:
     print(json.dumps(summary, indent=2))
     if args.dry_run:
         return
+    common_provenance = {
+        "config_sha256": file_sha256(config_path),
+        "source_manifest_sha256": file_sha256(voi_manifest_path),
+        "diagnostic_checkpoint_sha256": diagnostic_sha,
+        "vector_manifest_sha256": file_sha256(vector_manifest_path),
+        "week5_freeze_sha256": file_sha256(freeze_path),
+        "seed": args.seed,
+        "cost_multiplier": args.cost_multiplier,
+        "target_kind": args.target_kind,
+        "limit": args.limit,
+    }
+    if args.resume:
+        try:
+            completed = validate_completed_training_report(
+                report_path,
+                best_path,
+                expected_report={
+                    **common_provenance,
+                    "encoder_name": encoder,
+                    "gru_condition": condition,
+                },
+                expected_checkpoint=common_provenance,
+                expected_version=POLICY_CHECKPOINT_VERSION,
+            )
+            if completed is not None:
+                if not history_path.is_file():
+                    raise ValueError("Completed policy history is missing")
+                with open(history_path, "r", encoding="utf-8") as handle:
+                    completed_history = json.load(handle)
+                validate_early_stopping_history(
+                    [
+                        (
+                            row["validation"]["total"],
+                            -row["validation"]["best_action_accuracy"],
+                        )
+                        for row in completed_history
+                    ],
+                    patience=int(config["training_proposal"]["early_stopping_patience"]),
+                    minimize=True,
+                    reported_best_epoch=int(completed["best_epoch"]),
+                )
+                LOGGER.info("Completed policy run verified; training is unchanged")
+                print(json.dumps(completed, indent=2))
+                return
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            raise SystemExit(f"Unsafe policy resume: {exc}") from exc
     if any(path.exists() for path in (best_path, last_path, report_path, history_path)) and not (args.resume or args.overwrite):
         raise SystemExit(f"Policy outputs already exist for {stem}; use --resume or --overwrite")
     set_global_seed(args.seed)
@@ -188,17 +244,6 @@ def main() -> None:
     best_epoch = -1
     epochs_without_improvement = 0
     history: list[Dict[str, Any]] = []
-    common_provenance = {
-        "config_sha256": file_sha256(config_path),
-        "source_manifest_sha256": file_sha256(voi_manifest_path),
-        "diagnostic_checkpoint_sha256": diagnostic_sha,
-        "vector_manifest_sha256": file_sha256(vector_manifest_path),
-        "week5_freeze_sha256": file_sha256(freeze_path),
-        "seed": args.seed,
-        "cost_multiplier": args.cost_multiplier,
-        "target_kind": args.target_kind,
-        "limit": args.limit,
-    }
     if args.resume and last_path.exists():
         last = load_checkpoint(
             last_path,
@@ -251,7 +296,11 @@ def main() -> None:
         history.append({"epoch": epoch, "train": train_metrics, "validation": val_metrics})
         payload: Dict[str, Any] = {
             "format_version": POLICY_CHECKPOINT_VERSION,
-            "stage": "week6_policy" if args.target_kind == "voi" else "week6_uncertainty_baseline",
+            "stage": {
+                "voi": "week6_policy",
+                "entropy_reduction": "week6_uncertainty_baseline",
+                "loss_only_voi": "week8_loss_only_voi_ablation",
+            }[args.target_kind],
             **common_provenance,
             "encoder_name": encoder,
             "gru_condition": condition,

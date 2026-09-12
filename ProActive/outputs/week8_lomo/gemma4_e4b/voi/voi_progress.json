@@ -1,0 +1,38 @@
+{
+  "checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "files": [
+    {
+      "path": "states_lomo__train.jsonl",
+      "row_count": 218255,
+      "sha256": "e0a70db626901222fca1aca07c62c7f199d3a1787f8e8a8d09847ac62791a9eb",
+      "source_state_path": "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl",
+      "source_state_sha256": "caec0d4b8a73a51464a4f98a99c25527d64df5dd8a532d519045ddb2d3e97e91",
+      "source_teacher_path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "source_teacher_sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "split": "train"
+    },
+    {
+      "path": "states_lomo__val.jsonl",
+      "row_count": 30242,
+      "sha256": "7a1ab4fc70df56bff2422c807ec27ed2203c9127755480d5886ec5fdd9516395",
+      "source_state_path": "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl",
+      "source_state_sha256": "caec0d4b8a73a51464a4f98a99c25527d64df5dd8a532d519045ddb2d3e97e91",
+      "source_teacher_path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "source_teacher_sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "split": "val"
+    }
+  ],
+  "format_version": "week6_voi_manifest_v1",
+  "freeze_manifest_sha256": "7036287a6a76959b5f2956dae4dca5cf0992f98338117b00025f8ba615968b84",
+  "limit": null,
+  "processed_sources": [
+    "outputs/week8_lomo/gemma4_e4b/states/states_lomo.jsonl"
+  ],
+  "progress_sha256": "4b9f14d8ec7aaff67842147dd8245b1254885e69a30393c155adabc76b21902e",
+  "row_count": 248497,
+  "state_manifest_sha256": "8b7098e9b6747d5cae458d2323e57948320abd55ecc7466df947ab917fd06ce3",
+  "status": "IN_PROGRESS",
+  "temporary_aps_sha256": "453f42ff76d00e05bf670b38e3d203735830f4e372c73ff4f77c99d3b364b1c1",
+  "vector_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f"
+}

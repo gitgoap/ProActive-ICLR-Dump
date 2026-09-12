@@ -1,0 +1,60 @@
+{
+  "format_version": "week8_latency_v1",
+  "is_valid": true,
+  "condition": "proactive",
+  "budget": 7,
+  "target_coverage": 0.9,
+  "warmup_examples": 10,
+  "measured_examples": 100,
+  "cuda_synchronized": true,
+  "hardware": {
+    "device": "cuda:0",
+    "name": "NVIDIA RTX A6000",
+    "total_memory_bytes": 51033931776,
+    "compute_capability": "8.6",
+    "torch_version": "2.6.0+cu124",
+    "cuda_version": "12.4",
+    "python_version": "3.11.15"
+  },
+  "controller_latency_ms": {
+    "mean": 1.35459685,
+    "median": 1.355638,
+    "p95": 1.390034
+  },
+  "controller_timed_components": [
+    "diagnostic_state_encoder",
+    "action_conditioned_voi_head"
+  ],
+  "generation_latency_source": "cached_per_forward_pass_measurements",
+  "generation_latency_note": "Probe/clean times were recorded during the cached MLLM generations; the controller overhead was remeasured on the hardware above.",
+  "normalized_latency_mean": 25.240428814066885,
+  "total_generation_latency_ms_mean": 9163.950655460358,
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "trajectory_sha256": "0f3df65d13d587a0733ebe61920c0ea955bc862cb75bad6437dad33d4c240a85",
+  "csv_path": "outputs/week8_reports/latency.csv",
+  "csv_sha256": "3fe312b3d4893da16332f44030ef3c99e01c387069d6c17da1f5d427ebd4f5db",
+  "report_sha256": "bc5850b65b5b7694afef4c0e9a7cf0f6b6fc6ad75a11525a28b4b622b815ca87"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=1m 15m env CUDA_VISIBLE_DEVICES=3 PYTHONPATH=src python scripts/measure_latency.py --config configs/experiments/week8_evaluation.yaml --trajectory_path outputs/week8_reports/shift/trajectories_shift.jsonl --teacher_path outputs/week8_teacher_recovered --freeze_manifest outputs/week7_frozen/main_stack_freeze.json --vector_manifest outputs/week5_data/vectorized_manifest.json --output_dir outputs/week8_reports --condition proactive --budget 7 --target_coverage 0.90 --device cuda:0 --overwrite"
+	User time (seconds): 5.81
+	System time (seconds): 5.85
+	Percent of CPU this job got: 214%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 984240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 181439
+	Voluntary context switches: 296
+	Involuntary context switches: 115893
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

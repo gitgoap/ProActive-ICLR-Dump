@@ -1,0 +1,59 @@
+===== qwen3_vl_8b diagnostic freeze =====
+Timeout: 300s; bundle remaining: 17885s
+{
+  "artifacts": {
+    "clean_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt",
+      "sha256": "42de7d52388a3646e9c9ea91c5c4cfd63f56905c9ff62d3514de8bcb1977630f"
+    },
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0"
+    },
+    "diagnostic_config": {
+      "path": "configs/experiments/diag_bakeoff.yaml",
+      "sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74"
+    },
+    "fold_manifest": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/lomo_fold_manifest.json",
+      "sha256": "26e7a5ffe9ae743cd5c077517f073379721b714233a4a1e696c6d3a60a9f311b"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_predeclared_selection.json",
+      "sha256": "5f2ef48fab61da3057435aa18a25f46941fe2e5da072b9f8322a0b88140eae35"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "ddcc9ed76bc2b7512825c1b822ac501db440cf98815fced6ae954c3df3a1f2af",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/freeze_lomo_stack.py --stage diagnostic --fold_manifest outputs/week8_lomo/qwen3_vl_8b/lomo_fold_manifest.json --diagnostic_checkpoint outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --clean_checkpoint outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt --output_dir outputs/week8_lomo/qwen3_vl_8b/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.78
+	System time (seconds): 5.39
+	Percent of CPU this job got: 549%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 429944
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 60917
+	Voluntary context switches: 172
+	Involuntary context switches: 96311
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+qwen3_vl_8b diagnostic freeze exit code: 0

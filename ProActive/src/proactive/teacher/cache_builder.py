@@ -135,6 +135,7 @@ def process_instance(
     question = record["question"]
     gold_answer = record["gold_answer"]
     answer_type = record.get("answer_type")
+    normalizer_type = record.get("normalizer_type")
     reference_answers = record.get("reference_answers", [gold_answer])
     relation_applicable = record.get("relation_applicable", False)
     swapped_question = record.get("swapped_question")
@@ -165,7 +166,8 @@ def process_instance(
     )
     clean_gen = adapter.generate(img, prompt)
 
-    normalizer_type = "freeform" if answer_type == "open_ended" else None
+    if normalizer_type is None and answer_type == "open_ended":
+        normalizer_type = "freeform"
     norm_answer = normalize_answer(
         clean_gen.raw_answer,
         dataset_name,
@@ -246,6 +248,7 @@ def process_instance(
         semantic_threshold=semantic_threshold,
         embedding_fn=embedding_fn,
         answer_type=answer_type,
+        normalizer_type=normalizer_type,
     )
 
     # --- Evaluate relation swap outcome ---
@@ -309,6 +312,7 @@ def process_instance(
         "prompt_text": prompt,
         "gold_answer": gold_answer,
         "answer_type": answer_type,
+        "normalizer_type": normalizer_type,
         "answer_contract_version": record.get("answer_contract_version"),
         "answer_match_mode": record.get("answer_match_mode"),
         "benchmark_gold_answer": record.get("benchmark_gold_answer"),

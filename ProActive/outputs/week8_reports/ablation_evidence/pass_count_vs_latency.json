@@ -1,0 +1,25 @@
+{
+  "ablation_id": "pass_count_vs_latency",
+  "artifacts": [
+    {
+      "path": "outputs/week8_ablations/pass_count_vs_latency/latency_report.json",
+      "role": "reference",
+      "sha256": "da0b244ba6252b6efaa222328d507afa98892ec343f8576df89bd23b4688f05f"
+    }
+  ],
+  "evaluation_split": "val",
+  "format_version": "week8_ablation_evidence_v1",
+  "post_test_tuning_used": false,
+  "report_sha256": "b3141507801d9fc426fe64eb0e458ae269e933e13af8256019d5d6ff4293888b",
+  "rows": [
+    {
+      "controller_latency_ms_mean": 1.33452941,
+      "maximum_budget": 7,
+      "measured_examples": 100,
+      "normalized_latency_mean": 15.393336592350245,
+      "target_coverage": 0.9,
+      "total_generation_latency_ms_mean": 6643.293032646179
+    }
+  ],
+  "status": "COMPLETE"
+}

@@ -122,12 +122,16 @@ def main() -> None:
                 raise SystemExit(f"{baseline} checkpoint is not bound into the main freeze")
         else:
             nested_item = freeze["artifacts"].get("week5_freeze")
-            if not nested_item:
-                raise SystemExit("Main freeze lacks the Week 5 freeze")
-            nested = validate_freeze_manifest(nested_item["path"], require_policy=False)
-            item = nested["artifacts"].get("diagnostic_checkpoint_clean_mlp_standard")
+            if nested_item:
+                nested = validate_freeze_manifest(nested_item["path"], require_policy=False)
+                item = nested["artifacts"].get("diagnostic_checkpoint_clean_mlp_standard")
+            else:
+                # A leakage-safe LOMO fold has its matched clean checkpoint
+                # directly in the fold freeze rather than inside the global
+                # Week 5 selection freeze.
+                item = freeze["artifacts"].get("clean_checkpoint")
             if not item or item.get("sha256") != file_sha256(checkpoint_path):
-                raise SystemExit("Clean-only checkpoint is not bound into the Week 5 freeze")
+                raise SystemExit("Clean-only checkpoint is not bound into the active freeze")
         freeze_sha = file_sha256(freeze_path)
     output_path = Path(args.output_dir) / f"static_aps_{baseline}_{args.phase}.json"
     expected = {

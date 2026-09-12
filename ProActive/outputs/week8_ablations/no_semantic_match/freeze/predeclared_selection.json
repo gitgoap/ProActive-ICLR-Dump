@@ -1,0 +1,14 @@
+{
+  "ablation_id": "no_semantic_match",
+  "calibration_used": false,
+  "clean_checkpoint_sha256": null,
+  "diagnostic_checkpoint_sha256": "4d1e5714b5624ca8f3d0fdad00dca28c25d67fec5af248e6bc46a3684a24bbee",
+  "format_version": "week8_predeclared_diagnostic_selection_v1",
+  "report_sha256": "d63ec418099023125b0609dd234e17d95db0edf1e073b127d3c0e1273a781b80",
+  "seed": 42,
+  "selection_split": "none",
+  "status": "PREDECLARED_NOT_SELECTED_ON_TEST",
+  "test_used": false,
+  "vector_manifest_sha256": "d84201186bcfd7db79585b12d43acc54acf3fded26ebbc13352e7ab620728a08",
+  "week8_config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+}

@@ -19,6 +19,7 @@ PIPELINE = runpy.run_path(str(ROOT / "tests" / "test_week4_pipeline.py"))
 
 load_source_failures = RECOVERY["_load_source_failures"]
 find_failure_base = RECOVERY["_find_failure_base"]
+source_paths = RECOVERY["_source_paths"]
 annotate_copy = RECOVERY["_annotate_copy"]
 annotate_recovery = RECOVERY["_annotate_recovery"]
 teacher_record = PIPELINE["_teacher_record"]
@@ -65,6 +66,27 @@ def test_concise_retry_prompt_keeps_description_and_strict_answer_domain() -> No
 
     relation = make_concise_grounding_retry_prompt("A is left of B", "vsr")
     assert "FINAL_ANSWER: <true or false>" in relation
+
+    multiple_choice = make_concise_grounding_retry_prompt(
+        "Which option?\nA. first\nB. second",
+        "illusionbench",
+        answer_type="multiple_choice",
+    )
+    assert "FINAL_ANSWER: <one option letter>" in multiple_choice
+
+
+def test_shift_source_paths_use_the_heldout_filename_contract(tmp_path: Path) -> None:
+    teacher, failures = source_paths(
+        tmp_path,
+        "qwen3_vl_8b",
+        shard_id=0,
+        num_shards=1,
+        split="shift",
+    )
+    assert teacher.name == "teacher_qwen3_vl_8b_all_shift_shard00-of-01.jsonl"
+    assert failures.name == (
+        "teacher_qwen3_vl_8b_all_shift_shard00-of-01.failures.jsonl"
+    )
 
 
 def test_source_failure_loader_accepts_only_uniform_parse_failures(
@@ -154,6 +176,62 @@ def test_failure_ledger_base_resolution_is_fail_closed(tmp_path: Path) -> None:
         )
 
 
+def test_teacher_failure_ledger_is_accepted_only_for_grounding_parse_failures(
+    tmp_path: Path,
+) -> None:
+    base = teacher_record()
+    base["valid"] = False
+    base["invalid_reason"] = "Mandatory probe observation 'grounding' is invalid"
+    base["normalizer_type"] = "multiple_choice"
+    base["probes"]["grounding"].update(
+        {
+            "valid": False,
+            "parse_status": "malformed",
+            "invalid_reason": (
+                "Multiple-choice answer is not one option letter: "
+                "'None of the above' -> 'unknown'"
+            ),
+        }
+    )
+    failure = {
+        "record_type": "teacher_failure",
+        "schema_version": 1,
+        "instance_id": base["instance_id"],
+        "dataset": base["dataset"],
+        "model_id": base["model_id"],
+        "model_revision": base["model_revision"],
+        "error_type": "ValueError",
+        "error_message": base["invalid_reason"],
+        "invalid_teacher_record": base,
+    }
+    path = tmp_path / "teacher.failures.jsonl"
+    write_jsonl([failure], path)
+
+    key = (base["model_id"], base["instance_id"])
+    loaded = load_source_failures(
+        path,
+        model_id=base["model_id"],
+        selected_ids={base["instance_id"]},
+        source_max_new_tokens=1024,
+    )
+    assert list(loaded) == [key]
+    assert find_failure_base(
+        loaded[key], model_id=base["model_id"], instance_id=base["instance_id"]
+    ) == base
+
+    failure["invalid_teacher_record"]["probes"]["grounding"][
+        "invalid_reason"
+    ] = "CUDA out of memory"
+    write_jsonl([failure], path, overwrite=True)
+    with pytest.raises(ValueError, match="Non-format failure"):
+        load_source_failures(
+            path,
+            model_id=base["model_id"],
+            selected_ids={base["instance_id"]},
+            source_max_new_tokens=1024,
+        )
+
+
 def test_recovery_metadata_distinguishes_copied_and_recovered_rows() -> None:
     base = teacher_record()
     provenance = {
@@ -181,4 +259,3 @@ def test_recovery_metadata_distinguishes_copied_and_recovered_rows() -> None:
     assert metadata["status"] == "recovered"
     assert metadata["retry_max_new_tokens"] == 256
     assert metadata["trigger_error"] == source_failure["error_message"]
-

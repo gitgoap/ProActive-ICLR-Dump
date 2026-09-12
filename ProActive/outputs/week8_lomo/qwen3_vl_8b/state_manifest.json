@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/states/states_lomo.jsonl",
+      "row_count": 194249,
+      "sha256": "0e0c903fe2fe856a1dd59e95dd9d21e6507143d583b605966148e789124ccf38"
+    }
+  ],
+  "format_version": "state_manifest_v2",
+  "report_sha256": "674440e5c73afa0b616b317ca473d0308be531878c6d84203ee62adf26005343",
+  "required_split": null,
+  "row_count": 194249,
+  "split_counts": {
+    "cal": 20002,
+    "test": 20716,
+    "train": 134847,
+    "val": 18684
+  },
+  "state_dir": "outputs/week8_lomo/qwen3_vl_8b/states",
+  "teacher_row_count": 7291
+}

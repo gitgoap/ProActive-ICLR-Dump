@@ -1,0 +1,74 @@
+===== no_answer_flip policy training =====
+Timeout 2700s; worker ceiling remaining 8253s
+2026-09-12 20:35:24,636 INFO [train_policy] epoch=23 val_loss=0.596401 oracle_agreement=0.8063
+2026-09-12 20:36:26,285 INFO [train_policy] epoch=24 val_loss=0.596495 oracle_agreement=0.8082
+2026-09-12 20:37:33,223 INFO [train_policy] epoch=25 val_loss=0.597105 oracle_agreement=0.8078
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_ablations/no_answer_flip/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "best_epoch": 20,
+  "metrics": {
+    "total": 0.5963546098635598,
+    "ranking": 0.0771174495509284,
+    "mse": 0.7774158126235732,
+    "action_ce": 0.6497664183785714,
+    "best_action_accuracy": 0.8086073772795661,
+    "stop_prediction_rate": 0.40902402327926857,
+    "row_count": 60483
+  },
+  "checkpoint_path": "outputs/week8_ablations/no_answer_flip/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "36dbd8c8aef518f176824804b49ce6b2ddcb7f0ab50dd1055fb106a5ef282ea3",
+  "config_sha256": "0bbb0d0629d34962ccc8450e8797674af2950efb8add1211aef133b2975cb9cb",
+  "source_manifest_sha256": "ea48c06bdcc03a83985e9498b13534b814fc8dc1c1fd08d66db76a2d57c780cf",
+  "diagnostic_checkpoint_sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415",
+  "vector_manifest_sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c",
+  "week5_freeze_sha256": "7433712588c6e0124fe318f41f5b21a766a9b9b50d0bc433646a0d329241a4f6",
+  "limit": null,
+  "report_sha256": "be9b0f2a12d4b010ca5ce5bb1ecd7f68a7a4554c08b3e25976f733d3c1c0b5a4"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=1 python scripts/train_policy.py --config outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml --manifest_path outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_ablations/no_answer_flip/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/no_answer_flip/freeze/week8_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/no_answer_flip/policy_checkpoints --resume"
+	User time (seconds): 290.08
+	System time (seconds): 9.75
+	Percent of CPU this job got: 102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:51.38
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6057136
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1476809
+	Voluntary context switches: 8186
+	Involuntary context switches: 98898
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2832
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_answer_flip policy training exit code: 0

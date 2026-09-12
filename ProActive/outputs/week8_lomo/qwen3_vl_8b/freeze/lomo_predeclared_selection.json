@@ -1,0 +1,13 @@
+{
+  "clean_checkpoint_sha256": "42de7d52388a3646e9c9ea91c5c4cfd63f56905c9ff62d3514de8bcb1977630f",
+  "diagnostic_checkpoint_sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0",
+  "encoder": "deep_sets",
+  "fold_manifest_sha256": "26e7a5ffe9ae743cd5c077517f073379721b714233a4a1e696c6d3a60a9f311b",
+  "format_version": "lomo_predeclared_selection_v1",
+  "heldout_model_id": "Qwen/Qwen3-VL-8B-Instruct",
+  "heldout_test_used": false,
+  "report_sha256": "11bd00126957a4bb736353323aa8f817db77c1b55d4b494d3ecf8f9b398779dd",
+  "seed": 42,
+  "selection_split": "none_in_fold",
+  "status": "PREDECLARED_NOT_SELECTED_ON_HELDOUT"
+}

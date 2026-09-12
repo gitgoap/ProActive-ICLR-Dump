@@ -1,0 +1,36 @@
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_signature_regression/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "4b7988e218fe75bdbdee321819cb694e10eb2158a26ae9b09bba184284bcc49a"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_signature_regression_diag.yaml",
+      "sha256": "58262427a826d57bc490099d38663e68309e9a6d3bba9d13b4c2f75f1e181ac6"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_ablations/no_signature_regression/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "2b6b03153f2d6d159bbaadd13d95555523f958bf34fba1cbb339e1cf309bd22b"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_signature_regression_policy.yaml",
+      "sha256": "727feb86a929eda47a5f6009c3872b659bacd931cab2e8ec5e81e33e76a6a78f"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_signature_regression/freeze/predeclared_stack_selection.json",
+      "sha256": "39bc30833b4ea119e9449dd84a21111bced9be170b4cb8f761ebcbfea32c53a6"
+    },
+    "vector_manifest": {
+      "path": "outputs/week5_data/vectorized_manifest.json",
+      "sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "0495231d74402aa1a68917ef3706ce32f21143dad25a326fd60b49366e75f5e2",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

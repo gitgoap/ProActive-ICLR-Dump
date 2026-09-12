@@ -1,0 +1,12 @@
+........................................................................ [ 23%]
+........................................................................ [ 47%]
+........................................................................ [ 71%]
+........................................................................ [ 95%]
+...............                                          [100%]
+=============================== warnings summary ===============================
+tests/test_diagnostic_metrics.py::test_non_scientific_pilot_can_record_undefined_auroc_explicitly
+  /home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:614: UserWarning: A single label was found in 'y_true' and 'y_pred'. For the confusion matrix to have the correct shape, use the 'labels' parameter to pass all known labels.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+303 passed, 1 warning, 16 subtests passed in 14.51s

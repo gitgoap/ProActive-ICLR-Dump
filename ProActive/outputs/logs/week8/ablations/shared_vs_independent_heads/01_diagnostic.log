@@ -1,0 +1,858 @@
+===== shared_vs_independent_heads diagnostic training =====
+Timeout 2700s; worker ceiling remaining 2741s
+2026-09-12 22:04:44,416 INFO [train_diag] Completed diagnostic run verified; training is unchanged
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "config_approval": "APPROVED",
+  "pilot": false,
+  "manifest": "outputs/week5_data/vectorized_manifest.json",
+  "output": "outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt"
+}
+{
+  "best_epoch": 8,
+  "checkpoint_path": "outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "5001ef1c30fb93e3b5e251c90a0717322588c92e6c75eb1a38fec201abec6d2e",
+  "config_sha256": "4240f23d700bd50a1ccc30aea2391143b820254edc186882a64d145bb637f133",
+  "encoder_name": "deep_sets",
+  "format_version": "week5_validation_report_v1",
+  "gru_condition": "standard",
+  "metrics": {
+    "is_valid": true,
+    "record_count": 60483,
+    "signature_mse": 0.05630558290837019,
+    "six_way_balanced_accuracy": 0.573649765661719,
+    "six_way_confusion_matrix": [
+      [
+        4358,
+        150,
+        456,
+        83,
+        1168,
+        1840
+      ],
+      [
+        204,
+        5360,
+        366,
+        62,
+        1856,
+        9004
+      ],
+      [
+        33,
+        5,
+        1225,
+        100,
+        467,
+        58
+      ],
+      [
+        2065,
+        605,
+        2696,
+        18932,
+        1082,
+        276
+      ],
+      [
+        87,
+        1,
+        115,
+        0,
+        189,
+        127
+      ],
+      [
+        248,
+        90,
+        271,
+        0,
+        654,
+        6250
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.4666653619799724,
+    "source_bit_auroc": {
+      "alignment": 0.9860841192123634,
+      "language": 0.8835497530808173,
+      "visual": 0.9594935246421289
+    },
+    "source_bit_hamming_loss": 0.13333774228571113,
+    "source_bit_macro_f1": 0.8653911768237181,
+    "source_bit_micro_f1": 0.8618969335799256
+  },
+  "pilot": false,
+  "report_sha256": "c0417706a703e68402c983144daac17ec8c805dcefb7307eb76fe5e7f53f5c81",
+  "scientifically_weighted": true,
+  "seed": 42,
+  "source_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "stratified_metrics": {
+    "pooled": {
+      "record_count": 60483,
+      "signature_mse": 0.05630558290837019,
+      "six_way_balanced_accuracy": 0.573649765661719,
+      "six_way_confusion_matrix": [
+        [
+          4358,
+          150,
+          456,
+          83,
+          1168,
+          1840
+        ],
+        [
+          204,
+          5360,
+          366,
+          62,
+          1856,
+          9004
+        ],
+        [
+          33,
+          5,
+          1225,
+          100,
+          467,
+          58
+        ],
+        [
+          2065,
+          605,
+          2696,
+          18932,
+          1082,
+          276
+        ],
+        [
+          87,
+          1,
+          115,
+          0,
+          189,
+          127
+        ],
+        [
+          248,
+          90,
+          271,
+          0,
+          654,
+          6250
+        ]
+      ],
+      "six_way_labels": [
+        "visual",
+        "language-prior",
+        "alignment",
+        "mixed",
+        "unclear",
+        "no-failure"
+      ],
+      "six_way_macro_f1": 0.4666653619799724,
+      "source_bit_auroc": {
+        "alignment": 0.9860841192123634,
+        "language": 0.8835497530808173,
+        "visual": 0.9594935246421289
+      },
+      "source_bit_hamming_loss": 0.13333774228571113,
+      "source_bit_macro_f1": 0.8653911768237181,
+      "source_bit_micro_f1": 0.8618969335799256
+    },
+    "within_budget": {
+      "1": {
+        "record_count": 9844,
+        "signature_mse": 0.06944572836944883,
+        "six_way_balanced_accuracy": 0.48864412625024517,
+        "six_way_confusion_matrix": [
+          [
+            478,
+            54,
+            122,
+            13,
+            266,
+            377
+          ],
+          [
+            56,
+            446,
+            85,
+            10,
+            357,
+            1793
+          ],
+          [
+            8,
+            2,
+            179,
+            19,
+            91,
+            9
+          ],
+          [
+            326,
+            71,
+            544,
+            2898,
+            267,
+            66
+          ],
+          [
+            16,
+            0,
+            22,
+            0,
+            26,
+            20
+          ],
+          [
+            44,
+            27,
+            55,
+            0,
+            95,
+            1002
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.378508072185002,
+        "source_bit_auroc": {
+          "alignment": 0.9786507849491605,
+          "language": 0.7942392513915636,
+          "visual": 0.9340206969780186
+        },
+        "source_bit_hamming_loss": 0.175301368007585,
+        "source_bit_macro_f1": 0.8272839021783686,
+        "source_bit_micro_f1": 0.8207347899858028
+      },
+      "2": {
+        "record_count": 17531,
+        "signature_mse": 0.061117652587430155,
+        "six_way_balanced_accuracy": 0.5396012322232732,
+        "six_way_confusion_matrix": [
+          [
+            1100,
+            48,
+            159,
+            26,
+            382,
+            617
+          ],
+          [
+            70,
+            1250,
+            129,
+            21,
+            578,
+            2839
+          ],
+          [
+            12,
+            1,
+            339,
+            32,
+            146,
+            18
+          ],
+          [
+            597,
+            176,
+            899,
+            5302,
+            373,
+            93
+          ],
+          [
+            26,
+            0,
+            37,
+            0,
+            53,
+            35
+          ],
+          [
+            81,
+            31,
+            88,
+            0,
+            174,
+            1799
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.43002616330438603,
+        "source_bit_auroc": {
+          "alignment": 0.9833683104764375,
+          "language": 0.8559298849132874,
+          "visual": 0.9488141737983554
+        },
+        "source_bit_hamming_loss": 0.14876504477782215,
+        "source_bit_macro_f1": 0.8511286843450501,
+        "source_bit_micro_f1": 0.8465882352941176
+      },
+      "4": {
+        "record_count": 33108,
+        "signature_mse": 0.049850587576049966,
+        "six_way_balanced_accuracy": 0.6169595462023326,
+        "six_way_confusion_matrix": [
+          [
+            2780,
+            48,
+            175,
+            44,
+            520,
+            846
+          ],
+          [
+            78,
+            3664,
+            152,
+            31,
+            921,
+            4372
+          ],
+          [
+            13,
+            2,
+            707,
+            49,
+            230,
+            31
+          ],
+          [
+            1142,
+            358,
+            1253,
+            10732,
+            442,
+            117
+          ],
+          [
+            45,
+            1,
+            56,
+            0,
+            110,
+            72
+          ],
+          [
+            123,
+            32,
+            128,
+            0,
+            385,
+            3449
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.5115292336474054,
+        "source_bit_auroc": {
+          "alignment": 0.989182637622082,
+          "language": 0.9166384211583308,
+          "visual": 0.9705415569663597
+        },
+        "source_bit_hamming_loss": 0.11269179654464177,
+        "source_bit_macro_f1": 0.8847609094409966,
+        "source_bit_micro_f1": 0.8825609333850948
+      }
+    },
+    "within_dataset": {
+      "hallusionbench": {
+        "record_count": 7831,
+        "signature_mse": 0.06587232554773621,
+        "six_way_balanced_accuracy": 0.4511628643644874,
+        "six_way_confusion_matrix": [
+          [
+            609,
+            43,
+            37,
+            0,
+            260,
+            300
+          ],
+          [
+            88,
+            986,
+            87,
+            18,
+            1009,
+            650
+          ],
+          [
+            18,
+            3,
+            222,
+            17,
+            203,
+            5
+          ],
+          [
+            394,
+            274,
+            438,
+            731,
+            510,
+            68
+          ],
+          [
+            28,
+            1,
+            12,
+            0,
+            133,
+            85
+          ],
+          [
+            13,
+            13,
+            28,
+            0,
+            198,
+            350
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.3714104094672465,
+        "source_bit_auroc": {
+          "alignment": 0.9145108989371283,
+          "language": 0.8121290412204244,
+          "visual": 0.8489139389096312
+        },
+        "source_bit_hamming_loss": 0.2024432809773124,
+        "source_bit_macro_f1": 0.7333873151082466,
+        "source_bit_micro_f1": 0.7573221757322176
+      },
+      "pope": {
+        "record_count": 23084,
+        "signature_mse": 0.053382504605297934,
+        "six_way_balanced_accuracy": 0.554605337385814,
+        "six_way_confusion_matrix": [
+          [
+            2037,
+            66,
+            18,
+            0,
+            395,
+            1349
+          ],
+          [
+            56,
+            3805,
+            36,
+            11,
+            474,
+            7756
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            261,
+            132,
+            119,
+            591,
+            197,
+            59
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            106,
+            49,
+            4,
+            0,
+            167,
+            5396
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.37483417198086344,
+        "source_bit_auroc": {
+          "alignment": 0.9913466342145079,
+          "language": 0.8748930964376194,
+          "visual": 0.9323219822866207
+        },
+        "source_bit_hamming_loss": 0.11182348524230347,
+        "source_bit_macro_f1": 0.8065630821742853,
+        "source_bit_micro_f1": 0.8114255101543856
+      },
+      "vizwiz": {
+        "record_count": 26963,
+        "signature_mse": 0.05494205352372772,
+        "six_way_balanced_accuracy": 0.4954798476785205,
+        "six_way_confusion_matrix": [
+          [
+            1432,
+            1,
+            401,
+            83,
+            381,
+            79
+          ],
+          [
+            52,
+            328,
+            170,
+            21,
+            185,
+            328
+          ],
+          [
+            15,
+            2,
+            1003,
+            83,
+            264,
+            53
+          ],
+          [
+            1228,
+            135,
+            2092,
+            17386,
+            298,
+            126
+          ],
+          [
+            59,
+            0,
+            103,
+            0,
+            56,
+            42
+          ],
+          [
+            88,
+            0,
+            239,
+            0,
+            47,
+            183
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.4293634821108184,
+        "source_bit_auroc": {
+          "alignment": 0.9661563550393518,
+          "language": 0.8808085867721189,
+          "visual": 0.9543254334079171
+        },
+        "source_bit_hamming_loss": 0.1241701591069243,
+        "source_bit_macro_f1": 0.8661948202349375,
+        "source_bit_micro_f1": 0.9077601248966847
+      },
+      "vsr": {
+        "record_count": 2605,
+        "signature_mse": 0.06756240468854664,
+        "six_way_balanced_accuracy": 0.4179263060069895,
+        "six_way_confusion_matrix": [
+          [
+            280,
+            40,
+            0,
+            0,
+            132,
+            112
+          ],
+          [
+            8,
+            241,
+            73,
+            12,
+            188,
+            270
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            182,
+            64,
+            47,
+            224,
+            77,
+            23
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            41,
+            28,
+            0,
+            0,
+            242,
+            321
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.32210389107935394,
+        "source_bit_auroc": {
+          "alignment": 0.9066765113885532,
+          "language": 0.8435608335478213,
+          "visual": 0.8857010773629072
+        },
+        "source_bit_hamming_loss": 0.21113243761996162,
+        "source_bit_macro_f1": 0.6758208711387902,
+        "source_bit_micro_f1": 0.7071352502662407
+      }
+    },
+    "within_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "record_count": 30242,
+        "signature_mse": 0.053412636602229974,
+        "six_way_balanced_accuracy": 0.5288295945366843,
+        "six_way_confusion_matrix": [
+          [
+            2301,
+            94,
+            269,
+            57,
+            519,
+            982
+          ],
+          [
+            110,
+            2704,
+            141,
+            28,
+            889,
+            4619
+          ],
+          [
+            26,
+            5,
+            1105,
+            55,
+            425,
+            58
+          ],
+          [
+            1573,
+            314,
+            2123,
+            6135,
+            548,
+            171
+          ],
+          [
+            72,
+            1,
+            115,
+            0,
+            118,
+            127
+          ],
+          [
+            188,
+            51,
+            161,
+            0,
+            456,
+            3702
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.45126228437630433,
+        "source_bit_auroc": {
+          "alignment": 0.9786014060383292,
+          "language": 0.8926570260865162,
+          "visual": 0.9425804081393674
+        },
+        "source_bit_hamming_loss": 0.14013623437603334,
+        "source_bit_macro_f1": 0.8403278007058171,
+        "source_bit_micro_f1": 0.8365893784381265
+      },
+      "google/gemma-4-E4B-it": {
+        "record_count": 30241,
+        "signature_mse": 0.059198624877560786,
+        "six_way_balanced_accuracy": 0.6613411524413372,
+        "six_way_confusion_matrix": [
+          [
+            2057,
+            56,
+            187,
+            26,
+            649,
+            858
+          ],
+          [
+            94,
+            2656,
+            225,
+            34,
+            967,
+            4385
+          ],
+          [
+            7,
+            0,
+            120,
+            45,
+            42,
+            0
+          ],
+          [
+            492,
+            291,
+            573,
+            12797,
+            534,
+            105
+          ],
+          [
+            15,
+            0,
+            0,
+            0,
+            71,
+            0
+          ],
+          [
+            60,
+            39,
+            110,
+            0,
+            198,
+            2548
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "six_way_macro_f1": 0.4517791070137714,
+        "source_bit_auroc": {
+          "alignment": 0.992128978818412,
+          "language": 0.870264082821592,
+          "visual": 0.9726482885062049
+        },
+        "source_bit_hamming_loss": 0.12653902538496303,
+        "source_bit_macro_f1": 0.8854595084504341,
+        "source_bit_micro_f1": 0.8821161587119034
+      }
+    }
+  },
+  "train_rows": 436429,
+  "validation_rows": 60483
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=1 python scripts/train_diag.py --config outputs/week8_data/ablation_configs/shared_vs_independent_heads_diag.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --encoder deep_sets --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints --resume"
+	User time (seconds): 8.42
+	System time (seconds): 5.61
+	Percent of CPU this job got: 610%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.29
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 531308
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 87836
+	Voluntary context switches: 260
+	Involuntary context switches: 89740
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+shared_vs_independent_heads diagnostic training exit code: 0

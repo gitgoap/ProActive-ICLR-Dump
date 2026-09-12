@@ -25,7 +25,7 @@ from proactive.utils.io import file_sha256, iter_jsonl, write_json
 
 
 LOGGER = logging.getLogger("prepare_week5_data")
-ALLOWED_SPLITS = {"train", "val", "cal", "test"}
+ALLOWED_SPLITS = {"train", "val", "cal", "test", "shift"}
 
 
 def parse_args() -> argparse.Namespace:

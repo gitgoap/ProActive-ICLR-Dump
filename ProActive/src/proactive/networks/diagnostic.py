@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, Mapping
+from typing import Any, Callable, Dict, Mapping
 
 import torch
 from torch import nn
@@ -64,7 +64,62 @@ class DiagnosticModel(nn.Module):
         return self.heads(self.encoder(model_input))
 
 
-def build_diagnostic_model(name: str, architecture: Mapping[str, Any]) -> DiagnosticModel:
+class IndependentSourceDiagnosticModel(nn.Module):
+    """Ablation with a separate evidence encoder for each source bit.
+
+    The main model lets visual, language-prior, and alignment supervision shape
+    one shared representation.  This comparison removes that sharing: each
+    binary source predictor owns a fresh encoder and head.  Six-way and
+    signature supervision retain a fourth encoder so the output contract and
+    downstream policy interface remain identical.
+    """
+
+    def __init__(
+        self,
+        encoder_factory: Callable[[], nn.Module],
+        *,
+        state_dim: int = 128,
+        dropout: float = 0.1,
+    ) -> None:
+        super().__init__()
+
+        def head(output_dim: int) -> nn.Sequential:
+            return nn.Sequential(
+                nn.Linear(state_dim, state_dim),
+                nn.ReLU(),
+                nn.Dropout(dropout),
+                nn.Linear(state_dim, output_dim),
+            )
+
+        self.source_encoders = nn.ModuleList([encoder_factory() for _ in range(3)])
+        self.source_heads = nn.ModuleList([head(1) for _ in range(3)])
+        # ``FrozenDiagnosticPolicy`` deliberately consumes this public encoder.
+        # In the ablation it is trained by the six-way and signature objectives,
+        # while source-bit gradients remain isolated in ``source_encoders``.
+        self.encoder = encoder_factory()
+        self.six_way = head(6)
+        self.signature = head(3)
+        if any(getattr(item, "state_dim", None) != state_dim for item in self.source_encoders):
+            raise ValueError("Independent source encoder state_dim mismatch")
+        if getattr(self.encoder, "state_dim", None) != state_dim:
+            raise ValueError("Independent shared-task encoder state_dim mismatch")
+
+    def forward(self, model_input: Mapping[str, torch.Tensor]) -> DiagnosticOutput:
+        source_hidden = [encoder(model_input) for encoder in self.source_encoders]
+        bit_logits = torch.cat(
+            [head(hidden) for head, hidden in zip(self.source_heads, source_hidden)],
+            dim=1,
+        )
+        hidden = self.encoder(model_input)
+        return DiagnosticOutput(
+            hidden=hidden,
+            bit_logits=bit_logits,
+            six_way_logits=self.six_way(hidden),
+            signature=self.signature(hidden),
+        )
+
+
+def build_diagnostic_model(name: str, architecture: Mapping[str, Any]) -> nn.Module:
     if name not in ENCODER_NAMES:
         raise ValueError(f"Unknown encoder {name!r}; expected one of {ENCODER_NAMES}")
     common = {
@@ -72,9 +127,9 @@ def build_diagnostic_model(name: str, architecture: Mapping[str, Any]) -> Diagno
         "state_dim": int(architecture.get("state_dim", 128)),
         "dropout": float(architecture.get("dropout", 0.1)),
     }
-    if name == "clean_mlp":
-        encoder = CleanOnlyMLPEncoder(**common)
-    else:
+    def build_encoder() -> nn.Module:
+        if name == "clean_mlp":
+            return CleanOnlyMLPEncoder(**common)
         evidence = {
             **common,
             "token_dim": int(architecture.get("probe_token_dim", 64)),
@@ -83,18 +138,29 @@ def build_diagnostic_model(name: str, architecture: Mapping[str, Any]) -> Diagno
             "max_budget": int(architecture.get("max_budget", 7)),
         }
         if name == "deep_sets":
-            encoder = DeepSetsEncoder(
+            return DeepSetsEncoder(
                 **evidence,
                 phi_hidden_dim=int(architecture.get("phi_hidden_dim", 128)),
                 pooled_dim=int(architecture.get("pooled_dim", 128)),
             )
-        elif name == "masked_slot_mlp":
-            encoder = MaskedSlotMLPEncoder(**evidence)
-        else:
-            encoder = GRUEvidenceEncoder(**evidence)
+        if name == "masked_slot_mlp":
+            return MaskedSlotMLPEncoder(**evidence)
+        return GRUEvidenceEncoder(**evidence)
+
+    mode = str(architecture.get("multi_task_mode", "shared_encoder"))
+    if mode == "independent_source_encoders":
+        return IndependentSourceDiagnosticModel(
+            build_encoder,
+            state_dim=common["state_dim"],
+            dropout=common["dropout"],
+        )
+    if mode != "shared_encoder":
+        raise ValueError(
+            "Unknown multi_task_mode; expected shared_encoder or "
+            "independent_source_encoders"
+        )
     return DiagnosticModel(
-        encoder,
+        build_encoder(),
         state_dim=common["state_dim"],
         dropout=common["dropout"],
     )
-

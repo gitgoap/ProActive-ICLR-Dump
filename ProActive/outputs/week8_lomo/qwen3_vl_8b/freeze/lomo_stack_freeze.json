@@ -1,0 +1,40 @@
+{
+  "artifacts": {
+    "clean_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt",
+      "sha256": "42de7d52388a3646e9c9ea91c5c4cfd63f56905c9ff62d3514de8bcb1977630f"
+    },
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0"
+    },
+    "diagnostic_config": {
+      "path": "configs/experiments/diag_bakeoff.yaml",
+      "sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74"
+    },
+    "fold_manifest": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/lomo_fold_manifest.json",
+      "sha256": "26e7a5ffe9ae743cd5c077517f073379721b714233a4a1e696c6d3a60a9f311b"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "a5d7d93563a76912ca0e77359f0b303d25c3c6d710e6a0527f9572c6b4d4a3a0"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "scalar_baseline": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/baselines/baseline_scalar_seed42.best.pt",
+      "sha256": "3231329e9745080fe234b0e60895c1537d1f542be32679f062b480512c5fc768"
+    },
+    "selection_report": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_predeclared_selection.json",
+      "sha256": "5f2ef48fab61da3057435aa18a25f46941fe2e5da072b9f8322a0b88140eae35"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "ccdbe3befe217443cc54df46c2543bc8e08448142834d7291a02b47c1f3bc525",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

@@ -1,0 +1,96 @@
+===== qwen3_vl_8b VOI policy =====
+Timeout: 4500s; bundle remaining: 17535s
+2026-09-11 13:16:56,524 INFO [train_policy] epoch=0 val_loss=0.535829 oracle_agreement=0.7943
+2026-09-11 13:17:24,176 INFO [train_policy] epoch=1 val_loss=0.531258 oracle_agreement=0.7966
+2026-09-11 13:17:57,588 INFO [train_policy] epoch=2 val_loss=0.529833 oracle_agreement=0.7893
+2026-09-11 13:18:27,945 INFO [train_policy] epoch=3 val_loss=0.527042 oracle_agreement=0.7923
+2026-09-11 13:19:02,196 INFO [train_policy] epoch=4 val_loss=0.524554 oracle_agreement=0.7961
+2026-09-11 13:19:36,090 INFO [train_policy] epoch=5 val_loss=0.521508 oracle_agreement=0.8003
+2026-09-11 13:20:08,834 INFO [train_policy] epoch=6 val_loss=0.521207 oracle_agreement=0.7953
+2026-09-11 13:20:43,464 INFO [train_policy] epoch=7 val_loss=0.522525 oracle_agreement=0.8000
+2026-09-11 13:21:17,516 INFO [train_policy] epoch=8 val_loss=0.519700 oracle_agreement=0.8008
+2026-09-11 13:21:51,878 INFO [train_policy] epoch=9 val_loss=0.519228 oracle_agreement=0.8001
+2026-09-11 13:22:26,183 INFO [train_policy] epoch=10 val_loss=0.519888 oracle_agreement=0.8023
+2026-09-11 13:22:55,211 INFO [train_policy] epoch=11 val_loss=0.519260 oracle_agreement=0.7958
+2026-09-11 13:23:28,678 INFO [train_policy] epoch=12 val_loss=0.517105 oracle_agreement=0.8049
+2026-09-11 13:24:02,213 INFO [train_policy] epoch=13 val_loss=0.522493 oracle_agreement=0.7983
+2026-09-11 13:24:35,867 INFO [train_policy] epoch=14 val_loss=0.518585 oracle_agreement=0.7962
+2026-09-11 13:25:08,247 INFO [train_policy] epoch=15 val_loss=0.519717 oracle_agreement=0.7960
+2026-09-11 13:25:42,284 INFO [train_policy] epoch=16 val_loss=0.517459 oracle_agreement=0.7991
+2026-09-11 13:26:15,196 INFO [train_policy] epoch=17 val_loss=0.515770 oracle_agreement=0.8045
+2026-09-11 13:26:48,513 INFO [train_policy] epoch=18 val_loss=0.515629 oracle_agreement=0.8044
+2026-09-11 13:27:20,380 INFO [train_policy] epoch=19 val_loss=0.514158 oracle_agreement=0.8020
+2026-09-11 13:27:53,706 INFO [train_policy] epoch=20 val_loss=0.516966 oracle_agreement=0.7991
+2026-09-11 13:28:27,616 INFO [train_policy] epoch=21 val_loss=0.515290 oracle_agreement=0.8010
+2026-09-11 13:28:56,596 INFO [train_policy] epoch=22 val_loss=0.515723 oracle_agreement=0.8046
+2026-09-11 13:29:29,980 INFO [train_policy] epoch=23 val_loss=0.515958 oracle_agreement=0.7985
+2026-09-11 13:30:02,899 INFO [train_policy] epoch=24 val_loss=0.516304 oracle_agreement=0.7997
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 218174,
+  "validation_rows": 30241,
+  "best_epoch": 19,
+  "metrics": {
+    "total": 0.5141576845720566,
+    "ranking": 0.07012544222638518,
+    "mse": 0.41092185563800837,
+    "action_ce": 0.6826035617512727,
+    "best_action_accuracy": 0.8020237426011044,
+    "stop_prediction_rate": 0.40299593267418404,
+    "row_count": 30241
+  },
+  "checkpoint_path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "a5d7d93563a76912ca0e77359f0b303d25c3c6d710e6a0527f9572c6b4d4a3a0",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "373ef826a22e4c1206c49405800b2c9910ce17a17f7e654ef7a19972033780d6",
+  "diagnostic_checkpoint_sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0",
+  "vector_manifest_sha256": "0109dca021172e495c8920583501a30c326a2a4097152b1323aa8848831142bb",
+  "week5_freeze_sha256": "e62e710c549b2ab49e8a5e111906b490b3eda818dea44576c1b39cfde2a5244f",
+  "limit": null,
+  "report_sha256": "74b3e689b55fea577698a141079689b80bbb7e6dfbf699de9d3eeaf0ffba7f72"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 4500s python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week8_lomo/qwen3_vl_8b/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_lomo/qwen3_vl_8b/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_lomo/qwen3_vl_8b/checkpoints/policy --resume"
+	User time (seconds): 887.86
+	System time (seconds): 8.78
+	Percent of CPU this job got: 102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:33.42
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4303724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8
+	Minor (reclaiming a frame) page faults: 1057611
+	Voluntary context switches: 33194
+	Involuntary context switches: 208683
+	Swaps: 0
+	File system inputs: 2432
+	File system outputs: 34944
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+qwen3_vl_8b VOI policy exit code: 0

@@ -1,0 +1,64 @@
+===== validation latency measurement =====
+Timeout 520s; worker ceiling remaining 520s
+{
+  "format_version": "week8_latency_v1",
+  "is_valid": true,
+  "condition": "proactive",
+  "evaluation_split": "val",
+  "budget": 7,
+  "target_coverage": 0.9,
+  "warmup_examples": 10,
+  "measured_examples": 100,
+  "cuda_synchronized": true,
+  "hardware": {
+    "device": "cuda:0",
+    "name": "NVIDIA RTX A6000",
+    "total_memory_bytes": 51033931776,
+    "compute_capability": "8.6",
+    "torch_version": "2.6.0+cu124",
+    "cuda_version": "12.4",
+    "python_version": "3.11.15"
+  },
+  "controller_latency_ms": {
+    "mean": 1.33452941,
+    "median": 1.3332395,
+    "p95": 1.362741
+  },
+  "controller_timed_components": [
+    "diagnostic_state_encoder",
+    "action_conditioned_voi_head"
+  ],
+  "generation_latency_source": "cached_per_forward_pass_measurements",
+  "generation_latency_note": "Probe/clean times were recorded during the cached MLLM generations; the controller overhead was remeasured on the hardware above.",
+  "normalized_latency_mean": 15.393336592350245,
+  "total_generation_latency_ms_mean": 6643.293032646179,
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "trajectory_sha256": "7872a3f4af0087e67b955511baba5f44e2565466034e92f672b80a7ec21d7d2f",
+  "csv_path": "outputs/week8_ablations/pass_count_vs_latency/latency.csv",
+  "csv_sha256": "ba187d4fef2f5f37ad29b2a02d0d595912330273524f9e42b4d1ea1ecffd5058",
+  "report_sha256": "d7019a7087b09bd0f657938c5cc9868c97cf7825c6e636e271e1b83ca27aa17e"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 520s env CUDA_VISIBLE_DEVICES=1 python scripts/measure_latency.py --config configs/experiments/week8_evaluation.yaml --split val --trajectory_path outputs/week8_ablations/reference/trajectories_validation.jsonl --teacher_path outputs/teacher_core_contract_v1_recovered --freeze_manifest outputs/week7_frozen/main_stack_freeze.json --vector_manifest outputs/week5_data/vectorized_manifest.json --output_dir outputs/week8_ablations/pass_count_vs_latency --condition proactive --budget 7 --target_coverage 0.90 --device cuda:0 --overwrite"
+	User time (seconds): 3.67
+	System time (seconds): 6.02
+	Percent of CPU this job got: 278%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.48
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1236984
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 243547
+	Voluntary context switches: 316
+	Involuntary context switches: 96357
+	Swaps: 0
+	File system inputs: 120
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+validation latency measurement exit code: 0

@@ -1,0 +1,82 @@
+===== shared_vs_independent_heads policy training =====
+Timeout 2700s; worker ceiling remaining 2726s
+2026-09-12 22:07:32,765 INFO [train_policy] epoch=19 val_loss=0.602363 oracle_agreement=0.8053
+2026-09-12 22:08:36,517 INFO [train_policy] epoch=20 val_loss=0.602403 oracle_agreement=0.8022
+2026-09-12 22:09:39,965 INFO [train_policy] epoch=21 val_loss=0.603562 oracle_agreement=0.8058
+2026-09-12 22:10:48,858 INFO [train_policy] epoch=22 val_loss=0.601982 oracle_agreement=0.8034
+2026-09-12 22:11:54,453 INFO [train_policy] epoch=23 val_loss=0.603044 oracle_agreement=0.8027
+2026-09-12 22:13:01,867 INFO [train_policy] epoch=24 val_loss=0.600917 oracle_agreement=0.8050
+2026-09-12 22:14:10,649 INFO [train_policy] epoch=25 val_loss=0.602517 oracle_agreement=0.8047
+2026-09-12 22:15:16,293 INFO [train_policy] epoch=26 val_loss=0.601568 oracle_agreement=0.8074
+2026-09-12 22:16:20,561 INFO [train_policy] epoch=27 val_loss=0.601478 oracle_agreement=0.8051
+2026-09-12 22:17:30,086 INFO [train_policy] epoch=28 val_loss=0.602159 oracle_agreement=0.8030
+2026-09-12 22:18:31,170 INFO [train_policy] epoch=29 val_loss=0.600720 oracle_agreement=0.8039
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_ablations/shared_vs_independent_heads/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "best_epoch": 29,
+  "metrics": {
+    "total": 0.6007201866094211,
+    "ranking": 0.07809145041769101,
+    "mse": 0.8194972334692837,
+    "action_ce": 0.6355088540210556,
+    "best_action_accuracy": 0.8038787758543723,
+    "stop_prediction_rate": 0.4024767289982309,
+    "row_count": 60483
+  },
+  "checkpoint_path": "outputs/week8_ablations/shared_vs_independent_heads/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "8ff56d4f273834dc89e763121e14ef5ddbd090f4847e5a3677cba350464de178",
+  "config_sha256": "9aa3b19f12e0752cfbbaa17800ca45e70d4c6e13bf35b3b32e58594956fe6ea5",
+  "source_manifest_sha256": "ca88a1f5b370edf171a69541c2c252011a0f0196e6e4c6ba3dadd6a437fcb390",
+  "diagnostic_checkpoint_sha256": "5001ef1c30fb93e3b5e251c90a0717322588c92e6c75eb1a38fec201abec6d2e",
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week5_freeze_sha256": "a44391e891a7e0146927a16fb8d5d43e6e3c43eaa65cb5d5a83d1edb032cf44f",
+  "limit": null,
+  "report_sha256": "615c422a76f4a5933e4b8ce2da49695947cae8d88deb9bde3edbcfca9fe40584"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=1 python scripts/train_policy.py --config outputs/week8_data/ablation_configs/shared_vs_independent_heads_policy.yaml --manifest_path outputs/week5_data/vectorized_manifest.json --voi_manifest outputs/week8_ablations/shared_vs_independent_heads/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/shared_vs_independent_heads/freeze/week8_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/shared_vs_independent_heads/policy_checkpoints --resume"
+	User time (seconds): 823.58
+	System time (seconds): 10.01
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:40.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6057532
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 1515222
+	Voluntary context switches: 28701
+	Involuntary context switches: 157811
+	Swaps: 0
+	File system inputs: 3584
+	File system outputs: 13920
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+shared_vs_independent_heads policy training exit code: 0

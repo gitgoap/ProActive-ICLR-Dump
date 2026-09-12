@@ -1,0 +1,59 @@
+2026-09-11 00:03:37,758 INFO [recover_grounding_failures] Model=qwen3_vl_8b shard=0/1 valid_source=1181 retry_scope=19
+2026-09-11 00:03:37,758 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-09-11 00:03:37,758 INFO [recover_grounding_failures] Output=outputs/week8_teacher_recovered/teacher_qwen3_vl_8b_all_shift_shard00-of-01.jsonl
+2026-09-11 00:03:38,040 INFO [recover_grounding_failures] Completed=1181 pending retries=19
+2026-09-11 00:03:43,465 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 28726.20it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-11 00:03:44,679 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+Loading weights:   0%|          | 0/750 [00:00<?, ?it/s]Loading weights:   1%|          | 5/750 [00:00<00:16, 46.15it/s]Loading weights:   2%|▏         | 17/750 [00:00<00:08, 88.13it/s]Loading weights:   5%|▍         | 37/750 [00:00<00:05, 127.45it/s]Loading weights:   7%|▋         | 50/750 [00:00<00:06, 114.55it/s]Loading weights:   9%|▉         | 67/750 [00:00<00:05, 131.01it/s]Loading weights:  11%|█         | 81/750 [00:00<00:05, 131.06it/s]Loading weights:  13%|█▎        | 95/750 [00:00<00:05, 125.85it/s]Loading weights:  15%|█▌        | 114/750 [00:00<00:04, 132.48it/s]Loading weights:  17%|█▋        | 128/750 [00:01<00:04, 134.07it/s]Loading weights:  19%|█▉        | 146/750 [00:01<00:04, 140.80it/s]Loading weights:  21%|██▏       | 161/750 [00:01<00:04, 131.21it/s]Loading weights:  23%|██▎       | 175/750 [00:01<00:04, 133.32it/s]Loading weights:  25%|██▌       | 191/750 [00:01<00:04, 136.78it/s]Loading weights:  27%|██▋       | 205/750 [00:01<00:03, 137.48it/s]Loading weights:  30%|███       | 225/750 [00:01<00:03, 151.20it/s]Loading weights:  33%|███▎      | 245/750 [00:01<00:03, 164.97it/s]Loading weights:  35%|███▍      | 262/750 [00:01<00:03, 147.12it/s]Loading weights:  37%|███▋      | 279/750 [00:02<00:03, 149.48it/s]Loading weights:  39%|███▉      | 295/750 [00:02<00:03, 141.20it/s]Loading weights:  41%|████▏     | 310/750 [00:02<00:03, 139.52it/s]Loading weights:  43%|████▎     | 325/750 [00:02<00:03, 115.43it/s]Loading weights:  45%|████▌     | 340/750 [00:02<00:03, 121.44it/s]Loading weights:  47%|████▋     | 353/750 [00:02<00:03, 123.17it/s]Loading weights:  49%|████▉     | 366/750 [00:02<00:03, 116.71it/s]Loading weights:  51%|█████     | 379/750 [00:02<00:03, 113.77it/s]Loading weights:  52%|█████▏    | 391/750 [00:03<00:03, 104.79it/s]Loading weights:  65%|██████▌   | 491/750 [00:03<00:00, 328.86it/s]Loading weights:  82%|████████▏ | 615/750 [00:03<00:00, 567.65it/s]Loading weights:  97%|█████████▋| 727/750 [00:03<00:00, 709.04it/s]Loading weights: 100%|██████████| 750/750 [00:03<00:00, 217.43it/s]
+2026-09-11 00:03:49,752 INFO [recover_grounding_failures] [1/19] prehal_1000334_a64a893751e22a64_1245
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-09-11 00:03:51,416 INFO [recover_grounding_failures] [2/19] prehal_1000344_4ae70e917e0a50f4_961
+2026-09-11 00:03:52,640 INFO [recover_grounding_failures] [3/19] prehal_1001555_061c1eb6f8dcad52_1126
+2026-09-11 00:03:54,199 INFO [recover_grounding_failures] [4/19] prehal_2000339_52558dc7a0314770_2123
+2026-09-11 00:03:55,832 INFO [recover_grounding_failures] [5/19] prehal_2001538_567254c5c9abbcbe_2581
+2026-09-11 00:03:57,515 INFO [recover_grounding_failures] [6/19] prehal_3000635_fd4d0b2254a3109f_2970
+2026-09-11 00:03:59,007 INFO [recover_grounding_failures] [7/19] illusionbench_10023020_1
+2026-09-11 00:04:09,621 INFO [recover_grounding_failures] [8/19] illusionbench_10023024_1
+2026-09-11 00:04:19,127 INFO [recover_grounding_failures] [9/19] illusionbench_10023029_3
+2026-09-11 00:04:22,701 INFO [recover_grounding_failures] [10/19] illusionbench_10031034_0
+2026-09-11 00:04:24,458 INFO [recover_grounding_failures] [11/19] illusionbench_10032007_4
+2026-09-11 00:04:26,000 INFO [recover_grounding_failures] [12/19] illusionbench_10044003_0
+2026-09-11 00:04:27,058 INFO [recover_grounding_failures] [13/19] illusionbench_10046022_0
+2026-09-11 00:04:28,316 INFO [recover_grounding_failures] [14/19] illusionbench_10065017_4
+2026-09-11 00:04:29,216 INFO [recover_grounding_failures] [15/19] illusionbench_10065032_0
+2026-09-11 00:04:38,022 INFO [recover_grounding_failures] [16/19] illusionbench_10065039_1
+2026-09-11 00:04:46,694 INFO [recover_grounding_failures] [17/19] illusionbench_10081014_2
+2026-09-11 00:04:47,635 INFO [recover_grounding_failures] [18/19] illusionbench_10107029_4
+2026-09-11 00:04:48,985 INFO [recover_grounding_failures] [19/19] illusionbench_10125005_0
+2026-09-11 00:04:50,735 INFO [recover_grounding_failures] Recovery finished in 72.7s; new failures=0 unresolved=0 completed=1200/1200
+	Command being timed: "timeout --signal=TERM --kill-after=5m 1h env CUDA_VISIBLE_DEVICES=3 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python scripts/recover_grounding_failures.py --config configs/experiments/week8_evaluation.yaml --manifest_path outputs/week8_data/manifests/manifest_heldout_shift.jsonl --model qwen3_vl_8b --split shift --input_dir outputs/week8_teacher --output_dir outputs/week8_teacher_recovered --shard_id 0 --num_shards 1 --max_new_tokens 256 --device cuda:0 --resume"
+	User time (seconds): 82.59
+	System time (seconds): 19.27
+	Percent of CPU this job got: 137%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:14.31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 18154416
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 2612999
+	Voluntary context switches: 11904
+	Involuntary context switches: 2667
+	Swaps: 0
+	File system inputs: 88000
+	File system outputs: 17168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

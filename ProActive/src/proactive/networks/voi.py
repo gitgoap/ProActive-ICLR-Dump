@@ -23,7 +23,13 @@ class ActionConditionedVOIHead(nn.Module):
     ) -> None:
         super().__init__()
         self.action_embedding = nn.Embedding(len(PROBE_ORDER), action_embedding_dim)
-        self.budget_embedding = nn.Embedding(max_budget + 1, budget_embedding_dim)
+        if budget_embedding_dim < 0:
+            raise ValueError("budget_embedding_dim must be nonnegative")
+        self.budget_embedding = (
+            nn.Embedding(max_budget + 1, budget_embedding_dim)
+            if budget_embedding_dim > 0
+            else None
+        )
         self.network = nn.Sequential(
             nn.Linear(state_dim + action_embedding_dim + budget_embedding_dim, hidden_dim),
             nn.ReLU(),
@@ -43,9 +49,12 @@ class ActionConditionedVOIHead(nn.Module):
         actions = self.action_embedding(
             torch.arange(len(PROBE_ORDER), device=hidden.device)
         ).unsqueeze(0).expand(batch, -1, -1)
-        budget = self.budget_embedding(remaining_budget.long()).unsqueeze(1).expand(
-            -1, len(PROBE_ORDER), -1
-        )
+        if self.budget_embedding is None:
+            budget = hidden.new_zeros((batch, len(PROBE_ORDER), 0))
+        else:
+            budget = self.budget_embedding(remaining_budget.long()).unsqueeze(1).expand(
+                -1, len(PROBE_ORDER), -1
+            )
         state = hidden.unsqueeze(1).expand(-1, len(PROBE_ORDER), -1)
         non_stop = self.network(torch.cat([state, actions, budget], dim=-1)).squeeze(-1)
         stop = torch.zeros((batch, 1), dtype=non_stop.dtype, device=non_stop.device)

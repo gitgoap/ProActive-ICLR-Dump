@@ -1,0 +1,59 @@
+===== no_confidence_shift diagnostic freeze =====
+Timeout 600s; worker ceiling remaining 7867s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_confidence_shift/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "7e0475e2f462298c40c0626ce5fd77ed65925f332a0b09c3f25b08ce5e111fbb"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_confidence_shift_diag.yaml",
+      "sha256": "9ab87a57416ae24e1466dab6b8d38c1ee9d828219b17f28d64de99f4b252ef2a"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_confidence_shift_policy.yaml",
+      "sha256": "91e88172a663223bb54cda2e3422945b0a3d66f139e83886819fd68c18448e88"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_confidence_shift/freeze/predeclared_selection.json",
+      "sha256": "ffd984632e3da6d38da7c3c8003e01c275cbe3698ace9cfa076c600c7299f88e"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_confidence_shift/vectorized/vectorized_manifest.json",
+      "sha256": "708028514d4b1783fd43627df9b8cb77463104d0ea908468cbbc93e678793533"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "4435ff923fa0bda7babf65e95598869cc2fc06e09efc8d2ad04d5f44b2cd8823",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_diagnostic.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id no_confidence_shift --diag_config outputs/week8_data/ablation_configs/no_confidence_shift_diag.yaml --policy_config outputs/week8_data/ablation_configs/no_confidence_shift_policy.yaml --vector_manifest outputs/week8_ablations/no_confidence_shift/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_confidence_shift/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/no_confidence_shift/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.80
+	System time (seconds): 5.38
+	Percent of CPU this job got: 529%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 429984
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62213
+	Voluntary context switches: 176
+	Involuntary context switches: 75451
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_confidence_shift diagnostic freeze exit code: 0

@@ -1,13 +1,35 @@
-# IllusionBench held-out stress dataset
+# IllusionBench held-out stress dataset (official Hugging Face release, pinned)
 dataset_name: illusionbench
 data_path: "${PROACTIVE_DATA_ROOT}/IllusionBench"
 default_server_path: ""
 
 sample_cap: 600
-normalizer_type: "yes_no"
+# Native rows mix true/false and multiple choice; the strict loader sets the
+# per-row normalizer and does not use this fallback.
+normalizer_type: "mixed_closed_form"
 relation_applicable: false
 
 split_seed: 42
 role: "held_out"
-
 loader: "illusionbench"
+
+official_url: "https://huggingface.co/datasets/MingZhangSJTU/IllusionBench"
+repo_id: "MingZhangSJTU/IllusionBench"
+revision: "8ee046d8acfb968c1a6a564f231396bc0c4039ae"
+# The official Hugging Face card does not declare a license.  Do not infer one.
+license: null
+license_status: "NOT_DECLARED_VERIFY_BEFORE_REDISTRIBUTION"
+annotation_file: "Image_properties.json"
+annotation_sha256: "d68db05f019c09944ebc802c459dcd2d2cf64734c123f6d6092f33a0ea870da3"
+archive_file: "IllusionDataset.zip"
+archive_sha256: "c57bd66fe87fd4b459a84d4523e6cc2723d7b15a9d89d87214d96dae8b88aa57"
+expected_annotation_images: 1041
+expected_archive_images: 1008
+expected_missing_annotation_images: 44
+expected_unreferenced_archive_images: 11
+expected_source_qa_rows: 5577
+
+download_allow_patterns:
+  - "README.md"
+  - "Image_properties.json"
+  - "IllusionDataset.zip"

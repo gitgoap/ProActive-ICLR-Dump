@@ -1,0 +1,125 @@
+metadata:
+  version: week8_shared_vs_independent_heads_v1
+  approval_status: APPROVED
+  approved_on: '2026-08-26'
+  approved_scope: predeclared_week8_ablation:shared_vs_independent_heads
+  description: Mandatory clean/GRU/masked-slot/Deep-Sets diagnostic bake-off.
+  parent_week8_config_sha256: 59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6
+seed: 42
+seeds:
+- 42
+primary_seed: 42
+source_state_schema: partial_state_v1
+source_state_dir: outputs/states_v1
+source_state_manifest: outputs/week4_reports/final/state_manifest.json
+frozen_probe_config: configs/probes/frozen_week3_config.yaml
+splits:
+  train: train
+  selection: val
+  forbidden_during_week5:
+  - cal
+  - test
+probe_order:
+- blank
+- blur
+- crop
+- brightness
+- noise
+- grounding
+- relation
+initial_budgets:
+- 1
+- 2
+- 4
+full_budget: 7
+features:
+  clean:
+  - answer_prob
+  - token_entropy_mean
+  - token_margin_mean
+  - answer_len_tokens
+  probe_numeric:
+  - acquired
+  - applicable
+  - flip
+  - conf_shift
+  - entropy_shift
+  - margin_shift
+  - exact_match
+  - semantic_match
+  - cost
+  - severity
+  fit_normalization_on: train
+  include_dataset_id: false
+  include_model_id: false
+  include_correctness: false
+  include_relation_available_as_feature: false
+architecture:
+  clean_embedding_dim: 64
+  action_embedding_dim: 16
+  budget_embedding_dim: 16
+  probe_token_dim: 64
+  phi_hidden_dim: 128
+  pooled_dim: 128
+  state_dim: 128
+  dropout: 0.1
+  set_transformer: disabled_until_gate
+  multi_task_mode: independent_source_encoders
+loss:
+  source_bits_weight: 1.0
+  six_way_weight: 0.5
+  signature_weight: 0.1
+  class_weights_from: train
+training_proposal:
+  optimizer: adamw
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  batch_size: 512
+  max_epochs: 30
+  early_stopping_patience: 5
+  gradient_clip_norm: 1.0
+  selection_primary: source_bit_macro_f1
+  selection_tiebreak: six_way_macro_f1
+  num_workers: 2
+encoders:
+- clean_mlp
+- gru
+- masked_slot_mlp
+- deep_sets
+gru_conditions:
+- canonical
+- random_permutation
+temporary_aps:
+  fit_split: val
+  budgets:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 7
+  coverages:
+  - 0.9
+  - 0.95
+  final_calibration_split_forbidden: true
+selection_gate:
+  macro_f1_tolerance: 0.01
+  invariant_tolerance: 1.0e-06
+  substantial_drift_ratio: 0.1
+  set_transformer_gap_trigger: 0.015
+raps_gate:
+  average_set_size_trigger: 3.2
+  singleton_rate_trigger: 0.35
+  coverage_near_target_tolerance: 0.03
+  role_if_triggered: appendix_efficiency_ablation
+shortcut_gate:
+  minimum_main_minus_identity_macro_f1: 0.02
+pilot_protocol:
+  limits:
+  - 1
+  - 10
+  - 100
+  one_seed_before_three_seed: true
+outputs:
+  vectorized_dir: outputs/week5_data
+  checkpoint_dir: outputs/week8_ablations/shared_vs_independent_heads/diagnostic_checkpoints
+  report_dir: outputs/week8_ablations/shared_vs_independent_heads/diagnostic_reports

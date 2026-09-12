@@ -389,6 +389,7 @@ def learned_policy_rollout(
     teacher_record: Mapping[str, Any],
     normalizer: Any,
     device: torch.device,
+    force_full_budget: bool = False,
 ) -> Dict[str, Any]:
     current = {key: value.clone() for key, value in initial_model_input.items()}
     max_budget = int(current["max_budget"])
@@ -398,7 +399,15 @@ def learned_policy_rollout(
     while int(current["remaining_budget"]) > 0:
         batched = {key: value.unsqueeze(0).to(device) for key, value in current.items()}
         predicted = policy_model(normalizer.transform(batched))[0].detach().cpu().tolist()
-        action = select_action(predicted, current["action_mask"].tolist())
+        if force_full_budget:
+            legal = torch.nonzero(current["action_mask"][:-1], as_tuple=False).flatten().tolist()
+            if not legal:
+                action = "stop"
+            else:
+                best = max(legal, key=lambda index: (float(predicted[index]), -index))
+                action = PROBE_ORDER[best]
+        else:
+            action = select_action(predicted, current["action_mask"].tolist())
         values_by_step.append(dict(zip(ACTION_ORDER, map(float, predicted))))
         actions.append(action)
         if action == "stop":

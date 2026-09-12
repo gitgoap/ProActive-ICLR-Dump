@@ -1,0 +1,117 @@
+{
+  "base_model_instances": 750,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "calibration_only": true,
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "files": [
+    {
+      "action_counts": {
+        "blank": 452,
+        "blur": 77,
+        "brightness": 13,
+        "grounding": 208,
+        "stop": 750
+      },
+      "budget": 1,
+      "path": "calibration_trajectories_budget1.jsonl",
+      "row_count": 750,
+      "sha256": "4b66f78a61d528b309085e2ee008b850735a814186bb08531ec4e83dd2bc5f6c"
+    },
+    {
+      "action_counts": {
+        "blank": 547,
+        "blur": 591,
+        "brightness": 17,
+        "crop": 8,
+        "grounding": 326,
+        "noise": 2,
+        "relation": 9,
+        "stop": 750
+      },
+      "budget": 2,
+      "path": "calibration_trajectories_budget2.jsonl",
+      "row_count": 750,
+      "sha256": "421f15ed410f29d5de71b20c213e80a1411740ba60ba726a45cabf1c0065a691"
+    },
+    {
+      "action_counts": {
+        "blank": 642,
+        "blur": 713,
+        "brightness": 70,
+        "crop": 75,
+        "grounding": 719,
+        "noise": 15,
+        "relation": 5,
+        "stop": 750
+      },
+      "budget": 3,
+      "path": "calibration_trajectories_budget3.jsonl",
+      "row_count": 750,
+      "sha256": "161d37a19d4bc0673ac960a5c5d267a014b7a4af271cf05695b3a82094856648"
+    },
+    {
+      "action_counts": {
+        "blank": 693,
+        "blur": 729,
+        "brightness": 195,
+        "crop": 408,
+        "grounding": 632,
+        "noise": 45,
+        "relation": 10,
+        "stop": 750
+      },
+      "budget": 4,
+      "path": "calibration_trajectories_budget4.jsonl",
+      "row_count": 750,
+      "sha256": "eb3a14094a8a208ed2729f313d2b04304944b27515297c4492b2f7f671edd1eb"
+    },
+    {
+      "action_counts": {
+        "blank": 733,
+        "blur": 628,
+        "brightness": 594,
+        "crop": 613,
+        "grounding": 746,
+        "noise": 563,
+        "relation": 13,
+        "stop": 750
+      },
+      "budget": 7,
+      "path": "calibration_trajectories_budget7.jsonl",
+      "row_count": 750,
+      "sha256": "345d059652ab0fb775dd4cc178263ba421fcfdb59b5ce700e46f4617140fc078"
+    }
+  ],
+  "format_version": "week7_calibration_trajectories_v1",
+  "freeze_manifest_sha256": "b69821ef5d60c95553dff5f0b80783d10778960110f645c21b886768f1e78119",
+  "limit": null,
+  "manifest_sha256": "a0ef6569bb64c631a32d6680c177ab23a6517335f119edf5777d479857ee45e9",
+  "policy_checkpoint_sha256": "ae3e03feae6096f689ce663683e578143f2fca2321ae4952338f62a9d3fff4e2",
+  "row_count": 3750,
+  "six_way_labels": [
+    "visual",
+    "language-prior",
+    "alignment",
+    "mixed",
+    "unclear",
+    "no-failure"
+  ],
+  "split": "cal",
+  "status": "COMPLETE",
+  "teacher_files": [
+    {
+      "calibration_rows": 750,
+      "path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac"
+    }
+  ],
+  "test_used": false,
+  "vector_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f"
+}

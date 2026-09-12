@@ -180,6 +180,7 @@ def compute_semantic_match(
     embedding_fn: Optional[Callable[[str, str], float]] = None,
     matcher: Optional[SemanticMatcher] = None,
     answer_type: Optional[str] = None,
+    normalizer_type: Optional[str] = None,
 ) -> float:
     """Compute semantic match indicator in {0.0, 1.0} between prediction and target.
 
@@ -195,7 +196,8 @@ def compute_semantic_match(
         1.0 if answers match semantically, 0.0 otherwise.
     """
     dataset_lower = dataset.lower().replace("-", "").replace(" ", "_")
-    normalizer_type = "freeform" if answer_type == HALLUSION_OPEN_ENDED else None
+    if normalizer_type is None and answer_type == HALLUSION_OPEN_ENDED:
+        normalizer_type = "freeform"
     norm_pred = normalize_answer(
         pred_answer, dataset, normalizer_type=normalizer_type
     )
@@ -207,8 +209,12 @@ def compute_semantic_match(
     if norm_pred == norm_target and norm_pred not in ("", "unknown", "invalid"):
         return 1.0
 
-    # 2. Binary / closed-vocab datasets use strict exact match only
-    if dataset_lower in BINARY_DATASETS and answer_type != HALLUSION_OPEN_ENDED:
+    # 2. A per-row closed answer contract is authoritative even when the
+    # dataset is new. Preserve the existing open-ended HallusionBench branch.
+    closed_normalizers = {"yes_no", "true_false", "hallusion_binary", "multiple_choice"}
+    if normalizer_type in closed_normalizers or (
+        dataset_lower in BINARY_DATASETS and answer_type != HALLUSION_OPEN_ENDED
+    ):
         return 0.0
 
     # 3. If either string is empty or invalid, no match

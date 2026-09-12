@@ -37,7 +37,7 @@ from proactive.train.checkpoints import (
 from proactive.train.state_data import FeatureNormalizer
 from proactive.train.vectorized import load_vectorized_split, project_model_input
 from proactive.utils.hashing import hash_dict
-from proactive.utils.io import file_sha256, iter_jsonl, write_json, write_text
+from proactive.utils.io import file_sha256, iter_jsonl, write_json, write_jsonl, write_text
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,7 +56,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--aps_report", required=True)
     parser.add_argument("--freeze_manifest", required=True)
     parser.add_argument("--teacher_path", default="outputs/teacher_core_contract_v1_recovered")
-    parser.add_argument("--phase", choices=("validation", "test"), required=True)
+    parser.add_argument(
+        "--phase",
+        choices=("validation", "test", "shift"),
+        required=True,
+        help=(
+            "shift applies the immutable Week 7 stack and calibration thresholds "
+            "to held-out datasets without fitting anything on the target domain"
+        ),
+    )
     parser.add_argument("--output_dir", required=True)
     parser.add_argument(
         "--budgets",
@@ -186,7 +194,7 @@ def _validate_static_aps(
         or report.get("limit") is not None
     ):
         raise SystemExit(f"Static APS contract mismatch: {path}")
-    if phase == "test" and report.get("freeze_manifest_sha256") != file_sha256(freeze_path):
+    if phase in {"test", "shift"} and report.get("freeze_manifest_sha256") != file_sha256(freeze_path):
         raise SystemExit(f"Final static APS/freeze mismatch: {path}")
     return report
 
@@ -244,8 +252,8 @@ def main() -> None:
     args = parse_args()
     if args.limit is not None and args.limit <= 0:
         raise SystemExit("--limit must be positive")
-    if args.phase == "test" and args.budgets is not None:
-        raise SystemExit("Locked test budgets come only from the frozen APS report")
+    if args.phase in {"test", "shift"} and args.budgets is not None:
+        raise SystemExit("Locked test/shift budgets come only from the frozen APS report")
     config_path = Path(args.config)
     manifest_path = Path(args.manifest_path)
     diagnostic_path = Path(args.diagnostic_checkpoint)
@@ -268,10 +276,12 @@ def main() -> None:
     scalar = load_checkpoint(scalar_path, map_location="cpu")
     distilled = load_checkpoint(distilled_path, map_location="cpu")
     aps = _read_json(aps_path)
-    split = "val" if args.phase == "validation" else "test"
-    freeze = validate_freeze_manifest(freeze_path, require_policy=args.phase == "test")
+    split = {"validation": "val", "test": "test", "shift": "shift"}[args.phase]
+    freeze = validate_freeze_manifest(
+        freeze_path, require_policy=args.phase in {"test", "shift"}
+    )
     week5_freeze = freeze
-    if args.phase == "test":
+    if args.phase in {"test", "shift"}:
         nested = freeze.get("artifacts", {}).get("week5_freeze")
         if not isinstance(nested, Mapping):
             raise SystemExit("Main freeze does not contain the Week 5 freeze contract")
@@ -287,7 +297,11 @@ def main() -> None:
     clean_checkpoint = load_checkpoint(clean_path, map_location="cpu")
     if clean_checkpoint.get("encoder_name") != "clean_mlp":
         raise SystemExit("Frozen clean-only artifact has the wrong encoder")
-    if clean_checkpoint.get("source_manifest_sha256") != file_sha256(manifest_path):
+    training_manifest_sha = policy.get("vector_manifest_sha256")
+    if args.phase == "shift":
+        if clean_checkpoint.get("source_manifest_sha256") != training_manifest_sha:
+            raise SystemExit("Frozen clean-only/training-manifest mismatch")
+    elif clean_checkpoint.get("source_manifest_sha256") != file_sha256(manifest_path):
         raise SystemExit("Clean-only/vectorized-manifest mismatch")
     dataset_schedule_path = Path(args.dataset_schedule_report) if args.dataset_schedule_report else None
     dataset_schedule = None
@@ -313,16 +327,19 @@ def main() -> None:
         eta_loss = float(config["eta_loss"])
         expected_policy_config_sha = file_sha256(config_path)
     else:
-        if args.limit is not None:
+        if args.phase == "test" and args.limit is not None:
             raise SystemExit("Locked test evaluation refuses --limit")
-        if args.skip_oracle_subset:
+        if args.phase == "test" and args.skip_oracle_subset:
             raise SystemExit("Locked test requires the mandatory oracle-best-subset control")
-        if args.skip_oracles:
+        if args.phase == "test" and args.skip_oracles:
             raise SystemExit("Locked test requires both mandatory oracle controls")
-        try:
-            authorize_locked_test(freeze_manifest_path=freeze_path, aps_report=aps)
-        except ValueError as exc:
-            raise SystemExit(f"Test evaluation lock refused: {exc}") from exc
+        if args.phase == "test":
+            try:
+                authorize_locked_test(freeze_manifest_path=freeze_path, aps_report=aps)
+            except ValueError as exc:
+                raise SystemExit(f"Test evaluation lock refused: {exc}") from exc
+        elif aps.get("status") != "FINAL_FROZEN" or aps.get("fit_split") != "cal":
+            raise SystemExit("Shift evaluation requires the final core-calibration APS report")
         if freeze["artifacts"]["diagnostic_checkpoint"]["sha256"] != file_sha256(diagnostic_path):
             raise SystemExit("Test diagnostic checkpoint is not the frozen primary")
         if freeze["artifacts"]["policy_checkpoint"]["sha256"] != file_sha256(policy_path):
@@ -339,26 +356,27 @@ def main() -> None:
         coverage = 0.90
         eta_loss = 0.25
         expected_policy_config_sha = policy["config_sha256"]
-        if dataset_schedule_path is None:
+        if args.phase == "test" and dataset_schedule_path is None:
             raise SystemExit("Locked test requires --dataset_schedule_report selected on validation")
-        dataset_schedule = _signed_report(dataset_schedule_path)
-        if (
-            dataset_schedule.get("format_version") != "dataset_fixed_schedule_v1"
-            or dataset_schedule.get("fit_split") != "val"
-            or dataset_schedule.get("calibration_used") is not False
-            or dataset_schedule.get("test_used") is not False
-        ):
-            raise SystemExit("Dataset-specific schedule is not a validation-only selection artifact")
-        frozen_schedule = freeze["artifacts"].get("dataset_fixed_schedule")
-        if not frozen_schedule or frozen_schedule.get("sha256") != file_sha256(dataset_schedule_path):
-            raise SystemExit("Dataset-specific schedule is not bound into the main freeze")
+        if args.phase == "test":
+            dataset_schedule = _signed_report(dataset_schedule_path)
+            if (
+                dataset_schedule.get("format_version") != "dataset_fixed_schedule_v1"
+                or dataset_schedule.get("fit_split") != "val"
+                or dataset_schedule.get("calibration_used") is not False
+                or dataset_schedule.get("test_used") is not False
+            ):
+                raise SystemExit("Dataset-specific schedule is not a validation-only selection artifact")
+            frozen_schedule = freeze["artifacts"].get("dataset_fixed_schedule")
+            if not frozen_schedule or frozen_schedule.get("sha256") != file_sha256(dataset_schedule_path):
+                raise SystemExit("Dataset-specific schedule is not bound into the main freeze")
     if policy.get("diagnostic_checkpoint_sha256") != file_sha256(diagnostic_path):
         raise SystemExit("Policy/diagnostic checkpoint mismatch")
     if uncertainty.get("stage") != "week6_uncertainty_baseline" or uncertainty.get("target_kind") != "entropy_reduction":
         raise SystemExit("Uncertainty baseline checkpoint contract mismatch")
     if uncertainty.get("diagnostic_checkpoint_sha256") != file_sha256(diagnostic_path):
         raise SystemExit("Uncertainty/diagnostic checkpoint mismatch")
-    if policy.get("vector_manifest_sha256") != file_sha256(manifest_path):
+    if args.phase != "shift" and policy.get("vector_manifest_sha256") != file_sha256(manifest_path):
         raise SystemExit("Policy/vectorized-manifest mismatch")
     if policy.get("config_sha256") != expected_policy_config_sha:
         raise SystemExit("Policy config hash mismatch")
@@ -370,7 +388,8 @@ def main() -> None:
             raise SystemExit(f"{name} baseline checkpoint stage mismatch")
         if checkpoint.get("diagnostic_checkpoint_sha256") != file_sha256(diagnostic_path):
             raise SystemExit(f"{name} baseline/diagnostic checkpoint mismatch")
-        if checkpoint.get("source_manifest_sha256") != file_sha256(manifest_path):
+        expected_source_sha = training_manifest_sha if args.phase == "shift" else file_sha256(manifest_path)
+        if checkpoint.get("source_manifest_sha256") != expected_source_sha:
             raise SystemExit(f"{name} baseline/vectorized-manifest mismatch")
         if args.limit is None and checkpoint.get("scientifically_valid") is not True:
             raise SystemExit(f"Full frontier requires a scientifically valid {name} baseline")
@@ -429,6 +448,8 @@ def main() -> None:
         "limit": args.limit,
         "oracle_subset_included": not args.skip_oracle_subset,
         "oracle_next_included": not args.skip_oracles,
+        "target_domain_calibration_used": False if args.phase == "shift" else None,
+        "coverage_claim": "empirical_shift_only" if args.phase == "shift" else None,
     }
     if dataset_schedule_path is not None:
         expected["dataset_schedule_sha256"] = file_sha256(dataset_schedule_path)
@@ -442,9 +463,13 @@ def main() -> None:
         figure_path = Path(existing.get("figure_path", ""))
         if not figure_path.exists() or file_sha256(figure_path) != existing.get("figure_sha256"):
             raise SystemExit("Frontier figure drift")
-        schedule_path = Path(existing.get("dataset_schedule_path", ""))
-        if not schedule_path.exists() or file_sha256(schedule_path) != existing.get("dataset_schedule_sha256"):
-            raise SystemExit("Dataset-specific schedule drift")
+        if existing.get("dataset_schedule_path"):
+            schedule_path = Path(existing["dataset_schedule_path"])
+            if not schedule_path.exists() or file_sha256(schedule_path) != existing.get("dataset_schedule_sha256"):
+                raise SystemExit("Dataset-specific schedule drift")
+        trajectory_path = Path(existing.get("trajectory_path", ""))
+        if not trajectory_path.exists() or file_sha256(trajectory_path) != existing.get("trajectory_sha256"):
+            raise SystemExit("Frontier trajectory-record drift")
         print(json.dumps(existing, indent=2))
         return
     if (report_path.exists() or csv_path.exists()) and not (args.resume or args.overwrite):
@@ -572,6 +597,17 @@ def main() -> None:
                 device=device,
             )
             grouped[("proactive", budget)].append(_trajectory_record(row, "proactive", budget, learned, threshold))
+            no_stop = learned_policy_rollout(
+                policy_model=learned_model,
+                initial_model_input=initial,
+                teacher_record=source_teacher,
+                normalizer=normalizer,
+                device=device,
+                force_full_budget=True,
+            )
+            grouped[("proactive_no_stop", budget)].append(
+                _trajectory_record(row, "proactive_no_stop", budget, no_stop, threshold)
+            )
             uncertainty_trajectory = learned_policy_rollout(
                 policy_model=uncertainty_model,
                 initial_model_input=initial,
@@ -759,6 +795,24 @@ def main() -> None:
         flags = pareto_flags([summary_rows[index] for index in indices])
         for index, flag in zip(indices, flags):
             summary_rows[index]["pareto_nondominated"] = flag
+    trajectory_path = output_dir / f"trajectories_{args.phase}.jsonl"
+    trajectory_rows = []
+    for (condition, budget, target_coverage), rows in sorted(coverage_grouped.items()):
+        for row in rows:
+            trajectory_rows.append(
+                {
+                    **row,
+                    "target_coverage": target_coverage,
+                    "coverage_claim": (
+                        "empirical_shift_only" if args.phase == "shift" else "core_calibrated"
+                    ),
+                }
+            )
+    write_jsonl(
+        trajectory_rows,
+        trajectory_path,
+        overwrite=(args.overwrite or args.resume) and trajectory_path.exists(),
+    )
     write_text(_csv(summary_rows), csv_path, overwrite=(args.overwrite or args.resume) and csv_path.exists())
     import matplotlib
 
@@ -834,8 +888,14 @@ def main() -> None:
         "summaries": summaries,
         "frontier_rows": summary_rows,
         "teacher_files": teacher_files,
-        "dataset_schedule_path": str(dataset_schedule_output),
-        "dataset_schedule_sha256": file_sha256(dataset_schedule_output),
+        "dataset_schedule_path": (
+            str(dataset_schedule_output) if dataset_schedule_output is not None else None
+        ),
+        "dataset_schedule_sha256": (
+            file_sha256(dataset_schedule_output) if dataset_schedule_output is not None else None
+        ),
+        "trajectory_path": str(trajectory_path),
+        "trajectory_sha256": file_sha256(trajectory_path),
         "csv_path": str(csv_path),
         "csv_sha256": file_sha256(csv_path),
         "figure_path": str(figure_path),

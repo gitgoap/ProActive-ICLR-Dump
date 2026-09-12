@@ -1,0 +1,54 @@
+{
+  "ablation_id": "gru_canonical_vs_permutation_augmentation",
+  "artifacts": [
+    {
+      "path": "outputs/week5_reports/permutation_week5_gru_canonical_seed42.json",
+      "role": "reference",
+      "sha256": "66fa66800b1f22b4321784f93efcf76213e54b9afbfaf44c2b02adcb647bc5bb"
+    },
+    {
+      "path": "outputs/week5_reports/permutation_week5_gru_random_permutation_seed42.json",
+      "role": "comparison",
+      "sha256": "83a51f3805833a37a5b009cc20a48a542308e4a7933b8d7b1f66ae4e38fd331a"
+    }
+  ],
+  "evaluation_split": "val",
+  "format_version": "week8_ablation_evidence_v1",
+  "post_test_tuning_used": false,
+  "report_sha256": "e1b347a1d060d43763be1944f587a13047edefae6e0c481e165f2b1d047f7095",
+  "rows": [
+    {
+      "augmented_max": 0.3777058173995465,
+      "augmented_mean": 0.013428197810394858,
+      "canonical_max": 0.16040160693228245,
+      "canonical_mean": 0.025850859281380603,
+      "canonical_minus_augmented_mean": 0.012422661470985745,
+      "metric": "bit_l1_drift"
+    },
+    {
+      "augmented_max": 0.2522284981725526,
+      "augmented_mean": 0.04246403047746334,
+      "canonical_max": 0.2054513199429648,
+      "canonical_mean": 0.0768359756541459,
+      "canonical_minus_augmented_mean": 0.034371945176682565,
+      "metric": "hidden_relative_l2_drift"
+    },
+    {
+      "augmented_max": 0.053683257733071185,
+      "augmented_mean": 0.0007286613531623699,
+      "canonical_max": 0.01191950291827495,
+      "canonical_mean": 0.0005861230718615937,
+      "canonical_minus_augmented_mean": -0.00014253828130077618,
+      "metric": "js_drift"
+    },
+    {
+      "augmented_max": 1.0,
+      "augmented_mean": 0.07216296296296297,
+      "canonical_max": 1.0,
+      "canonical_mean": 0.08521851851851853,
+      "canonical_minus_augmented_mean": 0.013055555555555556,
+      "metric": "set_disagreement"
+    }
+  ],
+  "status": "COMPLETE"
+}

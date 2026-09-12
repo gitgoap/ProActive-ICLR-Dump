@@ -1,0 +1,50 @@
+{
+  "config_path": "configs/experiments/diag_bakeoff.yaml",
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_shift_shard00-of-01__shift.pt",
+      "row_count": 31860,
+      "sha256": "dff1324489fce20de75341253219ed3cbbc6ed5705db50ea0bb67785728ffdde",
+      "source_path": "outputs/week8_states/states_gemma4_e4b_all_shift_shard00-of-01.jsonl",
+      "source_sha256": "b0a1715d0b13563bb141ae2e45710986e0273ac77cf895a9016fe41c62881edc",
+      "split": "shift"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_shift_shard00-of-01__shift.pt",
+      "row_count": 31827,
+      "sha256": "365b9ad90816a20f09c642a268f5e496f440a0b3c018830dbd2a0a37f188db5a",
+      "source_path": "outputs/week8_states/states_qwen3_vl_8b_all_shift_shard00-of-01.jsonl",
+      "source_sha256": "1e1531766899d3895204a809c3efe88ed87001219a439cacc25b06929ac42e64",
+      "split": "shift"
+    }
+  ],
+  "format_version": "week5_vector_manifest_v1",
+  "group_count": 1048,
+  "limit": null,
+  "manifest_sha256": "2fc0264d4a3002e9c55c02351e9c75d3d020a62c780c3a68d60afd1f063b4881",
+  "seed": 42,
+  "source_files": [
+    {
+      "path": "outputs/week8_states/states_gemma4_e4b_all_shift_shard00-of-01.jsonl",
+      "row_count": 31860,
+      "sha256": "b0a1715d0b13563bb141ae2e45710986e0273ac77cf895a9016fe41c62881edc"
+    },
+    {
+      "path": "outputs/week8_states/states_qwen3_vl_8b_all_shift_shard00-of-01.jsonl",
+      "row_count": 31827,
+      "sha256": "1e1531766899d3895204a809c3efe88ed87001219a439cacc25b06929ac42e64"
+    }
+  ],
+  "source_row_count": 63687,
+  "source_state_manifest_path": "outputs/week8_data/state_manifest_shift.json",
+  "source_state_manifest_sha256": "8b6defb00994eec6e17f89d416d1fb3dc850a6d047d0026d2a1d2fda73c5f521",
+  "split_counts": {
+    "cal": 0,
+    "shift": 63687,
+    "test": 0,
+    "train": 0,
+    "val": 0
+  },
+  "status": "COMPLETE"
+}

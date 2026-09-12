@@ -1,0 +1,59 @@
+===== no_semantic_match diagnostic freeze =====
+Timeout 600s; worker ceiling remaining 7644s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_semantic_match/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "4d1e5714b5624ca8f3d0fdad00dca28c25d67fec5af248e6bc46a3684a24bbee"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_diag.yaml",
+      "sha256": "0faeb26065320ae2308462e480c3ac64e50c1f2937205babb1bb2d24def55f76"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_policy.yaml",
+      "sha256": "0bf6c600963d1002b722e72e84e95315e8554248f5e1ffaad1b79d86c9f090a8"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_semantic_match/freeze/predeclared_selection.json",
+      "sha256": "7a40b7c7da97ec34e5147761ddad8714030987c75ae467c873b419f38bb48d7d"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_semantic_match/vectorized/vectorized_manifest.json",
+      "sha256": "d84201186bcfd7db79585b12d43acc54acf3fded26ebbc13352e7ab620728a08"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "f43cc00d9e7a97cfb44a4cd7897e39cf6b0acc87b0d09d6650729bb0344e58e8",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_diagnostic.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id no_semantic_match --diag_config outputs/week8_data/ablation_configs/no_semantic_match_diag.yaml --policy_config outputs/week8_data/ablation_configs/no_semantic_match_policy.yaml --vector_manifest outputs/week8_ablations/no_semantic_match/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_semantic_match/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/no_semantic_match/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.79
+	System time (seconds): 5.33
+	Percent of CPU this job got: 522%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 428072
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62212
+	Voluntary context switches: 162
+	Involuntary context switches: 140170
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_semantic_match diagnostic freeze exit code: 0

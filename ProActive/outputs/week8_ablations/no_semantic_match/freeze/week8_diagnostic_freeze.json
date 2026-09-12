@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_semantic_match/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "4d1e5714b5624ca8f3d0fdad00dca28c25d67fec5af248e6bc46a3684a24bbee"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_diag.yaml",
+      "sha256": "0faeb26065320ae2308462e480c3ac64e50c1f2937205babb1bb2d24def55f76"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_semantic_match_policy.yaml",
+      "sha256": "0bf6c600963d1002b722e72e84e95315e8554248f5e1ffaad1b79d86c9f090a8"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_semantic_match/freeze/predeclared_selection.json",
+      "sha256": "7a40b7c7da97ec34e5147761ddad8714030987c75ae467c873b419f38bb48d7d"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_semantic_match/vectorized/vectorized_manifest.json",
+      "sha256": "d84201186bcfd7db79585b12d43acc54acf3fded26ebbc13352e7ab620728a08"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "f43cc00d9e7a97cfb44a4cd7897e39cf6b0acc87b0d09d6650729bb0344e58e8",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

@@ -1,0 +1,90 @@
+{
+  "baseline_type": "scalar",
+  "calibration_used": false,
+  "checkpoint_path": "outputs/week8_lomo/gemma4_e4b/checkpoints/baselines/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "40ca44c24a8a56e16239396be3b7880c7144f8041e013649d4300dab24889fdb",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "fit_split": "train",
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "limit": null,
+  "metrics": {
+    "record_count": 702,
+    "signature_mse": 0.08946443138490898,
+    "six_way_balanced_accuracy": 0.30944908020174483,
+    "six_way_confusion_matrix": [
+      [
+        2,
+        3,
+        25,
+        4,
+        0,
+        64
+      ],
+      [
+        5,
+        2,
+        19,
+        2,
+        0,
+        169
+      ],
+      [
+        4,
+        5,
+        17,
+        4,
+        0,
+        9
+      ],
+      [
+        5,
+        5,
+        88,
+        134,
+        0,
+        20
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        0,
+        6
+      ],
+      [
+        1,
+        3,
+        10,
+        1,
+        0,
+        91
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "six_way_macro_f1": 0.2147837433989598,
+    "source_bit_auroc": {
+      "alignment": 0.9280692195931923,
+      "language": 0.6222045948147142,
+      "visual": 0.8525397535483348
+    },
+    "source_bit_hamming_loss": 0.2720797720797721,
+    "source_bit_macro_f1": 0.6988523680801372,
+    "source_bit_micro_f1": 0.6930905195500804
+  },
+  "report_sha256": "bb075dfeb15b3c36bfa9ed96359fc9791a016da544e8441bb2c78b38b3f829aa",
+  "seed": 42,
+  "selection_split": "val",
+  "source_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f",
+  "test_used": false,
+  "week5_freeze_sha256": "7036287a6a76959b5f2956dae4dca5cf0992f98338117b00025f8ba615968b84"
+}

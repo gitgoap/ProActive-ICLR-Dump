@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "clean_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_clean_mlp_standard_seed42.best.pt",
+      "sha256": "42de7d52388a3646e9c9ea91c5c4cfd63f56905c9ff62d3514de8bcb1977630f"
+    },
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0"
+    },
+    "diagnostic_config": {
+      "path": "configs/experiments/diag_bakeoff.yaml",
+      "sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74"
+    },
+    "fold_manifest": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/lomo_fold_manifest.json",
+      "sha256": "26e7a5ffe9ae743cd5c077517f073379721b714233a4a1e696c6d3a60a9f311b"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_predeclared_selection.json",
+      "sha256": "5f2ef48fab61da3057435aa18a25f46941fe2e5da072b9f8322a0b88140eae35"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "ddcc9ed76bc2b7512825c1b822ac501db440cf98815fced6ae954c3df3a1f2af",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

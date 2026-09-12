@@ -1,0 +1,2 @@
+2026-09-11 00:26:15,765 INFO [prepare_week5_data] Validated 2 state files (63687 source rows)
+2026-09-11 00:26:28,091 INFO [prepare_week5_data] Wrote 63687 vectorized states to outputs/week8_vectorized/vectorized_manifest.json

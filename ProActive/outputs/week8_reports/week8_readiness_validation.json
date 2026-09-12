@@ -1,0 +1,10 @@
+{
+  "config_sha256": "f8a69818aa07d2df2a2b13fa38a07e6f59407dda6f7393ef7443943463d8b892",
+  "errors": [],
+  "format_version": "week8_validation_v1",
+  "is_valid": true,
+  "mode": "readiness",
+  "report_sha256": "a3ddf2bcdf9c014479c850a88a00c6d8886ba6369c8aae28fa4bfba9fae6f599",
+  "status": "PILOT VALIDATED",
+  "warnings": []
+}

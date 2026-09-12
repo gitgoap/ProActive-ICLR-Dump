@@ -15,7 +15,13 @@ from torch.utils.data import DataLoader
 
 from proactive.networks.diagnostic import ENCODER_NAMES, build_diagnostic_model
 from proactive.networks.losses import compute_training_weights
-from proactive.train.checkpoints import CHECKPOINT_VERSION, load_checkpoint, save_checkpoint
+from proactive.train.checkpoints import (
+    CHECKPOINT_VERSION,
+    load_checkpoint,
+    save_checkpoint,
+    validate_completed_training_report,
+    validate_early_stopping_history,
+)
 from proactive.train.diagnostic import (
     evaluate_predictions,
     predict,
@@ -123,6 +129,51 @@ def main() -> None:
     }, indent=2))
     if args.dry_run:
         return
+
+    if args.resume:
+        try:
+            completed = validate_completed_training_report(
+                metrics_path,
+                best_path,
+                expected_report={
+                    "encoder_name": args.encoder,
+                    "gru_condition": condition,
+                    "seed": args.seed,
+                    "config_sha256": config_sha,
+                    "source_manifest_sha256": manifest_sha,
+                },
+                expected_checkpoint={
+                    "config_sha256": config_sha,
+                    "source_manifest_sha256": manifest_sha,
+                    "encoder_name": args.encoder,
+                    "gru_condition": condition,
+                    "seed": args.seed,
+                    "limit": args.limit,
+                },
+                expected_version=CHECKPOINT_VERSION,
+            )
+            if completed is not None:
+                if not history_path.is_file():
+                    raise ValueError("Completed diagnostic history is missing")
+                with open(history_path, "r", encoding="utf-8") as handle:
+                    completed_history = json.load(handle)
+                validate_early_stopping_history(
+                    [
+                        (
+                            row["validation"].get("source_bit_macro_f1", -float("inf")),
+                            row["validation"].get("six_way_macro_f1", -float("inf")),
+                        )
+                        for row in completed_history
+                    ],
+                    patience=int(config["training_proposal"]["early_stopping_patience"]),
+                    minimize=False,
+                    reported_best_epoch=int(completed["best_epoch"]),
+                )
+                LOGGER.info("Completed diagnostic run verified; training is unchanged")
+                print(json.dumps(completed, indent=2))
+                return
+        except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
+            raise SystemExit(f"Unsafe diagnostic resume: {exc}") from exc
 
     set_global_seed(args.seed)
     device = torch.device(args.device)

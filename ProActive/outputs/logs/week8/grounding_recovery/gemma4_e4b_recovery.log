@@ -1,0 +1,51 @@
+2026-09-11 00:03:37,722 INFO [recover_grounding_failures] Model=gemma4_e4b shard=0/1 valid_source=1189 retry_scope=11
+2026-09-11 00:03:37,722 INFO [recover_grounding_failures] Recovery policy=concise_describe_then_answer_retry_v1
+2026-09-11 00:03:37,722 INFO [recover_grounding_failures] Output=outputs/week8_teacher_recovered/teacher_gemma4_e4b_all_shift_shard00-of-01.jsonl
+2026-09-11 00:03:38,000 INFO [recover_grounding_failures] Completed=1189 pending retries=11
+2026-09-11 00:03:43,465 INFO [sentence_transformers.base.model] Loading SentenceTransformer model from /home/models/all-MiniLM-L6-v2.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 29082.01it/s]
+[1mBertModel LOAD REPORT[0m from: /home/models/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-11 00:03:44,667 INFO [proactive.features.semantic] Loaded SemanticMatcher from local dir: /home/models/all-MiniLM-L6-v2
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  14%|█▍        | 289/2076 [00:00<00:00, 2882.74it/s]Loading weights:  28%|██▊       | 578/2076 [00:00<00:00, 2567.74it/s]Loading weights:  40%|████      | 838/2076 [00:01<00:03, 359.70it/s] Loading weights:  48%|████▊     | 987/2076 [00:02<00:02, 370.62it/s]Loading weights:  53%|█████▎    | 1093/2076 [00:02<00:02, 390.06it/s]Loading weights:  57%|█████▋    | 1179/2076 [00:02<00:02, 390.65it/s]Loading weights:  60%|██████    | 1249/2076 [00:02<00:02, 393.21it/s]Loading weights:  63%|██████▎   | 1310/2076 [00:02<00:02, 373.55it/s]Loading weights:  66%|██████▌   | 1361/2076 [00:03<00:01, 377.29it/s]Loading weights:  68%|██████▊   | 1409/2076 [00:03<00:01, 368.49it/s]Loading weights:  76%|███████▌  | 1574/2076 [00:03<00:00, 594.74it/s]Loading weights:  86%|████████▌ | 1788/2076 [00:03<00:00, 904.66it/s]Loading weights:  97%|█████████▋| 2014/2076 [00:03<00:00, 1205.67it/s]Loading weights: 100%|██████████| 2076/2076 [00:03<00:00, 584.73it/s] 
+2026-09-11 00:03:51,580 INFO [recover_grounding_failures] [1/11] prehal_1001664_fd9f14d44d478a65_1762
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-09-11 00:03:53,824 INFO [recover_grounding_failures] [2/11] prehal_2000339_52558dc7a0314770_2123
+2026-09-11 00:03:55,223 INFO [recover_grounding_failures] [3/11] prehal_2001774_ae04e5a48406644a_2679
+2026-09-11 00:03:56,865 INFO [recover_grounding_failures] [4/11] illusionbench_10024021_4
+2026-09-11 00:03:58,765 INFO [recover_grounding_failures] [5/11] illusionbench_10031006_3
+2026-09-11 00:04:01,173 INFO [recover_grounding_failures] [6/11] illusionbench_10031008_3
+2026-09-11 00:04:02,981 INFO [recover_grounding_failures] [7/11] illusionbench_10078012_2
+2026-09-11 00:04:04,864 INFO [recover_grounding_failures] [8/11] illusionbench_10080002_3
+2026-09-11 00:04:06,947 INFO [recover_grounding_failures] [9/11] illusionbench_10081014_2
+2026-09-11 00:04:09,054 INFO [recover_grounding_failures] [10/11] illusionbench_10082003_4
+2026-09-11 00:04:10,613 INFO [recover_grounding_failures] [11/11] illusionbench_10107029_4
+2026-09-11 00:04:13,945 INFO [recover_grounding_failures] Recovery finished in 35.9s; new failures=0 unresolved=0 completed=1200/1200
+	Command being timed: "timeout --signal=TERM --kill-after=5m 1h env CUDA_VISIBLE_DEVICES=3 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python scripts/recover_grounding_failures.py --config configs/experiments/week8_evaluation.yaml --manifest_path outputs/week8_data/manifests/manifest_heldout_shift.jsonl --model gemma4_e4b --split shift --input_dir outputs/week8_teacher --output_dir outputs/week8_teacher_recovered --shard_id 0 --num_shards 1 --max_new_tokens 256 --device cuda:0 --resume"
+	User time (seconds): 40.68
+	System time (seconds): 6.09
+	Percent of CPU this job got: 123%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:37.82
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 16750580
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 916894
+	Voluntary context switches: 27480
+	Involuntary context switches: 1961
+	Swaps: 0
+	File system inputs: 113952
+	File system outputs: 17432
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

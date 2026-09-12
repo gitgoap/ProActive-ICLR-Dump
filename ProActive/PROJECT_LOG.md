@@ -1,5 +1,184 @@
 # Project Log
 
+## 2026-09-12 — Week 8 ablation resume incident isolated and repaired in code
+
+- The synchronized run is not complete: the signed `ablations.json` and CSV do
+  not exist. The first launch completed three component ablations, left two
+  policy trainings partial at their declared timeout boundaries, and had not
+  begun three trained ablations or the final reference/evidence stages.
+- The resume stopped correctly at `no_budget_embedding` APS provenance
+  validation. The preceding diagnostic `--resume` had incorrectly continued
+  beyond an already completed early-stopping boundary (epoch 10), overwriting
+  checkpoint SHA-256 `d2a80f3a...005050` with `424b0570...037a`.
+- No test or held-out-shift data were accessed and no tuning decision changed.
+  The original APS, VOI, policy, stack freeze, and frontier remain signed to
+  the pre-incident checkpoint. The overwritten diagnostic checkpoint/report/
+  history and diagnostic freeze are quarantined from scientific use.
+- Diagnostic and policy trainers now treat a hash-valid final report as an
+  immutable completion marker, verify provenance and the first early-stopping
+  boundary, and return without loading a GPU or performing another epoch.
+- `repair_week8_ablation_resume.sh` preserves the overwritten artifacts,
+  rebuilds only the affected diagnostic from epoch zero, accounts its time in
+  the existing eight-hour ledger, and permits continuation only if the
+  checkpoint and diagnostic-freeze hashes exactly reproduce their original
+  downstream bindings. Local syntax compilation passed; server focused and
+  full pytest plus the guarded repair remain required.
+- The synchronized ledger contains 18,185 seconds (`5.0514` GPU-hours), so
+  10,615 seconds (`2.9486` GPU-hours) remain under the existing approval.
+- The owner subsequently authorized running the bounded repair alongside idle
+  resident processes. The repair launcher therefore has an explicit
+  `--allow-shared` mode requiring at least 8 GiB free and at most 10% launch
+  utilization. Exclusive-GPU behavior remains the default, other PIDs are
+  never touched, and exact checkpoint reproduction remains mandatory.
+- The shared repair ran on physical GPU 1 with 9,898 MiB free and 0% launch
+  utilization. Training ended normally at epoch 10 in 227.92 seconds and
+  reproduced every recorded train loss and both validation selection metrics
+  exactly for epochs 0--10. Its raw checkpoint SHA nevertheless differed
+  (`8bbef310...6802a`) because atomic PyTorch saves embed the randomly named
+  temporary ZIP root; raw file-byte equality is therefore not a valid
+  reserialization test. The script correctly stopped without touching the old
+  descendants.
+- Recovery now requires two independent scientific equivalence checks: exact
+  history through the original first stopping boundary and exact regenerated
+  APS thresholds/metrics, ignoring only checkpoint path/hash and report
+  self-hash. If both pass, the stale downstream directories are moved to a
+  recovery archive and rebuilt normally under the new hash. No provenance
+  field is edited in place.
+
+## 2026-09-11 — Week 8 held-out grounding recovery completed
+
+- The owner-approved `concise_describe_then_answer_retry_v1` recovery ran on
+  every ledger-defined held-out failure: 19 Qwen rows and 11 Gemma rows, with
+  no exclusions and no changes to the other accepted observations.
+- Both recovery processes exited zero. The separate recovered cache contains
+  exactly 1,200 Qwen plus 1,200 Gemma rows, and both current failure ledgers
+  contain zero rows. Qwen's 19 retries completed in 72.7 seconds with zero new
+  or unresolved failures; Gemma likewise finished with zero unresolved rows.
+- `outputs/week8_teacher_recovered` is now the authoritative input for the
+  remaining Week 8 label, state, vectorization, frozen-shift, LOMO, ablation,
+  latency, and statistical jobs. The original incomplete cache remains intact
+  for provenance. No held-out result may tune the frozen Week 7 stack.
+- Offline construction then produced all 2,400 labels and 63,687 partial
+  states. The new state index stopped before vectorization because it looked
+  for `split`, `model_id`, and `instance_id` at the JSONL top level, while the
+  canonical `partial_state_v1` schema stores them under `metadata`. The state
+  artifacts themselves are valid. The indexer now reads and validates the
+  canonical metadata block and rejects missing, empty, or unknown identities;
+  the focused server suite passed 10/10 after synchronization. The corrected
+  index now binds all 63,687 states from all 2,400 teachers, and vectorization
+  produced two hash-valid `shift` tensor shards with the same 63,687 rows.
+  Frozen-stack shift evaluation is the next gate.
+- The owner approved the complete frozen held-out shift frontier on physical
+  GPU 3 when at least 2 GiB is free at launch, with a 0.5 GPU-hour ceiling and
+  a hard 30-minute timeout. This approval permits evaluation only: the signed
+  Week 7 stack and APS thresholds remain immutable, and no held-out tuning is
+  authorized.
+
+## 2026-09-10 — IllusionBench blank-probe normalizer fix and Gemma stage validation
+
+- The first Gemma held-out one-row stage selected
+  `illusionbench_10046007_2`, loaded the pinned model successfully, and then
+  failed closed on the first visual probe with `Unknown dataset
+  'illusionbench' ... Provide normalizer_type explicitly`.
+- The frozen manifest row is valid and declares its row-specific
+  `normalizer_type`. IllusionBench deliberately has no dataset-level fallback
+  because the release mixes true/false and multiple-choice questions.
+- Root cause: the special blank-image call in `run_all_probes` omitted
+  `normalizer_type`, even though the field was already propagated to the clean,
+  other visual, grounding, relation, and semantic paths. Since blank runs
+  first, the row failed before later probes could execute.
+- Corrected the blank call to pass the same row-specific normalizer. A
+  dataset-level IllusionBench fallback remains deliberately absent because
+  one release contains two different answer contracts.
+- Added an end-to-end regression in `tests/test_week3_integration.py` that
+  processes an IllusionBench multiple-choice row and requires normalized `B`
+  for the clean answer and every applicable probe.
+- After synchronization, the focused server regression suite passed 10 tests.
+  Resumed Gemma held-out stages then produced 1/1 and 10/10 valid rows with
+  zero unresolved failures. Qwen's matching stages also produced 1/1 and
+  10/10 valid rows with zero unresolved failures. Both staged caches contain
+  valid PRE-HAL and IllusionBench records, so the parser gate is complete and
+  complete held-out inference now awaits explicit compute approval.
+- The owner subsequently approved the complete two-model 1,200-row-per-model
+  held-out cache on two GPUs, with no exclusions, an eight-GPU-hour combined
+  ceiling, and a six-hour timeout per model. The Week 7 stack remains frozen
+  and held-out results are prohibited from post-test tuning.
+- At launch time only physical GPU 3 had sufficient free memory; Gemma occupied
+  about 16.3 GiB while roughly 32 GiB remained free. To reduce wall-clock delay,
+  the owner explicitly authorized Qwen to share that active GPU. This is an
+  execution-placement deviation only: a 24-GiB free-memory launch guard, the
+  existing six-hour timeout, resumable outputs, unchanged frozen settings, and
+  the combined eight-GPU-hour ceiling remain in force.
+- The failed output contains no valid teacher row and one transparent failure
+  ledger entry. It is safe to rerun the same limit-1 stage with `--resume`
+  after syncing the full normalization path; success will clear the ledger.
+
+## 2026-09-10 — Complete held-out traversal and targeted recovery scope
+
+- Both complete 1,200-row model traversals finished, but fail-closed accounting
+  found 1,181 valid plus 19 failed Qwen rows and 1,189 valid plus 11 failed
+  Gemma rows. Both model commands correctly returned exit code 1.
+- Every rejected row is a malformed mandatory grounding response: the model
+  omitted `FINAL_ANSWER` or supplied an out-of-domain terminal value. There
+  were no missing images, CUDA failures, or selective data exclusions.
+- Generalized the already approved concise grounding-recovery implementation
+  to accept `shift` teacher failure ledgers and row-specific normalizers. It
+  copies accepted rows unchanged into a separate cache and retries exactly the
+  30 ledger-defined failures; the original cache remains immutable.
+- Recovery execution remains pending focused server tests, complete dry-run
+  accounting, current GPU inspection, and explicit owner approval for these 30
+  retries.
+- The owner approved `concise_describe_then_answer_retry_v1` for exactly the 19
+  Qwen and 11 Gemma Week 8 ledger rows, with no exclusions. Two concurrent
+  recovery processes may share physical GPU 2 only when at least 40 GiB is free
+  at launch. The output remains separate from the immutable source cache.
+
+## 2026-09-09 — Research progress brief for professor review
+
+- Added `PROACTIVE_RESEARCH_PROGRESS_BRIEF.md`, a standalone account of the
+  research question, completed weekly milestones, measured core results,
+  outstanding evidence, and nine-day submission schedule.
+- Checked the quoted encoder metrics against the signed Week 5 selection and
+  the two-probe and full-budget comparisons against the locked Week 7 frontier.
+  The brief distinguishes validation scores, locked-test results, operational
+  labels, and pending human/transfer evidence.
+- Incorporated the synced verified 600+600 held-out manifest and blank
+  three-person audit packets. Recorded the outstanding server guide-sync
+  issue without treating it as an inference failure.
+- Documentation only; no scientific settings, source code, or outputs changed.
+
+## 2026-09-09 — PRE-HAL cross-directory basename collision
+
+- The authenticated pinned download completed all 6,471 selected repository
+  files, but verification reported 6,346 image identities instead of 6,469.
+- Root cause: the held-out loader used only `Path(image).stem`; PRE-HAL has
+  identical basenames in different release subdirectories, so 123 distinct
+  paths collapsed during inventory and grouping.
+- PRE-HAL image identity now derives from the normalized complete relative
+  path and includes a deterministic SHA-256 prefix in the manifest ID. Rows
+  sharing one true image remain grouped, while equal basenames in different
+  directories remain separate.
+- Added an adversarial regression test with `source_a/1.png` and
+  `source_b/1.png`. Server verification remains pending after synchronization.
+
+
+## 2026-09-08 — Week 8 report integrity and closed-answer regression checks
+
+- Corrected the quick-review finding: PRE-HAL and IllusionBench already occur
+  in `BINARY_DATASETS`, so their existing dataset-based exact-match branch
+  already prevented embedding matching for differing closed answers.
+- Hardened `compute_semantic_match` so an explicit closed normalizer also
+  enforces exact matching for new datasets. Free-form VizWiz and open-ended
+  HallusionBench retain their existing embedding path.
+- Week 8 report loading now rejects missing/non-string/empty/mismatched
+  self-hashes, non-object JSON, and unreadable JSON before consuming a report.
+- Added `tests/test_week8_integrity.py`: eight CPU regression tests passed
+  locally using `python -B -m unittest tests.test_week8_integrity -v`.
+  The initial sandbox run encountered temporary-directory permission errors;
+  the approved unsandboxed rerun passed. No GPU was used. Pytest and full Week 8
+  end-to-end validation remain pending in the server environment.
+
+
 ## 2026-07-24
 - Received server preflight logs from the user.
   - **Server:** `bumblebee.lcs2` (Ubuntu 24.04.1)
@@ -906,3 +1085,93 @@
   Week 8 begins with cached robustness analyses and the already prepared but
   entirely unfilled three-person human audit; PRE-HAL/IllusionBench setup is a
   time-sensitive optional shift decision rather than a Week 7 dependency.
+
+## 2026-09-11 — Frozen shift and latency complete; LOMO loader corrected
+
+- The immutable Week 7 stack completed the held-out PRE-HAL/IllusionBench
+  frontier over 2,400 model instances and budgets `1/2/3/4/7`, without
+  target-domain calibration or post-shift tuning. The report is valid and all
+  trajectory, CSV, and figure hashes match.
+- Fixed-hardware RTX A6000 latency evidence is valid: 10 warm-ups, 100 CUDA-
+  synchronized measurements, 1.355 ms mean controller overhead, and 9,163.951
+  ms mean cached generation latency.
+- The initial Qwen LOMO fold exited before training. The synchronized test log
+  reported only three tests, proving the server ran the older builder. That
+  version read `split` and `model_id` from the top level, while every canonical
+  `partial_state_v1` source stores them under `metadata`; it therefore filtered
+  every state row out. The corrected builder identifies itself as
+  `metadata_identity_v2`, includes observed-identity diagnostics, and adds an
+  end-to-end state-filter regression. Gemma was not attempted and no LOMO
+  result was produced by the failed 12-second CPU job.
+- The corrected server rerun passed seven focused tests and emitted both
+  complete `metadata_identity_v2` fold manifests. Qwen-held-out contains
+  194,249 states and Gemma-held-out 194,374; both use source-only development
+  splits and held-out-only test. An independent local audit recomputed all
+  eight referenced artifact hashes and confirmed both vector-manifest row sums.
+  No fold training or held-out evaluation has occurred yet.
+- The owner approved the complete two-fold LOMO run on 2026-09-11: seed 42,
+  Deep Sets diagnostics, source-only calibration, and held-out-model evaluation
+  on physical GPU 3 or two independently verified free GPUs. The combined
+  ceiling is five GPU-hours. Held-out test evidence may not be used for tuning;
+  this authorization also permits the two predeclared diagnostic/stack freeze
+  manifests required to bind the source-trained checkpoints before evaluation.
+- The complete LOMO bundle then finished in 2,944 seconds (`0.818` aggregate
+  GPU-hours) with all 28 stages exiting zero. Both evaluation reports are valid
+  over 780 held-out test examples; source-only calibration, held-out identity,
+  and every bound artifact/self-hash independently reproduce. At budget 7,
+  ProActive source-bit Macro-F1 exceeds clean-only and scalar controls in both
+  directions: Qwen-held-out `0.9692` versus `0.6826`/`0.6964`, and
+  Gemma-held-out `0.9948` versus `0.7956`/`0.7804`. Corresponding ProActive
+  six-way Macro-F1 is `0.7927` and `0.8063`. Qwen-held-out 0.90-target
+  coverage is `0.9910`, but Gemma-held-out coverage falls to `0.7115` at
+  budget 7. This is recorded as cross-model calibration degradation rather
+  than repaired through held-out tuning. The defensible claim is useful
+  diagnostic transfer, not guaranteed conformal coverage across model shift.
+
+## 2026-09-11 — Mandatory Week 8 ablation bundle authorized
+
+- The owner approved all 15 predeclared Week 8 ablations at seed 42 using
+  validation evidence only, on at most two GPUs verified free at launch.
+- The hard compute boundary is eight combined GPU-hours, with 45 minutes per
+  training job and 20 minutes per frontier. Core test and held-out shift are
+  forbidden for tuning or ablation selection.
+- The execution path is resumable and fail-closed. Feature ablations now share
+  one transform across tensor construction, counterfactual VOI targets, and
+  future rollout observations, preventing removed features from silently
+  re-entering the policy pipeline.
+- Authorization is not completion. The signed 15-item aggregate remains
+  pending until `outputs/week8_reports/ablations.json` is produced and checked.
+- The first launch gate passed 22 focused tests plus 16 subtests, then stopped
+  before any experiment because physical GPU 1 had two compute processes. No
+  ablation GPU time or scientific evidence was consumed. GPUs 2 and 3 were
+  subsequently identified as free for an explicit guarded launch.
+
+## 2026-09-12 — Ablation GPU work complete; aggregation CLI corrected
+
+- The no-budget checkpoint rebuild passed the predeclared exact early-stopping
+  history and APS scientific-equivalence gate. Its stale descendants were
+  archived and its provenance chain was regenerated rather than edited.
+- All remaining mandatory validation-only ablation stages completed. The GPU
+  ledger records 28,275 conservative seconds (`7.8542` GPU-hours), below the
+  approved eight-hour ceiling. It retains two earlier timeout exits and one
+  APS provenance refusal; each was subsequently resolved by a successful
+  resume/rebuild. All 15 evidence JSON files are present; their self-hashes and
+  29 bound source-artifact hashes independently reproduce.
+- The final CPU aggregator reported 14 evidence items missing because the
+  launcher repeated `--evidence`, while the parser retained only the final
+  occurrence. This was a command-interface defect, not missing experimental
+  evidence. The option now accumulates repeated values and a regression test
+  protects the 15-item invocation. Do not rerun training or frontiers; only the
+  focused test and signed CPU aggregation remain.
+
+## 2026-09-12 — Mandatory Week 8 ablation aggregate completed
+
+- The repeated-evidence regression passed (`1 passed, 10 deselected`).
+- CPU-only aggregation accepted all 15 unique mandatory evidence files and
+  wrote 121 comparison rows. The signed report is valid and records no
+  post-test tuning.
+- Independent verification reproduced report SHA-256
+  `ee0a3eb3374fa857b6981a920028cf3dac0d4ea9dd4a2a162de8c3356f7de14b`,
+  CSV SHA-256
+  `7dfcbbb7ae05e5395593c7479e3068c1b43d615d26e36e215867062bca222613`,
+  and every referenced evidence-file hash. W8-04 is COMPLETE.

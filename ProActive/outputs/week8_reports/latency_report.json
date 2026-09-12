@@ -1,0 +1,37 @@
+{
+  "budget": 7,
+  "condition": "proactive",
+  "controller_latency_ms": {
+    "mean": 1.35459685,
+    "median": 1.355638,
+    "p95": 1.390034
+  },
+  "controller_timed_components": [
+    "diagnostic_state_encoder",
+    "action_conditioned_voi_head"
+  ],
+  "csv_path": "outputs/week8_reports/latency.csv",
+  "csv_sha256": "3fe312b3d4893da16332f44030ef3c99e01c387069d6c17da1f5d427ebd4f5db",
+  "cuda_synchronized": true,
+  "format_version": "week8_latency_v1",
+  "freeze_manifest_sha256": "735b6b270eb177c8f0f08250104624d9fa8060f97095fc2f9adacc27873bd2ed",
+  "generation_latency_note": "Probe/clean times were recorded during the cached MLLM generations; the controller overhead was remeasured on the hardware above.",
+  "generation_latency_source": "cached_per_forward_pass_measurements",
+  "hardware": {
+    "compute_capability": "8.6",
+    "cuda_version": "12.4",
+    "device": "cuda:0",
+    "name": "NVIDIA RTX A6000",
+    "python_version": "3.11.15",
+    "torch_version": "2.6.0+cu124",
+    "total_memory_bytes": 51033931776
+  },
+  "is_valid": true,
+  "measured_examples": 100,
+  "normalized_latency_mean": 25.240428814066885,
+  "report_sha256": "bc5850b65b5b7694afef4c0e9a7cf0f6b6fc6ad75a11525a28b4b622b815ca87",
+  "target_coverage": 0.9,
+  "total_generation_latency_ms_mean": 9163.950655460358,
+  "trajectory_sha256": "0f3df65d13d587a0733ebe61920c0ea955bc862cb75bad6437dad33d4c240a85",
+  "warmup_examples": 10
+}

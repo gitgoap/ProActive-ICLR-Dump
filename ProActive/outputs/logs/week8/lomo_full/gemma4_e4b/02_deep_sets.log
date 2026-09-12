@@ -1,0 +1,802 @@
+===== gemma4_e4b Deep Sets diagnostic =====
+Timeout: 720s; bundle remaining: 16614s
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "config_approval": "APPROVED",
+  "pilot": false,
+  "manifest": "outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json",
+  "output": "outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt"
+}
+2026-09-11 13:31:09,114 INFO [train_diag] epoch=0 train_total=0.959118 score=(0.8355582227021531, 0.49652703540453896)
+2026-09-11 13:31:19,371 INFO [train_diag] epoch=1 train_total=0.863500 score=(0.8425907274770045, 0.4582398581892193)
+2026-09-11 13:31:30,174 INFO [train_diag] epoch=2 train_total=0.843174 score=(0.8419501937334356, 0.4826800571137046)
+2026-09-11 13:31:40,574 INFO [train_diag] epoch=3 train_total=0.828970 score=(0.8411677405581238, 0.4972375299473654)
+2026-09-11 13:31:51,109 INFO [train_diag] epoch=4 train_total=0.822573 score=(0.8445045815229041, 0.49785703185061236)
+2026-09-11 13:32:01,864 INFO [train_diag] epoch=5 train_total=0.812525 score=(0.8448998767679377, 0.4949522959534807)
+2026-09-11 13:32:11,978 INFO [train_diag] epoch=6 train_total=0.808910 score=(0.8385511914892206, 0.48629219037432475)
+2026-09-11 13:32:22,120 INFO [train_diag] epoch=7 train_total=0.801775 score=(0.845056672789986, 0.4934614489583657)
+2026-09-11 13:32:32,416 INFO [train_diag] epoch=8 train_total=0.798414 score=(0.8427860511855901, 0.48884952318200564)
+2026-09-11 13:32:43,283 INFO [train_diag] epoch=9 train_total=0.796024 score=(0.8425405597878513, 0.4912288646127321)
+2026-09-11 13:32:53,721 INFO [train_diag] epoch=10 train_total=0.790011 score=(0.8426640315720674, 0.4940384966704734)
+2026-09-11 13:33:04,364 INFO [train_diag] epoch=11 train_total=0.782073 score=(0.8441842369228875, 0.5008532911400234)
+2026-09-11 13:33:14,355 INFO [train_diag] epoch=12 train_total=0.780164 score=(0.841254657242259, 0.48389532558387444)
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+{
+  "format_version": "week5_validation_report_v1",
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "pilot": false,
+  "scientifically_weighted": true,
+  "train_rows": 218255,
+  "validation_rows": 30242,
+  "best_epoch": 7,
+  "metrics": {
+    "is_valid": true,
+    "record_count": 30242,
+    "source_bit_micro_f1": 0.8428033195865791,
+    "source_bit_macro_f1": 0.845056672789986,
+    "source_bit_hamming_loss": 0.13612415404624914,
+    "source_bit_auroc": {
+      "visual": 0.9417623641384852,
+      "language": 0.8970563297001287,
+      "alignment": 0.9805788485426066
+    },
+    "six_way_macro_f1": 0.4934614489583657,
+    "six_way_balanced_accuracy": 0.5524548325777664,
+    "six_way_confusion_matrix": [
+      [
+        2414,
+        130,
+        294,
+        88,
+        647,
+        649
+      ],
+      [
+        44,
+        4297,
+        160,
+        114,
+        1103,
+        2773
+      ],
+      [
+        26,
+        14,
+        1128,
+        125,
+        368,
+        13
+      ],
+      [
+        1198,
+        368,
+        1968,
+        6776,
+        482,
+        72
+      ],
+      [
+        58,
+        51,
+        106,
+        7,
+        134,
+        77
+      ],
+      [
+        174,
+        672,
+        185,
+        1,
+        655,
+        2871
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.04999348685925047
+  },
+  "stratified_metrics": {
+    "pooled": {
+      "record_count": 30242,
+      "source_bit_micro_f1": 0.8428033195865791,
+      "source_bit_macro_f1": 0.845056672789986,
+      "source_bit_hamming_loss": 0.13612415404624914,
+      "source_bit_auroc": {
+        "visual": 0.9417623641384852,
+        "language": 0.8970563297001287,
+        "alignment": 0.9805788485426066
+      },
+      "six_way_macro_f1": 0.4934614489583657,
+      "six_way_balanced_accuracy": 0.5524548325777664,
+      "six_way_confusion_matrix": [
+        [
+          2414,
+          130,
+          294,
+          88,
+          647,
+          649
+        ],
+        [
+          44,
+          4297,
+          160,
+          114,
+          1103,
+          2773
+        ],
+        [
+          26,
+          14,
+          1128,
+          125,
+          368,
+          13
+        ],
+        [
+          1198,
+          368,
+          1968,
+          6776,
+          482,
+          72
+        ],
+        [
+          58,
+          51,
+          106,
+          7,
+          134,
+          77
+        ],
+        [
+          174,
+          672,
+          185,
+          1,
+          655,
+          2871
+        ]
+      ],
+      "six_way_labels": [
+        "visual",
+        "language-prior",
+        "alignment",
+        "mixed",
+        "unclear",
+        "no-failure"
+      ],
+      "signature_mse": 0.04999348685925047
+    },
+    "within_dataset": {
+      "hallusionbench": {
+        "record_count": 3918,
+        "source_bit_micro_f1": 0.7250108178277802,
+        "source_bit_macro_f1": 0.720177285736736,
+        "source_bit_hamming_loss": 0.2162668027905394,
+        "source_bit_auroc": {
+          "visual": 0.8109383203978959,
+          "language": 0.8049888896853272,
+          "alignment": 0.9358305170232409
+        },
+        "six_way_macro_f1": 0.4019305533731723,
+        "six_way_balanced_accuracy": 0.3949901384035777,
+        "six_way_confusion_matrix": [
+          [
+            312,
+            19,
+            7,
+            0,
+            175,
+            126
+          ],
+          [
+            14,
+            494,
+            43,
+            33,
+            466,
+            164
+          ],
+          [
+            9,
+            0,
+            124,
+            70,
+            138,
+            0
+          ],
+          [
+            205,
+            113,
+            64,
+            464,
+            185,
+            4
+          ],
+          [
+            8,
+            39,
+            16,
+            7,
+            57,
+            46
+          ],
+          [
+            26,
+            58,
+            32,
+            0,
+            228,
+            172
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.0627710833052549
+      },
+      "pope": {
+        "record_count": 11540,
+        "source_bit_micro_f1": 0.7916583714911407,
+        "source_bit_macro_f1": 0.7722164682818047,
+        "source_bit_hamming_loss": 0.12091276718659734,
+        "source_bit_auroc": {
+          "visual": 0.9225924464700963,
+          "language": 0.8536247207322752,
+          "alignment": 0.9944924775689886
+        },
+        "six_way_macro_f1": 0.4191151545829632,
+        "six_way_balanced_accuracy": 0.5813221822256335,
+        "six_way_confusion_matrix": [
+          [
+            900,
+            84,
+            7,
+            15,
+            235,
+            481
+          ],
+          [
+            8,
+            3224,
+            7,
+            47,
+            365,
+            2229
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            108,
+            85,
+            19,
+            345,
+            122,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            70,
+            498,
+            15,
+            1,
+            243,
+            2432
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.050871939335409254
+      },
+      "vizwiz": {
+        "record_count": 13487,
+        "source_bit_micro_f1": 0.8938609864507956,
+        "source_bit_macro_f1": 0.8510334049798982,
+        "source_bit_hamming_loss": 0.12216702503645485,
+        "source_bit_auroc": {
+          "visual": 0.9340585329684238,
+          "language": 0.9000977199856388,
+          "alignment": 0.9464461513807175
+        },
+        "six_way_macro_f1": 0.4447357787338139,
+        "six_way_balanced_accuracy": 0.5081359835689018,
+        "six_way_confusion_matrix": [
+          [
+            1084,
+            20,
+            278,
+            73,
+            193,
+            34
+          ],
+          [
+            22,
+            386,
+            110,
+            34,
+            185,
+            221
+          ],
+          [
+            17,
+            14,
+            1004,
+            55,
+            230,
+            13
+          ],
+          [
+            822,
+            148,
+            1867,
+            5824,
+            140,
+            67
+          ],
+          [
+            50,
+            12,
+            90,
+            0,
+            77,
+            31
+          ],
+          [
+            48,
+            56,
+            136,
+            0,
+            32,
+            114
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.04349201141028528
+      },
+      "vsr": {
+        "record_count": 1297,
+        "source_bit_micro_f1": 0.7444486262702296,
+        "source_bit_macro_f1": 0.7542603918264313,
+        "source_bit_hamming_loss": 0.17450526856849138,
+        "source_bit_auroc": {
+          "visual": 0.9125574733520846,
+          "language": 0.8217307655262751,
+          "alignment": 0.9333682481491179
+        },
+        "six_way_macro_f1": 0.3732701284477031,
+        "six_way_balanced_accuracy": 0.49783400979890907,
+        "six_way_confusion_matrix": [
+          [
+            118,
+            7,
+            2,
+            0,
+            44,
+            8
+          ],
+          [
+            0,
+            193,
+            0,
+            0,
+            87,
+            159
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            63,
+            22,
+            18,
+            143,
+            35,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            30,
+            60,
+            2,
+            0,
+            152,
+            153
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.07118503268028034
+      }
+    },
+    "within_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "record_count": 30242,
+        "source_bit_micro_f1": 0.8428033195865791,
+        "source_bit_macro_f1": 0.845056672789986,
+        "source_bit_hamming_loss": 0.13612415404624914,
+        "source_bit_auroc": {
+          "visual": 0.9417623641384852,
+          "language": 0.8970563297001287,
+          "alignment": 0.9805788485426066
+        },
+        "six_way_macro_f1": 0.4934614489583657,
+        "six_way_balanced_accuracy": 0.5524548325777664,
+        "six_way_confusion_matrix": [
+          [
+            2414,
+            130,
+            294,
+            88,
+            647,
+            649
+          ],
+          [
+            44,
+            4297,
+            160,
+            114,
+            1103,
+            2773
+          ],
+          [
+            26,
+            14,
+            1128,
+            125,
+            368,
+            13
+          ],
+          [
+            1198,
+            368,
+            1968,
+            6776,
+            482,
+            72
+          ],
+          [
+            58,
+            51,
+            106,
+            7,
+            134,
+            77
+          ],
+          [
+            174,
+            672,
+            185,
+            1,
+            655,
+            2871
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.04999348685925047
+      }
+    },
+    "within_budget": {
+      "1": {
+        "record_count": 4922,
+        "source_bit_micro_f1": 0.799415474542378,
+        "source_bit_macro_f1": 0.8037841837013556,
+        "source_bit_hamming_loss": 0.1766219693891372,
+        "source_bit_auroc": {
+          "visual": 0.9086196059316571,
+          "language": 0.8219992416786135,
+          "alignment": 0.9697321855647216
+        },
+        "six_way_macro_f1": 0.3952405020255963,
+        "six_way_balanced_accuracy": 0.4633060034534746,
+        "six_way_confusion_matrix": [
+          [
+            262,
+            31,
+            76,
+            17,
+            162,
+            139
+          ],
+          [
+            7,
+            387,
+            29,
+            21,
+            251,
+            686
+          ],
+          [
+            4,
+            1,
+            151,
+            27,
+            86,
+            4
+          ],
+          [
+            184,
+            45,
+            407,
+            966,
+            145,
+            20
+          ],
+          [
+            11,
+            5,
+            16,
+            2,
+            25,
+            11
+          ],
+          [
+            21,
+            77,
+            33,
+            0,
+            121,
+            492
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.06310290595173808
+      },
+      "2": {
+        "record_count": 8766,
+        "source_bit_micro_f1": 0.8257833638823426,
+        "source_bit_macro_f1": 0.8287245367699058,
+        "source_bit_hamming_loss": 0.15179861586432428,
+        "source_bit_auroc": {
+          "visual": 0.9272475364961601,
+          "language": 0.8742774576681464,
+          "alignment": 0.9769981181142907
+        },
+        "six_way_macro_f1": 0.45604896192851124,
+        "six_way_balanced_accuracy": 0.5167401930793882,
+        "six_way_confusion_matrix": [
+          [
+            619,
+            44,
+            99,
+            27,
+            221,
+            212
+          ],
+          [
+            15,
+            1071,
+            53,
+            37,
+            352,
+            936
+          ],
+          [
+            11,
+            4,
+            314,
+            41,
+            113,
+            4
+          ],
+          [
+            357,
+            118,
+            665,
+            1833,
+            153,
+            24
+          ],
+          [
+            18,
+            16,
+            34,
+            2,
+            38,
+            18
+          ],
+          [
+            57,
+            188,
+            55,
+            1,
+            185,
+            831
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.05455983972962945
+      },
+      "4": {
+        "record_count": 16554,
+        "source_bit_micro_f1": 0.8651753892327894,
+        "source_bit_macro_f1": 0.8665277828189044,
+        "source_bit_hamming_loss": 0.11578269099109983,
+        "source_bit_auroc": {
+          "visual": 0.9565342986056309,
+          "language": 0.9247552101481497,
+          "alignment": 0.9849786932806912
+        },
+        "six_way_macro_f1": 0.5408112324905568,
+        "six_way_balanced_accuracy": 0.5979140602884737,
+        "six_way_confusion_matrix": [
+          [
+            1533,
+            55,
+            119,
+            44,
+            264,
+            298
+          ],
+          [
+            22,
+            2839,
+            78,
+            56,
+            500,
+            1151
+          ],
+          [
+            11,
+            9,
+            663,
+            57,
+            169,
+            5
+          ],
+          [
+            657,
+            205,
+            896,
+            3977,
+            184,
+            28
+          ],
+          [
+            29,
+            30,
+            56,
+            3,
+            71,
+            48
+          ],
+          [
+            96,
+            407,
+            97,
+            0,
+            349,
+            1548
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.04367759885423862
+      }
+    }
+  },
+  "config_sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74",
+  "source_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f",
+  "checkpoint_path": "outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "report_sha256": "6d44c7e0ac5e854be3472709a260995f6fceee9137746e049d2e55954a12f42c"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 720s python scripts/train_diag.py --config configs/experiments/diag_bakeoff.yaml --manifest_path outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json --encoder deep_sets --seed 42 --device cuda:0 --output_dir outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic --resume"
+	User time (seconds): 332.15
+	System time (seconds): 53.41
+	Percent of CPU this job got: 271%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:22.17
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1510488
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3042842
+	Voluntary context switches: 2314117
+	Involuntary context switches: 83867
+	Swaps: 0
+	File system inputs: 72
+	File system outputs: 57168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b Deep Sets diagnostic exit code: 0

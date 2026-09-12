@@ -47,7 +47,7 @@ logging.basicConfig(
 logger = logging.getLogger("run_teacher")
 
 IMMUTABLE_REVISION_RE = re.compile(r"^[0-9a-fA-F]{40}$")
-VALID_SPLITS = {"train", "val", "cal", "test"}
+VALID_SPLITS = {"train", "val", "cal", "test", "shift"}
 FAILURE_LEDGER_SCHEMA_VERSION = 1
 
 
@@ -292,7 +292,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--model_config", help="Explicit model YAML path")
     parser.add_argument("--dataset", default="all", help="Dataset filter or 'all'")
     parser.add_argument(
-        "--split", choices=["all", "train", "val", "cal", "test"], default="all"
+        "--split", choices=["all", "train", "val", "cal", "test", "shift"], default="all"
     )
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default="cuda:0")
@@ -394,7 +394,7 @@ def main() -> None:
     if manifest_errors:
         raise SystemExit(f"Manifest validation failed: {manifest_errors[:5]}")
     if any(row.get("split") not in VALID_SPLITS for row in records):
-        raise SystemExit("Every manifest row must have a train/val/cal/test split")
+        raise SystemExit("Every manifest row must have a train/val/cal/test/shift split")
     if args.dataset != "all":
         records = [row for row in records if row.get("dataset") == args.dataset]
     if args.split != "all":

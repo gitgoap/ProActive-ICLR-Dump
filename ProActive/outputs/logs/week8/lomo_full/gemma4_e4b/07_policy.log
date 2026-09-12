@@ -1,0 +1,94 @@
+===== gemma4_e4b VOI policy =====
+Timeout: 4500s; bundle remaining: 16104s
+2026-09-11 13:40:49,700 INFO [train_policy] epoch=0 val_loss=0.658623 oracle_agreement=0.7973
+2026-09-11 13:41:23,879 INFO [train_policy] epoch=1 val_loss=0.651708 oracle_agreement=0.8016
+2026-09-11 13:41:56,743 INFO [train_policy] epoch=2 val_loss=0.646321 oracle_agreement=0.8031
+2026-09-11 13:42:29,721 INFO [train_policy] epoch=3 val_loss=0.646853 oracle_agreement=0.8012
+2026-09-11 13:43:02,564 INFO [train_policy] epoch=4 val_loss=0.644886 oracle_agreement=0.7997
+2026-09-11 13:43:36,714 INFO [train_policy] epoch=5 val_loss=0.643231 oracle_agreement=0.8033
+2026-09-11 13:44:11,065 INFO [train_policy] epoch=6 val_loss=0.645256 oracle_agreement=0.8011
+2026-09-11 13:44:44,474 INFO [train_policy] epoch=7 val_loss=0.641011 oracle_agreement=0.8037
+2026-09-11 13:45:16,770 INFO [train_policy] epoch=8 val_loss=0.641327 oracle_agreement=0.8030
+2026-09-11 13:45:49,929 INFO [train_policy] epoch=9 val_loss=0.641251 oracle_agreement=0.8045
+2026-09-11 13:46:24,139 INFO [train_policy] epoch=10 val_loss=0.640546 oracle_agreement=0.8066
+2026-09-11 13:46:54,616 INFO [train_policy] epoch=11 val_loss=0.638330 oracle_agreement=0.8020
+2026-09-11 13:47:26,771 INFO [train_policy] epoch=12 val_loss=0.639070 oracle_agreement=0.8064
+2026-09-11 13:47:56,549 INFO [train_policy] epoch=13 val_loss=0.637794 oracle_agreement=0.8037
+2026-09-11 13:48:30,365 INFO [train_policy] epoch=14 val_loss=0.641340 oracle_agreement=0.8014
+2026-09-11 13:49:03,691 INFO [train_policy] epoch=15 val_loss=0.638050 oracle_agreement=0.8057
+2026-09-11 13:49:37,570 INFO [train_policy] epoch=16 val_loss=0.636658 oracle_agreement=0.8025
+2026-09-11 13:50:08,431 INFO [train_policy] epoch=17 val_loss=0.635424 oracle_agreement=0.8046
+2026-09-11 13:50:36,880 INFO [train_policy] epoch=18 val_loss=0.638002 oracle_agreement=0.8063
+2026-09-11 13:51:09,629 INFO [train_policy] epoch=19 val_loss=0.639546 oracle_agreement=0.8016
+2026-09-11 13:51:43,615 INFO [train_policy] epoch=20 val_loss=0.636485 oracle_agreement=0.8009
+2026-09-11 13:52:17,676 INFO [train_policy] epoch=21 val_loss=0.639241 oracle_agreement=0.8034
+2026-09-11 13:52:51,124 INFO [train_policy] epoch=22 val_loss=0.638624 oracle_agreement=0.8033
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "limit": null,
+  "seed": 42,
+  "pilot": false,
+  "config_approval": "APPROVED",
+  "output": "outputs/week8_lomo/gemma4_e4b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt"
+}
+{
+  "format_version": "week6_policy_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "cost_multiplier": 0.0,
+  "target_kind": "voi",
+  "train_rows": 218255,
+  "validation_rows": 30242,
+  "best_epoch": 17,
+  "metrics": {
+    "total": 0.6354240665722126,
+    "ranking": 0.08917093875596041,
+    "mse": 0.9019133683495338,
+    "action_ce": 0.6415495737804701,
+    "best_action_accuracy": 0.8046425500958931,
+    "stop_prediction_rate": 0.3988162158587395,
+    "row_count": 30242
+  },
+  "checkpoint_path": "outputs/week8_lomo/gemma4_e4b/checkpoints/policy/policy_deep_sets_standard_lambda0_seed42.best.pt",
+  "checkpoint_sha256": "ae3e03feae6096f689ce663683e578143f2fca2321ae4952338f62a9d3fff4e2",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "5c4d7ba609183482e8f3258a57893d73092a938c60d29139a4996782d174391c",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "vector_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f",
+  "week5_freeze_sha256": "7036287a6a76959b5f2956dae4dca5cf0992f98338117b00025f8ba615968b84",
+  "limit": null,
+  "report_sha256": "2672cee18c7288d8d844d392681eeaa455ff64e85f38151b0107f6dd516fb401"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 4500s python scripts/train_policy.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_lomo/gemma4_e4b/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_lomo/gemma4_e4b/freeze/lomo_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_lomo/gemma4_e4b/checkpoints/policy --resume"
+	User time (seconds): 823.77
+	System time (seconds): 8.91
+	Percent of CPU this job got: 102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:30.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4285432
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1006513
+	Voluntary context switches: 30535
+	Involuntary context switches: 49038
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 31232
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b VOI policy exit code: 0

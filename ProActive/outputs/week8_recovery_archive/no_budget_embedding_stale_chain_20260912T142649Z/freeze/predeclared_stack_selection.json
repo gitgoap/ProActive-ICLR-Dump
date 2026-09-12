@@ -1,0 +1,16 @@
+{
+  "ablation_id": "no_budget_embedding",
+  "calibration_used": false,
+  "clean_checkpoint_sha256": null,
+  "diagnostic_checkpoint_sha256": "d2a80f3af226d0dd16af31c70cbab0caa68078ad21a585d7d05ab4ef4b005050",
+  "format_version": "week8_predeclared_stack_selection_v1",
+  "heldout_shift_used": false,
+  "policy_checkpoint_sha256": "4c0d31df9af5b3374a48e85af05738d3b68ebe4f4e5e22448a238874c6edf321",
+  "report_sha256": "a162a2fe0cad429dae2d3332124fa45d188f24adbcc76ccc52b2b0ce81ca01a0",
+  "seed": 42,
+  "selection_split": "val",
+  "status": "PREDECLARED_NOT_SELECTED_ON_TEST",
+  "test_used": false,
+  "vector_manifest_sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae",
+  "week8_config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+}

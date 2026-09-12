@@ -1,0 +1,63 @@
+===== loss-only VOI stack freeze =====
+Timeout 600s; worker ceiling remaining 811s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "2e680eb8ff7859b0420577f0ffb3b06810e6f863deac25b87d7fb3170bf2fb06"
+    },
+    "diagnostic_config": {
+      "path": "configs/experiments/diag_bakeoff.yaml",
+      "sha256": "0293d3bdbcd91299f7f4ec0e501917e2d40bfcc40b2a33d5591f0ac0330f3d74"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_ablations/loss_only_voi/policy_checkpoints/loss_only_voi_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "8b755a5737d89f8062f375e25640ba2645ac240cbad680f606694f5fcc0aa3b7"
+    },
+    "policy_config": {
+      "path": "configs/experiments/policy_train.yaml",
+      "sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/loss_only_voi/freeze/predeclared_stack_selection.json",
+      "sha256": "71c54b821c361f916b80126f778f32fe2c3ace22f48814f19ac219a1dc55503b"
+    },
+    "vector_manifest": {
+      "path": "outputs/week5_data/vectorized_manifest.json",
+      "sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "7073c0f95327b0386d4bfcc6048c7aff60b1d88a205e5fba0cf8b7b2f5754548",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_ablation_stack.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id loss_only_voi --diag_config configs/experiments/diag_bakeoff.yaml --policy_config configs/experiments/policy_train.yaml --vector_manifest outputs/week5_data/vectorized_manifest.json --diagnostic_checkpoint outputs/week5_checkpoints/diag_deep_sets_standard_seed42.best.pt --policy_checkpoint outputs/week8_ablations/loss_only_voi/policy_checkpoints/loss_only_voi_deep_sets_standard_lambda0_seed42.best.pt --output_dir outputs/week8_ablations/loss_only_voi/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.81
+	System time (seconds): 5.49
+	Percent of CPU this job got: 541%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 430984
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62326
+	Voluntary context switches: 173
+	Involuntary context switches: 38748
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+loss-only VOI stack freeze exit code: 0

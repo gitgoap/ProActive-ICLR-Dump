@@ -1,0 +1,1410 @@
+===== no_answer_flip diagnostic training =====
+Timeout 2700s; worker ceiling remaining 14400s
+{
+  "encoder": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "config_approval": "APPROVED",
+  "pilot": false,
+  "manifest": "outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json",
+  "output": "outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt"
+}
+2026-09-11 17:07:07,460 INFO [train_diag] epoch=0 train_total=0.854109 score=(0.8589824624910247, 0.5034545436548016)
+2026-09-11 17:07:27,346 INFO [train_diag] epoch=1 train_total=0.780774 score=(0.8637233337039248, 0.49410063180265135)
+2026-09-11 17:07:48,636 INFO [train_diag] epoch=2 train_total=0.764619 score=(0.8620194386470406, 0.49325454304753036)
+2026-09-11 17:08:08,628 INFO [train_diag] epoch=3 train_total=0.757104 score=(0.8637236352791895, 0.5136816274994409)
+2026-09-11 17:08:28,277 INFO [train_diag] epoch=4 train_total=0.748715 score=(0.8615860203200797, 0.5012723152470029)
+2026-09-11 17:08:48,294 INFO [train_diag] epoch=5 train_total=0.744610 score=(0.8631155525003961, 0.5178352153039986)
+2026-09-11 17:09:08,485 INFO [train_diag] epoch=6 train_total=0.738747 score=(0.8570104401604585, 0.47146041808223477)
+2026-09-11 17:09:37,724 INFO [train_diag] epoch=7 train_total=0.738331 score=(0.8633222767181259, 0.4960611822016771)
+2026-09-11 17:10:11,715 INFO [train_diag] epoch=8 train_total=0.729767 score=(0.8633861712352023, 0.4791526914643072)
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+/home/aman/miniconda3/envs/proactive-internvl/lib/python3.11/site-packages/sklearn/metrics/_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+{
+  "format_version": "week5_validation_report_v1",
+  "encoder_name": "deep_sets",
+  "gru_condition": "standard",
+  "seed": 42,
+  "pilot": false,
+  "scientifically_weighted": true,
+  "train_rows": 436429,
+  "validation_rows": 60483,
+  "best_epoch": 3,
+  "metrics": {
+    "is_valid": true,
+    "record_count": 60483,
+    "source_bit_micro_f1": 0.8608171344233035,
+    "source_bit_macro_f1": 0.8637236352791895,
+    "source_bit_hamming_loss": 0.13408726418993766,
+    "source_bit_auroc": {
+      "visual": 0.9585941387695505,
+      "language": 0.8808340662164688,
+      "alignment": 0.9858927644480701
+    },
+    "six_way_macro_f1": 0.5136816274994409,
+    "six_way_balanced_accuracy": 0.604650093094285,
+    "six_way_confusion_matrix": [
+      [
+        4148,
+        678,
+        462,
+        158,
+        1924,
+        685
+      ],
+      [
+        70,
+        12139,
+        402,
+        21,
+        2350,
+        1870
+      ],
+      [
+        14,
+        20,
+        1429,
+        68,
+        351,
+        6
+      ],
+      [
+        1768,
+        770,
+        3255,
+        18633,
+        1194,
+        36
+      ],
+      [
+        66,
+        84,
+        106,
+        0,
+        237,
+        26
+      ],
+      [
+        166,
+        2453,
+        279,
+        0,
+        1213,
+        3402
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.05375735503573706
+  },
+  "stratified_metrics": {
+    "pooled": {
+      "record_count": 60483,
+      "source_bit_micro_f1": 0.8608171344233035,
+      "source_bit_macro_f1": 0.8637236352791895,
+      "source_bit_hamming_loss": 0.13408726418993766,
+      "source_bit_auroc": {
+        "visual": 0.9585941387695505,
+        "language": 0.8808340662164688,
+        "alignment": 0.9858927644480701
+      },
+      "six_way_macro_f1": 0.5136816274994409,
+      "six_way_balanced_accuracy": 0.604650093094285,
+      "six_way_confusion_matrix": [
+        [
+          4148,
+          678,
+          462,
+          158,
+          1924,
+          685
+        ],
+        [
+          70,
+          12139,
+          402,
+          21,
+          2350,
+          1870
+        ],
+        [
+          14,
+          20,
+          1429,
+          68,
+          351,
+          6
+        ],
+        [
+          1768,
+          770,
+          3255,
+          18633,
+          1194,
+          36
+        ],
+        [
+          66,
+          84,
+          106,
+          0,
+          237,
+          26
+        ],
+        [
+          166,
+          2453,
+          279,
+          0,
+          1213,
+          3402
+        ]
+      ],
+      "six_way_labels": [
+        "visual",
+        "language-prior",
+        "alignment",
+        "mixed",
+        "unclear",
+        "no-failure"
+      ],
+      "signature_mse": 0.05375735503573706
+    },
+    "within_dataset": {
+      "hallusionbench": {
+        "record_count": 7831,
+        "source_bit_micro_f1": 0.7482193917338186,
+        "source_bit_macro_f1": 0.7267434473703203,
+        "source_bit_hamming_loss": 0.20614651172689738,
+        "source_bit_auroc": {
+          "visual": 0.8502840368146105,
+          "language": 0.8182540615018357,
+          "alignment": 0.9086702411767122
+        },
+        "six_way_macro_f1": 0.36131052168369443,
+        "six_way_balanced_accuracy": 0.4164901793002859,
+        "six_way_confusion_matrix": [
+          [
+            580,
+            106,
+            19,
+            8,
+            476,
+            60
+          ],
+          [
+            30,
+            1323,
+            123,
+            4,
+            1275,
+            83
+          ],
+          [
+            14,
+            0,
+            253,
+            3,
+            198,
+            0
+          ],
+          [
+            340,
+            289,
+            538,
+            637,
+            611,
+            0
+          ],
+          [
+            16,
+            64,
+            10,
+            0,
+            154,
+            15
+          ],
+          [
+            5,
+            162,
+            39,
+            0,
+            294,
+            102
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.06582163430438533
+      },
+      "pope": {
+        "record_count": 23084,
+        "source_bit_micro_f1": 0.8101976031695253,
+        "source_bit_macro_f1": 0.8059524233222435,
+        "source_bit_hamming_loss": 0.11137584474094611,
+        "source_bit_auroc": {
+          "visual": 0.9257389628912448,
+          "language": 0.8644312265737344,
+          "alignment": 0.9911233441309655
+        },
+        "six_way_macro_f1": 0.4288784341304623,
+        "six_way_balanced_accuracy": 0.5672481156960997,
+        "six_way_confusion_matrix": [
+          [
+            1968,
+            527,
+            0,
+            0,
+            759,
+            611
+          ],
+          [
+            22,
+            9832,
+            11,
+            1,
+            677,
+            1595
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            222,
+            192,
+            169,
+            545,
+            227,
+            4
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            73,
+            2080,
+            10,
+            0,
+            419,
+            3140
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.04906152119985694
+      },
+      "vizwiz": {
+        "record_count": 26963,
+        "source_bit_micro_f1": 0.9072002923976609,
+        "source_bit_macro_f1": 0.8618710885375654,
+        "source_bit_hamming_loss": 0.1255547725895981,
+        "source_bit_auroc": {
+          "visual": 0.957971498698165,
+          "language": 0.878983512481749,
+          "alignment": 0.9658143099371139
+        },
+        "six_way_macro_f1": 0.4472164175078625,
+        "six_way_balanced_accuracy": 0.5291412921294604,
+        "six_way_confusion_matrix": [
+          [
+            1340,
+            32,
+            442,
+            150,
+            405,
+            8
+          ],
+          [
+            15,
+            571,
+            171,
+            13,
+            215,
+            99
+          ],
+          [
+            0,
+            20,
+            1176,
+            65,
+            153,
+            6
+          ],
+          [
+            1049,
+            222,
+            2481,
+            17252,
+            229,
+            32
+          ],
+          [
+            50,
+            20,
+            96,
+            0,
+            83,
+            11
+          ],
+          [
+            66,
+            85,
+            220,
+            0,
+            116,
+            70
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.05259899842124934
+      },
+      "vsr": {
+        "record_count": 2605,
+        "source_bit_micro_f1": 0.7054969057153259,
+        "source_bit_macro_f1": 0.6759894533966504,
+        "source_bit_hamming_loss": 0.2070377479206654,
+        "source_bit_auroc": {
+          "visual": 0.8728618231704977,
+          "language": 0.8388307785435791,
+          "alignment": 0.8910792217488278
+        },
+        "six_way_macro_f1": 0.3012503904874724,
+        "six_way_balanced_accuracy": 0.3618477451510515,
+        "six_way_confusion_matrix": [
+          [
+            260,
+            13,
+            1,
+            0,
+            284,
+            6
+          ],
+          [
+            3,
+            413,
+            97,
+            3,
+            183,
+            93
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            157,
+            67,
+            67,
+            199,
+            127,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            22,
+            126,
+            10,
+            0,
+            384,
+            90
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.07109172229527831
+      }
+    },
+    "within_model": {
+      "Qwen/Qwen3-VL-8B-Instruct": {
+        "record_count": 30242,
+        "source_bit_micro_f1": 0.8382449415366409,
+        "source_bit_macro_f1": 0.8411832045576472,
+        "source_bit_hamming_loss": 0.13860414875559376,
+        "source_bit_auroc": {
+          "visual": 0.9405062619620015,
+          "language": 0.8930626623823603,
+          "alignment": 0.9800756987731855
+        },
+        "six_way_macro_f1": 0.49083855988396285,
+        "six_way_balanced_accuracy": 0.5604612152788594,
+        "six_way_confusion_matrix": [
+          [
+            2216,
+            363,
+            286,
+            95,
+            893,
+            369
+          ],
+          [
+            41,
+            5912,
+            131,
+            8,
+            1162,
+            1237
+          ],
+          [
+            7,
+            20,
+            1291,
+            24,
+            326,
+            6
+          ],
+          [
+            1347,
+            425,
+            2565,
+            5897,
+            598,
+            32
+          ],
+          [
+            62,
+            78,
+            105,
+            0,
+            162,
+            26
+          ],
+          [
+            133,
+            1437,
+            182,
+            0,
+            739,
+            2067
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.050395782844614635
+      },
+      "google/gemma-4-E4B-it": {
+        "record_count": 30241,
+        "source_bit_micro_f1": 0.8788955854324422,
+        "source_bit_macro_f1": 0.8818612514172991,
+        "source_bit_hamming_loss": 0.12957023026134498,
+        "source_bit_auroc": {
+          "visual": 0.9728947452481386,
+          "language": 0.8651281200973714,
+          "alignment": 0.9910754920648571
+        },
+        "six_way_macro_f1": 0.5050723581758112,
+        "six_way_balanced_accuracy": 0.6797577729116607,
+        "six_way_confusion_matrix": [
+          [
+            1932,
+            315,
+            176,
+            63,
+            1031,
+            316
+          ],
+          [
+            29,
+            6227,
+            271,
+            13,
+            1188,
+            633
+          ],
+          [
+            7,
+            0,
+            138,
+            44,
+            25,
+            0
+          ],
+          [
+            421,
+            345,
+            690,
+            12736,
+            596,
+            4
+          ],
+          [
+            4,
+            6,
+            1,
+            0,
+            75,
+            0
+          ],
+          [
+            33,
+            1016,
+            97,
+            0,
+            474,
+            1335
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.05711903838628513
+      }
+    },
+    "within_budget": {
+      "1": {
+        "record_count": 9844,
+        "source_bit_micro_f1": 0.8199693208757496,
+        "source_bit_macro_f1": 0.8250534178298133,
+        "source_bit_hamming_loss": 0.1748611675470676,
+        "source_bit_auroc": {
+          "visual": 0.9331118917219546,
+          "language": 0.7941911665689398,
+          "alignment": 0.9783241465127932
+        },
+        "six_way_macro_f1": 0.43535905452649776,
+        "six_way_balanced_accuracy": 0.5193050280425301,
+        "six_way_confusion_matrix": [
+          [
+            441,
+            182,
+            120,
+            24,
+            421,
+            122
+          ],
+          [
+            16,
+            1665,
+            74,
+            3,
+            523,
+            466
+          ],
+          [
+            2,
+            3,
+            209,
+            14,
+            78,
+            2
+          ],
+          [
+            276,
+            103,
+            677,
+            2796,
+            308,
+            12
+          ],
+          [
+            14,
+            13,
+            17,
+            0,
+            36,
+            4
+          ],
+          [
+            29,
+            471,
+            51,
+            0,
+            188,
+            484
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.06839867591874778
+      },
+      "2": {
+        "record_count": 17531,
+        "source_bit_micro_f1": 0.8457437390568747,
+        "source_bit_macro_f1": 0.8493195018504172,
+        "source_bit_hamming_loss": 0.1490882817104938,
+        "source_bit_auroc": {
+          "visual": 0.9476711624238637,
+          "language": 0.8535428064042961,
+          "alignment": 0.9831983628516536
+        },
+        "six_way_macro_f1": 0.48069172350890854,
+        "six_way_balanced_accuracy": 0.571102494163798,
+        "six_way_confusion_matrix": [
+          [
+            1039,
+            231,
+            158,
+            47,
+            622,
+            235
+          ],
+          [
+            26,
+            3268,
+            133,
+            7,
+            768,
+            685
+          ],
+          [
+            6,
+            6,
+            399,
+            21,
+            114,
+            2
+          ],
+          [
+            530,
+            229,
+            1094,
+            5168,
+            407,
+            12
+          ],
+          [
+            21,
+            24,
+            33,
+            0,
+            67,
+            6
+          ],
+          [
+            63,
+            728,
+            89,
+            0,
+            324,
+            969
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.05901531953024616
+      },
+      "4": {
+        "record_count": 33108,
+        "source_bit_micro_f1": 0.8811535192200732,
+        "source_bit_macro_f1": 0.8831664453239215,
+        "source_bit_hamming_loss": 0.11402078047601788,
+        "source_bit_auroc": {
+          "visual": 0.9697433894220906,
+          "language": 0.9137140592900967,
+          "alignment": 0.9890492969166057
+        },
+        "six_way_macro_f1": 0.5551147781516944,
+        "six_way_balanced_accuracy": 0.647794869291234,
+        "six_way_confusion_matrix": [
+          [
+            2668,
+            265,
+            184,
+            87,
+            881,
+            328
+          ],
+          [
+            28,
+            7206,
+            195,
+            11,
+            1059,
+            719
+          ],
+          [
+            6,
+            11,
+            821,
+            33,
+            159,
+            2
+          ],
+          [
+            962,
+            438,
+            1484,
+            10669,
+            479,
+            12
+          ],
+          [
+            31,
+            47,
+            56,
+            0,
+            134,
+            16
+          ],
+          [
+            74,
+            1254,
+            139,
+            0,
+            701,
+            1949
+          ]
+        ],
+        "six_way_labels": [
+          "visual",
+          "language-prior",
+          "alignment",
+          "mixed",
+          "unclear",
+          "no-failure"
+        ],
+        "signature_mse": 0.04661990975587732
+      }
+    }
+  },
+  "config_sha256": "fbdbea18d6f76e344772a5d68ba6d67dca78397a1eec7b153ad2b9c1783357d5",
+  "source_manifest_sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c",
+  "checkpoint_path": "outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415",
+  "report_sha256": "9c14600eda3dbfa0ce852aa957423fd5f6b2517f7a1bf8afc7ad6b75156db914"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=3 python scripts/train_diag.py --config outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml --manifest_path outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --encoder deep_sets --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints --resume"
+	User time (seconds): 472.42
+	System time (seconds): 60.61
+	Percent of CPU this job got: 248%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:34.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1741512
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 3174530
+	Voluntary context switches: 3383185
+	Involuntary context switches: 1092680
+	Swaps: 0
+	File system inputs: 2048
+	File system outputs: 38120
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_answer_flip diagnostic training exit code: 0
+===== no_answer_flip diagnostic freeze =====
+Timeout 600s; worker ceiling remaining 14186s
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml",
+      "sha256": "fbdbea18d6f76e344772a5d68ba6d67dca78397a1eec7b153ad2b9c1783357d5"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml",
+      "sha256": "0bbb0d0629d34962ccc8450e8797674af2950efb8add1211aef133b2975cb9cb"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_answer_flip/freeze/predeclared_selection.json",
+      "sha256": "3e07877097df1d59a7927448874ebadb0b6be8a71e07c4c3ce195f081b60e054"
+    },
+    "vector_manifest": {
+      "path": "outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json",
+      "sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "4117e11862d8d3cb9ab7d778b575a02f9c4e2f5f6f6c8e35743937682373678e",
+  "owner_approved": true,
+  "status": "FROZEN"
+}
+
+	Command being timed: "timeout --signal=TERM --kill-after=5m 600s python scripts/freeze_week8_diagnostic.py --week8_config configs/experiments/week8_evaluation.yaml --ablation_id no_answer_flip --diag_config outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml --policy_config outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml --vector_manifest outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/no_answer_flip/freeze --approve_freeze --overwrite"
+	User time (seconds): 1.79
+	System time (seconds): 5.24
+	Percent of CPU this job got: 517%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 430772
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62256
+	Voluntary context switches: 180
+	Involuntary context switches: 147927
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_answer_flip diagnostic freeze exit code: 0
+===== no_answer_flip temporary validation APS =====
+Timeout 900s; worker ceiling remaining 14185s
+{
+  "format_version": "temporary_validation_aps_v1",
+  "status": "TEMPORARY_NOT_FINAL_CALIBRATION",
+  "fit_split": "val",
+  "calibration_split_used": false,
+  "test_split_used": false,
+  "config_sha256": "fbdbea18d6f76e344772a5d68ba6d67dca78397a1eec7b153ad2b9c1783357d5",
+  "checkpoint_path": "outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+  "checkpoint_sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415",
+  "source_manifest_sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c",
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "coverages": [
+    0.9,
+    0.95
+  ],
+  "limit": null,
+  "thresholds": {
+    "1": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9998605251312256,
+        "calibration_count": 9844,
+        "validation_metrics": {
+          "coverage": 0.900142218610321,
+          "average_set_size": 3.4628199918732223,
+          "singleton_rate": 0.23659081674116214,
+          "empty_set_rate": 0.0514018691588785
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999678134918213,
+        "calibration_count": 9844,
+        "validation_metrics": {
+          "coverage": 0.9502234863876473,
+          "average_set_size": 3.65826899634295,
+          "singleton_rate": 0.21099146688338075,
+          "empty_set_rate": 0.01107273466070703
+        }
+      }
+    },
+    "2": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.999921441078186,
+        "calibration_count": 17531,
+        "validation_metrics": {
+          "coverage": 0.9000627459928128,
+          "average_set_size": 3.2073469853402545,
+          "singleton_rate": 0.2900005704181165,
+          "empty_set_rate": 0.05384747019565341
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999827146530151,
+        "calibration_count": 17531,
+        "validation_metrics": {
+          "coverage": 0.9502024984313502,
+          "average_set_size": 3.4436141691860134,
+          "singleton_rate": 0.2298785009411899,
+          "empty_set_rate": 0.015173121898351492
+        }
+      }
+    },
+    "3": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999438524246216,
+        "calibration_count": 25419,
+        "validation_metrics": {
+          "coverage": 0.9001140878870136,
+          "average_set_size": 3.017270545654825,
+          "singleton_rate": 0.3237342145639089,
+          "empty_set_rate": 0.05783075652071285
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999915957450867,
+        "calibration_count": 25419,
+        "validation_metrics": {
+          "coverage": 0.9500373736181597,
+          "average_set_size": 3.378850466186711,
+          "singleton_rate": 0.17793776309060153,
+          "empty_set_rate": 0.02293559935481333
+        }
+      }
+    },
+    "4": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999537467956543,
+        "calibration_count": 33108,
+        "validation_metrics": {
+          "coverage": 0.9000543675244654,
+          "average_set_size": 2.861544037694817,
+          "singleton_rate": 0.34900930288751963,
+          "empty_set_rate": 0.06228101969312553
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999958276748657,
+        "calibration_count": 33108,
+        "validation_metrics": {
+          "coverage": 0.9502235109339132,
+          "average_set_size": 3.360064032862148,
+          "singleton_rate": 0.1574543916878096,
+          "empty_set_rate": 0.028573154524586204
+        }
+      }
+    },
+    "7": {
+      "0.9": {
+        "alpha": 0.09999999999999998,
+        "target_coverage": 0.9,
+        "threshold": 0.9999594688415527,
+        "calibration_count": 37368,
+        "validation_metrics": {
+          "coverage": 0.9001016912866624,
+          "average_set_size": 2.7753157782059517,
+          "singleton_rate": 0.348399700278313,
+          "empty_set_rate": 0.06473453222008135
+        }
+      },
+      "0.95": {
+        "alpha": 0.050000000000000044,
+        "target_coverage": 0.95,
+        "threshold": 0.9999975040555,
+        "calibration_count": 37368,
+        "validation_metrics": {
+          "coverage": 0.9500374652108756,
+          "average_set_size": 3.3839648897452363,
+          "singleton_rate": 0.14889745236566046,
+          "empty_set_rate": 0.03168486405480625
+        }
+      }
+    }
+  },
+  "report_sha256": "778fbd19028798825eba3a175924f12d6fd0ec48cb05df1fbeb5ff14f1b9fb41"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 900s env CUDA_VISIBLE_DEVICES=3 python scripts/fit_temporary_aps.py --config outputs/week8_data/ablation_configs/no_answer_flip_diag.yaml --manifest_path outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --checkpoint outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --output_dir outputs/week8_ablations/no_answer_flip/temporary_aps --seed 42 --device cuda:0 --resume"
+	User time (seconds): 22.80
+	System time (seconds): 6.28
+	Percent of CPU this job got: 129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:22.54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1103296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 210889
+	Voluntary context switches: 766
+	Involuntary context switches: 143358
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_answer_flip temporary validation APS exit code: 0
+===== no_answer_flip VOI targets =====
+Timeout 2700s; worker ceiling remaining 14162s
+2026-09-11 17:12:18,079 INFO [build_voi_targets] Processed 62636 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl
+2026-09-11 17:13:41,641 INFO [build_voi_targets] Processed 60031 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl
+2026-09-11 17:15:08,171 INFO [build_voi_targets] Processed 61965 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl
+2026-09-11 17:16:35,169 INFO [build_voi_targets] Processed 63783 target rows from outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl
+2026-09-11 17:18:05,931 INFO [build_voi_targets] Processed 63161 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl
+2026-09-11 17:19:34,625 INFO [build_voi_targets] Processed 62611 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl
+2026-09-11 17:20:59,981 INFO [build_voi_targets] Processed 61319 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl
+2026-09-11 17:22:27,430 INFO [build_voi_targets] Processed 61406 target rows from outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl
+{
+  "format_version": "week6_voi_manifest_v1",
+  "config_sha256": "0bbb0d0629d34962ccc8450e8797674af2950efb8add1211aef133b2975cb9cb",
+  "vector_manifest_sha256": "11f806e532c333d081a085b5158c6f143bd353fd5fac88da9ac3be404628e26c",
+  "state_manifest_sha256": "cf0172e7377ff41df4d5d18bbed8bb713aaef5482a3e24a0fd28ec85a542f1a4",
+  "freeze_manifest_sha256": "7433712588c6e0124fe318f41f5b21a766a9b9b50d0bc433646a0d329241a4f6",
+  "checkpoint_sha256": "af6fd7439470582cfa191f5e6ccc4448620945bcd5127f207544b54a05c5d415",
+  "temporary_aps_sha256": "4153b05cce4e3b7e7715d4e1e56cf1a819788dacfb00fee7e902c02ee3d8ecc1",
+  "ablation_id": "no_answer_flip",
+  "limit": null,
+  "status": "COMPLETE",
+  "fit_splits": [
+    "train",
+    "val"
+  ],
+  "calibration_used": false,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    4
+  ],
+  "eta_loss": 0.25,
+  "cost_multipliers": [
+    0.0
+  ],
+  "target_coverage": 0.9,
+  "row_count": 496912,
+  "split_counts": {
+    "train": 436429,
+    "val": 60483
+  },
+  "sign_counts": {
+    "0": {
+      "zero": 496912,
+      "positive": 1001295,
+      "negative": 351684
+    }
+  },
+  "best_action_counts": {
+    "0": {
+      "grounding": 49421,
+      "blank": 138583,
+      "stop": 204794,
+      "noise": 10618,
+      "blur": 53859,
+      "crop": 24912,
+      "brightness": 14249,
+      "relation": 476
+    }
+  },
+  "files": [
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 55084,
+      "sha256": "b9f729edfa8e9efc4ea8f38909176bf276ae44a2eaf09923559fcf029814915a",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard00-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7552,
+      "sha256": "c119d578a990fb0cc47966c7ef7f957a270c423ad9f4f69e7c6712ce009c6c02",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "850469e36436d128523c2fa3d876cbea336ea1ce33408808946ccbc726a458fa",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "46593391081546c310991894934b1436ecfcf1f07956104d59e9e8f4495e1948"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 52258,
+      "sha256": "0fdc18b3ad02f6bdb1ad233bdcd06d5af95c0075d55db48a9a36ab7afd43de24",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard01-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7773,
+      "sha256": "57a435814a854cd9ac27f9d36f691cc981554a10c8647da847c3ae76a2d553f2",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "6756594128f0dc3b056852c3b904aecff933a3ac3f85276227b97625d12cc7fb",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "3c7d3ca72753bd49d8f344dd9e468877e75567132de20a81ce20467d52e096a9"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 54938,
+      "sha256": "f307b1589d613c57e5a111915e22d2f494130e331b51083033bd2ce86c9af561",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard02-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7027,
+      "sha256": "eadc7b495a22412020289d4fb60d1cb26cc7c528d48397520433e9df0fe54d1d",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "1b4cfc03de358f299d1356fe5731a4146ff389d453cf6d726c8c084a9568d90d",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "bff419cdd17e66ccd9eea1a83e248d5f58e16143d662ebd3ba33625b953018ec"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 55894,
+      "sha256": "a4ce94c892576ae85d861fede62e566a88fb15522d04cecaffa85f90ca00dc14",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e"
+    },
+    {
+      "path": "states_gemma4_e4b_all_all_shard03-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7889,
+      "sha256": "d7fd2747fe39efa711ef609718eced1785073a0fa79858521f6d9ac7ef7e2ceb",
+      "source_state_path": "outputs/states_v1/states_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fdfe59204e8bb5797b03713d7ebe69fdd436471b87c697565035953d4d8e0edf",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_gemma4_e4b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "9538751d71a3f8a133be26c2de6d4a4b505b3c780a20ee10a15cd24cd0d8a84e"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 56194,
+      "sha256": "fa040ab8651478598c9e097b08fcf70d64ee1e184ba4c33313ed4ad6f7c239cd",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard00-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 6967,
+      "sha256": "8b931049812adf5c4a4599cb8a1c5d8891054594d98d47b08560f292b746eedb",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_state_sha256": "c24221c1c55402e59d736456dc46a215921c095aab5fb7b54d39d116254cefed",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard00-of-04.jsonl",
+      "source_teacher_sha256": "53cc79788e76a9ddcf8df20812e5ca0ca7aa918dad85d249107f3b46003c5be4"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 54923,
+      "sha256": "641caeaabf6a27828b640be005ab78c45afa23e5e0d2dc6f69bb43009ac6a911",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard01-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7688,
+      "sha256": "53e9aa5dab037d97f2f38d73f77e3913adce8eb2b16c1f4cc0528cf01deba7a4",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_state_sha256": "fa112c4a9dfb642454d2d1f9f210f914ae375ff4e1d2cd68ce14286fc7e8d35a",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard01-of-04.jsonl",
+      "source_teacher_sha256": "5bcb3927cfca370cce87c95df969dde3f24c26cd901c9733b63bb17180717c65"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 53815,
+      "sha256": "0860b9f79f8306db867fad5665af49af871ff0c9d59740ed2e6a3138d9c27d86",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard02-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 7504,
+      "sha256": "f58998dc58df0f82382a7c0665d258429aebce69e78af10f0dbd424886cb3125",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_state_sha256": "a282447d4b679ad0a4a3d3b95065ad9265e1922a77e78c3c9b9b00f418e78de6",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard02-of-04.jsonl",
+      "source_teacher_sha256": "0ae1afb49f1cf578282a62fafea38ffad93bc7d3220929469d31150e2f9c8711"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__train.jsonl",
+      "split": "train",
+      "row_count": 53323,
+      "sha256": "43f11f33f3fd2db64b7b111958b8b96f612fef7560694b52955163dd11c18b29",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f"
+    },
+    {
+      "path": "states_qwen3_vl_8b_all_all_shard03-of-04__val.jsonl",
+      "split": "val",
+      "row_count": 8083,
+      "sha256": "55a8b0c2247bae61917bc825ace0b283c1c9053fbfafc67204ed9c2732f33f81",
+      "source_state_path": "outputs/states_v1/states_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_state_sha256": "fb3947cceb2cbb9a3276546d3ec70b28c9e510d7f50df9eff09bc1f6dd6b0b8f",
+      "source_teacher_path": "outputs/teacher_core_contract_v1_recovered/teacher_qwen3_vl_8b_all_all_shard03-of-04.jsonl",
+      "source_teacher_sha256": "4dc9b657f4ea35d7e74e352157f25aee5bd1b2c9c99e13d33755f8f65d55031f"
+    }
+  ],
+  "manifest_sha256": "237c73db2dcb721e2f12879fe89ed8b701bfbed3809de91603f4cdcdb6c04dc3"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=3 python scripts/build_voi_targets.py --config outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml --manifest_path outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --state_manifest outputs/week4_reports/final/state_manifest.json --checkpoint outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/no_answer_flip/freeze/week8_diagnostic_freeze.json --temporary_aps outputs/week8_ablations/no_answer_flip/temporary_aps/temporary_aps_deep_sets_standard_seed42.json --teacher_path outputs/teacher_core_contract_v1_recovered --output_dir outputs/week8_ablations/no_answer_flip/voi --seed 42 --inference_batch_size 512 --device cuda:0 --resume"
+	User time (seconds): 692.81
+	System time (seconds): 12.63
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 11:48.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3756780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1087046
+	Voluntary context switches: 7733
+	Involuntary context switches: 147711
+	Swaps: 0
+	File system inputs: 184
+	File system outputs: 1875016
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+no_answer_flip VOI targets exit code: 0
+===== no_answer_flip policy training =====
+Timeout 2700s; worker ceiling remaining 13454s
+2026-09-11 17:26:02,839 INFO [train_policy] epoch=0 val_loss=0.613177 oracle_agreement=0.8006
+2026-09-11 17:27:45,257 INFO [train_policy] epoch=1 val_loss=0.608944 oracle_agreement=0.8013
+2026-09-11 17:29:27,026 INFO [train_policy] epoch=2 val_loss=0.604919 oracle_agreement=0.8055
+2026-09-11 17:31:21,877 INFO [train_policy] epoch=3 val_loss=0.603439 oracle_agreement=0.8017
+2026-09-11 17:33:14,004 INFO [train_policy] epoch=4 val_loss=0.603323 oracle_agreement=0.8034
+2026-09-11 17:35:07,157 INFO [train_policy] epoch=5 val_loss=0.601081 oracle_agreement=0.8040
+2026-09-11 17:37:01,559 INFO [train_policy] epoch=6 val_loss=0.601382 oracle_agreement=0.8036
+2026-09-11 17:38:54,500 INFO [train_policy] epoch=7 val_loss=0.600706 oracle_agreement=0.8037
+2026-09-11 17:40:50,738 INFO [train_policy] epoch=8 val_loss=0.599380 oracle_agreement=0.8062
+2026-09-11 17:42:46,132 INFO [train_policy] epoch=9 val_loss=0.601294 oracle_agreement=0.8054
+2026-09-11 17:44:37,154 INFO [train_policy] epoch=10 val_loss=0.599094 oracle_agreement=0.8048
+2026-09-11 17:46:29,337 INFO [train_policy] epoch=11 val_loss=0.598495 oracle_agreement=0.8067
+2026-09-11 17:48:20,256 INFO [train_policy] epoch=12 val_loss=0.599021 oracle_agreement=0.8062
+2026-09-11 17:50:16,579 INFO [train_policy] epoch=13 val_loss=0.598975 oracle_agreement=0.8073
+2026-09-11 17:52:10,046 INFO [train_policy] epoch=14 val_loss=0.597311 oracle_agreement=0.8062
+2026-09-11 17:54:09,060 INFO [train_policy] epoch=15 val_loss=0.598200 oracle_agreement=0.8044
+2026-09-11 17:56:05,168 INFO [train_policy] epoch=16 val_loss=0.599180 oracle_agreement=0.8054
+2026-09-11 17:57:53,614 INFO [train_policy] epoch=17 val_loss=0.596937 oracle_agreement=0.8068
+2026-09-11 17:59:43,492 INFO [train_policy] epoch=18 val_loss=0.600938 oracle_agreement=0.8046
+2026-09-11 18:01:36,738 INFO [train_policy] epoch=19 val_loss=0.596947 oracle_agreement=0.8092
+2026-09-11 18:03:32,369 INFO [train_policy] epoch=20 val_loss=0.596355 oracle_agreement=0.8086
+2026-09-11 18:05:23,746 INFO [train_policy] epoch=21 val_loss=0.597922 oracle_agreement=0.8082
+2026-09-11 18:07:13,102 INFO [train_policy] epoch=22 val_loss=0.598676 oracle_agreement=0.8062
+Command exited with non-zero status 124
+	Command being timed: "timeout --signal=TERM --kill-after=5m 2700s env CUDA_VISIBLE_DEVICES=3 python scripts/train_policy.py --config outputs/week8_data/ablation_configs/no_answer_flip_policy.yaml --manifest_path outputs/week8_ablations/no_answer_flip/vectorized/vectorized_manifest.json --voi_manifest outputs/week8_ablations/no_answer_flip/voi/voi_manifest.json --diagnostic_checkpoint outputs/week8_ablations/no_answer_flip/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_ablations/no_answer_flip/freeze/week8_diagnostic_freeze.json --cost_multiplier 0.0 --target_kind voi --seed 42 --device cuda:0 --output_dir outputs/week8_ablations/no_answer_flip/policy_checkpoints --resume"
+	User time (seconds): 2703.17
+	System time (seconds): 12.66
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 45:00.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6053872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1537862
+	Voluntary context switches: 72746
+	Involuntary context switches: 109093
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 33024
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 124
+no_answer_flip policy training exit code: 124

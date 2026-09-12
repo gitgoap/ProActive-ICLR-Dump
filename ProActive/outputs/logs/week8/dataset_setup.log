@@ -1,0 +1,16 @@
+2026-09-08 17:35:52,564 INFO [setup_heldout_datasets] Preparing prehal at /home/aman/MMUQ/data/PREHAL
+Returning existing local_dir `/home/aman/MMUQ/data/PREHAL` as remote repo cannot be accessed in `snapshot_download` (429 Client Error: Too Many Requests for url: https://huggingface.co/api/datasets/TerryHWong/PRE-HAL/revision/3aac833638f7808dea7eb0145af4d8c6f028714b (Request ID: Root=1-6a9ffa20-286d3225514eb82155d2b4d6;099c46c1-5021-40b9-b3f7-3f3af1cda8d3)
+
+We had to rate limit your IP (103.27.8.46). To continue using our service, create a HF account or login to your existing account, and make sure you pass a HF_TOKEN if you're using the API.).
+2026-09-08 17:35:52,924 WARNING [huggingface_hub._snapshot_download] Returning existing local_dir `/home/aman/MMUQ/data/PREHAL` as remote repo cannot be accessed in `snapshot_download` (429 Client Error: Too Many Requests for url: https://huggingface.co/api/datasets/TerryHWong/PRE-HAL/revision/3aac833638f7808dea7eb0145af4d8c6f028714b (Request ID: Root=1-6a9ffa20-286d3225514eb82155d2b4d6;099c46c1-5021-40b9-b3f7-3f3af1cda8d3)
+
+We had to rate limit your IP (103.27.8.46). To continue using our service, create a HF account or login to your existing account, and make sure you pass a HF_TOKEN if you're using the API.).
+Traceback (most recent call last):
+  File "/home/aman/ProActive/scripts/setup_heldout_datasets.py", line 259, in <module>
+    main()
+  File "/home/aman/ProActive/scripts/setup_heldout_datasets.py", line 212, in main
+    loaded = load_prehal_release(target, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aman/ProActive/src/proactive/data/heldout.py", line 271, in load_prehal_release
+    raise FileNotFoundError(
+FileNotFoundError: PRE-HAL snapshot is incomplete: 6582 referenced images are missing; first=['/mmbench/241.png', '/mmbench/252.png', '/mmbench/253.png', '/mmbench/254.png', '/mmbench/256.png']

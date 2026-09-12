@@ -1,0 +1,36 @@
+{
+  "artifacts": {
+    "diagnostic_checkpoint": {
+      "path": "outputs/week8_ablations/no_budget_embedding/diagnostic_checkpoints/diag_deep_sets_standard_seed42.best.pt",
+      "sha256": "8bbef3101b18826e1ca2c3fec5ee157360ad006497f0c6e957f8169654a6802a"
+    },
+    "diagnostic_config": {
+      "path": "outputs/week8_data/ablation_configs/no_budget_embedding_diag.yaml",
+      "sha256": "db49257f77a2e5e6b39c2ea7ea27f06714d3cb6b6458455ca3e2d3452c9af00b"
+    },
+    "policy_checkpoint": {
+      "path": "outputs/week8_ablations/no_budget_embedding/policy_checkpoints/policy_deep_sets_standard_lambda0_seed42.best.pt",
+      "sha256": "03843526700f87990cf48cdde04dcdbe1206b8b1fe02f3120320e71411917549"
+    },
+    "policy_config": {
+      "path": "outputs/week8_data/ablation_configs/no_budget_embedding_policy.yaml",
+      "sha256": "23ea1ace96a7c7bbcc65edb853575319f0c61a96d457fd25d666861b7f0b6ebc"
+    },
+    "selection_report": {
+      "path": "outputs/week8_ablations/no_budget_embedding/freeze/predeclared_stack_selection.json",
+      "sha256": "251023338f8bedf77f90317ae9d43e1f6e622ccd77b0c526e44aa2c9effb2c70"
+    },
+    "vector_manifest": {
+      "path": "outputs/week5_data/vectorized_manifest.json",
+      "sha256": "1fac2c343e57ca8b6702c4e6a282a7b86a48042a6d133ba84612b5b1c50201ae"
+    },
+    "week8_config": {
+      "path": "configs/experiments/week8_evaluation.yaml",
+      "sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6"
+    }
+  },
+  "format_version": "proactive_stack_freeze_v1",
+  "freeze_sha256": "14cf0de84e174fe89fdf67f3859bacfa9f8a38bcca78f4b62aa069c91d296e03",
+  "owner_approved": true,
+  "status": "FROZEN"
+}

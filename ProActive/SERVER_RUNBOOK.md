@@ -11,6 +11,8 @@ ProActive intentionally uses two server environments:
 | Qwen, Gemma, manifests, labels, states, and validators | existing `(base)` shell | Python 3.13 / Transformers 5.5.4 |
 | InternVL3 only | `proactive-internvl` | Python 3.11 / Transformers 4.37.2 |
 | Weeks 5–7 cached-data tests and small PyTorch networks | `proactive-internvl` | Python 3.11 / PyTorch 2.6.0+cu124 |
+| Week 8 data setup, tests, cached analyses, LOMO/ablation networks | `proactive-internvl` | Python 3.11 / the validated Weeks 5–7 stack |
+| Week 8 Qwen/Gemma held-out teacher generation | existing `(base)` shell | Same pinned runtimes used for the accepted Week 4 cache |
 
 Never run InternVL3 in `(base)`, and never downgrade `(base)`. Environment
 activation is local to each tmux pane, so every pane that runs InternVL must
@@ -20,6 +22,11 @@ Weeks 5–7 reuse `proactive-internvl` only as a validated Python/PyTorch test
 and small-network runtime. Those stages never import or run the InternVL model,
 and they do not alter the accepted Qwen/Gemma teacher cache. Follow
 `WEEK_5_6_7_IMPLEMENTATION_AND_SERVER_PLAN.md` for their gated commands.
+
+The owner-approved Week 8 validation-only ablation bundle is documented in
+`WEEK_8_ABLATION_EXECUTION.md`. Run it in `proactive-internvl`; its launcher
+selects up to two genuinely free GPUs, enforces the cumulative eight-GPU-hour
+ceiling, and never reads core test or held-out shift for tuning.
 
 ## Use and verify the existing base environment
 
@@ -115,3 +122,19 @@ was server-validated on 2026-08-23 with `11` focused adapter tests and all
 `225` repository tests passing. After the InternVL command, `conda deactivate`
 returns to base. Qwen/Gemma commands must continue using their original
 environment.
+
+## Week 8 held-out datasets
+
+Follow `WEEK_8_DATASET_SETUP_AND_EXECUTION.md`. Download PRE-HAL and
+IllusionBench once into `PROACTIVE_DATA_ROOT`; never stream images during GPU
+inference. The setup/verification and annotation-packet stages use no GPU.
+Qwen/Gemma shift generation stays in `(base)`. All small-network, analysis, and
+test commands use `proactive-internvl`. Do not launch the full held-out teacher
+cache until the pinned setup report, 1/10-row stages, and explicit GPU approval
+have passed.
+
+The owner-approved two-fold LOMO bundle is launched from `proactive-internvl`
+with `bash scripts/run_week8_lomo.sh <physical_gpu_id>`. The runner builds and
+freezes both source-only stacks before opening either held-out-model test fold,
+uses resumable stages, requires at least 2 GiB free, and enforces the approved
+five-hour one-GPU wall/GPU ceiling.

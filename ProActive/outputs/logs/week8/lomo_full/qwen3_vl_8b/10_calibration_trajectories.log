@@ -1,0 +1,150 @@
+===== qwen3_vl_8b source calibration trajectories =====
+Timeout: 300s; bundle remaining: 16649s
+2026-09-11 13:30:23,899 INFO [build_policy_trajectories] Budget 1: wrote 750 calibration trajectories
+2026-09-11 13:30:27,178 INFO [build_policy_trajectories] Budget 2: wrote 750 calibration trajectories
+2026-09-11 13:30:31,516 INFO [build_policy_trajectories] Budget 3: wrote 750 calibration trajectories
+2026-09-11 13:30:36,772 INFO [build_policy_trajectories] Budget 4: wrote 750 calibration trajectories
+2026-09-11 13:30:43,801 INFO [build_policy_trajectories] Budget 7: wrote 750 calibration trajectories
+{
+  "format_version": "week7_calibration_trajectories_v1",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "freeze_manifest_sha256": "b245d3f0aec7d43fdedf1684fb183d4b8d740f666fc47bc7873b61c0be0605aa",
+  "vector_manifest_sha256": "0109dca021172e495c8920583501a30c326a2a4097152b1323aa8848831142bb",
+  "diagnostic_checkpoint_sha256": "888e8b5c08807175874ccebc6ba6890c32ab7931c56b3f3399fcdc60d74dafd0",
+  "policy_checkpoint_sha256": "a5d7d93563a76912ca0e77359f0b303d25c3c6d710e6a0527f9572c6b4d4a3a0",
+  "limit": null,
+  "status": "COMPLETE",
+  "split": "cal",
+  "calibration_only": true,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "base_model_instances": 750,
+  "row_count": 3750,
+  "six_way_labels": [
+    "visual",
+    "language-prior",
+    "alignment",
+    "mixed",
+    "unclear",
+    "no-failure"
+  ],
+  "teacher_files": [
+    {
+      "path": "outputs/week8_lomo/qwen3_vl_8b/teachers/teacher_lomo.jsonl",
+      "sha256": "8ba8340b05b2f9e37904dffe1cc7e75345fd8cf08175be2081c11228dbce5f7f",
+      "calibration_rows": 750
+    }
+  ],
+  "files": [
+    {
+      "path": "calibration_trajectories_budget1.jsonl",
+      "budget": 1,
+      "row_count": 750,
+      "sha256": "7c149627a890e2d33011344492efd932835e247ca9901464ffa6fc8f7cd9a10d",
+      "action_counts": {
+        "blank": 601,
+        "stop": 750,
+        "blur": 142,
+        "brightness": 3,
+        "noise": 2,
+        "crop": 1,
+        "grounding": 1
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget2.jsonl",
+      "budget": 2,
+      "row_count": 750,
+      "sha256": "2135d621e6ce8b2fa4d2fdf057a71e00a543571e8ae4fccd439b6e8435a4da97",
+      "action_counts": {
+        "blank": 696,
+        "blur": 585,
+        "stop": 750,
+        "grounding": 114,
+        "noise": 52,
+        "crop": 37,
+        "brightness": 10,
+        "relation": 2
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget3.jsonl",
+      "budget": 3,
+      "row_count": 750,
+      "sha256": "04a74442062e4c0755f6fe547fd74f9234079297edd170ca5a7fc42db1562843",
+      "action_counts": {
+        "blank": 741,
+        "blur": 701,
+        "grounding": 240,
+        "stop": 750,
+        "crop": 365,
+        "brightness": 77,
+        "noise": 75,
+        "relation": 8
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget4.jsonl",
+      "budget": 4,
+      "row_count": 750,
+      "sha256": "10b0046da3bc155c46aa5e3335b96d1d5c94c3b23fcd2ca81f2ad918d6d50b8a",
+      "action_counts": {
+        "blank": 748,
+        "blur": 686,
+        "grounding": 313,
+        "brightness": 209,
+        "stop": 750,
+        "crop": 463,
+        "noise": 293,
+        "relation": 9
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget7.jsonl",
+      "budget": 7,
+      "row_count": 750,
+      "sha256": "b640725fa8ea90dc664950e62ca85fa2e1e61358dd3e9e8ed8e11aba93dc4257",
+      "action_counts": {
+        "blank": 742,
+        "grounding": 341,
+        "blur": 725,
+        "brightness": 522,
+        "crop": 558,
+        "stop": 750,
+        "noise": 486,
+        "relation": 12
+      }
+    }
+  ],
+  "manifest_sha256": "181beac28c5aab1e2dc0b12ebf67348764ececa5dad74c55d8eae125af21e57e"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/build_policy_trajectories.py --config configs/experiments/calibrate_aps.yaml --manifest_path outputs/week8_lomo/qwen3_vl_8b/vectorized/vectorized_manifest.json --freeze_manifest outputs/week8_lomo/qwen3_vl_8b/freeze/lomo_stack_freeze.json --teacher_path outputs/week8_lomo/qwen3_vl_8b/teachers --output_dir outputs/week8_lomo/qwen3_vl_8b/calibration/trajectories --seed 42 --device cuda:0 --resume"
+	User time (seconds): 24.73
+	System time (seconds): 6.14
+	Percent of CPU this job got: 125%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:24.69
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 929780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 164794
+	Voluntary context switches: 611
+	Involuntary context switches: 36299
+	Swaps: 0
+	File system inputs: 2336
+	File system outputs: 7736
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+qwen3_vl_8b source calibration trajectories exit code: 0

@@ -1,0 +1,21 @@
+2026-09-10 18:41:50,453 INFO [run_teacher] Model: gemma4_e4b (google/gemma-4-E4B-it)
+2026-09-10 18:41:50,453 INFO [run_teacher] Shard: 0/1
+2026-09-10 18:41:50,453 INFO [run_teacher] Selected rows: 10; completed: 0; pending: 10
+2026-09-10 18:41:50,453 INFO [run_teacher] Expected remaining forward passes (clean + legal probes): 70
+2026-09-10 18:41:50,453 INFO [run_teacher] Output: outputs/week8_staging/gemma4_e4b_limit10/teacher_gemma4_e4b_all_shift_shard00-of-01.jsonl
+2026-09-10 18:41:50,453 INFO [run_teacher] Current-failure ledger: outputs/week8_staging/gemma4_e4b_limit10/teacher_gemma4_e4b_all_shift_shard00-of-01.failures.jsonl
+2026-09-10 18:41:51,427 INFO [run_teacher] Loading model on cuda:0
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 332/2076 [00:00<00:00, 3295.81it/s]Loading weights:  32%|███▏      | 662/2076 [00:00<00:00, 2894.62it/s]Loading weights:  46%|████▌     | 955/2076 [00:01<00:02, 404.78it/s] Loading weights:  54%|█████▍    | 1123/2076 [00:02<00:02, 401.47it/s]Loading weights:  60%|█████▉    | 1240/2076 [00:02<00:02, 388.67it/s]Loading weights:  64%|██████▍   | 1328/2076 [00:02<00:01, 378.42it/s]Loading weights:  67%|██████▋   | 1398/2076 [00:03<00:01, 372.20it/s]Loading weights:  78%|███████▊  | 1624/2076 [00:03<00:00, 588.14it/s]Loading weights:  96%|█████████▌| 1995/2076 [00:03<00:00, 1026.20it/s]Loading weights: 100%|██████████| 2076/2076 [00:03<00:00, 639.66it/s] 
+2026-09-10 18:42:00,423 INFO [run_teacher] [1/10] illusionbench_10046007_2
+The following generation flags are not valid and may be ignored: ['top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+2026-09-10 18:42:12,822 INFO [run_teacher] [2/10] illusionbench_10024013_3
+2026-09-10 18:42:19,487 INFO [run_teacher] [3/10] prehal_COCO_val2014_000000106736_6ada51648d2a51a2_5194
+2026-09-10 18:42:24,143 INFO [run_teacher] [4/10] prehal_232_9dc697b84a61dee6_3778
+2026-09-10 18:42:29,217 INFO [run_teacher] [5/10] prehal_COCO_val2014_000000099219_2d4846ddeae85cf9_9326
+2026-09-10 18:42:34,840 INFO [run_teacher] [6/10] prehal_cc258d5fd4cde121_4593f761070af2f6_8617
+2026-09-10 18:42:41,846 INFO [run_teacher] [7/10] prehal_COCO_val2014_000000369322_c806643023a1fbce_6468
+2026-09-10 18:42:46,303 INFO [run_teacher] [8/10] prehal_3000723_e52c4190666e3b1a_3023
+2026-09-10 18:42:53,659 INFO [run_teacher] [9/10] prehal_COCO_val2014_000000255401_a27216c52f84677d_4026
+2026-09-10 18:42:57,641 INFO [run_teacher] [10/10] prehal_1000092_407cf273892efe43_1181
+2026-09-10 18:43:18,227 INFO [run_teacher] Shard finished in 87.8s with 0 failed rows
+2026-09-10 18:43:18,227 INFO [run_teacher] Unresolved failure-ledger rows: 0

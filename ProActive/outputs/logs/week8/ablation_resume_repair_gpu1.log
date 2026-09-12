@@ -1,0 +1,3 @@
+STOP: physical GPU 1 already has compute processes:
+GPU-ddc1c20b-e243-491e-f321-15cc383d5765, 1439280, 18974
+GPU-ddc1c20b-e243-491e-f321-15cc383d5765, 1439808, 19780

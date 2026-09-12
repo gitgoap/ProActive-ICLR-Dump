@@ -1,0 +1,148 @@
+===== gemma4_e4b source calibration trajectories =====
+Timeout: 300s; bundle remaining: 15278s
+2026-09-11 13:53:15,237 INFO [build_policy_trajectories] Budget 1: wrote 750 calibration trajectories
+2026-09-11 13:53:18,558 INFO [build_policy_trajectories] Budget 2: wrote 750 calibration trajectories
+2026-09-11 13:53:22,961 INFO [build_policy_trajectories] Budget 3: wrote 750 calibration trajectories
+2026-09-11 13:53:28,423 INFO [build_policy_trajectories] Budget 4: wrote 750 calibration trajectories
+2026-09-11 13:53:36,452 INFO [build_policy_trajectories] Budget 7: wrote 750 calibration trajectories
+{
+  "format_version": "week7_calibration_trajectories_v1",
+  "config_sha256": "10c5b4775f911ae62b5f2e25c331c5adda9a15ee3576f8e853ac0a982b0cd960",
+  "freeze_manifest_sha256": "b69821ef5d60c95553dff5f0b80783d10778960110f645c21b886768f1e78119",
+  "vector_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "policy_checkpoint_sha256": "ae3e03feae6096f689ce663683e578143f2fca2321ae4952338f62a9d3fff4e2",
+  "limit": null,
+  "status": "COMPLETE",
+  "split": "cal",
+  "calibration_only": true,
+  "test_used": false,
+  "budgets": [
+    1,
+    2,
+    3,
+    4,
+    7
+  ],
+  "base_model_instances": 750,
+  "row_count": 3750,
+  "six_way_labels": [
+    "visual",
+    "language-prior",
+    "alignment",
+    "mixed",
+    "unclear",
+    "no-failure"
+  ],
+  "teacher_files": [
+    {
+      "path": "outputs/week8_lomo/gemma4_e4b/teachers/teacher_lomo.jsonl",
+      "sha256": "69a89a645142c998659e59d31793f739b4da6057f3e57c87c3a06d133e8854ac",
+      "calibration_rows": 750
+    }
+  ],
+  "files": [
+    {
+      "path": "calibration_trajectories_budget1.jsonl",
+      "budget": 1,
+      "row_count": 750,
+      "sha256": "4b66f78a61d528b309085e2ee008b850735a814186bb08531ec4e83dd2bc5f6c",
+      "action_counts": {
+        "blank": 452,
+        "stop": 750,
+        "grounding": 208,
+        "blur": 77,
+        "brightness": 13
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget2.jsonl",
+      "budget": 2,
+      "row_count": 750,
+      "sha256": "421f15ed410f29d5de71b20c213e80a1411740ba60ba726a45cabf1c0065a691",
+      "action_counts": {
+        "blur": 591,
+        "blank": 547,
+        "stop": 750,
+        "grounding": 326,
+        "brightness": 17,
+        "noise": 2,
+        "crop": 8,
+        "relation": 9
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget3.jsonl",
+      "budget": 3,
+      "row_count": 750,
+      "sha256": "161d37a19d4bc0673ac960a5c5d267a014b7a4af271cf05695b3a82094856648",
+      "action_counts": {
+        "blur": 713,
+        "blank": 642,
+        "brightness": 70,
+        "stop": 750,
+        "grounding": 719,
+        "crop": 75,
+        "noise": 15,
+        "relation": 5
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget4.jsonl",
+      "budget": 4,
+      "row_count": 750,
+      "sha256": "eb3a14094a8a208ed2729f313d2b04304944b27515297c4492b2f7f671edd1eb",
+      "action_counts": {
+        "blur": 729,
+        "blank": 693,
+        "brightness": 195,
+        "grounding": 632,
+        "stop": 750,
+        "crop": 408,
+        "noise": 45,
+        "relation": 10
+      }
+    },
+    {
+      "path": "calibration_trajectories_budget7.jsonl",
+      "budget": 7,
+      "row_count": 750,
+      "sha256": "345d059652ab0fb775dd4cc178263ba421fcfdb59b5ce700e46f4617140fc078",
+      "action_counts": {
+        "grounding": 746,
+        "blur": 628,
+        "blank": 733,
+        "crop": 613,
+        "brightness": 594,
+        "noise": 563,
+        "stop": 750,
+        "relation": 13
+      }
+    }
+  ],
+  "manifest_sha256": "a0ef6569bb64c631a32d6680c177ab23a6517335f119edf5777d479857ee45e9"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/build_policy_trajectories.py --config configs/experiments/calibrate_aps.yaml --manifest_path outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json --freeze_manifest outputs/week8_lomo/gemma4_e4b/freeze/lomo_stack_freeze.json --teacher_path outputs/week8_lomo/gemma4_e4b/teachers --output_dir outputs/week8_lomo/gemma4_e4b/calibration/trajectories --seed 42 --device cuda:0 --resume"
+	User time (seconds): 26.20
+	System time (seconds): 5.91
+	Percent of CPU this job got: 124%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:25.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 948616
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 168751
+	Voluntary context switches: 646
+	Involuntary context switches: 90969
+	Swaps: 0
+	File system inputs: 80
+	File system outputs: 7800
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b source calibration trajectories exit code: 0

@@ -459,3 +459,139 @@ frontier, and all three permutation reports produced a signed `GO` decision.
     and its sole warning is the predeclared optional RAPS appendix trigger.
     APS remains the unchanged locked main method. Week 7 is COMPLETE and the
     project moves to Week 8 without any post-test tuning.
+
+## Week 8: Generalization, held-out shift, ablations, latency, and audit
+**Status:** IMPLEMENTED, NOT VALIDATED
+**Dates:** September 8, 2026–present
+
+**Implemented locally:**
+1. Pinned official PRE-HAL and IllusionBench release contracts, strict loaders,
+   safe download/extraction, deterministic 600-row-per-dataset sampling, and
+   signed release/exclusion/manifests. PRE-HAL model weights are excluded.
+2. Added mixed binary/multiple-choice prompting and normalization with
+   fail-closed parsing. IllusionBench release defects are excluded uniformly
+   before model inference and recorded by reason; no outcome-based filtering
+   is permitted.
+3. Extended the existing teacher, label, state, vectorization, and frontier
+   path to the `shift` split. Final Week 7 APS is reused unchanged and all
+   shift coverage is explicitly empirical only.
+4. Added two-fold LOMO construction/freezing/evaluation, grouped bootstrap and
+   paired intervals, within-dataset/model slices, deterministic qualitative
+   cases, and fixed-hardware controller/MLLM latency accounting.
+5. Added real component-ablation support: feature removal, no budget embedding,
+   forced no-STOP rollout, loss-only VOI, no signature loss, independent source
+   encoders, global APS, standardized evidence, and a fail-closed 15-item
+   aggregation gate.
+6. Added three independent blinded annotation packets, strict merge,
+   adjudication, Fleiss-kappa/rule-match analysis, concise human instructions,
+   and a Week 8 implementation/readiness/full validator.
+
+**Pending evidence:** completion of the mandatory ablations, signed bootstrap/statistical
+analysis, and three-person human-audit artifacts. Frozen shift, latency, and
+two-fold LOMO evidence are complete. The
+complete two-model recovered held-out cache now contains 2,400/2,400 accepted
+rows with zero unresolved failures and no exclusions. No post-shift tuning is
+allowed, and no Week 8 scientific result is claimed until downstream reports
+exist.
+
+**Server evidence and current pilot issue:**
+
+7. The server suite passed 303 tests plus 16 subtests. PRE-HAL and
+   IllusionBench were downloaded at their pinned revisions and verified; the
+   signed shift manifest contains 600 rows from each dataset and was selected
+   without model outputs or target-domain calibration.
+8. The first Gemma one-row held-out stage on 2026-09-10 loaded the model but
+   failed closed on its IllusionBench row because the special blank-image call
+   omitted the row's `multiple_choice` normalizer. No valid teacher row was
+   written. The blank call is corrected and an end-to-end regression now
+   covers clean plus all applicable probes. After synchronization, 10 focused
+   server tests passed. Resumed Gemma and Qwen stages each produced 1/1 and
+   10/10 valid rows with zero unresolved failures, completing the parser gate.
+9. The complete held-out traversal accounted for all requested rows but did not
+   yet yield complete accepted caches: Qwen has 1,181 valid and 19 fail-closed
+   rows; Gemma has 1,189 valid and 11 fail-closed rows. All 30 failures are
+   mandatory-grounding format errors. A separate, provenance-preserving retry
+   path was implemented and owner-approved for exactly this ledger-defined
+   19-Qwen/11-Gemma scope; no row was dropped. Server tests and dry-run coverage
+   formed the execution gate.
+10. The approved recovery completed on 2026-09-11. Both model jobs exited zero,
+    all 30 ledger-defined rows recovered, the separate recovered cache contains
+    exactly 1,200 Qwen and 1,200 Gemma rows, and both failure ledgers are empty.
+    The next gate is CPU construction of labels/states/vectorized shift data,
+    followed by immutable Week 7 shift evaluation.
+11. The CPU shift substrate is complete. Label construction produced 2,400
+    rows, state sampling produced 63,687 leakage-safe states, the corrected
+    metadata-aware index covers all 2,400 teachers, and two vectorized `shift`
+    shards contain all 63,687 rows. The focused server suite passed 10 tests,
+    and both tensor hashes match their signed manifest.
+12. The frozen held-out shift frontier completed without target-domain
+    calibration or post-test tuning. It evaluates 2,400 model instances across
+    budgets `1/2/3/4/7`, both frozen coverage targets, all controls, and both
+    oracles. ProActive exceeds the random schedule at budgets 1--4 for the
+    primary 0.90 macro-F1 comparison; the signed report and bound hashes pass.
+13. Fixed-hardware latency measurement is complete on an RTX A6000 with 10
+    warm-ups and 100 synchronized measurements. Mean controller overhead is
+    1.355 ms versus 9,163.951 ms mean cached generation latency.
+14. The first Qwen LOMO-fold attempt stopped before training because the server
+    executed a stale three-test builder that looked for state identity at the
+    top level. Canonical `partial_state_v1` rows store `split` and `model_id`
+    inside `metadata`. The corrected builder now prints revision
+    `metadata_identity_v2`, reports observed identities on failure, and has an
+    end-to-end filtering regression. No LOMO evidence was claimed.
+15. The corrected server run passed all seven focused tests and materialized
+    both LOMO folds with revision `metadata_identity_v2`. Holding out Qwen
+    yields 194,249 states; holding out Gemma yields 194,374. Both folds contain
+    source-model train/validation/calibration evidence and held-out-model test
+    evidence only. Every referenced vector manifest, teacher file, label file,
+    and state file exists and matches its recorded SHA-256. Fold construction
+    is complete; diagnostic/policy training and source-only APS calibration
+    remain pending.
+16. The owner-approved two-fold LOMO bundle completed on 2026-09-11. It ran
+    all 28 preparation, source-only calibration, freeze, and held-out
+    evaluation stages successfully in 2,944 seconds (`0.818` aggregate
+    GPU-hours), below its five-hour ceiling. Both 780-example held-out reports
+    are valid; every report, CSV, trajectory, checkpoint, fold, freeze, and APS
+    hash matches. At budget 7, ProActive source-bit Macro-F1 is `0.9692` on
+    held-out Qwen versus `0.6826` clean-only and `0.6964` scalar, and `0.9948`
+    on held-out Gemma versus `0.7956` and `0.7804`. Its corresponding six-way
+    Macro-F1 values are `0.7927` and `0.8063`. Diagnostic transfer is
+    therefore above both required controls. Coverage transfer is asymmetric:
+    the 0.90-target coverage is `0.9910` for Qwen but `0.7115` for Gemma at
+    budget 7. The paper claim is narrowed to useful diagnostic transfer and
+    will report the Gemma calibration degradation explicitly; no held-out
+    tuning or rerun is permitted.
+17. The owner approved the complete 15-item Week 8 ablation bundle on
+    2026-09-11: seed 42, validation-only evidence, at most two free GPUs, eight
+    combined GPU-hours, 45-minute training caps, and 20-minute frontier caps.
+    The implementation now applies feature removal consistently to diagnostic
+    tensors, VOI counterfactuals, and acquired rollout evidence. GPU execution
+    and the signed aggregate are pending.
+18. The first full ablation attempt consumed 18,048 conservative GPU-seconds
+    and completed `no_budget_embedding`, `no_confidence_shift`, and
+    `no_relation_probe`; `no_answer_flip` and `shared_vs_independent_heads`
+    reached partial policy checkpoints before their bounded timeouts. A resume
+    then exposed a real idempotence defect: diagnostic `--resume` continued a
+    run that had already stopped at epoch 10 and overwrote the selected
+    `no_budget_embedding` checkpoint. The existing APS correctly rejected the
+    new hash. Completed diagnostic and policy reports are now validated as
+    immutable completion markers, histories continuing beyond the first
+    stopping boundary are rejected. The epoch-zero recovery reproduced every
+    epoch-0--10 metric exactly, but the raw `.pt` SHA changed because atomic
+    PyTorch saves use a randomly named temporary ZIP root. Recovery therefore
+    requires exact stopping-history and regenerated-APS scientific equality,
+    archives the stale descendants, and rebuilds their hash chain rather than
+    editing provenance. The ledger now includes the 228-second repair run.
+19. The exact-history/APS-equivalence gate passed and the complete ablation
+    continuation finished every remaining training, freeze, calibration, VOI,
+    frontier, reference, and latency stage. The final ledger contains 28,275
+    conservative GPU-seconds (`7.8542` GPU-hours), below the approved eight-hour
+    ceiling. All 15 required evidence JSONs exist; their self-hashes and 29
+    bound input hashes independently match. Final aggregation alone failed
+    because repeated `--evidence` CLI occurrences replaced earlier values.
+    The parser now accumulates repeated bindings and has a regression test.
+    No GPU rerun is needed; the CPU-only signed aggregate remains pending.
+20. The aggregation regression passed (`1 passed, 10 deselected`) and the
+    CPU-only rerun produced the signed 15-item bundle. Independent checks
+    reproduce report SHA-256 `ee0a3eb...e14b`, CSV SHA-256
+    `7dfcbbb7...2613`, all 15 evidence hashes, and 121 aggregate data rows.
+    `post_test_tuning_used=false`; W8-04 is COMPLETE.

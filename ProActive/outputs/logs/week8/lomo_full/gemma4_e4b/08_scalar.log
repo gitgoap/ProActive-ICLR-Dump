@@ -1,0 +1,137 @@
+===== gemma4_e4b scalar baseline =====
+Timeout: 300s; bundle remaining: 15294s
+2026-09-11 13:52:59,246 INFO [train_one_pass_baselines] epoch=0 train_loss=1.658128 val_macro_f1=0.6452
+2026-09-11 13:52:59,921 INFO [train_one_pass_baselines] epoch=1 train_loss=1.501593 val_macro_f1=0.6713
+2026-09-11 13:53:00,488 INFO [train_one_pass_baselines] epoch=2 train_loss=1.433433 val_macro_f1=0.6888
+2026-09-11 13:53:01,162 INFO [train_one_pass_baselines] epoch=3 train_loss=1.414332 val_macro_f1=0.6913
+2026-09-11 13:53:01,828 INFO [train_one_pass_baselines] epoch=4 train_loss=1.404103 val_macro_f1=0.6933
+2026-09-11 13:53:02,487 INFO [train_one_pass_baselines] epoch=5 train_loss=1.398102 val_macro_f1=0.6963
+2026-09-11 13:53:03,138 INFO [train_one_pass_baselines] epoch=6 train_loss=1.394058 val_macro_f1=0.6954
+2026-09-11 13:53:03,809 INFO [train_one_pass_baselines] epoch=7 train_loss=1.390150 val_macro_f1=0.6984
+2026-09-11 13:53:04,465 INFO [train_one_pass_baselines] epoch=8 train_loss=1.386253 val_macro_f1=0.6981
+2026-09-11 13:53:05,119 INFO [train_one_pass_baselines] epoch=9 train_loss=1.383327 val_macro_f1=0.6985
+2026-09-11 13:53:05,672 INFO [train_one_pass_baselines] epoch=10 train_loss=1.380104 val_macro_f1=0.6989
+2026-09-11 13:53:06,313 INFO [train_one_pass_baselines] epoch=11 train_loss=1.379560 val_macro_f1=0.6976
+2026-09-11 13:53:06,957 INFO [train_one_pass_baselines] epoch=12 train_loss=1.374235 val_macro_f1=0.6977
+2026-09-11 13:53:07,607 INFO [train_one_pass_baselines] epoch=13 train_loss=1.376063 val_macro_f1=0.6982
+2026-09-11 13:53:08,257 INFO [train_one_pass_baselines] epoch=14 train_loss=1.375690 val_macro_f1=0.6981
+2026-09-11 13:53:08,907 INFO [train_one_pass_baselines] epoch=15 train_loss=1.374613 val_macro_f1=0.6979
+{
+  "baseline": "scalar",
+  "pilot": false,
+  "output": "outputs/week8_lomo/gemma4_e4b/checkpoints/baselines/baseline_scalar_seed42.best.pt"
+}
+{
+  "format_version": "week6_one_pass_baseline_validation_v1",
+  "is_valid": true,
+  "fit_split": "train",
+  "selection_split": "val",
+  "calibration_used": false,
+  "test_used": false,
+  "baseline_type": "scalar",
+  "metrics": {
+    "record_count": 702,
+    "source_bit_micro_f1": 0.6930905195500804,
+    "source_bit_macro_f1": 0.6988523680801372,
+    "source_bit_hamming_loss": 0.2720797720797721,
+    "source_bit_auroc": {
+      "visual": 0.8525397535483348,
+      "language": 0.6222045948147142,
+      "alignment": 0.9280692195931923
+    },
+    "six_way_macro_f1": 0.2147837433989598,
+    "six_way_balanced_accuracy": 0.30944908020174483,
+    "six_way_confusion_matrix": [
+      [
+        2,
+        3,
+        25,
+        4,
+        0,
+        64
+      ],
+      [
+        5,
+        2,
+        19,
+        2,
+        0,
+        169
+      ],
+      [
+        4,
+        5,
+        17,
+        4,
+        0,
+        9
+      ],
+      [
+        5,
+        5,
+        88,
+        134,
+        0,
+        20
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        0,
+        6
+      ],
+      [
+        1,
+        3,
+        10,
+        1,
+        0,
+        91
+      ]
+    ],
+    "six_way_labels": [
+      "visual",
+      "language-prior",
+      "alignment",
+      "mixed",
+      "unclear",
+      "no-failure"
+    ],
+    "signature_mse": 0.08946443138490898
+  },
+  "checkpoint_path": "outputs/week8_lomo/gemma4_e4b/checkpoints/baselines/baseline_scalar_seed42.best.pt",
+  "checkpoint_sha256": "40ca44c24a8a56e16239396be3b7880c7144f8041e013649d4300dab24889fdb",
+  "config_sha256": "33e88aa1bbc4dbaa47309015be7e6e188523dcdf5416cf64d1703aa4c442c9eb",
+  "source_manifest_sha256": "4aa621b1e8e0bf9f3f47cf5b88a720374fe8a35310b19bf3fd68d158c836a52f",
+  "diagnostic_checkpoint_sha256": "032a6b167b62e3f7f63be99b02c3b547d5a1b0aa0c7be0b81f3987e7b2ad82d7",
+  "week5_freeze_sha256": "7036287a6a76959b5f2956dae4dca5cf0992f98338117b00025f8ba615968b84",
+  "seed": 42,
+  "limit": null,
+  "report_sha256": "bb075dfeb15b3c36bfa9ed96359fc9791a016da544e8441bb2c78b38b3f829aa"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 300s python scripts/train_one_pass_baselines.py --config configs/experiments/policy_train.yaml --manifest_path outputs/week8_lomo/gemma4_e4b/vectorized/vectorized_manifest.json --diagnostic_checkpoint outputs/week8_lomo/gemma4_e4b/checkpoints/diagnostic/diag_deep_sets_standard_seed42.best.pt --freeze_manifest outputs/week8_lomo/gemma4_e4b/freeze/lomo_diagnostic_freeze.json --baseline scalar --seed 42 --device cuda:0 --output_dir outputs/week8_lomo/gemma4_e4b/checkpoints/baselines --resume"
+	User time (seconds): 21.22
+	System time (seconds): 6.50
+	Percent of CPU this job got: 187%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1377560
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 278730
+	Voluntary context switches: 982
+	Involuntary context switches: 92959
+	Swaps: 0
+	File system inputs: 2048
+	File system outputs: 41200
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+gemma4_e4b scalar baseline exit code: 0

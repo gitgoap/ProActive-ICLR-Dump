@@ -1,0 +1,86 @@
+{
+  "format_version": "week8_ablation_bundle_v1",
+  "is_valid": true,
+  "mandatory_count": 15,
+  "post_test_tuning_used": false,
+  "evidence": [
+    {
+      "ablation_id": "deep_sets_vs_gru",
+      "path": "outputs/week8_reports/ablation_evidence/deep_sets_vs_gru.json",
+      "sha256": "b4b804519fde69e9e9cdb302b56137493f92fb55c2f946ea80106475a1a8646b"
+    },
+    {
+      "ablation_id": "deep_sets_vs_masked_slot_mlp",
+      "path": "outputs/week8_reports/ablation_evidence/deep_sets_vs_masked_slot_mlp.json",
+      "sha256": "66f7202edd9e93a4e7a2a8ad012c13fa4edc46cd72450bc4ff57ebcfb04abf3a"
+    },
+    {
+      "ablation_id": "no_budget_embedding",
+      "path": "outputs/week8_reports/ablation_evidence/no_budget_embedding.json",
+      "sha256": "9866051f04f6db5250c17a52656b43ac4daca99b9e29be18ac7ef4b807667dfd"
+    },
+    {
+      "ablation_id": "no_stop_action",
+      "path": "outputs/week8_reports/ablation_evidence/no_stop_action.json",
+      "sha256": "567e30ee26ba1f5f77c56ce797c95e625185db9859e10a2725945d5fe3a8e653"
+    },
+    {
+      "ablation_id": "no_voi_training",
+      "path": "outputs/week8_reports/ablation_evidence/no_voi_training.json",
+      "sha256": "27027c86451372a41d6444b1aac7b5e024302c5df57a08434dab7442cb989de9"
+    },
+    {
+      "ablation_id": "loss_only_voi",
+      "path": "outputs/week8_reports/ablation_evidence/loss_only_voi.json",
+      "sha256": "d2b8f546083d71f046a7a06ba3fc0075d50b7503d00ef3f66e159067217cf205"
+    },
+    {
+      "ablation_id": "no_answer_flip",
+      "path": "outputs/week8_reports/ablation_evidence/no_answer_flip.json",
+      "sha256": "553995da0b0f747b290b5879e912c82dece47aeee648e70c507fef6d295f975b"
+    },
+    {
+      "ablation_id": "no_confidence_shift",
+      "path": "outputs/week8_reports/ablation_evidence/no_confidence_shift.json",
+      "sha256": "a50bf3410d67af9cd155bfc4b32efd55e6471654474f7d12498fff7ae110fb42"
+    },
+    {
+      "ablation_id": "no_semantic_match",
+      "path": "outputs/week8_reports/ablation_evidence/no_semantic_match.json",
+      "sha256": "a1c5ce7f2feeb6750a55208e6c03b69e85467c2202695d758d9777f11b7f2281"
+    },
+    {
+      "ablation_id": "no_relation_probe",
+      "path": "outputs/week8_reports/ablation_evidence/no_relation_probe.json",
+      "sha256": "f708811ce82bec02ac23f75d7c9a5cfd1a5d961b4bb74aa8b5ef8d56e0f80d77"
+    },
+    {
+      "ablation_id": "no_signature_regression",
+      "path": "outputs/week8_reports/ablation_evidence/no_signature_regression.json",
+      "sha256": "99e7293278cf360643fed2574218bd6ad9e0d34dc26489ab86d5cf11f2f038bb"
+    },
+    {
+      "ablation_id": "shared_vs_independent_heads",
+      "path": "outputs/week8_reports/ablation_evidence/shared_vs_independent_heads.json",
+      "sha256": "7594c063ef7a04e477f16fb32e26addbf555d5b9a78077898fd3696da680d7dc"
+    },
+    {
+      "ablation_id": "global_vs_per_budget_aps",
+      "path": "outputs/week8_reports/ablation_evidence/global_vs_per_budget_aps.json",
+      "sha256": "fdb278cb9d4a9f36585aea714c3699949792710b4d6c11f07b051269ffecd645"
+    },
+    {
+      "ablation_id": "pass_count_vs_latency",
+      "path": "outputs/week8_reports/ablation_evidence/pass_count_vs_latency.json",
+      "sha256": "8b13eb3249afa378fbb1693933ba02e787ae0b52627c1cab77a64a433f8be3a8"
+    },
+    {
+      "ablation_id": "gru_canonical_vs_permutation_augmentation",
+      "path": "outputs/week8_reports/ablation_evidence/gru_canonical_vs_permutation_augmentation.json",
+      "sha256": "4fe11e5442b0271bc6b98ab2c5111e57df149732deafded9cebfaa6d0659e5c3"
+    }
+  ],
+  "csv_path": "outputs/week8_reports/ablations.csv",
+  "csv_sha256": "7dfcbbb7ae05e5395593c7479e3068c1b43d615d26e36e215867062bca222613",
+  "report_sha256": "ee0a3eb3374fa857b6981a920028cf3dac0d4ea9dd4a2a162de8c3356f7de14b"
+}
