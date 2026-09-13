@@ -31,10 +31,10 @@ one-time locked core test are closed; no Week 8 result may be used to tune them.
 | W8-04 | Mandatory component ablations | Feature-manifest builder, real zero-budget/independent-source architectures, loss-only VOI, no-STOP rollout, signed comparison/aggregation scripts | COMPLETE |
 | W8-05 | Fixed-hardware latency and cost accounting | `measure_latency.py`: full controller, CUDA synchronization, 10 warm-ups/100 measurements, cached pass accounting | COMPLETE |
 | W8-06 | Three-person blinded human audit | `human_annotation/`, packet/merge/analyze scripts, `test_week8_lomo_and_human.py`; final agreement output pending people | IMPLEMENTED, NOT VALIDATED |
-| W8-07 | Grouped bootstrap confidence intervals and paired primary tests | `statistics.py`, `analyze_week8.py`, `test_week8_statistics.py`; predeclared comparison family with Holm correction; output pending | IMPLEMENTED, NOT VALIDATED |
-| W8-08 | Within-dataset and within-model controls | Frozen slice generation in `analyze_week8.py`; output pending | IMPLEMENTED, NOT VALIDATED |
-| W8-09 | Positive and negative qualitative cases | Deterministic frozen-outcome ranking in `analyze_week8.py`; output pending | IMPLEMENTED, NOT VALIDATED |
-| W8-10 | Shift/calibration claim audit | Frozen source APS enforcement plus full validator; server evidence pending | IMPLEMENTED, NOT VALIDATED |
+| W8-07 | Grouped bootstrap confidence intervals and paired primary tests | `statistics.py`, `analyze_week8.py`, `test_week8_statistics.py`; 2,000-resample grouped output and Holm-corrected primary family | COMPLETE |
+| W8-08 | Within-dataset and within-model controls | Frozen slice generation in `analyze_week8.py`; 160 signed slice rows | COMPLETE |
+| W8-09 | Positive and negative qualitative cases | Deterministic frozen-outcome ranking in `analyze_week8.py`; 10 positive and 10 negative cases | COMPLETE |
+| W8-10 | Shift/calibration claim audit | Frozen source APS and empirical-only shift claims verified; full validator waits for the human-audit report | IMPLEMENTED, NOT VALIDATED |
 
 ## External dataset setup
 
@@ -61,8 +61,8 @@ human audit unless the paper explicitly needs a stronger relation claim.
 
 The source packet already exists at `outputs/human_audit/` with 180 blinded rows
 and 180 materialized images. `prepare_human_annotation_packets.py` creates one
-private working copy for each of three annotators. As of 2026-09-08, the three
-completed annotator files have not been returned.
+private working copy for each of three annotators. As of 2026-09-13, all three
+packet CSVs contain 180 rows, but all required annotation cells remain blank.
 
 1. Recruit three genuinely independent annotators now.
 2. Give them only `human_audit_blinded.csv`, `images/`, and `README.md`.
@@ -146,3 +146,22 @@ signed aggregate on 2026-09-12. It binds 15/15 unique evidence reports and 121
 comparison rows, with report SHA-256 `ee0a3eb...e14b` and CSV SHA-256
 `7dfcbbb7...2613`. Independent verification reproduced both hashes and every
 evidence binding. W8-04 is therefore COMPLETE.
+
+## Statistical analysis result recorded on 2026-09-13
+
+The final CPU analysis completed with exit code zero in 1:13:54. It read
+340,800 immutable held-out trajectory rows and used 2,000 bootstrap resamples
+grouped by `group_id`; target-domain calibration was not used. The signed
+outputs contain 710 confidence-interval rows, 120 paired comparisons, 160
+dataset/model slice rows, and 20 deterministic qualitative examples. The
+analysis self-hash is `757908db...e191`, and all referenced trajectory, CSV,
+and qualitative-file hashes independently match.
+
+At target coverage 0.90, ProActive exceeds random in source-bit Macro-F1 at
+budgets 1--4 by `0.0458`, `0.1189`, `0.1474`, and `0.1178`. The predeclared
+budget-7 primary comparison is a small negative result: ProActive-minus-random
+is `-0.0063` with 95% CI `[-0.0087, -0.0041]` and Holm-adjusted `p=0.003`.
+ProActive uses about 0.42 fewer probes there. The paper must describe this as
+full-budget saturation and limit the active-acquisition advantage to constrained
+budgets. W8-07, W8-08, and W8-09 are COMPLETE. W8-10 remains open only because
+the human-audit report and subsequent full validator are pending.

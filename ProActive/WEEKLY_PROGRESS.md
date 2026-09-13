@@ -486,13 +486,12 @@ frontier, and all three permutation reports produced a signed `GO` decision.
    adjudication, Fleiss-kappa/rule-match analysis, concise human instructions,
    and a Week 8 implementation/readiness/full validator.
 
-**Pending evidence:** completion of the mandatory ablations, signed bootstrap/statistical
-analysis, and three-person human-audit artifacts. Frozen shift, latency, and
-two-fold LOMO evidence are complete. The
-complete two-model recovered held-out cache now contains 2,400/2,400 accepted
-rows with zero unresolved failures and no exclusions. No post-shift tuning is
-allowed, and no Week 8 scientific result is claimed until downstream reports
-exist.
+**Pending evidence:** only the completed three-person human-audit artifacts and
+the subsequent CPU-only full validator. Frozen shift, latency, two-fold LOMO,
+the mandatory ablation aggregate, grouped statistics, slices, and qualitative
+evidence are complete. The recovered held-out cache contains 2,400/2,400
+accepted rows with zero unresolved failures and no exclusions. No post-shift
+tuning is allowed.
 
 **Server evidence and current pilot issue:**
 
@@ -595,3 +594,15 @@ exist.
     reproduce report SHA-256 `ee0a3eb...e14b`, CSV SHA-256
     `7dfcbbb7...2613`, all 15 evidence hashes, and 121 aggregate data rows.
     `post_test_tuning_used=false`; W8-04 is COMPLETE.
+21. The complete grouped Week 8 statistical analysis finished on 2026-09-13
+    with exit code zero after 1:13:54. It analyzed 340,800 frozen shift
+    trajectories using 2,000 grouped bootstrap resamples and produced 710
+    confidence-interval rows, 120 paired-comparison rows, 160 slice rows, and
+    20 deterministic qualitative cases. The analysis report self-hash and all
+    bound hashes match. ProActive beats random at budgets 1--4, with paired
+    source-bit Macro-F1 gains of `0.0458`, `0.1189`, `0.1474`, and `0.1178`.
+    At the predeclared budget-7 primary comparison, random is slightly higher
+    (`-0.0063` ProActive-minus-random; Holm-adjusted `p=0.003`), while ProActive
+    uses about `0.42` fewer probes. This saturation result narrows the paper
+    claim to constrained-budget value rather than universal dominance. W8-07,
+    W8-08, and W8-09 are COMPLETE.

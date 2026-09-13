@@ -1,0 +1,60 @@
+{
+  "format_version": "week8_analysis_v1",
+  "config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6",
+  "trajectory_files": [
+    {
+      "path": "outputs/week8_reports/shift/trajectories_shift.jsonl",
+      "sha256": "0f3df65d13d587a0733ebe61920c0ea955bc862cb75bad6437dad33d4c240a85"
+    }
+  ],
+  "seed": 42,
+  "bootstrap_resamples": 2000,
+  "bootstrap_confidence": 0.95,
+  "bootstrap_group": "group_id",
+  "target_domain_calibration_used": false,
+  "primary_comparison_protocol": {
+    "budget": 7,
+    "coverage": 0.9,
+    "metric": "source_bit_macro_f1",
+    "controls": [
+      "random",
+      "clean_only_learned",
+      "scalar_confidence"
+    ],
+    "multiplicity_correction": "holm",
+    "familywise_alpha": 0.05
+  },
+  "trajectory_row_count": 340800,
+  "ci_path": "outputs/week8_reports/confidence_intervals.csv",
+  "ci_sha256": "6e5c2882889e046d8b1e4d36e8534d9fc423d99d97de304040a77968c2e4026a",
+  "paired_path": "outputs/week8_reports/paired_comparisons.csv",
+  "paired_sha256": "875060af38e1c57a31ae06381ed5af7d66ed2da76761c021cb336233a8a644b6",
+  "slices_path": "outputs/week8_reports/slices.csv",
+  "slices_sha256": "ea8377f75d94e92fb0ca1f6a386ea4f300d8bbda9c3f240ec7857c21194f86dc",
+  "qualitative_path": "outputs/week8_reports/qualitative_examples.json",
+  "qualitative_sha256": "f48b9406de92b3ec05be09ce8f63546eecb5f08b4a3f62260ce5a07a2874613f",
+  "report_sha256": "757908dbe1372a90f8c6fa11a3a76b2499ef7908c31d114971f98e01e0f6e191"
+}
+	Command being timed: "timeout --signal=TERM --kill-after=5m 8h python scripts/analyze_week8.py --config configs/experiments/week8_evaluation.yaml --trajectory_path outputs/week8_reports/shift/trajectories_shift.jsonl --output_dir outputs/week8_reports --seed 42 --overwrite"
+	User time (seconds): 4437.17
+	System time (seconds): 6.56
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:13:54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1747024
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 438441
+	Voluntary context switches: 190
+	Involuntary context switches: 110560
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 280
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

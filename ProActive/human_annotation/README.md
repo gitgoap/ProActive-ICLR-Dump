@@ -54,3 +54,18 @@ python scripts/analyze_human_audit.py \
   --output_dir outputs/week8_reports/human_audit \
   --overwrite
 ```
+
+Finally, run the CPU-only Week 8 completion gate:
+
+```bash
+python scripts/validate_week8.py \
+  --mode full \
+  --config configs/experiments/week8_evaluation.yaml \
+  --output_dir outputs/week8_reports \
+  --overwrite
+```
+
+Week 8 is COMPLETE only if this writes
+`outputs/week8_reports/week8_full_validation.json` with `is_valid: true` and no
+errors. A low human-agreement result must be reported honestly; it must not be
+relabelled to force the gate.

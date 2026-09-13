@@ -1,5 +1,32 @@
 # Project Log
 
+## 2026-09-13 — Week 8 grouped statistical analysis completed
+
+- The synchronized `analyze_week8.py` run completed with exit code zero in
+  1:13:54 over 340,800 frozen held-out trajectory rows.
+- It used 2,000 bootstrap resamples grouped by `group_id`, generated 710
+  confidence-interval rows, 120 paired-comparison rows, 160 dataset/model slice
+  rows, and 10 positive plus 10 negative deterministic qualitative cases.
+- The analysis report self-hash `757908db...e191`, the source-trajectory hash,
+  and all four output-artifact hashes independently match. No target-domain
+  calibration or post-shift tuning was used.
+- ProActive exceeds random at budgets 1--4. The predeclared budget-7 primary
+  comparison is a small statistically significant negative difference
+  (`-0.0063`, 95% CI `[-0.0087, -0.0041]`, Holm-adjusted `p=0.003`) while using
+  about 0.42 fewer probes. The paper claim is therefore constrained-budget
+  efficiency, not universal full-budget dominance.
+- All mandatory Week 8 machine evidence is now complete. The remaining gate is
+  three-person annotation, blinded adjudication/analysis, and CPU-only full
+  Week 8 validation.
+- Added `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md` as the compact map
+  from the paper story to signed result artifacts and independent-analysis
+  instructions.
+- Auditing against Plan §25.11 found that Week 9 packaging is still unbuilt:
+  one-command paper assets, `repro_manifest.json`, independent leakage and
+  calibration review, appendix/risk/release artifacts, and the fixed-seed
+  rerun-or-documented-waiver decision. These do not block writing but do block
+  calling the submission package reproducible and frozen.
+
 ## 2026-09-12 — Week 8 ablation resume incident isolated and repaired in code
 
 - The synchronized run is not complete: the signed `ablations.json` and CSV do

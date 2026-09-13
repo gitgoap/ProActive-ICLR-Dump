@@ -1,11 +1,14 @@
 # ProActive: Beginner-Friendly Project Explainer, Progress, Errors, and 9-Day ICLR Sprint
 
 **Meeting guide for:** Professor discussion and ICLR planning  
-**Last updated:** 11 September 2026
+**Last updated:** 13 September 2026
 **Current project stage:** Week 8 external-shift, generalization, ablation, latency, and human-audit validation
-**Submission horizon:** Nine days remain in the owner-provided ICLR deadline window
+**Submission horizon:** Final submission sprint
 
-This document explains ProActive from the beginning, records what was actually completed each week, translates recurring errors into plain language, and gives a realistic plan for the remaining nine days. The filename is retained so existing links do not break; this section supersedes the earlier 9-day schedule.
+This document explains ProActive from the beginning and records the detailed
+history. For the current result map, claim boundary, and direct links to signed
+artifacts, start with `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md`. The
+filename is retained so existing links do not break.
 
 ## If you remember only ten things
 
@@ -18,7 +21,10 @@ This document explains ProActive from the beginning, records what was actually c
 7. Week 6 learns which probe to request next, or when to stop, using value-of-information targets.
 8. Week 7 froze the system, calibrated diagnosis sets, and completed the one-time locked test evaluation without post-test tuning.
 9. The repeated errors were mostly integrity checks, malformed model outputs, environment mismatches, GPU contention, or stale/incomplete synced artifacts—not evidence that the research idea failed.
-10. Weeks 1–7 are complete. Week 8 is partially validated: held-out shift, latency, and both leave-one-model-out folds are complete. The immediate priorities are the mandatory ablation bundle, signed aggregate analysis, and the still-unstarted three-person human audit.
+10. Weeks 1–7 are complete. All mandatory Week 8 machine experiments and
+    statistics are complete. The only unfinished evidence is the three-person
+    human audit, followed by the CPU-only full validator and paper artifact
+    freeze.
 
 ## The 30-second explanation
 
@@ -295,8 +301,9 @@ examples, and a three-person blinded audit. Held-out shift, latency, and both
 LOMO folds are now complete and hash-verified. LOMO diagnostic performance
 beats the clean-only and scalar controls in both directions, while the Gemma
 fold reveals cross-model calibration undercoverage at larger budgets. This is
-retained as a limitation; the held-out result will not be tuned. Mandatory
-ablations, final signed analysis, and completed human annotations remain.
+retained as a limitation; the held-out result will not be tuned. All 15
+mandatory ablations and the final grouped statistical analysis are also
+complete. Only completed human annotations and final validation remain.
 
 ### Week 9 — reproducibility and paper asset freeze: planned
 
@@ -313,8 +320,8 @@ The final phase packages tables and figures, regenerates checksums and run metad
 | Week 5 encoder bake-off/freeze | Complete | RAPS appendix is deferred |
 | Week 6 policies/frontier | Complete | Full validator passed with zero errors and 496,912 complete VOI rows |
 | Week 7 calibration/test | Complete | Signed freeze, final APS, one-time locked test, permutations, and final `GO` all passed |
-| Week 8 robustness/ablations/audit | Partially validated | Shift, LOMO, and latency complete; mandatory ablations, signed analysis, and three-person audit remain |
-| Week 9 assets/reproducibility | Planned | Requires frozen results |
+| Week 8 robustness/ablations/audit | Implemented, not validated | All machine evidence complete; three-person audit and full validator remain |
+| Week 9 assets/reproducibility | Not started | Evidence index exists; one-command assets, reproducibility manifest, review, and release freeze remain |
 
 ## What the frequent errors actually meant
 
@@ -370,26 +377,29 @@ Several scripts deliberately exit with code 1 when an artifact is incomplete, a 
 - The full Week 6 policy grid and one-pass baselines were trained.
 - The complete Week 6 validation matrix selected cost multiplier 0.0/seed 42 and passed its full validator.
 - The frozen Week 7 stack, source-calibration APS, locked test frontier, and permutation studies passed with final `GO`.
+- Held-out PRE-HAL/IllusionBench shift, both source-only LOMO folds, fixed-hardware latency, all 15 ablations, grouped intervals, paired tests, slices, and qualitative cases are complete.
+- Held-out results support active acquisition at budgets 1--4; the small budget-7 random advantage is retained as an honest saturation result.
 
 ### Not yet supported
 
-- We cannot claim broad external-dataset generalization until the pinned
-  PRE-HAL/IllusionBench stress run is complete; the loader code alone is not
-  evidence.
-- We cannot claim leave-one-model-out transfer until both leakage-safe folds
-  are trained and evaluated.
 - We cannot claim all automatic labels are human-plausible until three
   independent annotators complete the blinded audit.
 - We cannot claim full four-dataset InternVL generalization; only staged runs
   and complete VSR are available.
+- We cannot claim universal active-policy dominance: random is slightly better
+  at the saturated held-out budget 7, although ProActive is better at budgets
+  1--4 and uses fewer probes at budget 7.
+- We cannot claim a distribution-free cross-model coverage guarantee because
+  the Gemma LOMO fold undercovers.
 - We should not describe the source bits as uniquely identified causal mechanisms; they are operational diagnostics induced by defined probes.
 
-## Realistic 9-day plan for the ICLR deadline
+## Original 9-day plan and current compressed closeout
 
-This is a deadline-first plan. Human annotation begins immediately because it
-depends on other people's availability, while GPU and CPU experiments continue
-independently. Optional work is dropped before it can delay paper-critical
-evidence or writing.
+The table below records the original plan for auditability. Its machine-work
+items are now complete. The live closeout is: distribute/finish annotations,
+draft the paper immediately, merge and analyze returned packets, run the final
+CPU validator, then freeze tables/figures/claims and submit. Optional work is
+deferred.
 
 | Day | Human track | Experiment and engineering track | Paper track / completion evidence |
 |---|---|---|---|
@@ -443,23 +453,21 @@ If the adaptivity result is weak, do **not** spend days forcing it. Pivot the pa
 
 | Priority | Do before submission | Examples |
 |---|---|---|
-| **P0 — mandatory** | Yes | Week 7 final-budget schedule, stack freeze, calibration/test, leakage audit, primary figures, reproducibility, abstract |
-| **P1 — high value if cached/short** | Preferably | Dataset/model slices, identity/clean-only ablations, latency, action traces, oracle gaps, human audit |
+| **P0 — mandatory** | Yes | Three-person audit, full Week 8 validation, primary figures/tables, claim audit, reproducibility, abstract and paper |
+| **P1 — high value if cached/short** | Already complete | Dataset/model slices, ablations, latency, action traces, oracle gaps, grouped statistics |
 | **P2 — defer if it threatens P0** | No | Full InternVL four-dataset cache, new GQA construction, optional LODO, broad hyperparameter search, Set Transformer, extensive RAPS appendix |
 
 ## What is needed from the project owner
 
 ### Needed now
 
-1. Sync the root `WEEK_8_DATASET_SETUP_AND_EXECUTION.md` file omitted from the
-   server and rerun implementation validation. The data verification itself has
-   passed and the deterministic shift manifest is frozen at 600+600 rows.
-2. Recruit three genuinely independent annotators and send the three existing
+1. Recruit three genuinely independent annotators and send the three existing
    180-row packets today. All three annotation files are currently empty.
-3. Run and review the 1/10-row held-out parser stages for Qwen and Gemma on two
-   verified-free GPUs; the 100-row smoke is intentionally skipped.
-4. After those gates pass, explicitly approve and launch the full two-model
-   held-out cache. Preserve the Week 7 freeze and never tune from shift outcomes.
+2. Draft the paper from `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md` while
+   annotation proceeds; no mandatory GPU run remains.
+3. After all packets return, merge, adjudicate while blinded, analyze agreement,
+   and run the CPU-only full Week 8 validator.
+4. Trace every final table, figure, and claim back to its signed JSON/CSV source.
 
 ### External setup that is optional or deferred
 

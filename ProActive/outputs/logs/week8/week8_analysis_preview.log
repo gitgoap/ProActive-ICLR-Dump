@@ -1,0 +1,28 @@
+{
+  "format_version": "week8_analysis_v1",
+  "config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6",
+  "trajectory_files": [
+    {
+      "path": "outputs/week8_reports/shift/trajectories_shift.jsonl",
+      "sha256": "0f3df65d13d587a0733ebe61920c0ea955bc862cb75bad6437dad33d4c240a85"
+    }
+  ],
+  "seed": 42,
+  "bootstrap_resamples": 2000,
+  "bootstrap_confidence": 0.95,
+  "bootstrap_group": "group_id",
+  "target_domain_calibration_used": false,
+  "primary_comparison_protocol": {
+    "budget": 7,
+    "coverage": 0.9,
+    "metric": "source_bit_macro_f1",
+    "controls": [
+      "random",
+      "clean_only_learned",
+      "scalar_confidence"
+    ],
+    "multiplicity_correction": "holm",
+    "familywise_alpha": 0.05
+  },
+  "output": "outputs/week8_reports/week8_analysis.json"
+}

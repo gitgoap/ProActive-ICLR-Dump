@@ -25,14 +25,25 @@ Read these files **in this order** before writing any code:
 | -------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
 | 1        | `instructions.md`                                      | Workspace rules, environment constraints, strict coding policies                                       |
 | 2        | `v3.5_ProActive_Complete_Super_Implementation_Plan.md` | The scientific and engineering source of truth — every formula, every threshold, every design decision |
-| 3        | `PROJECT_STATUS.md`                                    | Current phase and blockers                                                                             |
-| 4        | `WEEKLY_PROGRESS.md`                                   | What has actually been built and validated so far                                                      |
-| 5        | `doc/docs/WEEK_*_REQUIREMENTS.md`                      | Per-week completion gates and requirement matrices                                                     |
-| 6        | `CODE_REVIEW.md`                                       | Adversarial review checklist — use before declaring anything complete                                  |
-| 7        | `SERVER_RUNBOOK.md`                                    | How to run GPU workloads on the remote server                                                          |
+| 3        | `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md`       | Compact current story plus direct map from claims to result artifacts                                  |
+| 4        | `PROJECT_STATUS.md`                                    | Current phase and blockers                                                                             |
+| 5        | `WEEKLY_PROGRESS.md`                                   | What has actually been built and validated so far                                                      |
+| 6        | `doc/docs/WEEK_*_REQUIREMENTS.md`                      | Per-week completion gates and requirement matrices                                                     |
+| 7        | `CODE_REVIEW.md`                                       | Adversarial review checklist — use before declaring anything complete                                  |
+| 8        | `SERVER_RUNBOOK.md`                                    | How to run GPU workloads on the remote server                                                          |
 
 Do not replace explicit plan requirements with placeholders, simplified
 implementations, or "temporary" fallbacks unless clearly approved.
+
+## Result analysis entry point
+
+Before analyzing results, forming the paper story, quoting a metric, or
+recommending another experiment, read
+`PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md`. It maps each current claim
+to its signed JSON/CSV/figure/log evidence, records the supported and negative
+results, explains the remaining gates, and gives the required independent
+analysis procedure. Verify the underlying artifacts rather than relying on a
+summary sentence alone.
 
 ## Key Constraints
 

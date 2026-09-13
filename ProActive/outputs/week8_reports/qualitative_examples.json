@@ -1,0 +1,585 @@
+{
+  "format_version": "week8_qualitative_v1",
+  "negative": [
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:8d2d6a605639163e",
+        "instance_id": "illusionbench_10044039_3",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:a3ba63806fd67e34ae85ad02",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:8c48b9deee6d7c0c",
+        "instance_id": "illusionbench_10081030_1",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:a2255cb89870daa8c702c15d",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blur",
+        "blank",
+        "grounding",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:0267bd8d6ab5b183",
+        "instance_id": "prehal_COCO_val2014_000000379108_d6c3d6feb3ff6912_5970",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:6b5b05d6b89f9086bf137cec",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:66b9e6d4e95926a9",
+        "instance_id": "prehal_676_0a10f16a73a6e0f2_400",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:8a2fc8149897ef40ec11c5fb",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "noise",
+        "brightness",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:6efe371868033669",
+        "instance_id": "illusionbench_10039017_3",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:7af5a168eaa2c4fb15d447c6",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:adf35dd784f991fb",
+        "instance_id": "prehal_8617694c95033edf_ea7ba5b2c95022d5_7587",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        1,
+        0,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:8a35ea05e87d4c2636b3b66a",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "blank",
+        "blur",
+        "crop",
+        "grounding",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:3ee473d8a301fcdf",
+        "instance_id": "illusionbench_10045009_3",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 5,
+      "prediction_set": [
+        5,
+        4,
+        0,
+        2,
+        3,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:5741c48bfc9f8a430b2746b4",
+      "target_six_way": 4
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "crop",
+        "blur",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:6c53f5f5dd3aef4a",
+        "instance_id": "illusionbench_10046028_2",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        2,
+        0,
+        3,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:837e7ed7eed610f943516238",
+      "target_six_way": 5
+    },
+    {
+      "actions": [
+        "grounding",
+        "blur",
+        "brightness",
+        "crop",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:e270364dc5a8ec7b",
+        "instance_id": "prehal_COCO_val2014_000000368595_aca5e09ebeb11f0e_4983",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 2,
+      "prediction_set": [
+        2,
+        3,
+        1,
+        0,
+        5,
+        4
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:b588bb0f05d3690941536885",
+      "target_six_way": 3
+    },
+    {
+      "actions": [
+        "blur",
+        "blank",
+        "grounding",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:c04d88c5e74d6f0d",
+        "instance_id": "prehal_d9e9a8b9befb3f51_76cc44e261d3d354_8823",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 4,
+      "prediction_set": [
+        4,
+        5,
+        0,
+        2,
+        3,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:27c847a658f469e65f8d7bc7",
+      "target_six_way": 5
+    }
+  ],
+  "positive": [
+    {
+      "actions": [
+        "blank",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:b94573afd85bc947",
+        "instance_id": "illusionbench_10050038_0",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 1,
+      "prediction_set": [
+        1,
+        3,
+        5,
+        4,
+        2,
+        0
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:1578e3e6c07b440668e7f865",
+      "target_six_way": 1
+    },
+    {
+      "actions": [
+        "blank",
+        "blur",
+        "grounding",
+        "crop",
+        "brightness",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:2448aab66d2125c9",
+        "instance_id": "illusionbench_10011027_2",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 0,
+      "prediction_set": [
+        0,
+        3,
+        5,
+        4,
+        2,
+        1
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:d820a8d386767494ec9bad6d",
+      "target_six_way": 0
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:dd3609ec982cd722",
+        "instance_id": "prehal_ca417837202d69f1_2c1abf86547dd050_8595",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 2,
+      "prediction_set": [
+        2,
+        3,
+        5
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:edddc30768738bdac04fd0b1",
+      "target_six_way": 2
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:c93bb12338930489",
+        "instance_id": "illusionbench_10111024_3",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 0,
+      "prediction_set": [
+        0
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:88b708bf9ca55ca884fd0d2f",
+      "target_six_way": 0
+    },
+    {
+      "actions": [
+        "grounding",
+        "blur",
+        "brightness",
+        "blank",
+        "crop",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:1381c9a1fc32f803",
+        "instance_id": "prehal_dbbb6bf66be0d2a7_e5e391c81c8ef071_8851",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 3,
+      "prediction_set": [
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:2204eba4e74c561f7ee24a06",
+      "target_six_way": 3
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "crop",
+        "blur",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:c051959bcb83e277",
+        "instance_id": "illusionbench_10116037_1",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 3,
+      "prediction_set": [
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:8e5b90ebe5237dae11bd76ff",
+      "target_six_way": 3
+    },
+    {
+      "actions": [
+        "blur",
+        "grounding",
+        "blank",
+        "crop",
+        "brightness",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:4cc72cb8ecfbb0e1",
+        "instance_id": "prehal_9ae2d9c5782e3d8c_5a8739428c36a7d7_7945",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 0,
+      "prediction_set": [
+        0,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:8e2b7e554ba225cbef898db4",
+      "target_six_way": 0
+    },
+    {
+      "actions": [
+        "blank",
+        "crop",
+        "grounding",
+        "blur",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:6e69efa8ecfc569a",
+        "instance_id": "illusionbench_10031017_2",
+        "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+        "split": "shift"
+      },
+      "predicted_six_way": 1,
+      "prediction_set": [
+        1,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:5706e9295a144cf601b286e1",
+      "target_six_way": 1
+    },
+    {
+      "actions": [
+        "blank",
+        "grounding",
+        "crop",
+        "blur",
+        "brightness",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "prehal",
+        "group_id": "sha256:ef64a0cb080a0c22",
+        "instance_id": "prehal_COCO_val2014_000000055950_29fb52715cc04d05_4296",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 1,
+      "prediction_set": [
+        1,
+        3
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:d23a87f788a702832701bb20",
+      "target_six_way": 1
+    },
+    {
+      "actions": [
+        "blank",
+        "blur",
+        "crop",
+        "brightness",
+        "noise",
+        "stop"
+      ],
+      "metadata": {
+        "dataset": "illusionbench",
+        "group_id": "sha256:05b2a0600171a42e",
+        "instance_id": "illusionbench_10201018_1",
+        "model_id": "google/gemma-4-E4B-it",
+        "model_revision": "292a7e278a400932df35f9fd4b1501edd04133a5",
+        "split": "shift"
+      },
+      "predicted_six_way": 1,
+      "prediction_set": [
+        1,
+        3,
+        5,
+        4
+      ],
+      "selection_rule": "frozen_outcome_then_sha256_rank_v1",
+      "state_id": "state:b782b2e142d12cbd7df21c75",
+      "target_six_way": 1
+    }
+  ],
+  "selection_uses_model_tuning": false
+}

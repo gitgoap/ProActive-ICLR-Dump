@@ -1,6 +1,9 @@
 # ProActive: Research Progress and Submission Plan
 
-**Progress snapshot: 11 September 2026.** Weeks 1–7: COMPLETE. Week 8: IMPLEMENTED, PARTIALLY VALIDATED. Submission planning assumes the remaining deadline window currently available.
+**Progress snapshot: 13 September 2026.** Weeks 1–7: COMPLETE. Week 8:
+IMPLEMENTED, NOT VALIDATED. Every mandatory machine experiment and statistical
+analysis is complete; only the three-person human audit and final validator
+remain. Paper writing should proceed now.
 
 ## Research question and approach
 
@@ -21,8 +24,8 @@ The indicators are **visual fragility, language-prior persistence, and grounding
 | 5 — Evidence encoder | COMPLETE | 15 runs across three seeds comparing clean-only, masked-slot MLP, canonical/random-order GRU, and Deep Sets. Froze Deep Sets seed 42. |
 | 6 — Active policy | COMPLETE | 496,912 value-of-information targets per evaluated encoder; 15 Deep Sets policies and required controls evaluated. Validation selected cost multiplier 0.0, seed 42. |
 | 7 — Calibration and core test | COMPLETE | Frozen stack, 90%/95% APS, and 1,560 test model–example pairs at budgets 1/2/3/4/7. Controls, oracles, permutations, and final validation passed. |
-| 8 — Robustness and audit | IMPLEMENTED, PARTIALLY VALIDATED | Held-out shift, fixed-hardware latency, and two-fold leave-one-model-out transfer are complete. Mandatory ablations, signed aggregate analysis, and the three-person audit remain. |
-| 9 — Paper and reproducibility | NOT STARTED | Final evidence packaging, claim review, and submission checks; writing proceeds alongside experiments. |
+| 8 — Robustness and audit | IMPLEMENTED, NOT VALIDATED | Held-out shift, two-fold leave-one-model-out transfer, latency, all 15 ablations, grouped statistics, slices, and qualitative cases are complete. Only the three-person audit and final validator remain. |
+| 9 — Paper and reproducibility | NOT STARTED | The evidence map exists and writing can start, but one-command paper assets, reproducibility manifest, independent review, and release freeze remain. |
 
 The core datasets are POPE, VizWiz, HallusionBench, and VSR. Main training uses Qwen3-VL-8B and Gemma-4-E4B. InternVL contributes staged evidence and complete VSR coverage; a full three-model corpus is not claimed.
 
@@ -38,27 +41,59 @@ The core datasets are POPE, VizWiz, HallusionBench, and VSR. Main training uses 
 | Dataset-specific fixed schedule | 0.9200 | 0.5669 | 90.38% | 3.16 |
 | Random acquisition | 0.8719 | 0.5257 | 92.88% | 3.27 |
 
-Mean cost is approximately two probes for each method. Macro-F1 measures balanced classification performance; smaller sets give more specific diagnoses. Coverage differs, and statistical intervals remain pending. At budget 7, ProActive uses 5.10 probes versus 6.01 for full evidence, with source-indicator Macro-F1 0.9942 versus 0.9958 and slightly larger diagnosis sets. Advantages therefore depend on budget.
+Mean cost is approximately two probes for each method. Macro-F1 measures
+balanced classification performance; smaller sets give more specific
+diagnoses. At budget 7, ProActive uses 5.10 probes versus 6.01 for full
+evidence, with source-indicator Macro-F1 0.9942 versus 0.9958 and slightly
+larger diagnosis sets. Advantages therefore depend on budget.
 
-**The paper's current story:** selective evidence acquisition and an order-invariant representation enable accurate, calibrated behavioural diagnosis under limited budgets. Core results support this direction; external transfer and human agreement must establish its relevance beyond recovering probe-derived targets.
+The completed held-out PRE-HAL/IllusionBench analysis confirms this shape.
+ProActive-minus-random source-bit Macro-F1 is `+0.0458`, `+0.1189`, `+0.1474`,
+and `+0.1178` at budgets 1--4. At the predeclared budget-7 primary comparison,
+it is `-0.0063` (95% CI `[-0.0087, -0.0041]`; Holm-adjusted `p=0.003`) while
+using about `0.42` fewer probes. The paper will report this full-budget
+saturation result directly and claim benefit under constrained budgets.
+
+**The paper's current story:** selective evidence acquisition and an
+order-invariant representation enable accurate behavioural diagnosis with few
+additional model calls. The advantage is strongest at constrained budgets and
+largely disappears when almost all probes are affordable. Calibration is
+reliable in the frozen core setting but degrades in one cross-model transfer
+fold, so the paper separates diagnostic transfer from conformal guarantees.
 
 ## Credibility and remaining evidence
 
 Selection used training/validation data; calibration followed freezing, and test-based tuning is prohibited. Dataset/model identities are excluded from the main learner. Duplicate handling, answer-contract corrections, and malformed-generation recovery are documented. The synced server suite passed 303 tests.
 
-PRE-HAL and IllusionBench are verified; the 1,200-row sample precedes inference. IllusionBench's 381 release-integrity exclusions are documented. Implementation validation needs rerunning after one missing server document is synced. External-shift results remain pending.
+PRE-HAL and IllusionBench are verified; the 1,200-row sample was fixed before
+inference. IllusionBench's 381 release-integrity exclusions are documented.
+The recovered two-model held-out cache covers all 2,400 requested rows without
+selective exclusions. Shift, LOMO, latency, ablations, grouped intervals,
+slices, and qualitative outputs are complete and hash-bound.
 
-Three independent annotators must each judge the same 180 examples; packets are ready but unfilled. Leave-one-model-out transfer and latency are complete. At budget 7, ProActive source-bit Macro-F1 exceeds clean-only and scalar controls for both held-out models, but the Gemma fold undercovers at the nominal 0.90 target (`0.7115`). The paper will therefore claim useful diagnostic transfer while treating cross-model calibration as a limitation. Remaining evidence is the mandatory ablation bundle, signed aggregate analysis, and human agreement. New-dataset coverage is reported empirically.
+Three independent annotators must each judge the same 180 examples; packets
+are ready but unfilled. At budget 7, ProActive source-bit Macro-F1 exceeds
+clean-only and scalar controls for both held-out models, but the Gemma fold
+undercovers at the nominal 0.90 target (`0.7115`). The paper will therefore
+claim useful diagnostic transfer while treating cross-model calibration as a
+limitation. Human agreement is the only missing evidence. New-dataset coverage
+is reported empirically.
 
-## Nine-day completion schedule
+## Final submission sprint
 
 | Window | Work and deliverable |
 |---|---|
-| Days 1–2 | Distribute annotation packets immediately; request return within 48 hours. Complete held-out parser checks and launch the approved two-model cache. Draft methods and core results concurrently. |
-| Days 3–5 | Complete shift evaluation, transfer folds, mandatory ablations, latency, and statistics. Merge annotations and adjudicate disagreements while blinded; produce the human-agreement report. |
-| Days 6–7 | Finalize tables, figures, limitations, and abstract; obtain professor/coauthor review and trace each reported number to its saved artifact. |
-| Days 8–9 | Complete reproducibility and submission checks, with a buffer for corrections and upload. |
+| Now | Distribute all three 180-row annotation packets and draft the complete paper except the audit paragraph. |
+| When packets return | Merge, adjudicate disagreements while blinded, run agreement/rule-match analysis, then run the full Week 8 validator. |
+| Next 2–3 days | Convert signed CSV/JSON results into final tables and figures; write results, limitations, and abstract. |
+| Final buffer | Professor/coauthor claim review, number-to-artifact trace, formatting, reproducibility check, and upload. |
 
-The core corpus, model selection, and locked evaluation already exist, making this schedule plausible. Held-out inference provisionally needs 6–12 uninterrupted hours on two A6000 GPUs, subject to pilot timing and recovery. Human availability and GPU access are the main risks. Optional GQA, full InternVL expansion, and new architecture searches are deferred. Missing required evidence must be disclosed and claims narrowed; submission readiness does not predict acceptance.
+No additional mandatory GPU experiment remains. Human turnaround and writing
+bandwidth are now the main risks. Optional GQA, leave-one-dataset-out, full
+InternVL expansion, and new architecture searches remain deferred. Missing
+human evidence must be disclosed and claims narrowed; submission readiness
+does not predict acceptance.
 
-**Evidence sources:** `outputs/week5_reports/week5_encoder_selection.json`; `outputs/week6_reports/week6_policy_selection.json`; `outputs/week7_reports/frontier_test.json` and the corresponding CSV; `outputs/week7_reports/week7_full_validation.json`; `outputs/week8_data/manifests/heldout_manifest_bundle.json`. Week 5 scores are validation results; the table above reports locked-test results.
+**Evidence entry point:** `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md`.
+Week 5 scores are validation results; the table above reports locked-test
+results; Week 8 coverage is empirical shift behavior.

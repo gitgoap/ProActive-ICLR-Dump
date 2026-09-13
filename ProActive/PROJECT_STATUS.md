@@ -2,20 +2,18 @@
 
 **Current Phase:** Week 8 — robustness, cached ablations, latency, held-out shift decisions, and human audit
 
-**Status:** Weeks 1–7 COMPLETE; Week 8 IMPLEMENTED, PARTIALLY VALIDATED
+**Status:** Weeks 1–7 COMPLETE; Week 8 IMPLEMENTED, NOT VALIDATED
 
-**Immediate Week 8 gate (2026-09-12):** Held-out shift, fixed-hardware latency,
-both source-only LOMO folds, and the signed 15-item mandatory validation-only
-ablation bundle are complete. The no-budget recovery passed its exact-history
-and APS scientific-equivalence gate, and the rebuilt downstream provenance
-chain completed. The final launcher then exposed a CPU-only command-interface
-bug: repeated `--evidence` options replaced one another, so only the last of 15
-items reached the aggregate validator. The corrected parser regression passed
-on the server, and the CPU-only rerun produced 121 aggregate result rows with a
-valid report hash, CSV hash, and 15/15 evidence bindings. W8-04 is COMPLETE.
-Human annotation packets remain ready and unfilled and must be completed by
-three independent annotators. Grouped statistics/slices/qualitative evidence
-and the final Week 8 validator are the remaining machine-executable gates.
+**Immediate Week 8 gate (2026-09-13):** Every mandatory machine experiment is
+complete: held-out shift, two source-only LOMO folds, fixed-hardware latency,
+the signed 15-item ablation bundle, grouped confidence intervals, paired tests,
+slices, and qualitative cases. The final statistical run processed 340,800
+shift trajectories with 2,000 `group_id` bootstrap resamples. Its report
+self-hash and all five bound artifact hashes independently match. Human
+annotation packets remain ready and unfilled and must be completed by three
+independent annotators. After merge, blinded adjudication, and human-agreement
+analysis, the CPU-only full Week 8 validator is the sole remaining completion
+gate. No additional mandatory GPU run remains.
 
 The 15-item ablation bundle is owner-approved at seed 42 on validation-only
 evidence: at most two GPUs verified free at launch, eight combined GPU-hours,
@@ -80,7 +78,7 @@ threshold was fitted and its coverage is reported as empirical shift behavior.
   seconds. The 100-row and complete-VSR stages also passed with 100 and 340
   valid rows respectively and zero model failures.
 
-**Current Blocker:**
+**Completed validation history and current evidence:**
 - The complete Week 5 experiment matrix is synchronized: `15/15` checkpoint
   validation reports, `12/12` non-clean permutation studies, `12/12` temporary
   APS reports, and the shortcut-control report. Pre-gate inspection predicts a
@@ -246,17 +244,18 @@ threshold was fitted and its coverage is reported as empirical shift behavior.
   are server-validated. The catch-up now covers all four datasets and complete
   VSR with zero failures. GQA-Relation remains scheduled for Week 7–8.
 
-**Next Tasks (Week 8):**
-1. Run the exact history/APS equivalence gate, archive the stale
-   `no_budget_embedding` descendants, and resume the unfinished mandatory
-   ablations only after that gate passes. Then produce the signed Week 8
-   ablation aggregate, statistical analysis, and full validation.
-2. Finish the three independent 180-row annotation packets immediately; this is
-   the slowest human dependency and runs in parallel with the GPU stages.
-3. Generate grouped intervals, slices, qualitative cases, and paper-facing
-   artifacts from the frozen reports.
-4. Keep GQA-Relation and optional leave-one-dataset-out deferred unless all
-   mandatory Week 8 evidence and the paper are secure.
+**Next Tasks (Week 8 and paper):**
+1. Finish the three independent 180-row annotation packets immediately; this is
+   the only unfinished evidence collection.
+2. Merge the packets, adjudicate disagreements while blinded, run the agreement
+   and rule-match analysis, and then run `validate_week8.py --mode full`.
+3. Write the paper now in parallel. Freeze tables, figures, claims, limitations,
+   and provenance using `PROACTIVE_RESEARCH_HANDOFF_AND_RESULTS_INDEX.md`.
+4. Complete the Week 9 reproducibility package: generated paper assets,
+   `repro_manifest.json`, checksum/seed/split review, appendix and risk memo,
+   release checklist, and second-person regeneration instructions.
+5. Keep GQA-Relation, optional leave-one-dataset-out, and the full InternVL
+   corpus deferred unless the mandatory paper package is already secure.
 
 **LOMO status (2026-09-11):** Both approved source-only folds are complete and
 hash-verified. At budget 7, ProActive source-bit Macro-F1 exceeds clean-only

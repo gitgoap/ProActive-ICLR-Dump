@@ -1,0 +1,37 @@
+{
+  "bootstrap_confidence": 0.95,
+  "bootstrap_group": "group_id",
+  "bootstrap_resamples": 2000,
+  "ci_path": "outputs/week8_reports/confidence_intervals.csv",
+  "ci_sha256": "6e5c2882889e046d8b1e4d36e8534d9fc423d99d97de304040a77968c2e4026a",
+  "config_sha256": "59748c18da7375db6140f05d6c5ec2670c6ce19eeb25b5931e94868ffe7d9cf6",
+  "format_version": "week8_analysis_v1",
+  "paired_path": "outputs/week8_reports/paired_comparisons.csv",
+  "paired_sha256": "875060af38e1c57a31ae06381ed5af7d66ed2da76761c021cb336233a8a644b6",
+  "primary_comparison_protocol": {
+    "budget": 7,
+    "controls": [
+      "random",
+      "clean_only_learned",
+      "scalar_confidence"
+    ],
+    "coverage": 0.9,
+    "familywise_alpha": 0.05,
+    "metric": "source_bit_macro_f1",
+    "multiplicity_correction": "holm"
+  },
+  "qualitative_path": "outputs/week8_reports/qualitative_examples.json",
+  "qualitative_sha256": "f48b9406de92b3ec05be09ce8f63546eecb5f08b4a3f62260ce5a07a2874613f",
+  "report_sha256": "757908dbe1372a90f8c6fa11a3a76b2499ef7908c31d114971f98e01e0f6e191",
+  "seed": 42,
+  "slices_path": "outputs/week8_reports/slices.csv",
+  "slices_sha256": "ea8377f75d94e92fb0ca1f6a386ea4f300d8bbda9c3f240ec7857c21194f86dc",
+  "target_domain_calibration_used": false,
+  "trajectory_files": [
+    {
+      "path": "outputs/week8_reports/shift/trajectories_shift.jsonl",
+      "sha256": "0f3df65d13d587a0733ebe61920c0ea955bc862cb75bad6437dad33d4c240a85"
+    }
+  ],
+  "trajectory_row_count": 340800
+}
