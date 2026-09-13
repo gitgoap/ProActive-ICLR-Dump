@@ -82,7 +82,7 @@ Additional evidence sharpens the claim:
 |---|---|
 | What was completed each week? | [`WEEKLY_PROGRESS.md`](WEEKLY_PROGRESS.md) |
 | What is the short professor-facing summary? | [`PROACTIVE_RESEARCH_PROGRESS_BRIEF.md`](PROACTIVE_RESEARCH_PROGRESS_BRIEF.md) |
-| How does the complete system work in beginner-friendly language? | [`Progress_9-Day ICLR Sprint.md`](Progress_9-Day%20ICLR%20Sprint.md) |
+| How does the complete system work in beginner-friendly language? | [`PROACTIVE_BEGINNER_PROJECT_EXPLAINER.md`](PROACTIVE_BEGINNER_PROJECT_EXPLAINER.md) |
 | Which settings and scientific choices were approved? | [`DECISIONS.md`](DECISIONS.md) |
 | Which runs produced which outputs and compute costs? | [`RUN_REGISTRY.md`](RUN_REGISTRY.md) |
 | Which failures occurred and how were they resolved? | [`FAILURE_LOG.md`](FAILURE_LOG.md) and [`PROJECT_LOG.md`](PROJECT_LOG.md) |
