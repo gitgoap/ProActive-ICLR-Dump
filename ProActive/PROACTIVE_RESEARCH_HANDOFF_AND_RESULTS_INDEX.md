@@ -1,5 +1,13 @@
 # ProActive Research Handoff and Results Index
 
+> **Plan B cached-answer correction experiment:** see
+> [`Backup-Plan/PLAN_B_IMPLEMENTATION_AND_EXECUTION.md`](Backup-Plan/PLAN_B_IMPLEMENTATION_AND_EXECUTION.md)
+> for the self-contained protocol, implementation map, server commands, gates,
+> and expected evidence. It is an exploratory secondary experiment and does not
+> replace the frozen Week 7/8 results indexed below. Its validation gate failed
+> on 16 September 2026, so locked test/shift evaluation was not opened; see
+> [`Backup-Plan/PLAN_B_VALIDATION_CONCLUSION.md`](Backup-Plan/PLAN_B_VALIDATION_CONCLUSION.md).
+
 **Snapshot:** 13 September 2026  
 **Submission status:** Weeks 1–7 are COMPLETE. All mandatory Week 8 machine
 experiments and statistical analyses are complete. The three-person blinded
@@ -80,6 +88,7 @@ Additional evidence sharpens the claim:
 
 | Question | Document |
 |---|---|
+| What are the strongest paper results, ranked by wow factor? | [`wow-result.md`](wow-result.md) |
 | What was completed each week? | [`WEEKLY_PROGRESS.md`](WEEKLY_PROGRESS.md) |
 | What is the short professor-facing summary? | [`PROACTIVE_RESEARCH_PROGRESS_BRIEF.md`](PROACTIVE_RESEARCH_PROGRESS_BRIEF.md) |
 | How does the complete system work in beginner-friendly language? | [`PROACTIVE_BEGINNER_PROJECT_EXPLAINER.md`](PROACTIVE_BEGINNER_PROJECT_EXPLAINER.md) |

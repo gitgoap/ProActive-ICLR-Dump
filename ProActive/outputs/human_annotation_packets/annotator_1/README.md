@@ -25,3 +25,7 @@ Allowed `label6` values:
 
 Work independently. Do not try to match what you think the automatic system
 said. If unsure, use `unclear`; never leave a row blank.
+
+FAQs:
+1. What is 'probe_results_json' column in the annotations excel sheet?
+Ans. When we ask Qs to Vision Language Models then we provide image and a language prompt. We can also ask the model providing the same set of Image and Question but making some a small change one at a time. e.g. blur the image, crop the image, provide a black colored image, or grounding the prompt - changing the prompt a little for instance adding "Think carefully about Q, make no mistake".

@@ -1,0 +1,52 @@
+{
+  "classes": [
+    0,
+    1
+  ],
+  "coefficients": [
+    1.0725262670935023,
+    1.4965835814566497,
+    -0.17480485135650067,
+    0.16566531693482814,
+    0.4376490648457009,
+    -0.13001979195305657,
+    -0.380540956903222,
+    0.8537825664592207,
+    -0.7213402411352343,
+    -0.08245897085932163
+  ],
+  "feature_names": [
+    "source_clean",
+    "source_grounding",
+    "source_blur",
+    "source_crop",
+    "source_brightness",
+    "source_noise",
+    "source_blank",
+    "vote_share",
+    "distinct_answer_fraction",
+    "acquired_probe_fraction"
+  ],
+  "format_version": "plan_b_logistic_v1",
+  "intercept": -1.4489315418519626,
+  "model_sha256": "70e74657abe23afb7a8846d93c2970d4016ffb5c1caeeb21c9b1ed1cff995ff7",
+  "n_iter": 54,
+  "settings": {
+    "C": 1.0,
+    "class_weight": null,
+    "fit_intercept": true,
+    "max_iter": 2000,
+    "penalty": "l2",
+    "score_api": "predict_proba_positive_class",
+    "solver": "lbfgs",
+    "switch_margins": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      1.01
+    ],
+    "switch_probability_threshold": 0.5,
+    "tolerance": 1e-06
+  }
+}

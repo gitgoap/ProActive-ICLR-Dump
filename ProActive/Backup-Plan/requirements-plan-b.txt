@@ -1,0 +1,5 @@
+# The server's proactive-internvl environment already contains these packages.
+# This file records the standalone Plan B dependency surface; it is not an
+# instruction to change the frozen main ProActive environment.
+numpy>=1.26,<3
+scikit-learn>=1.3,<2

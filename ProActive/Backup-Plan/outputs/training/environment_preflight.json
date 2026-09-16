@@ -1,0 +1,11 @@
+{
+  "recorded_before_fit": true,
+  "report_sha256": "aaaf4dbaea49f63e84a2a739a36cf938f6b347e31383034e437c8cd88819c7e9",
+  "runtime_versions": {
+    "numpy": "1.26.4",
+    "platform": "Linux-6.14.0-28-generic-x86_64-with-glibc2.39",
+    "python": "3.11.15",
+    "sklearn": "1.9.0"
+  },
+  "schema_version": "plan_b_environment_v1"
+}
