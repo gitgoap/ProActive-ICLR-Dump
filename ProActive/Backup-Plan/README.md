@@ -1,16 +1,13 @@
-# Backup Plan experiment
+# Backup experiments index
 
-Start with [`PLAN_B_IMPLEMENTATION_AND_EXECUTION.md`](PLAN_B_IMPLEMENTATION_AND_EXECUTION.md).
-It explains the scientific question, frozen protocol, implementation, server
-commands, evidence files, gates, and interpretation rules. The source protocol
-is `ProActive_Plan_B_Student_Instructions.pdf` in this directory.
+These experiments are separate from the frozen ProActive Week 7/8 main stack.
+They use cached answers only and make no new multimodal-model calls.
 
-For the shortest account of what ran and why it stopped, read
-[`PLAN_B_RUN_SUMMARY.md`](PLAN_B_RUN_SUMMARY.md).
+| Directory | Meaning | Current state |
+|---|---|---|
+| [`v1_backup_sourish_sir_plan/`](v1_backup_sourish_sir_plan/) | Original cached-answer selector | Validation gate failed; test and shift remained closed |
+| [`v2_backup_aman/`](v2_backup_aman/) | Post-hoc safe-correction follow-up with richer features, abstention, and model ablations | Validation gate failed; test and shift remained closed |
 
-The pre-fit resolutions of details left open by the PDF are recorded in
-[`PLAN_B_DECISIONS.md`](PLAN_B_DECISIONS.md).
-
-The completed train/validation result is documented in
-[`PLAN_B_VALIDATION_CONCLUSION.md`](PLAN_B_VALIDATION_CONCLUSION.md). The
-validation gate failed, so the frozen test/shift evaluation must not be run.
+V2 is explicitly post-hoc because it was designed after observing V1 validation.
+It must not be described as preregistered or used to alter the frozen main-stack
+results.

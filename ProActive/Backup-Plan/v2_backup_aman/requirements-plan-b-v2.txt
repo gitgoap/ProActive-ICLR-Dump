@@ -1,0 +1,4 @@
+# Install in the existing proactive-internvl environment after the repository's
+# core requirements. These are CPU learners; no CUDA package is required.
+xgboost==3.0.5
+lightgbm==4.6.0

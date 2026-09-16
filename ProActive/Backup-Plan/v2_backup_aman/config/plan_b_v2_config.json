@@ -1,0 +1,80 @@
+{
+  "schema_version": "plan_b_v2_config_v1",
+  "experiment_id": "proactive_plan_b_v2_safe_correction_posthoc",
+  "status": "POST_HOC_EXPLORATORY_VALIDATION_ONLY",
+  "implementation_authorization": "OWNER_REQUESTED_2026-09-16",
+  "v1_backbone_config": "Backup-Plan/v1_backup_sourish_sir_plan/config/plan_b_config.json",
+  "v1_backbone_config_sha256": "e62da44a8d2327d3e346a0e1d8a237e85ecef9149fd2ef85b10947ffd07d16f1",
+  "seed": 42,
+  "acquisition_order": ["grounding", "blur", "crop", "brightness", "noise", "blank"],
+  "training_budgets": [1, 2, 3, 5, 6],
+  "evaluation_budgets": [0, 1, 2, 3, 5, 6],
+  "primary_budget": 2,
+  "feature_sets": [
+    "structural_v2",
+    "structural_plus_cached_confidence_proxy_v2"
+  ],
+  "model_ablations": [
+    {
+      "name": "logistic_l2",
+      "family": "logistic",
+      "parameters": {"C": 1.0, "max_iter": 2000, "solver": "lbfgs", "tol": 1e-6}
+    },
+    {
+      "name": "xgboost_default",
+      "family": "xgboost",
+      "parameters": {}
+    },
+    {
+      "name": "lightgbm_default",
+      "family": "lightgbm",
+      "parameters": {}
+    },
+    {
+      "name": "mlp_32",
+      "family": "mlp",
+      "parameters": {"hidden_layer_sizes": [32], "alpha": 0.0001, "learning_rate_init": 0.001, "max_iter": 400, "early_stopping": true, "validation_fraction": 0.1, "n_iter_no_change": 20}
+    },
+    {
+      "name": "mlp_64_32",
+      "family": "mlp",
+      "parameters": {"hidden_layer_sizes": [64, 32], "alpha": 0.0001, "learning_rate_init": 0.001, "max_iter": 400, "early_stopping": true, "validation_fraction": 0.1, "n_iter_no_change": 20}
+    },
+    {
+      "name": "mlp_32_strong_regularization",
+      "family": "mlp",
+      "parameters": {"hidden_layer_sizes": [32], "alpha": 0.01, "learning_rate_init": 0.0005, "max_iter": 400, "early_stopping": true, "validation_fraction": 0.1, "n_iter_no_change": 20}
+    }
+  ],
+  "safe_correction_search": {
+    "repair_probability_minimums": [0.3, 0.5, 0.7, 0.85],
+    "damage_penalties": [0.5, 1.0, 2.0, 4.0, 8.0],
+    "safe_score_thresholds": [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+    "tie_tolerance": 1e-12,
+    "abstention_action": "KEEP_ORIGINAL",
+    "selection_objective": "MAXIMIZE_SIX_CELL_NET_REPAIR_GAIN_SUBJECT_TO_BREAK_RATE",
+    "tie_break_order": ["more_repairs", "less_damage", "higher_repair_minimum", "higher_safe_score_threshold", "higher_damage_penalty", "lexical_variant"]
+  },
+  "gates": {
+    "minimum_validation_six_cell_net_repair_gain": 0.01,
+    "maximum_validation_break_rate": 0.01,
+    "minimum_validation_repairs": 1,
+    "minimum_test_six_cell_net_repair_gain": 0.01,
+    "maximum_test_break_rate": 0.01
+  },
+  "statistics": {
+    "bootstrap_resamples": 5000,
+    "bootstrap_seed": 20260918,
+    "confidence_level": 0.95
+  },
+  "scientific_constraints": {
+    "post_hoc_after_v1_validation": true,
+    "validation_only_model_and_threshold_selection": true,
+    "calibration_split_access": false,
+    "test_or_shift_tuning": false,
+    "locked_test_requires_validation_gate": true,
+    "cached_confidence_is_unverified_proxy": true,
+    "no_new_mllm_calls": true,
+    "no_dataset_or_model_identity_features": true
+  }
+}

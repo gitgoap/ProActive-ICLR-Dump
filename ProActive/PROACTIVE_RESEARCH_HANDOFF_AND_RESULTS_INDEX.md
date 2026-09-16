@@ -1,12 +1,20 @@
 # ProActive Research Handoff and Results Index
 
-> **Plan B cached-answer correction experiment:** see
-> [`Backup-Plan/PLAN_B_IMPLEMENTATION_AND_EXECUTION.md`](Backup-Plan/PLAN_B_IMPLEMENTATION_AND_EXECUTION.md)
-> for the self-contained protocol, implementation map, server commands, gates,
-> and expected evidence. It is an exploratory secondary experiment and does not
-> replace the frozen Week 7/8 results indexed below. Its validation gate failed
-> on 16 September 2026, so locked test/shift evaluation was not opened; see
-> [`Backup-Plan/PLAN_B_VALIDATION_CONCLUSION.md`](Backup-Plan/PLAN_B_VALIDATION_CONCLUSION.md).
+> **Cached-answer correction backup studies:** the original V1 experiment is
+> archived in [`Backup-Plan/v1_backup_sourish_sir_plan/`](Backup-Plan/v1_backup_sourish_sir_plan/).
+> Its validation gate failed on 16 September 2026, so locked test/shift were not
+> opened; see the
+> [`V1 validation conclusion`](Backup-Plan/v1_backup_sourish_sir_plan/PLAN_B_VALIDATION_CONCLUSION.md).
+> The separately declared, post-hoc V2 safe-correction protocol is indexed at
+> [`Backup-Plan/v2_backup_aman/README.md`](Backup-Plan/v2_backup_aman/README.md).
+> V2 adds richer acquired-prefix evidence, explicit repair/damage risk and
+> correction abstention, plus validation-only XGBoost/LightGBM/MLP ablations.
+> Its validation gate also failed: the best safety-compliant point made one
+> repair and one damage (0.415% BreakRate), leaving pooled accuracy unchanged
+> and improving six-cell macro accuracy by only 0.049 percentage points versus
+> the required 1 point. Test/shift remained closed. See the
+> [`V2 validation conclusion`](Backup-Plan/v2_backup_aman/PLAN_B_V2_VALIDATION_CONCLUSION.md).
+> Neither backup study replaces the frozen Week 7/8 main results below.
 
 **Snapshot:** 13 September 2026  
 **Submission status:** Weeks 1–7 are COMPLETE. All mandatory Week 8 machine
