@@ -1,0 +1,19 @@
+{
+  "missing": [],
+  "report_sha256": "98357d2a619fbb4e92610e78593ae4b66af3802fc43fb325baf26ac13256e480",
+  "required": [
+    "joblib",
+    "lightgbm",
+    "numpy",
+    "sklearn",
+    "xgboost"
+  ],
+  "schema_version": "plan_b_v3_environment_v1",
+  "versions": {
+    "joblib": "1.5.3",
+    "lightgbm": "4.6.0",
+    "numpy": "1.26.4",
+    "sklearn": "1.9.0",
+    "xgboost": "3.0.5"
+  }
+}

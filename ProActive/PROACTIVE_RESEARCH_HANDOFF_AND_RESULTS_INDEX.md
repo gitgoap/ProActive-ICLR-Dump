@@ -14,9 +14,17 @@
 > and improving six-cell macro accuracy by only 0.049 percentage points versus
 > the required 1 point. Test/shift remained closed. See the
 > [`V2 validation conclusion`](Backup-Plan/v2_backup_aman/PLAN_B_V2_VALIDATION_CONCLUSION.md).
+> The owner-approved V3 follow-up is frozen at
+> [`Backup-Plan/v3_backup_aman/PLAN_B_V3_PROTOCOL.md`](Backup-Plan/v3_backup_aman/PLAN_B_V3_PROTOCOL.md).
+> It uses grouped out-of-fold hard-negative mining, a unanimous three-model
+> correction proposal, and one train-selected independent visual verifier.
+> It is CPU-only and makes no new MLLM calls. V3 is currently implemented but
+> has no server result; calibration remains closed unless validation passes,
+> and test/shift remain closed unless the subsequent no-retuning confirmation
+> gate also passes.
 > Neither backup study replaces the frozen Week 7/8 main results below.
 
-**Snapshot:** 13 September 2026  
+**Snapshot:** 16 September 2026
 **Submission status:** Weeks 1–7 are COMPLETE. All mandatory Week 8 machine
 experiments and statistical analyses are complete. The three-person blinded
 human audit and the resulting final Week 8 validation are still pending. Week

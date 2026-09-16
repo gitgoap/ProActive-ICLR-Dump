@@ -1,0 +1,4 @@
+verifier_probe,configured_order,repairs,damage,fix_rate,break_rate,ensemble_proposals,switches,damage_adjusted_utility
+crop,0,0,0,0.0,0.0,0,0,0
+brightness,1,0,0,0.0,0.0,0,0,0
+noise,2,0,0,0.0,0.0,0,0,0

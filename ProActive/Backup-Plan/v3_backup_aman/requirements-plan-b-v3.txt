@@ -1,0 +1,3 @@
+# V3 reuses the CPU learners installed for V2.
+xgboost==3.0.5
+lightgbm==4.6.0

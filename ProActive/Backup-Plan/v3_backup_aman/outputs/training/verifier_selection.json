@@ -1,0 +1,42 @@
+{
+  "blank_forbidden": true,
+  "candidates": [
+    {
+      "break_rate": 0.0,
+      "configured_order": 0,
+      "damage": 0,
+      "damage_adjusted_utility": 0,
+      "ensemble_proposals": 0,
+      "fix_rate": 0.0,
+      "repairs": 0,
+      "switches": 0,
+      "verifier_probe": "crop"
+    },
+    {
+      "break_rate": 0.0,
+      "configured_order": 1,
+      "damage": 0,
+      "damage_adjusted_utility": 0,
+      "ensemble_proposals": 0,
+      "fix_rate": 0.0,
+      "repairs": 0,
+      "switches": 0,
+      "verifier_probe": "brightness"
+    },
+    {
+      "break_rate": 0.0,
+      "configured_order": 2,
+      "damage": 0,
+      "damage_adjusted_utility": 0,
+      "ensemble_proposals": 0,
+      "fix_rate": 0.0,
+      "repairs": 0,
+      "switches": 0,
+      "verifier_probe": "noise"
+    }
+  ],
+  "report_sha256": "3e523c412d870505b15dec666655c0be83e9c53b300cb858606a3441423a7238",
+  "schema_version": "plan_b_v3_verifier_selection_v1",
+  "selected_verifier": "crop",
+  "selection_data": "grouped_out_of_fold_train_predictions_only"
+}

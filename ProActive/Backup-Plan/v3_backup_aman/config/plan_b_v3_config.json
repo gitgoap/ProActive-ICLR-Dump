@@ -1,0 +1,97 @@
+{
+  "schema_version": "plan_b_v3_config_v1",
+  "experiment_id": "proactive_plan_b_v3_selective_correction_active_verification",
+  "status": "POST_HOC_EXPLORATORY_FROZEN_BEFORE_V3_RUN",
+  "implementation_authorization": "OWNER_APPROVED_2026-09-16",
+  "v1_backbone_config": "Backup-Plan/v1_backup_sourish_sir_plan/config/plan_b_config.json",
+  "v1_backbone_config_sha256": "e62da44a8d2327d3e346a0e1d8a237e85ecef9149fd2ef85b10947ffd07d16f1",
+  "v2_feature_module": "Backup-Plan/v2_backup_aman/plan_b_v2/features.py",
+  "v2_feature_module_sha256": "9c7a3039cf8cb2ef021b11db17d3fa334b65a97e04a14af4165509e60143cc48",
+  "v2_model_module": "Backup-Plan/v2_backup_aman/plan_b_v2/models.py",
+  "v2_model_module_sha256": "23b30e82f380e0dc14803ad585fd1905584a2353f8096dca72ae50be21a5f7cb",
+  "seed": 42,
+  "feature_set": "structural_plus_cached_confidence_proxy_v2",
+  "base_budget": 2,
+  "base_probes": ["grounding", "blur"],
+  "verification_probe_candidates": ["crop", "brightness", "noise"],
+  "oof": {
+    "folds": 5,
+    "group_key": "image_key",
+    "assignment": "sha256_rank_round_robin_v1"
+  },
+  "ensemble_models": [
+    {"name": "xgboost_default", "family": "xgboost", "parameters": {}},
+    {"name": "lightgbm_default", "family": "lightgbm", "parameters": {}},
+    {
+      "name": "mlp_64_32_regularized",
+      "family": "mlp",
+      "parameters": {
+        "hidden_layer_sizes": [64, 32],
+        "alpha": 0.01,
+        "learning_rate_init": 0.0005,
+        "max_iter": 400,
+        "early_stopping": true,
+        "validation_fraction": 0.1,
+        "n_iter_no_change": 20
+      }
+    }
+  ],
+  "cost_sensitive_training": {
+    "damage_example_weight": 10.0,
+    "hard_negative_additional_multiplier": 3.0,
+    "hard_negative_definition": {
+      "minimum_models_proposing": 2,
+      "repair_probability_minimum": 0.5,
+      "damage_probability_maximum": 0.5,
+      "safe_score_minimum": 0.0
+    }
+  },
+  "verifier_selection": {
+    "data": "grouped_out_of_fold_train_predictions_only",
+    "proposal_requires_unanimous_models": true,
+    "repair_probability_minimum": 0.5,
+    "damage_probability_maximum": 0.5,
+    "safe_score_minimum": 0.0,
+    "objective": "maximize_repairs_minus_10_times_damage",
+    "tie_break": ["more_repairs", "less_damage", "more_switches", "configured_order"],
+    "blank_forbidden_as_primary_verifier": true
+  },
+  "validation_search": {
+    "repair_probability_minimums": [0.5, 0.7, 0.85, 0.95],
+    "damage_probability_maximums": [0.5, 0.25, 0.1, 0.05],
+    "safe_score_minimums": [0.0, 0.25, 0.5, 0.75],
+    "requires_unanimous_models": true,
+    "requires_verifier_agreement": true,
+    "abstention_action": "KEEP_ORIGINAL",
+    "tie_tolerance": 1e-12,
+    "objective": "maximize_six_cell_macro_net_repair_gain_subject_to_break_rate"
+  },
+  "gates": {
+    "minimum_validation_six_cell_macro_gain": 0.01,
+    "maximum_validation_break_rate": 0.01,
+    "minimum_validation_repairs": 1,
+    "minimum_confirmation_six_cell_macro_gain": 0.01,
+    "maximum_confirmation_break_rate": 0.01,
+    "minimum_confirmation_repairs": 1,
+    "minimum_test_six_cell_macro_gain": 0.01,
+    "maximum_test_break_rate": 0.01
+  },
+  "statistics": {
+    "bootstrap_resamples": 5000,
+    "bootstrap_seed": 20260919,
+    "confidence_level": 0.95
+  },
+  "scientific_constraints": {
+    "post_hoc_after_v1_and_v2_validation": true,
+    "hard_negative_mining_uses_train_oof_only": true,
+    "validation_selects_one_operating_point": true,
+    "calibration_is_confirmation_only": true,
+    "no_retuning_after_confirmation": true,
+    "test_or_shift_tuning": false,
+    "locked_test_requires_validation_and_confirmation": true,
+    "cached_confidence_is_unverified_proxy": true,
+    "one_additional_probe_only_on_unanimous_correction_proposals": true,
+    "no_new_mllm_calls": true,
+    "no_dataset_or_model_identity_features": true
+  }
+}
